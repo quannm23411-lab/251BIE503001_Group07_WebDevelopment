@@ -1,0 +1,153 @@
+/* ===========================
+   ACCOUNT PAGE STYLES
+=========================== */
+.account {
+    padding: 40px 5%;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.account__container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Sidebar */
+.account__sidebar {
+    width: 220px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.account__sidebar h3 {
+    margin-bottom: 10px;
+    color: #6aa127;
+}
+
+.account__sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.account__sidebar li {
+    margin: 10px 0;
+}
+
+.account__sidebar a {
+    text-decoration: none;
+    color: #333;
+    transition: 0.2s;
+}
+
+.account__sidebar a.active,
+.account__sidebar a:hover {
+    color: #6aa127;
+    font-weight: 600;
+}
+
+/* Main content */
+.account__content {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.account__content h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* View Mode */
+.account__info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.account__avatar {
+    text-align: center;
+}
+
+.account__avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #6aa127;
+}
+
+.account__details p {
+    margin: 6px 0;
+}
+
+.btn-edit,
+.btn-save {
+    background-color: #6aa127;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.btn-edit:hover,
+.btn-save:hover {
+    background-color: #7dc935;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Edit Mode */
+.account__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.account__form label {
+    font-weight: 600;
+    color: #333;
+}
+
+.account__form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.account__form input:focus {
+    border-color: #6aa127;
+}
+
+.btn-upload {
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-upload input {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .account__container {
+        flex-direction: column;
+    }
+
+    .account__sidebar {
+        width: 100%;
+    }
+}
