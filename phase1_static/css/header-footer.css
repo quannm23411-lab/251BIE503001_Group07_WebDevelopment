@@ -1,5 +1,26 @@
+/* ======================================================
+   ECO MOVE WEB DESIGN SYSTEM — HEADER + FOOTER STYLE
+   Author: Group 07 | UEL Web Development (251BIE503001)
+   ====================================================== */
+
 /* ===============================
-   HEADER CÓ QUẢNG CÁO NHỎ
+   RESET & BASE
+================================*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Arial", sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+/* ===============================
+   HEADER
 ================================*/
 .header {
     position: sticky;
@@ -11,15 +32,17 @@
     color: #fff;
 }
 
+/* --- MAIN BAR --- */
 .header__main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 4%;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
-/* Logo */
+/* LOGO */
 .header__logo {
     display: flex;
     align-items: center;
@@ -33,10 +56,11 @@
 
 .header__logo-text {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-/* Search */
+/* SEARCH BAR */
 .header__search {
     display: flex;
     align-items: center;
@@ -45,6 +69,7 @@
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid #eee;
 }
 
 .header__search-input {
@@ -52,6 +77,8 @@
     padding: 8px 12px;
     border: none;
     outline: none;
+    font-size: 0.95rem;
+    color: #333;
 }
 
 .header__search-btn {
@@ -59,6 +86,11 @@
     border: none;
     cursor: pointer;
     padding: 6px 10px;
+    transition: background 0.3s;
+}
+
+.header__search-btn:hover {
+    background-color: #f5f5f5;
 }
 
 .header__search-btn img {
@@ -66,13 +98,12 @@
     height: 18px;
 }
 
-/* Quảng cáo chạy */
+/* MARQUEE QUẢNG CÁO */
 .header__ads {
     position: relative;
     width: 260px;
-    /* vừa phải, nằm bên phải search bar */
-    overflow: hidden;
     height: 24px;
+    overflow: hidden;
 }
 
 .header__ads-text {
@@ -93,15 +124,17 @@
     }
 }
 
-/* Actions */
+/* ACTIONS (CART + LOGIN) */
 .header__actions {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
+/* Giỏ hàng */
 .nav__cart {
     position: relative;
+    display: inline-block;
 }
 
 .nav__cart img {
@@ -123,7 +156,7 @@
     line-height: 16px;
 }
 
-/* Login button */
+/* Nút đăng nhập */
 .nav__login-btn {
     display: flex;
     align-items: center;
@@ -147,7 +180,16 @@
     background-color: #f2f2f2;
 }
 
-/* Navigation */
+/* USER DROPDOWN (khi đăng nhập) */
+.nav__user .user-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+}
+
+/* ===============================
+   NAVIGATION BAR
+================================*/
 .nav {
     background-color: #5b9021;
     padding: 8px 4%;
@@ -156,20 +198,186 @@
 .nav__menu {
     display: flex;
     list-style: none;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
     margin: 0;
     padding: 0;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav__link {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    transition: 0.3s;
+    transition: color 0.3s;
 }
 
 .nav__link:hover,
 .nav__link--active {
     color: #ffeb3b;
+}
+
+/* ===============================
+   FOOTER
+================================*/
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 50px 0 40px;
+    font-size: 0.95rem;
+}
+
+.footer h5,
+.footer h6 {
+    color: #fff;
+}
+
+.footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.footer__logo img {
+    width: 50px;
+    height: auto;
+}
+
+.footer__cert {
+    width: 120px;
+    height: auto;
+    margin-top: 8px;
+}
+
+.footer__link {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer__link:hover {
+    color: #6aa127;
+}
+
+/* Form đăng ký email */
+.footer form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.footer form input {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+.footer form button {
+    background-color: #6aa127;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.footer form button:hover {
+    background-color: #5b9021;
+}
+
+/* Mạng xã hội */
+.footer__social {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer__social a {
+    color: #fff;
+    font-size: 1.3rem;
+    transition: color 0.3s;
+}
+
+.footer__social a:hover {
+    color: #6aa127;
+}
+
+/* Liên hệ */
+.footer__contact i {
+    color: #6aa127;
+    margin-right: 6px;
+}
+
+/* COPYRIGHT */
+.footer__bottom {
+    text-align: center;
+    margin-top: 25px;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* ===============================
+   RESPONSIVE
+================================*/
+@media (max-width: 992px) {
+    .header__main {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .header__search {
+        max-width: 100%;
+    }
+
+    .header__ads {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header__actions {
+        justify-content: center;
+    }
+
+    .footer {
+        text-align: center;
+    }
+
+    .footer form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer form input {
+        width: 100%;
+        margin: 0;
+    }
+
+    .footer__social {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header__logo-text {
+        font-size: 1.2rem;
+    }
+
+    .nav__menu {
+        gap: 15px;
+    }
+
+    .footer form button {
+        width: 100%;
+    }
 }
