@@ -1,0 +1,12 @@
+[
+  {
+    "fullname": "Admin User",
+    "email": "admin@ecomove.com",
+    "password": "hashedpassword123"
+  },
+  {
+    "fullname": "Test Account",
+    "email": "test@ecomove.com",
+    "password": "hashedpassword456"
+  }
+]
