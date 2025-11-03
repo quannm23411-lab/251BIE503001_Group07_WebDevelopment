@@ -1,0 +1,35 @@
+[
+    {
+        "id": "DH001",
+        "customer": "Nguyễn Minh Huy",
+        "phone": "0987 654 321",
+        "vehicle": "VINFAST FELIZ S / #VF12",
+        "brand": "VinFast",
+        "date": "25/10 – 27/10/2025",
+        "total": 240000,
+        "status": "Đang thuê",
+        "statusClass": "renting"
+    },
+    {
+        "id": "DH002",
+        "customer": "Trần Thị Mai",
+        "phone": "0903 112 467",
+        "vehicle": "YADEA XMEN NEO / #YD09",
+        "brand": "Yadea",
+        "date": "24/10 – 26/10/2025",
+        "total": 200000,
+        "status": "Đã trả",
+        "statusClass": "done"
+    },
+    {
+        "id": "DH003",
+        "customer": "Lê Hoàng Nam",
+        "phone": "0938 772 914",
+        "vehicle": "DAT BIKE WEAVER 200 / #DB20",
+        "brand": "Dat Bike",
+        "date": "25/10 – 28/10/2025",
+        "total": 540000,
+        "status": "Quá hạn",
+        "statusClass": "expired"
+    }
+]

@@ -1,0 +1,184 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.admin {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background-color: #567C02;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+}
+
+.sidebar__logo img {
+    width: 60px;
+}
+
+.sidebar__logo h2 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.sidebar__menu {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar__menu li {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sidebar__menu li:hover,
+.sidebar__menu .active {
+    background-color: #6fa304;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+
+/* Header */
+.main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main__header h1 {
+    color: #567C02;
+}
+
+.actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btn-export {
+    background: #6fa304;
+    color: white;
+}
+
+.btn-add {
+    background: #004d40;
+    color: white;
+}
+
+/* Filters */
+.filters {
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters input,
+.filters select,
+.filters button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.filters button {
+    background-color: #6fa304;
+    color: white;
+}
+
+/* Table */
+.bike-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    color: #567C02;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.status.ready {
+    background: #d7f7b4;
+    color: #336600;
+}
+
+.status.rented {
+    background: #ffe3a3;
+    color: #995c00;
+}
+
+.status.maintain {
+    background: #ffd0d0;
+    color: #a30000;
+}
+
+.action-btn {
+    background: #567C02;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.bike-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bike-info img {
+    width: 50px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.filters select:invalid { color: #999; }
+.filters select option { color: #333; }
+.filters select option[value=""] { color: #999; }
