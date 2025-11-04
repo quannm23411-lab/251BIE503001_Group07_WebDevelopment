@@ -127,11 +127,13 @@ body {
 
 /* Thêm style cho input lỗi */
 .form-input.input-error {
-  border-color: #ff3860; /* Màu đỏ lỗi */
+  border-color: #ff3860;
+  /* Màu đỏ lỗi */
 }
 
 .input-wrapper .form-input {
-  padding-right: 3.5rem; /* Tăng padding để có chỗ cho chữ "Hiện" */
+  padding-right: 3.5rem;
+  /* Tăng padding để có chỗ cho chữ "Hiện" */
 }
 
 .toggle-password {
@@ -154,13 +156,18 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #596f00; /* Màu xanh lá của brand */
-  padding: 0; /* Đảm bảo không có padding */
-  width: auto; /* Thêm để co giãn theo chữ */
+  color: #596f00;
+  /* Màu xanh lá của brand */
+  padding: 0;
+  /* Đảm bảo không có padding */
+  width: auto;
+  /* Thêm để co giãn theo chữ */
 }
 
 .toggle-password:hover {
-    text-decoration: underline; /* Mới */}
+  text-decoration: underline;
+  /* Mới */
+}
 
 
 .password-hint {
@@ -360,19 +367,25 @@ body {
 
 /* Style cho thông báo lỗi (từ file cũ của bạn, được cải thiện) */
 .error-message {
-  display: block; /* Thêm display block để min-height hoạt động chuẩn */
+  display: block;
+  /* Thêm display block để min-height hoạt động chuẩn */
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #ff3860; /* Màu đỏ nổi bật cho lỗi */
-  /* margin-top: 0.5rem; */ /* CŨ */
-  margin-top: 0.25rem; /* MỚI - Giảm khoảng cách từ input xuống */
-  min-height: 1.2em; /* Đặt chiều cao tối thiểu cho 1 dòng lỗi */
+  color: #ff3860;
+  /* Màu đỏ nổi bật cho lỗi */
+  /* margin-top: 0.5rem; */
+  /* CŨ */
+  margin-top: 0.25rem;
+  /* MỚI - Giảm khoảng cách từ input xuống */
+  min-height: 1.2em;
+  /* Đặt chiều cao tối thiểu cho 1 dòng lỗi */
 }
 
 /* Style cho Modal thông báo thành công */
 .modal-overlay {
   position: fixed;
-  inset: 0; /* Tương đương top: 0; left: 0; right: 0; bottom: 0; */
+  inset: 0;
+  /* Tương đương top: 0; left: 0; right: 0; bottom: 0; */
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -425,8 +438,10 @@ body {
   padding: 0.5rem 1.5rem;
   height: auto;
   font-size: 16px;
-  margin-bottom: 0; /* Bỏ margin-bottom cho nút trong modal */
+  margin-bottom: 0;
+  /* Bỏ margin-bottom cho nút trong modal */
 }
+
 /* --- THÊM VÀO CUỐI TỆP CSS --- */
 
 /* Ẩn con mắt mặc định của trình duyệt (Chrome, Edge, Safari) */
