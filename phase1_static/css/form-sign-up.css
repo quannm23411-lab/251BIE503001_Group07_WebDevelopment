@@ -276,27 +276,23 @@ body {
 }
 
 .footer {
+  margin-top: 1rem;
   text-align: center;
-  margin-top: 1.5rem;
+  font-size: 20px;
   opacity: 0;
-  transform: translateY(-1rem);
-  animation: fadeIn 1s 0.4s ease forwards;
+  transform: translateY(-10px);
+  animation: fadeIn 1s 1600ms ease forwards;
 }
 
 .footer-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  color: #121212;
 }
 
-.link-login {
-  background: none;
-  border: none;
-  font-family: 'Inter', sans-serif;
+.footer-link {
   font-weight: 700;
-  font-size: 20px;
   color: #596f00;
+  text-decoration: none;
   cursor: pointer;
-  transition: text-decoration 0.2s;
 }
 
 .link-login:hover {
