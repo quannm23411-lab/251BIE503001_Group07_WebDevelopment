@@ -1,0 +1,164 @@
+/* ===============================
+   RESET & BASE
+================================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Arial", sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  line-height: 1.6;
+}
+
+/* ===============================
+   MAIN CONTENT
+================================*/
+.main-content {
+  background-color: #fff;
+  padding: 40px 5%;
+  margin-top: 10px;
+}
+
+/* --- Section title --- */
+.section-title {
+  text-align: center;
+  color: #6aa127;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* --- Product grid --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  text-align: center;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.product-card__img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-card__name {
+  margin: 10px 0 5px;
+}
+
+.product-card__price span {
+  color: #d32f2f;
+  font-weight: 700;
+}
+
+/* --- Promo banner --- */
+.promo-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #d32f2f, #e64a19);
+  color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  margin: 40px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.promo-banner__content {
+  flex: 1;
+}
+
+.promo-banner__content h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.promo-banner .highlight {
+  color: #ffeb3b;
+  font-weight: 700;
+}
+
+.countdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.time-box {
+  background-color: #fff;
+  color: #d32f2f;
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  min-width: 70px;
+}
+
+.time-box small {
+  display: block;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+/* --- Image right side --- */
+.promo-banner__img-wrapper {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.promo-banner__img {
+  width: 120px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================*/
+@media (max-width: 992px) {
+  .promo-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-banner__img-wrapper {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .promo-banner__img {
+    width: 90px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

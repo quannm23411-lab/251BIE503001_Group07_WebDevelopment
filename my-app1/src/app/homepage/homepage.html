@@ -1,0 +1,132 @@
+<main class="main-content container-fluid">
+
+  <section class="top-rent container py-5">
+    <h2 class="section-title">Thuê nhiều tháng này</h2>
+    <p class="section-subtitle">Top các loại xe có lượt thuê cao trong tháng</p>
+
+    <div class="product-grid" id="topRentList">
+      <ng-container *ngIf="topRentList.length > 0; else noData">
+        <article class="product-card position-relative" *ngFor="let p of topRentList">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+          
+          <img [src]="p.image" [alt]="p.vehicleName" class="product-card__img" loading="lazy" />
+          
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
+          
+          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+          </small>
+        </article>
+      </ng-container>
+
+      <ng-template #noData>
+        <p class="text-muted">Chưa có xe phù hợp.</p>
+      </ng-template>
+    </div>
+  </section>
+
+  <section class="promo-banner container my-5" id="promoBanner">
+    <div class="promo-banner__content">
+      <h2>
+        MỪNG 20/10, NHẬP MÃ <span class="highlight">{{ promoCode }}</span> GIẢM NGAY
+        <b>{{ promoAmount }}</b>% GIÁ THUÊ XE!
+      </h2>
+      <p>KẾT THÚC SAU</p>
+
+      <div class="countdown">
+        <div class="time-box"><span>{{ days }}</span><small>Ngày</small></div>
+        <div class="time-box"><span>{{ hours }}</span><small>Giờ</small></div>
+        <div class="time-box"><span>{{ minutes }}</span><small>Phút</small></div>
+        <div class="time-box"><span>{{ seconds }}</span><small>Giây</small></div>
+      </div>
+    </div>
+    <figure class="promo-banner__img-wrapper">
+      <img src="assets/images/gift.png" alt="Gift Icon" class="promo-banner__img" />
+    </figure>
+  </section>
+
+  <section class="category container py-4">
+    <h2 class="section-title">Xe máy điện</h2>
+    <p class="section-subtitle">Động cơ mạnh mẽ, vượt dốc dễ dàng. Thích hợp cho chuyến đi dài.</p>
+    
+    <div class="product-grid" id="motorbikeList">
+      <ng-container *ngIf="motorbikeList.length > 0; else noData">
+        <article class="product-card position-relative" *ngFor="let p of motorbikeList">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+          <img [src]="p.image" [alt]="p.vehicleName" class="product-card__img" loading="lazy" />
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
+          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+          </small>
+        </article>
+      </ng-container>
+      <ng-template #noData>
+        <p class="text-muted">Chưa có xe phù hợp.</p>
+      </ng-template>
+    </div>
+  </section>
+
+  <section class="category container py-4">
+    <h2 class="section-title">Xe đạp điện</h2>
+    <p class="section-subtitle">Nhẹ nhàng, tiết kiệm, phù hợp di chuyển nội đô.</p>
+    
+    <div class="product-grid" id="ecoBikeList">
+      <ng-container *ngIf="ecoBikeList.length > 0; else noData">
+        <article class="product-card position-relative" *ngFor="let p of ecoBikeList">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+          <img [src]="p.image" [alt]="p.vehicleName" class="product-card__img" loading="lazy" />
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
+          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+          </small>
+        </article>
+      </ng-container>
+      <ng-template #noData>
+        <p class="text-muted">Chưa có xe phù hợp.</p>
+      </ng-template>
+    </div>
+  </section>
+
+  <section class="category container py-4">
+    <h2 class="section-title">Xe đạp điện gấp gọn</h2>
+    <p class="section-subtitle">Gọn gàng, dễ mang lên thang máy, phù hợp căn hộ.</p>
+
+    <div class="product-grid" id="compactBikeList">
+      <ng-container *ngIf="compactBikeList.length > 0; else noData">
+        <article class="product-card position-relative" *ngFor="let p of compactBikeList">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+          <img [src]="p.image" [alt]="p.vehicleName" class="product-card__img" loading="lazy" />
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
+          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+          </small>
+        </article>
+      </ng-container>
+      <ng-template #noData>
+        <p class="text-muted">Chưa có xe phù hợp.</p>
+      </ng-template>
+    </div>
+  </section>
+
+</main>
