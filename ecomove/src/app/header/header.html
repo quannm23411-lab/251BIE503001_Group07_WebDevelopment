@@ -1,0 +1,91 @@
+<p>header works!</p>
+<header class="header" id="mainHeader">
+  <!-- ==== ADS TOP ==== -->
+  <div class="header__ads">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      🌿 Miễn phí giao/nhận xe tại 30+ điểm trong thành phố • Hỗ trợ kỹ thuật
+      24/7 • Ưu đãi đến 10% tuần đầu thuê 🌿
+    </marquee>
+  </div>
+
+  <!-- ==== MIDDLE BAR ==== -->
+  <div class="header__middle">
+    <div class="header__logo">
+      <img src="../../assets/logos/logo-ecomove.png" alt="EcoMOVE Logo" />
+      <span class="header__logo-text">EcoMOVE</span>
+    </div>
+
+    <form class="header__search">
+      <input type="text" placeholder="Bạn muốn thuê gì hôm nay?" class="header__search-input" />
+      <button type="submit" class="header__search-btn">
+        <img src="../../assets/icons/search.png" alt="Tìm kiếm" />
+      </button>
+    </form>
+
+    <div class="header__actions">
+      <a href="../../pages/client/cart.html" class="nav__cart">
+        <img src="../../assets/icons/cart.png" alt="Cart" />
+        <span class="cart-badge">1</span>
+      </a>
+      <button class="nav__login-btn" id="btnLogin">
+        <img src="../../assets/icons/user.png" alt="User" />
+        Đăng nhập
+      </button>
+    </div>
+  </div>
+
+  <!-- ==== NAVIGATION BAR ==== -->
+  <nav class="nav" id="mainNav">
+    <ul class="nav__menu">
+      <li><a href="../../pages/client/homepage.html" class="nav__link nav__link--active">TRANG CHỦ</a></li>
+      <li class="nav__item nav__rent">
+        <a href="../../pages/client/rent.html" class="nav__link">ĐẶT XE</a>
+
+        <!-- DROPDOWN FILTER -->
+        <div class="rent-dropdown">
+          <div class="rent-dropdown__group">
+            <h4>Loại xe</h4>
+            <ul>
+              <li><a href="#">Xe máy điện</a></li>
+              <li><a href="#">Xe đạp điện</a></li>
+              <li><a href="#">Xe tay ga</a></li>
+              <li><a href="#">Xe địa hình</a></li>
+            </ul>
+          </div>
+
+          <div class="rent-dropdown__group">
+            <h4>Hãng xe</h4>
+            <ul>
+              <li><a href="#">VinFast</a></li>
+              <li><a href="#">Yadea</a></li>
+              <li><a href="#">DatBike</a></li>
+              <li><a href="#">Gogo</a></li>
+            </ul>
+          </div>
+
+          <div class="rent-dropdown__group">
+            <h4>Thời gian thuê</h4>
+            <ul>
+              <li><a href="#">Theo giờ</a></li>
+              <li><a href="#">Theo ngày</a></li>
+              <li><a href="#">Theo tuần</a></li>
+              <li><a href="#">Theo tháng</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    <li>
+    <a routerLink="/homepage" routerLinkActive="nav__link--active" class="nav__link">TRANG CHỦ</a>
+    </li>
+    <li>
+    <a routerLink="/rent" routerLinkActive="nav__link--active" class="nav__link">ĐẶT XE</a>
+    </li>
+    <li>
+    <a routerLink="/blog" routerLinkActive="nav__link--active" class="nav__link">BLOG</a>
+    </li>
+    <li>
+    <a routerLink="/about" routerLinkActive="nav__link--active" class="nav__link">VỀ CHÚNG TÔI</a>
+    </li>
+        </ul>
+  </nav>
+</header>
