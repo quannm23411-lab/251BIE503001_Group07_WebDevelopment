@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
-// 1. IMPORT HAI DÒNG NÀY TỪ @angular/router
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Auth } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    RouterLink,       // <-- 2. THÊM VÀO ĐÂY
-    RouterLinkActive  // <-- 2. VÀ THÊM VÀO ĐÂY
-  ],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class Header {
-  // ...
+  private router = inject(Router);
+  private auth = inject(Auth);
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }
