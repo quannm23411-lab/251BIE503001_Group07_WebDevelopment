@@ -1,0 +1,41 @@
+<div class="main">
+    <!-- HEADER -->
+    <header class="main__header">
+        <h1>Tổng quan</h1>
+        <button class="btn-export">📦 Xuất danh sách</button>
+    </header>
+
+    <!-- STATS -->
+    <section class="stats" *ngIf="data">
+        <div class="stat-card">
+            <h3>Xe cho thuê</h3>
+            <p>{{ data.carsRented }}/{{ data.carsTotal }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Đơn thuê hôm nay</h3>
+            <p>{{ data.ordersToday }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Doanh thu tháng</h3>
+            <p>{{ data.revenue }} triệu</p>
+        </div>
+        <div class="stat-card">
+            <h3>Đăng ký mới</h3>
+            <p>{{ data.newUsers }}</p>
+        </div>
+    </section>
+
+    <!-- CHART -->
+    <section class="chart" *ngIf="data">
+        <h2>Doanh thu theo tháng</h2>
+        <canvas #revenueChartCanvas></canvas>
+    </section>
+
+    <!-- ALERTS -->
+    <section class="alerts" *ngIf="data">
+        <h2>Thông báo hệ thống</h2>
+        <ul>
+            <li *ngFor="let alert of data.alerts">• {{ alert }}</li>
+        </ul>
+    </section>
+</div>

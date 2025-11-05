@@ -1,0 +1,73 @@
+<div class="main">
+    <header class="main__header">
+        <h1>Quản lý đơn thuê xe</h1>
+        <div class="actions">
+            <button class="btn-export">📦 Xuất danh sách</button>
+            <button class="btn-add">+ Thêm đơn thuê</button>
+        </div>
+    </header>
+
+    <!-- FILTER BAR -->
+    <section class="filters">
+        <input type="text" placeholder="Nhập mã đơn hoặc SĐT khách hàng..." [(ngModel)]="searchTerm">
+
+        <select [(ngModel)]="brandFilter">
+            <option value="">Hãng xe</option>
+            <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+        </select>
+
+        <select [(ngModel)]="statusFilter">
+            <option value="">Trạng thái</option>
+            <option value="Đang thuê">Đang thuê</option>
+            <option value="Đã trả">Đã trả</option>
+            <option value="Quá hạn">Quá hạn</option>
+        </select>
+
+        <select [(ngModel)]="priceFilter">
+            <option value="">Giá thuê</option>
+            <option value="<200000">Dưới 200.000đ</option>
+            <option value="200000-400000">200.000 - 400.000đ</option>
+            <option value=">400000">Trên 400.000đ</option>
+        </select>
+
+        <button class="btn-filter" (click)="applyFilter()">Lọc</button>
+    </section>
+
+    <!-- ORDER TABLE -->
+    <section class="order-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã đơn thuê</th>
+                    <th>Khách hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Tên xe / Mã xe</th>
+                    <th>Thời gian thuê</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let o of filtered">
+                    <td>{{ o.id }}</td>
+                    <td>{{ o.customer }}</td>
+                    <td>{{ o.phone }}</td>
+                    <td>{{ o.vehicle }}</td>
+                    <td>{{ o.date }}</td>
+                    <td>{{ o.total | number }}đ</td>
+                    <td>
+                        <span class="status" [class.renting]="o.statusClass === 'renting'"
+                            [class.done]="o.statusClass === 'done'" [class.expired]="o.statusClass === 'expired'">
+                            {{ o.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn delete">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

@@ -1,37 +1,51 @@
 import { Routes } from '@angular/router';
 
-// Import các layout VÀ các trang
-import { MainLayout } from './layouts/main-layout/main-layout';
-import { Homepage } from './homepage/homepage'; 
-import { Login } from './login/login';
-import { Register } from './register/register';
+// === Import layouts ===
+import { MainLayout } from './pages/main-layout/main-layout';
+
+// === Import các trang người dùng ===
+import { Homepage } from './pages/homepage/homepage';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
+
+// === Import các trang admin ===
+import { AdminLayout } from './pages/admin/admin-layout/admin-layout';
+import { AdminMain } from './pages/admin/admin-main/admin-main';
+import { AdminOrder } from './pages/admin/admin-order/admin-order';
+import { AdminBikeDetail } from './pages/admin/admin-bike-detail/admin-bike-detail';
+import { AdminBike } from './pages/admin/admin-bike/admin-bike';
+
+// ================== ROUTES ==================
 
 export const routes: Routes = [
-  
   // === CÁC TRANG XÁC THỰC (Không có Header/Footer) ===
-  // Đặt chúng ở cấp cao nhất
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+
+  // === CÁC TRANG ADMIN (tạm chưa có layout riêng, sẽ thêm sau) ===
   {
-    path: 'login',
-    component: Login 
-  },
-  {
-    path: 'register',
-    component: Register
+    path: 'admin',
+    component: AdminLayout,  // ✅ layout cố định
+    children: [
+      { path: '', redirectTo: 'main', pathMatch: 'full' },
+      { path: 'main', component: AdminMain },
+      { path: 'bike', component: AdminBike },
+      { path: 'bike-detail', component: AdminBikeDetail },
+      { path: 'order', component: AdminOrder }
+    ]
   },
 
-  // === CÁC TRANG CHÍNH CỦA ỨNG DỤNG (Có Header/Footer) ===
-  // Đặt route này ở CUỐI CÙNG.
-  // Nó sẽ là route mặc định cho trang chủ (path: '')
+
+  // === CÁC TRANG CHÍNH (người dùng - có Header/Footer) ===
   {
-    path: '', // <-- KHÔNG có khoảng trắng
-    component: MainLayout, // Tải MainLayout (có header/footer)
+    path: '',
+    component: MainLayout,
     children: [
-      // Khi ở trang chủ (path: ''), tải Homepage vào <router-outlet> của MainLayout
-      { path: '', component: Homepage }, // <-- KHÔNG có khoảng trắng
-      
-      // Sau này bạn có thể thêm:
-      // { path: 'blog', component: BlogComponent },
-      // { path: 'about', component: AboutComponent },
+      { path: '', component: Homepage },
+      // ví dụ: { path: 'about', component: About },
     ]
-  }
+  },
+
+  // === Fallback (nếu route không tồn tại) ===
+  { path: '**', redirectTo: '' }
 ];

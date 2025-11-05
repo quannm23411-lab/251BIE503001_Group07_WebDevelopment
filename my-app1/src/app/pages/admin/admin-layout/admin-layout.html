@@ -1,0 +1,25 @@
+<div class="admin">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="sidebar__logo">
+            <img src="assets/logos/logo.png" alt="EcoMOVE Logo" />
+            <h2>EcoMOVE</h2>
+        </div>
+
+        <ul class="sidebar__menu">
+            <li routerLink="/admin/main" routerLinkActive="active">Dashboard</li>
+            <li routerLink="/admin/bike" routerLinkActive="active">Quản lý xe</li>
+            <li routerLink="/admin/order" routerLinkActive="active">Đơn thuê xe</li>
+            <li>Khách hàng</li>
+            <li>Marketing & Popup</li>
+            <li>Giao diện website</li>
+            <li>Tài khoản Admin</li>
+            <li>Hệ thống & Nhật ký</li>
+        </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT (thay đổi theo router) ===== -->
+    <main class="main">
+        <router-outlet></router-outlet>
+    </main>
+</div>

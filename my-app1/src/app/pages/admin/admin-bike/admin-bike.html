@@ -1,0 +1,65 @@
+<div class="main">
+    <header class="main__header">
+        <h1>Quản lý xe</h1>
+        <div class="actions">
+            <button class="btn-export">📦 Xuất danh sách</button>
+            <button class="btn-add">+ Thêm sản phẩm</button>
+        </div>
+    </header>
+
+    <section class="filters">
+        <input type="text" placeholder="Nhập tên xe hoặc mã..." [(ngModel)]="searchTerm" />
+        <select [(ngModel)]="brandFilter">
+            <option value="">Hãng xe</option>
+            <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+        </select>
+        <select [(ngModel)]="statusFilter">
+            <option value="">Trạng thái</option>
+            <option>Sẵn sàng</option>
+            <option>Đang cho thuê</option>
+        </select>
+        <select [(ngModel)]="priceFilter">
+            <option value="">Giá thuê</option>
+            <option value="<100000">Dưới 100.000đ</option>
+            <option value="100000-150000">100.000 - 150.000đ</option>
+            <option value=">150000">Trên 150.000đ</option>
+        </select>
+        <button class="btn-filter" (click)="applyFilter()">Lọc</button>
+    </section>
+
+    <section class="bike-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên xe / Mã xe</th>
+                    <th>Giá thuê (ngày)</th>
+                    <th>Dung lượng pin</th>
+                    <th>Quãng đường / lần sạc</th>
+                    <th>Trạng thái</th>
+                    <th>Khu vực</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let b of filtered">
+                    <td>
+                        <div class="bike-info">
+                            <img [src]="b.image" [alt]="b.name" />
+                            <div>
+                                <strong>{{ b.name }}</strong><br />
+                                <small>{{ b.id }}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ b.price | number }}đ</td>
+                    <td>{{ b.battery }}</td>
+                    <td>{{ b.range }}</td>
+                    <td><span class="status" [class.ready]="b.statusClass==='ready'"
+                            [class.rented]="b.statusClass==='rented'">{{ b.status }}</span></td>
+                    <td>{{ b.location }}</td>
+                    <td><button class="action-btn" (click)="goToDetail(b)">✏️ Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
