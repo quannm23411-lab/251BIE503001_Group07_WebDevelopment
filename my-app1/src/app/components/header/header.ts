@@ -13,6 +13,15 @@ export class Header {
   private router = inject(Router);
   private auth = inject(Auth);
 
+  // Dùng trong template
+  get currentUser() {
+    return this.auth.getCurrentUser(); // { fullname, email, role } | null
+  }
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);

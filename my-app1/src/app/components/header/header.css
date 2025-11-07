@@ -89,6 +89,7 @@ body {
     gap: 15px;
 }
 
+/* ===== CART ===== */
 .nav__cart {
     position: relative;
 }
@@ -111,40 +112,65 @@ body {
     line-height: 16px;
 }
 
+/* ===== LOGIN / USER AREA ===== */
 .nav__login-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     background: white;
     color: #5b9021;
     border: none;
     border-radius: 20px;
-    padding: 8px 16px;
+    padding: 8px 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background-color 0.2s;
+    text-decoration: none;
 }
 
 .nav__login-btn:hover {
     background: #f2f2f2;
 }
 
+.nav__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav__welcome {
+    font-weight: 500;
+    color: #fff;
+}
+
+.nav__logout-btn {
+    background-color: #fff;
+    color: #2e7d32;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.nav__logout-btn:hover {
+    background-color: #c8e6c9;
+}
+
 /* ===== NAV ===== */
 .nav {
-  background-color: #5b9021;
-  display: flex;
-  justify-content: center;
+    background-color: #5b9021;
+    display: flex;
+    justify-content: center;
 }
 
 .nav__menu {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin: 0 auto;
-  padding: 0;
-  width: fit-content;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 0 auto;
+    padding: 0;
+    width: fit-content;
 }
 
 .nav__link {

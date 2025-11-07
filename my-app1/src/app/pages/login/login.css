@@ -29,13 +29,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 4rem; /* MỚI: Thêm padding dọc để không bị dính sát mép */
+  padding: 2rem 4rem;
+  /* MỚI: Thêm padding dọc để không bị dính sát mép */
 }
 
 .header {
   width: 100%;
   max-width: 497px;
-  margin-bottom: 1.5rem; /* CŨ: 3rem */
+  margin-bottom: 1.5rem;
+  /* CŨ: 3rem */
   text-align: center;
   opacity: 0;
   transform: translateY(-10px);
@@ -65,8 +67,9 @@ body {
 }
 
 .form-title {
-  margin-bottom: 1.5rem; /* CŨ: 2rem */
-  background: linear-gradient(90deg, rgba(89,111,0,1) 0%, rgba(138,182,45,1) 100%);
+  margin-bottom: 1.5rem;
+  /* CŨ: 2rem */
+  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -76,7 +79,8 @@ body {
 }
 
 .form-group {
-  margin-bottom: 1rem; /* CŨ: 1.5rem */
+  margin-bottom: 1rem;
+  /* CŨ: 1.5rem */
   opacity: 0;
   transform: translateY(-10px);
 }
@@ -98,7 +102,8 @@ body {
 
 .form-input {
   width: 100%;
-  height: 52px; /* CŨ: 65px */
+  height: 52px;
+  /* CŨ: 65px */
   padding: 0 1rem;
   background: white;
   border: 1px solid #999898;
@@ -122,7 +127,7 @@ body {
 }
 
 .password-wrapper .form-input {
-  padding-right: 4rem; 
+  padding-right: 4rem;
 }
 
 .toggle-password {
@@ -148,7 +153,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem; /* CŨ: 1.5rem */
+  margin-bottom: 1.25rem;
+  /* CŨ: 1.5rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 800ms ease forwards;
@@ -189,15 +195,17 @@ body {
 
 .submit-btn {
   width: 100%;
-  height: 52px; /* CŨ: 66px */
-  background: linear-gradient(90deg, rgba(89,111,0,1) 0%, rgba(138,182,45,1) 100%);
+  height: 52px;
+  /* CŨ: 66px */
+  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   border: none;
   border-radius: 10px;
   color: white;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  margin-bottom: 0.75rem; /* CŨ: 1rem */
+  margin-bottom: 0.75rem;
+  /* CŨ: 1rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1000ms ease forwards;
@@ -212,8 +220,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0; /* CŨ: 1rem 0 */
-  margin-bottom: 0.75rem; /* CŨ: 1rem */
+  padding: 0.5rem 0;
+  /* CŨ: 1rem 0 */
+  margin-bottom: 0.75rem;
+  /* CŨ: 1rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1200ms ease forwards;
@@ -233,7 +243,8 @@ body {
 
 .google-btn {
   width: 100%;
-  height: 52px; /* CŨ: 66px */
+  height: 52px;
+  /* CŨ: 66px */
   background: white;
   border: none;
   border-radius: 5px;
@@ -246,7 +257,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 1.5rem; /* CŨ: 2rem */
+  margin-bottom: 1.5rem;
+  /* CŨ: 2rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1400ms ease forwards;
@@ -259,7 +271,7 @@ body {
   inset: 0;
   padding: 1px;
   border-radius: 5px;
-  background: linear-gradient(91deg, rgba(89,111,0,1) 0%, rgba(138,182,45,1) 100%);
+  background: linear-gradient(91deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -303,6 +315,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -351,6 +364,7 @@ body {
   margin-top: 0.25rem;
   min-height: 1.2em;
 }
+
 /* Class đa dụng để ẩn/hiện */
 .hidden {
   display: none;
@@ -358,7 +372,8 @@ body {
 
 .modal-overlay {
   position: fixed;
-  inset: 0; /* (top: 0; left: 0; right: 0; bottom: 0;) */
+  inset: 0;
+  /* (top: 0; left: 0; right: 0; bottom: 0;) */
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -410,8 +425,10 @@ body {
   padding: 0.5rem 1.5rem;
   height: auto;
   font-size: 16px;
-  margin-bottom: 0; /* Bỏ margin-bottom */
+  margin-bottom: 0;
+  /* Bỏ margin-bottom */
 }
+
 /* --- THÊM VÀO CUỐI TỆP CSS --- */
 
 /* Ẩn con mắt mặc định của trình duyệt (Chrome, Edge, Safari) */

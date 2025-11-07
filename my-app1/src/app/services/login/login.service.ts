@@ -2,50 +2,38 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, catchError, throwError } from 'rxjs';
+import { Auth, AuthUser } from '../auth/auth'; // đường dẫn tùy cấu trúc của mày
 
-interface User {
-    id: number;
-    email: string;
-    password: string;
-    fullname: string;
-    role: 'admin' | 'customer';
-}
+interface User extends AuthUser { password: string; }
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
     private http = inject(HttpClient);
     private router = inject(Router);
+    private auth = inject(Auth);
+
     private url = 'assets/data/users.json';
-    private currentUser: User | null = null;
 
     login(email: string, password: string) {
         return this.http.get<{ users: User[] }>(this.url).pipe(
             map(res => {
                 const found = res.users.find(u => u.email === email && u.password === password);
-                if (found) {
-                    this.currentUser = found;
-                    localStorage.setItem('user', JSON.stringify(found));
-                    return found;
-                } else throw new Error('Sai email hoặc mật khẩu');
+                if (!found) throw new Error('Sai email hoặc mật khẩu');
+                const { password: _omit, ...safe } = found;
+                this.auth.login(safe);             // <— ghi về đúng key 'authUser'
+                return safe as AuthUser;
             }),
             catchError(err => throwError(() => err))
         );
     }
 
     logout() {
-        this.currentUser = null;
-        localStorage.removeItem('user');
+        this.auth.logout();
         this.router.navigate(['/login']);
     }
 
-    getUser(): User | null {
-        if (!this.currentUser) {
-            const saved = localStorage.getItem('user');
-            if (saved) this.currentUser = JSON.parse(saved);
-        }
-        return this.currentUser;
-    }
-
-    isLoggedIn() { return !!this.getUser(); }
-    isAdmin() { return this.getUser()?.role === 'admin'; }
+    // Các helper này nên trỏ về Auth cho thống nhất
+    getUser() { return this.auth.getCurrentUser(); }
+    isLoggedIn() { return this.auth.isLoggedIn(); }
+    isAdmin() { return this.auth.isAdmin(); }
 }

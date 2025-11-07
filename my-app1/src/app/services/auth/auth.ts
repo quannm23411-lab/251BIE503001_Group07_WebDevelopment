@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export type UserRole = 'admin' | 'customer';
-
 export interface AuthUser {
   id?: number;
   email: string;
@@ -11,30 +11,32 @@ export interface AuthUser {
 
 @Injectable({ providedIn: 'root' })
 export class Auth {
-  private storageKey = 'authUser'; // đổi key cho rõ ràng
+  private storageKey = 'authUser';
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
-  /** Lưu user sau khi đăng nhập thành công */
+  private get isBrowser() { return isPlatformBrowser(this.platformId); }
+
   login(user: AuthUser) {
+    if (!this.isBrowser) return;
     localStorage.setItem(this.storageKey, JSON.stringify(user));
   }
 
-  /** Đăng xuất */
   logout() {
+    if (!this.isBrowser) return;
     localStorage.removeItem(this.storageKey);
   }
 
-  /** Đang đăng nhập hay chưa */
   isLoggedIn(): boolean {
+    if (!this.isBrowser) return false;
     return !!localStorage.getItem(this.storageKey);
   }
 
-  /** Lấy user hiện tại */
   getCurrentUser(): AuthUser | null {
+    if (!this.isBrowser) return null;
     const raw = localStorage.getItem(this.storageKey);
     return raw ? (JSON.parse(raw) as AuthUser) : null;
   }
 
-  /** Có phải admin không */
   isAdmin(): boolean {
     return this.getCurrentUser()?.role === 'admin';
   }

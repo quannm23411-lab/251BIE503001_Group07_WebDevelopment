@@ -1,81 +1,51 @@
-import { Routes } from '@angular/router';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Routes, Router } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Auth } from './services/auth/auth';
 
-// === Layouts ===
-import { MainLayout } from './pages/main-layout/main-layout';
-
-// === User pages ===
-import { Homepage } from './pages/homepage/homepage';
-import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
-
-// === Admin pages ===
-import { AdminLayout } from './pages/admin/admin-layout/admin-layout';
-import { AdminMain } from './pages/admin/admin-main/admin-main';
-import { AdminOrder } from './pages/admin/admin-order/admin-order';
-import { AdminBikeDetail } from './pages/admin/admin-bike-detail/admin-bike-detail';
-import { AdminBike } from './pages/admin/admin-bike/admin-bike';
-
-/* ====== 1. HÀM KIỂM TRA ADMIN ====== */
+// Guard admin an toàn cho SSR
 const requireAdmin = () => {
-  const auth = inject(Auth);
   const router = inject(Router);
+  const auth = inject(Auth);
+  const platformId = inject(PLATFORM_ID);
+  const isBrowser = isPlatformBrowser(platformId);
+  if (!isBrowser) return true;
 
-  // Nếu chưa đăng nhập
-  if (!auth.isLoggedIn()) {
-    router.navigate(['/login']);
-    return false;
-  }
-
-  // Nếu không phải admin
-  if (!auth.isAdmin()) {
-    router.navigate(['/']);
-    return false;
-  }
-
+  if (!auth.isLoggedIn()) { router.navigate(['/login']); return false; }
+  if (!auth.isAdmin()) { router.navigate(['/']); return false; }
   return true;
 };
 
-/* ====== 2. Chặn user đã login vào login/register ====== */
-const redirectIfLoggedIn = () => {
-  const auth = inject(Auth);
-  const router = inject(Router);
-  if (auth.isLoggedIn()) {
-    router.navigate(['/']);
-    return false;
-  }
-  return true;
-};
-
-/* ====== 3. ROUTE CẤU HÌNH ====== */
 export const routes: Routes = [
-  // ==== Auth ====
-  { path: 'login', component: Login, canActivate: [redirectIfLoggedIn] },
-  { path: 'register', component: Register, canActivate: [redirectIfLoggedIn] },
+  // Auth
+  { path: 'login', loadComponent: () => import('./pages/login/login').then(m => m.Login) },
+  { path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.Register) },
 
-  // ==== ADMIN (chặn cả con) ====
+  // Admin
   {
     path: 'admin',
-    component: AdminLayout,
-    canActivate: [requireAdmin],         // chặn route cha
-    canActivateChild: [requireAdmin],    // ✅ chặn tất cả route con
+    loadComponent: () => import('./pages/admin/admin-layout/admin-layout').then(m => m.AdminLayout),
+    canActivate: [requireAdmin],
+    canActivateChild: [requireAdmin],
     children: [
-      { path: '', redirectTo: 'main', pathMatch: 'full' },
-      { path: 'main', component: AdminMain },
-      { path: 'bike', component: AdminBike },
-      { path: 'bike-detail', component: AdminBikeDetail },
-      { path: 'order', component: AdminOrder }
+      { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
+      { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
+      { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
+      { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
 
-  // ==== PUBLIC ====
+  // User layout + homepage (chỉ mở route có thật)
   {
     path: '',
-    component: MainLayout,
+    loadComponent: () => import('./pages/main-layout/main-layout').then(m => m.MainLayout),
     children: [
-      { path: '', component: Homepage },
+      { path: '', loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage) },
+
+      // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
+      // { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.Rent) },
+      // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
+      // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
   },
 
