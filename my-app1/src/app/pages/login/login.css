@@ -262,7 +262,7 @@ body {
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1400ms ease forwards;
-  transition: background 0.3s;
+  /* transition: background 0.3s; */
 }
 
 .google-btn::before {

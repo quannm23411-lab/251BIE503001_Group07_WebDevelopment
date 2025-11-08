@@ -1,4 +1,4 @@
-<header class="header" id="mainHeader">
+<header class="header" id="mainHeader" [class.shrink]="isShrink">
   <!-- Quảng cáo chạy -->
   <div class="header__ads">
     <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -6,20 +6,48 @@
     </marquee>
   </div>
 
-  <!-- Thanh giữa: logo / search / actions -->
+  <!-- Thanh giữa -->
   <div class="header__middle">
+    <!-- Logo -->
     <div class="header__logo">
       <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
       <span class="header__logo-text">EcoMOVE</span>
     </div>
 
-    <form class="header__search">
-      <input type="text" placeholder="Bạn muốn thuê gì hôm nay?" class="header__search-input" />
-      <button type="submit" class="header__search-btn">
-        <img src="assets/icons/search.png" alt="Tìm kiếm" />
+    <!-- Location + Search -->
+    <div class="header__controls">
+      <!-- Nút địa điểm -->
+      <button type="button" class="btn-loc" (click)="notifyLocationWip()">
+        <img src="assets/icons/location.png" alt="location" />
+        <span>{{ currentCity }}</span>
+        <svg class="chev" viewBox="0 0 24 24">
+          <path d="M7 10l5 5 5-5" />
+        </svg>
       </button>
-    </form>
 
+      <!-- Ô tìm kiếm -->
+      <form class="header__search" (submit)="onSearch($event)">
+        <button type="submit" class="search-icon-btn" aria-label="Tìm kiếm">
+          <img src="assets/icons/search.png" alt="Tìm kiếm" />
+        </button>
+        <input #searchInput type="text" class="header__search-input" placeholder="Bạn muốn thuê gì hôm nay?"
+          (focus)="openSuggest()" (input)="onQueryChange(searchInput.value)" (keydown)="onSearchKey($event)"
+          autocomplete="off" />
+
+        <!-- Gợi ý xu hướng -->
+        <div class="search-suggest" *ngIf="suggestOpen && hotSuggestions.length">
+          <div class="suggest-title">Xu hướng tìm kiếm 🔥</div>
+          <ul>
+            <li *ngFor="let s of hotSuggestions" (click)="applySuggestion(s)">
+              <img [src]="s.img" alt="icon" />
+              <span>{{ s.label }}</span>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+
+    <!-- Khu vực hành động -->
     <div class="header__actions">
       <a routerLink="/cart" class="nav__cart" aria-label="Giỏ hàng">
         <img src="assets/icons/cart.png" alt="Cart" />
@@ -27,10 +55,8 @@
       </a>
 
       @if (!isLoggedIn()) {
-      <!-- Chưa đăng nhập -->
       <a routerLink="/login" class="nav__login-btn">Đăng nhập</a>
       } @else {
-      <!-- Đã đăng nhập -->
       <div class="nav__user">
         <span class="nav__welcome">Xin chào, {{ currentUser?.fullname }}</span>
         <button type="button" class="nav__logout-btn" (click)="logout()">Đăng xuất</button>
@@ -39,8 +65,8 @@
     </div>
   </div>
 
-  <!-- Menu điều hướng -->
-  <nav class="nav" id="mainNav">
+  <!-- Thanh điều hướng -->
+  <nav class="nav">
     <ul class="nav__menu">
       <li>
         <a class="nav__link" routerLink="/" routerLinkActive="nav__link--active"
@@ -50,7 +76,7 @@
       <li class="nav__item nav__rent">
         <a class="nav__link" routerLink="/rent" routerLinkActive="nav__link--active">ĐẶT XE</a>
 
-        <!-- dropdown demo; giữ nguyên để sau nhét nội dung -->
+        <!-- Dropdown -->
         <div class="rent-dropdown">
           <div class="rent-dropdown__group">
             <h4>Dòng xe</h4>

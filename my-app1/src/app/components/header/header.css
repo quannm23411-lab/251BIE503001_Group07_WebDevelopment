@@ -1,11 +1,17 @@
+:root {
+    --header-offset: 145px;
+}
+
+/* Base body padding to avoid overlap */
 body {
     margin: 0;
-    padding-top: 145px;
+    padding-top: var(--header-offset);
     font-family: "Inter", sans-serif;
 }
 
-/* ===== HEADER BASE ===== */
+/* ===== Header Base ===== */
 .header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -16,7 +22,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* ===== ADS ===== */
+/* ===== Ads ===== */
 .header__ads {
     background: #619e21;
     text-align: center;
@@ -30,14 +36,16 @@ body {
     font-weight: 500;
 }
 
-/* ===== MIDDLE ===== */
+/* ===== Middle ===== */
 .header__middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 5%;
+    transition: padding 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* Logo */
 .header__logo {
     display: flex;
     align-items: center;
@@ -47,49 +55,148 @@ body {
 .header__logo img {
     width: 48px;
     height: 48px;
+    transition: width 0.3s ease, height 0.3s ease;
 }
 
 .header__logo-text {
     font-size: 1.6rem;
     font-weight: 700;
+    transition: opacity 0.3s ease;
 }
 
+/* ===== Controls (location + search) ===== */
+.header__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Location button */
+.btn-loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    color: #2a2a2a;
+    transition: background 0.2s ease;
+}
+
+.btn-loc:hover {
+    background: #f3f3f3;
+}
+
+.btn-loc img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-loc .chev {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: #666;
+    stroke-width: 2;
+}
+
+/* Search box */
 .header__search {
+    position: relative;
     display: flex;
     align-items: center;
     background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 10px;
     border: 1px solid #e0e0e0;
     width: 460px;
+    transition: width 0.3s ease;
+}
+
+.search-icon-btn {
+    border: 0;
+    background: transparent;
+    padding: 8px 10px 8px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.search-icon-btn img {
+    width: 18px;
+    height: 18px;
 }
 
 .header__search-input {
     flex: 1;
-    border: none;
-    outline: none;
-    padding: 8px 12px;
+    border: 0;
+    outline: 0;
+    padding: 10px 12px;
     font-size: 0.95rem;
 }
 
-.header__search-btn {
+/* Suggestion panel */
+.search-suggest {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
     background: #fff;
-    border: none;
-    padding: 6px 10px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 10px;
+    z-index: 1200;
+}
+
+.suggest-title {
+    font-weight: 700;
+    margin: 4px 10px 8px;
+    color: #333;
+}
+
+.search-suggest ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 6px 6px;
+}
+
+.search-suggest li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.header__search-btn img {
-    width: 18px;
+.search-suggest li:hover {
+    background: #f6f9f3;
 }
 
+.search-suggest li img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.search-suggest li span {
+    font-weight: 600;
+    color: #222;
+}
+
+/* ===== Actions ===== */
 .header__actions {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* ===== CART ===== */
+/* Cart */
 .nav__cart {
     position: relative;
 }
@@ -112,7 +219,7 @@ body {
     line-height: 16px;
 }
 
-/* ===== LOGIN / USER AREA ===== */
+/* Login/User */
 .nav__login-btn {
     background: white;
     color: #5b9021;
@@ -155,7 +262,7 @@ body {
     background-color: #c8e6c9;
 }
 
-/* ===== NAV ===== */
+/* ===== Nav ===== */
 .nav {
     background-color: #5b9021;
     display: flex;
@@ -185,7 +292,7 @@ body {
     color: #ffeb3b;
 }
 
-/* ===== SHRINK MODE ===== */
+/* ===== Shrink Mode ===== */
 .header.shrink .header__ads,
 .header.shrink .nav {
     display: none;
@@ -198,7 +305,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== DROPDOWN "ĐẶT XE" ===== */
+/* ===== Dropdown ===== */
 .nav__item {
     position: relative;
 }
@@ -219,7 +326,7 @@ body {
     pointer-events: none;
     transform: translateY(10px);
     transition: all 0.25s ease;
-    z-index: 999;
+    z-index: 1100;
 }
 
 .rent-dropdown__group {
@@ -257,14 +364,85 @@ body {
     text-decoration: underline;
 }
 
-/* Hiện menu khi hover */
 .nav__rent:hover .rent-dropdown {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
 }
 
-/* Giữ link "Đặt xe" nổi bật khi hover */
 .nav__rent:hover>.nav__link {
     color: #ffeb3b;
+}
+
+/* ===== Responsive Layers ===== */
+
+/* --- Tablet landscape (≤ 1200px): co search nhẹ --- */
+@media (max-width: 1200px) {
+    .header__search {
+        width: 380px;
+    }
+}
+
+/* --- Tablet portrait (≤ 992px): thu nhỏ logo + ẩn chữ --- */
+@media (max-width: 992px) {
+    .header__logo img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .header__logo-text {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+    }
+
+    .header__search {
+        width: 340px;
+    }
+}
+
+/* --- Mobile large (≤ 768px): ẩn nút TP.HCM, search rộng hơn --- */
+@media (max-width: 768px) {
+    .btn-loc {
+        display: none;
+    }
+
+    .header__search {
+        width: 65vw;
+    }
+
+    .header__middle {
+        gap: 12px;
+    }
+}
+
+/* --- Mobile medium (≤ 600px): chỉ giữ logo, ẩn chữ, thu nhỏ search --- */
+@media (max-width: 600px) {
+    .header__search {
+        width: 55vw;
+    }
+
+    .header__logo-text {
+        display: none;
+    }
+}
+
+/* --- Mobile small (≤ 480px): chỉ còn logo --- */
+@media (max-width: 480px) {
+    .header__search {
+        display: none;
+    }
+
+    .btn-loc {
+        display: none;
+    }
+
+    .header__logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .header__logo-text {
+        display: none;
+    }
 }

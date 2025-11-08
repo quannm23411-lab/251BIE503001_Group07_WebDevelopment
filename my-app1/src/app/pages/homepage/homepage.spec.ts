@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+<section class="top-rent container py-5" >
+  <h2 class="section-title" > Thuê nhiều tháng này </h2>
+    < p class="section-subtitle" > Top các loại xe có lượt thuê cao trong tháng </p>
+  ...
+</section>
 
-import { Homepage } from './homepage';
+  < section class="category container py-4" >
+    <h2 class="section-title" > {{ sectionText.motorbike.title }}</h2>
+      < p class="section-subtitle" > {{ sectionText.motorbike.subtitle }}</p>
+  ...
+</section>
 
-describe('Homepage', () => {
-  let component: Homepage;
-  let fixture: ComponentFixture<Homepage>;
+  < section class="category container py-4" >
+    <h2 class="section-title" > {{ sectionText.ebike.title }}</h2>
+      < p class="section-subtitle" > {{ sectionText.ebike.subtitle }}</p>
+  ...
+</section>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Homepage]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(Homepage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  < section class="category container py-4" >
+    <h2 class="section-title" > {{ sectionText.compact.title }}</h2>
+      < p class="section-subtitle" > {{ sectionText.compact.subtitle }}</p>
+  ...
+</section>
