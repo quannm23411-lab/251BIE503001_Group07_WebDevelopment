@@ -1,3 +1,5 @@
+/* Trong file: src/styles.css */
+
 :root {
     --header-offset: 145px;
     /* fallback */
@@ -7,10 +9,10 @@ html,
 body {
     margin: 0;
     padding: 0;
+    height: 100%;       /* <-- THÊM VÀO */
 }
 
 body {
-    padding-top: var(--header-offset);
-    /* để nội dung không bị header fixed đè */
+    /* XÓA DÒNG NÀY ĐI: padding-top: var(--header-offset); */
     font-family: "Inter", sans-serif;
 }

@@ -8,58 +8,85 @@
     </header>
 
     <section class="filters">
-        <input type="text" placeholder="Nhập tên xe hoặc mã..." [(ngModel)]="searchTerm" />
-        <select [(ngModel)]="brandFilter">
+        <input type="text" placeholder="Nhập tên xe hoặc mã..." 
+               [(ngModel)]="searchTerm" 
+               (ngModelChange)="applyFilter()" />
+
+        <select [(ngModel)]="brandFilter" (ngModelChange)="applyFilter()">
             <option value="">Hãng xe</option>
             <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
         </select>
-        <select [(ngModel)]="statusFilter">
+
+        <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilter()">
             <option value="">Trạng thái</option>
             <option>Sẵn sàng</option>
             <option>Đang cho thuê</option>
         </select>
-        <select [(ngModel)]="priceFilter">
+
+        <select [(ngModel)]="priceFilter" (ngModelChange)="applyFilter()">
             <option value="">Giá thuê</option>
             <option value="<100000">Dưới 100.000đ</option>
             <option value="100000-150000">100.000 - 150.000đ</option>
             <option value=">150000">Trên 150.000đ</option>
         </select>
-        <button class="btn-filter" (click)="applyFilter()">Lọc</button>
+        
+        <select [(ngModel)]="locationFilter" (ngModelChange)="applyFilter()">
+            <option value="">Khu vực</option>
+            <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+        </select>
+
+        <button class="btn-reset" (click)="resetFilters()">Đặt lại</button>
     </section>
 
-    <section class="bike-list">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tên xe / Mã xe</th>
-                    <th>Giá thuê (ngày)</th>
-                    <th>Dung lượng pin</th>
-                    <th>Quãng đường / lần sạc</th>
-                    <th>Trạng thái</th>
-                    <th>Khu vực</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let b of filtered">
-                    <td>
-                        <div class="bike-info">
-                            <img [src]="b.image" [alt]="b.name" />
-                            <div>
-                                <strong>{{ b.name }}</strong><br />
-                                <small>{{ b.id }}</small>
-                            </div>
+<section class="bike-list">
+    <table>
+        <thead>
+            <tr>
+                <th>Tên xe / Mã xe</th>
+                <th>Giá thuê (ngày)</th>
+                <th>Dung lượng pin</th>
+                <th>Quãng đường / lần sạc</th>
+                <th>Trạng thái</th>
+                <th>Khu vực</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngIf="isLoading">
+                <td colspan="7" style="text-align: center; padding: 40px; color: #888;">
+                    Đang tải danh sách xe...
+                </td>
+            </tr>
+            <tr *ngFor="let bike of filtered">
+                <td>
+                    <div class="bike-info">
+                        <img [src]="bike.image" alt="{{ bike.name }}">
+                        <div>
+                            <strong>{{ bike.name }}</strong>
+                            <br>
+                            <span style="color: #888; font-size: 13px;">{{ bike.id }}</span>
                         </div>
-                    </td>
-                    <td>{{ b.price | number }}đ</td>
-                    <td>{{ b.battery }}</td>
-                    <td>{{ b.range }}</td>
-                    <td><span class="status" [class.ready]="b.statusClass==='ready'"
-                            [class.rented]="b.statusClass==='rented'">{{ b.status }}</span></td>
-                    <td>{{ b.location }}</td>
-                    <td><button class="action-btn" (click)="goToDetail(b)">✏️ Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+                    </div>
+                </td>
+                <td>{{ bike.price | number }}đ</td>
+                <td>{{ bike.battery }}</td>
+                <td>{{ bike.range }}</td>
+                <td>
+                    <span class="status" [ngClass]="bike.statusClass">{{ bike.status }}</span>
+                </td>
+                <td>{{ bike.location }}</td>
+                <td>
+                    <button class="action-btn" (click)="goToDetail(bike)">Sửa</button>
+                </td>
+            </tr>
+
+            <tr *ngIf="!isLoading && filtered.length === 0">
+                <td colspan="7" style="text-align: center; padding: 20px;">
+                    Không tìm thấy xe nào khớp với bộ lọc.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 </div>

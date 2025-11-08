@@ -1,8 +1,20 @@
+/* Thêm vào để reset lề của trình duyệt, 
+   bạn nên đặt cái này trong file styles.css toàn cục */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .admin {
     display: flex;
-    min-height: 100vh;
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
+    
+    /* === THAY ĐỔI === */
+    height: 100vh; /* Đặt chiều cao bằng 100% chiều cao viewport */
+    width: 100%;   /* Đảm bảo chiều rộng là 100% */
+    overflow: hidden; /* Ẩn cuộn ở cấp độ này */
 }
 
 /* SIDEBAR */
@@ -14,15 +26,14 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
+    flex-shrink: 0; /* Ngăn sidebar bị co lại */
+
+    /* === THÊM VÀO === */
+    overflow-y: auto; /* Thêm cuộn nếu menu quá dài */
 }
 
 .sidebar__logo img {
-    width: 60px;
-}
-
-.sidebar__logo h2 {
-    margin-top: 10px;
-    font-size: 20px;
+    width: 100%;
 }
 
 .sidebar__menu {
@@ -46,5 +57,5 @@
 .main {
     flex: 1;
     padding: 20px 30px;
-    overflow-y: auto;
+    overflow-y: auto; /* Giữ nguyên: phần này sẽ tự cuộn khi nội dung dài */
 }

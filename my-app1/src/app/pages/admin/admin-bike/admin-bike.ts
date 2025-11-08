@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -28,23 +28,33 @@ export class AdminBike implements OnInit {
   bikes: Bike[] = [];
   filtered: Bike[] = [];
   brands: string[] = [];
-
+  locations: string[] = []; // <-- THÊM MỚI (Yêu cầu 1)
   brandFilter = '';
   statusFilter = '';
   priceFilter = '';
   searchTerm = '';
-
-  constructor(private http: HttpClient, private router: Router) { }
+  locationFilter = ''; // <-- THÊM MỚI (Yêu cầu 1)
+  isLoading: boolean = true; // <-- THÊM BIẾN NÀY
+  constructor(private http: HttpClient, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.isLoading = true; // Bắt đầu tải
     this.http.get<any[]>('assets/data/products.json').subscribe({
       next: data => {
         const mapped = this.mapData(data);
         this.bikes = mapped;
-        this.filtered = mapped;
+       // this.filtered = mapped;
+        this.applyFilter(); // Gọi hàm lọc ngay sau khi có data
         this.brands = [...new Set(mapped.map(b => b.brand))];
+        this.locations = [...new Set(mapped.map(b => b.location))]; // <-- THÊM MỚI (Yêu cầu 1)
+        this.isLoading = false; // <-- TẢI XONG, TẮT LOADING      
+        this.cdr.detectChanges(); // <-- BÁO CHO ANGULAR CẬP NHẬT GIAO DIỆN
       },
-      error: err => console.error('Không tải được dữ liệu sản phẩm', err)
+      error: err => {
+        console.error('Không tải được dữ liệu sản phẩm', err);
+        this.isLoading = false; // <-- CÓ LỖI CŨNG TẮT LOADING
+        this.cdr.detectChanges(); // <-- THÊM CẢ VÀO ĐÂY
+      }
     });
   }
 
@@ -66,23 +76,43 @@ export class AdminBike implements OnInit {
       range: item.rangePerCharge + ' KM',
       status: item.availabilityStatus ? 'Sẵn sàng' : 'Đang cho thuê',
       statusClass: item.availabilityStatus ? 'ready' : 'rented',
-      location: 'Đà Nẵng',
-      image: 'assets/' + item.image
+      location: item.location,
+      image: '' + item.image
     }));
   }
 
   applyFilter() {
-    this.filtered = this.bikes.filter(b =>
-      (!this.brandFilter || b.brand === this.brandFilter) &&
-      (!this.statusFilter || b.status === this.statusFilter) &&
-      (!this.searchTerm || b.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
-    );
+    // Bắt đầu lại từ danh sách GỐC
+    this.filtered = this.bikes.filter(b => {
+        const search = this.searchTerm.toLowerCase();
+        
+        // CẬP NHẬT: Tìm theo Tên HOẶC Mã xe
+        const matchesSearch = !this.searchTerm || 
+                              b.name.toLowerCase().includes(search) || 
+                              b.id.toLowerCase().includes(search);
 
+        return matchesSearch &&
+          (!this.brandFilter || b.brand === this.brandFilter) &&
+          (!this.statusFilter || b.status === this.statusFilter) &&
+          (!this.locationFilter || b.location === this.locationFilter); // <-- THÊM MỚI (Yêu cầu 1)
+      }
+    );
     if (this.priceFilter) {
       if (this.priceFilter === '<100000') this.filtered = this.filtered.filter(b => b.price < 100000);
       else if (this.priceFilter === '100000-150000') this.filtered = this.filtered.filter(b => b.price >= 100000 && b.price <= 150000);
       else this.filtered = this.filtered.filter(b => b.price > 150000);
     }
+  }
+
+resetFilters() {
+    this.brandFilter = '';
+    this.statusFilter = '';
+    this.priceFilter = '';
+    this.searchTerm = '';
+    this.locationFilter = '';
+    
+    // Chạy lại hàm lọc để hiển thị đầy đủ danh sách
+    this.applyFilter(); 
   }
 
   goToDetail(bike: Bike) {

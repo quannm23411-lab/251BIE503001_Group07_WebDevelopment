@@ -13,6 +13,7 @@
         "availabilityStatus": true,
         "rating": 4.8,
         "discount": 10,
+        "location": "Đà Nẵng",
         "tags": [
             "eco",
             "popular",
@@ -35,6 +36,8 @@
         "availabilityStatus": true,
         "rating": 4.6,
         "discount": 0,
+        "location": "TP.HCM",
+
         "tags": [
             "compact",
             "youth",
@@ -57,6 +60,8 @@
         "availabilityStatus": true,
         "rating": 4.9,
         "discount": 15,
+        "location": "Đà Nẵng",
+
         "tags": [
             "premium",
             "long-range"
@@ -78,6 +83,7 @@
         "availabilityStatus": false,
         "rating": 4.4,
         "discount": 5,
+        "location": "Hà Nội",
         "tags": [
             "imported",
             "smart",
@@ -100,6 +106,7 @@
         "availabilityStatus": true,
         "rating": 4.7,
         "discount": 0,
+        "location": "TP.HCM",
         "tags": [
             "urban",
             "family"
@@ -121,6 +128,7 @@
         "availabilityStatus": true,
         "rating": 4.3,
         "discount": 0,
+        "location": "TP.HCM",
         "tags": [
             "budget",
             "student"
@@ -142,6 +150,7 @@
         "availabilityStatus": true,
         "rating": 4.8,
         "discount": 5,
+        "location": "Đà Nẵng",
         "tags": [
             "smart",
             "female",
@@ -164,6 +173,7 @@
         "availabilityStatus": true,
         "rating": 4.8,
         "discount": 10,
+        "location": "TP.HCM",
         "tags": [
             "sport",
             "imported"
@@ -185,6 +195,7 @@
         "availabilityStatus": true,
         "rating": 4.5,
         "discount": 0,
+        "location": "TP.HCM",
         "tags": [
             "youth",
             "sporty"
@@ -206,6 +217,7 @@
         "availabilityStatus": true,
         "rating": 4.9,
         "discount": 10,
+        "location": "TP.HCM",
         "tags": [
             "made-in-vietnam",
             "long-range",
@@ -228,6 +240,7 @@
         "availabilityStatus": true,
         "rating": 4.2,
         "discount": 0,
+        "location": "TP.HCM",
         "tags": [
             "budget",
             "classic"
@@ -249,6 +262,7 @@
         "availabilityStatus": true,
         "rating": 4.1,
         "discount": 5,
+        "location": "TP.HCM",
         "tags": [
             "student",
             "compact"
@@ -270,6 +284,7 @@
         "availabilityStatus": false,
         "rating": 4.6,
         "discount": 0,
+        "location": "Hà Nội",
         "tags": [
             "smart",
             "imported"
@@ -291,6 +306,7 @@
         "availabilityStatus": true,
         "rating": 4.3,
         "discount": 0,
+        "location": "Hà Nội",
         "tags": [
             "eco",
             "youth"
@@ -312,6 +328,7 @@
         "availabilityStatus": true,
         "rating": 5.0,
         "discount": 10,
+        "location": "Hà Nội",
         "tags": [
             "high-end",
             "long-range",
@@ -334,6 +351,8 @@
         "availabilityStatus": true,
         "rating": 4.5,
         "discount": 0,
+        "location": "TP.HCM",
+
         "tags": [
             "youth",
             "sporty",

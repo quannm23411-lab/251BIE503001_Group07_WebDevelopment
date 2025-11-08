@@ -1,0 +1,5 @@
+/* Trong file CSS của layout public, KHÔNG phải admin */
+:host {
+  display: block;
+  padding-top: 70px;
+}
