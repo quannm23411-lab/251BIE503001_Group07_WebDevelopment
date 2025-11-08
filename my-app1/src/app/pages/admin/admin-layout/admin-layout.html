@@ -1,23 +1,36 @@
 <div class="admin">
-    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar">
-        <div class="sidebar__logo">
-            <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
+        
+        <div class="sidebar-header-mobile">
+            <div class="sidebar-logo-mobile">
+                <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
+            </div>
+            <button class="sidebar-toggle" (click)="toggleMobileMenu()">☰</button>
         </div>
 
-        <ul class="sidebar__menu">
-            <li routerLink="/admin/main" routerLinkActive="active">Dashboard</li>
-            <li routerLink="/admin/bike" routerLinkActive="active">Quản lý xe</li>
-            <li routerLink="/admin/order" routerLinkActive="active">Đơn thuê xe</li>
-            <li>Khách hàng</li>
-            <li>Marketing & Popup</li>
-            <li>Giao diện website</li>
-            <li>Tài khoản Admin</li>
-            <li>Hệ thống & Nhật ký</li>
-        </ul>
+        <div class="sidebar-menu-container" [class.show]="isMobileMenuOpen">
+            <div class="sidebar-logo-desktop">
+                <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
+            </div>
+
+            <ul class="sidebar-menu">
+                <li routerLink="/admin/main" routerLinkActive="active" (click)="toggleMobileMenu()">Dashboard</li>
+                <li routerLink="/admin/bike" routerLinkActive="active" (click)="toggleMobileMenu()">Quản lý xe</li>
+                <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()">Đơn thuê xe</li>
+                <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()">Khách hàng</li>
+                <li >Marketing & Popup</li>
+                <li>Giao diện website</li>
+                <li>Tài khoản Admin</li>
+                <li>Hệ thống & Nhật ký</li>
+            </ul>
+        </div>
     </aside>
 
-    <!-- ===== MAIN CONTENT (thay đổi theo router) ===== -->
+    <div class="menu-overlay" 
+         [class.show]="isMobileMenuOpen" 
+         (click)="toggleMobileMenu()">
+    </div>
+
     <main class="main">
         <router-outlet></router-outlet>
     </main>

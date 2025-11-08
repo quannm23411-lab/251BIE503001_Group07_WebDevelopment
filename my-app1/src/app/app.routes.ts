@@ -31,6 +31,7 @@ export const routes: Routes = [
       { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
       { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
+      { path: 'customer', loadComponent: () => import('./pages/admin/admin-customer/admin-customer').then(m => m.AdminCustomer) },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },

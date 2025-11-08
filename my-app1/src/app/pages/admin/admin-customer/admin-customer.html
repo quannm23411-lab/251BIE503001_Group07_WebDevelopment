@@ -1,0 +1,127 @@
+<div class="main">
+    <header class="main__header">
+        <h1>Quản lý khách hàng</h1>
+        <div class="actions">
+            <button class="btn-export">📦 Xuất danh sách</button>
+            <button class="btn-add">+ Thêm khách hàng</button>
+        </div>
+    </header>
+
+    <section class="filters">
+        <input type="text" placeholder="Mã KH / Tên / SĐT / Email" 
+               [(ngModel)]="searchTerm" 
+               (ngModelChange)="applyFilter()" />
+
+        <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilter()">
+            <option value="">Trạng thái</option>
+            <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+        </select>
+        
+        <button class="btn-reset" (click)="resetFilters()">Đặt lại</button>
+    </section>
+
+
+    <section class="customer-list">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" 
+                        (click)="onSort('id')"
+                        [class.sort-active]="sortColumn === 'id'">
+                        <div class="th-content">
+                            <span>Mã KH</span>
+                            <i class="fas fa-sort"
+                               [class.fa-sort-up]="sortColumn === 'id' && sortDirection === 'asc'"
+                               [class.fa-sort-down]="sortColumn === 'id' && sortDirection === 'desc'">
+                            </i>
+                        </div>
+                    </th>
+                    <th class="sortable" 
+                        (click)="onSort('name')"
+                        [class.sort-active]="sortColumn === 'name'">
+                        <div class="th-content">
+                            <span>Khách hàng</span>
+                            <i class="fas fa-sort" 
+                               [class.fa-sort-up]="sortColumn === 'name' && sortDirection === 'asc'"
+                               [class.fa-sort-down]="sortColumn === 'name' && sortDirection === 'desc'">
+                            </i>
+                        </div>
+                    </th>
+                    <th class="sortable" 
+                        (click)="onSort('phone')"
+                        [class.sort-active]="sortColumn === 'phone'">
+                        <div class="th-content">
+                            <span>Số điện thoại</span>
+                            <i class="fas fa-sort"
+                               [class.fa-sort-up]="sortColumn === 'phone' && sortDirection === 'asc'"
+                               [class.fa-sort-down]="sortColumn === 'phone' && sortDirection === 'desc'">
+                            </i>
+                        </div>
+                    </th>
+                    <th class="sortable" 
+                        (click)="onSort('joinDate')"
+                        [class.sort-active]="sortColumn === 'joinDate'">
+                        <div class="th-content">
+                            <span>Ngày tham gia</span>
+                            <i class="fas fa-sort"
+                               [class.fa-sort-up]="sortColumn === 'joinDate' && sortDirection === 'asc'"
+                               [class.fa-sort-down]="sortColumn === 'joinDate' && sortDirection === 'desc'">
+                            </i>
+                        </div>
+                    </th>
+                    <th class="sortable" 
+                        (click)="onSort('status')"
+                        [class.sort-active]="sortColumn === 'status'">
+                        <div class="th-content">
+                            <span>Trạng thái</span>
+                            <i class="fas fa-sort"
+                               [class.fa-sort-up]="sortColumn === 'status' && sortDirection === 'asc'"
+                               [class.fa-sort-down]="sortColumn === 'status' && sortDirection === 'desc'">
+                            </i>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngIf="isLoading">
+                    <td colspan="5" class="table-state-cell">
+                        Đang tải danh sách khách hàng...
+                    </td>
+                </tr>
+                
+                <tr *ngFor="let customer of filtered" 
+                    class="clickable-row" 
+                    (click)="goToDetail(customer)">
+                    <td>
+                        <strong>{{ customer.id }}</strong>
+                    </td>
+                    <td>
+                        <div class="customer-info">
+                            <strong>{{ customer.name }}</strong>
+                            <span>{{ customer.email }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        {{ customer.phone }}
+                    </td>
+                    <td>
+                        {{ customer.joinDate | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td>
+                        <span class="status" [ngClass]="customer.statusClass">
+                            {{ customer.status }}
+                        </span>
+                    </td>
+                    </tr>
+
+                <tr *ngIf="!isLoading && filtered.length === 0">
+                    <td colspan="5" class="table-state-cell">
+                        Không tìm thấy khách hàng nào.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</div>

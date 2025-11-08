@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // ✅ thêm dòng này
+import { FormsModule } from '@angular/forms';
 
 interface Bike {
   id: string;
@@ -20,7 +20,7 @@ interface Bike {
 @Component({
   selector: 'app-admin-bike',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ thêm FormsModule vào đây
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-bike.html',
   styleUrl: './admin-bike.css'
 })
@@ -28,37 +28,42 @@ export class AdminBike implements OnInit {
   bikes: Bike[] = [];
   filtered: Bike[] = [];
   brands: string[] = [];
-  locations: string[] = []; // <-- THÊM MỚI (Yêu cầu 1)
+  locations: string[] = [];
   brandFilter = '';
   statusFilter = '';
   priceFilter = '';
   searchTerm = '';
-  locationFilter = ''; // <-- THÊM MỚI (Yêu cầu 1)
-  isLoading: boolean = true; // <-- THÊM BIẾN NÀY
+  locationFilter = '';
+  isLoading: boolean = true;
+  
+  // 🔽 THÊM MỚI: Biến theo dõi trạng thái sắp xếp
+  sortColumn: keyof Bike | '' = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
   constructor(private http: HttpClient, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.isLoading = true; // Bắt đầu tải
+    this.isLoading = true;
     this.http.get<any[]>('assets/data/products.json').subscribe({
       next: data => {
         const mapped = this.mapData(data);
         this.bikes = mapped;
-       // this.filtered = mapped;
-        this.applyFilter(); // Gọi hàm lọc ngay sau khi có data
+        this.applyFilter(); 
         this.brands = [...new Set(mapped.map(b => b.brand))];
-        this.locations = [...new Set(mapped.map(b => b.location))]; // <-- THÊM MỚI (Yêu cầu 1)
-        this.isLoading = false; // <-- TẢI XONG, TẮT LOADING      
-        this.cdr.detectChanges(); // <-- BÁO CHO ANGULAR CẬP NHẬT GIAO DIỆN
+        this.locations = [...new Set(mapped.map(b => b.location))];
+        this.isLoading = false;      
+        this.cdr.detectChanges(); 
       },
       error: err => {
         console.error('Không tải được dữ liệu sản phẩm', err);
-        this.isLoading = false; // <-- CÓ LỖI CŨNG TẮT LOADING
-        this.cdr.detectChanges(); // <-- THÊM CẢ VÀO ĐÂY
+        this.isLoading = false; 
+        this.cdr.detectChanges(); 
       }
     });
   }
 
   mapData(data: any[]): Bike[] {
+    // ... (Giữ nguyên hàm mapData)
     const brandMap: Record<string, string> = {
       B001: 'VinFast',
       B002: 'Pega',
@@ -82,11 +87,8 @@ export class AdminBike implements OnInit {
   }
 
   applyFilter() {
-    // Bắt đầu lại từ danh sách GỐC
     this.filtered = this.bikes.filter(b => {
         const search = this.searchTerm.toLowerCase();
-        
-        // CẬP NHẬT: Tìm theo Tên HOẶC Mã xe
         const matchesSearch = !this.searchTerm || 
                               b.name.toLowerCase().includes(search) || 
                               b.id.toLowerCase().includes(search);
@@ -94,7 +96,7 @@ export class AdminBike implements OnInit {
         return matchesSearch &&
           (!this.brandFilter || b.brand === this.brandFilter) &&
           (!this.statusFilter || b.status === this.statusFilter) &&
-          (!this.locationFilter || b.location === this.locationFilter); // <-- THÊM MỚI (Yêu cầu 1)
+          (!this.locationFilter || b.location === this.locationFilter);
       }
     );
     if (this.priceFilter) {
@@ -102,20 +104,59 @@ export class AdminBike implements OnInit {
       else if (this.priceFilter === '100000-150000') this.filtered = this.filtered.filter(b => b.price >= 100000 && b.price <= 150000);
       else this.filtered = this.filtered.filter(b => b.price > 150000);
     }
+    
+    // 🔽 THÊM MỚI: Sắp xếp sau khi lọc
+    this.applySort();
   }
 
-resetFilters() {
+  resetFilters() {
     this.brandFilter = '';
     this.statusFilter = '';
     this.priceFilter = '';
     this.searchTerm = '';
     this.locationFilter = '';
     
-    // Chạy lại hàm lọc để hiển thị đầy đủ danh sách
+    // 🔽 THÊM MỚI: Reset cả sắp xếp
+    this.sortColumn = '';
+    
     this.applyFilter(); 
   }
 
   goToDetail(bike: Bike) {
     this.router.navigate(['/admin/bike-detail', bike.id]);
+  }
+  
+  // 🔽 THÊM MỚI: Hàm được gọi khi click vào tiêu đề
+  onSort(columnKey: keyof Bike) {
+    if (this.sortColumn === columnKey) {
+      this.sortDirection = (this.sortDirection === 'asc') ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = columnKey;
+      this.sortDirection = 'asc';
+    }
+    this.applySort();
+  }
+
+  // 🔽 THÊM MỚI: Hàm thực hiện sắp xếp
+  applySort() {
+    if (this.sortColumn) {
+      this.filtered.sort((a, b) => {
+        const valA = a[this.sortColumn as keyof Bike];
+        const valB = b[this.sortColumn as keyof Bike];
+        
+        let comparison = 0;
+
+        // Xử lý riêng cho 'price' (vì là number)
+        if (this.sortColumn === 'price' && typeof valA === 'number' && typeof valB === 'number') {
+          comparison = valA - valB;
+        } 
+        // Xử lý cho tất cả các chuỗi khác (dùng Tiếng Việt)
+        else if (typeof valA === 'string' && typeof valB === 'string') {
+          comparison = valA.localeCompare(valB, 'vi', { sensitivity: 'base' });
+        }
+        
+        return (this.sortDirection === 'desc') ? (comparison * -1) : comparison;
+      });
+    }
   }
 }

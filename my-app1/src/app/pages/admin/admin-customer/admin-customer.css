@@ -1,0 +1,229 @@
+/* === Các style chung (Giữ nguyên) === */
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+.main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main__header h1 { color: #567C02; }
+.actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.btn-export { background: #6fa304; color: white; }
+.btn-add { background: #004d40; color: white; }
+
+/* === Filters (Giữ nguyên) === */
+.filters {
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.filters input,
+.filters select,
+.filters button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.filters button {
+    background-color: #6fa304;
+    color: white;
+}
+
+/* === Table (Giữ nguyên) === */
+.customer-list { 
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 👈 THÊM DÒNG NÀY VÀO ĐÂY */
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+th {
+    color: #567C02;
+}
+.customer-info {
+    display: flex;
+    flex-direction: column; 
+    gap: 2px;
+}
+.customer-info strong {
+    font-size: 15px;
+    color: #333;
+}
+.customer-info span {
+    font-size: 13px;
+    color: #777;
+}
+
+/* === 🔽 THÊM MỚI: Style cho dòng có thể click === */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.clickable-row:hover {
+    background-color: #f9f9f9; /* Màu nền nhạt khi hover */
+}
+/* ============================================= */
+
+
+/* === Trạng thái (Giữ nguyên) === */
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.status.vang { 
+    background: #ffe3a3;
+    color: #995c00;
+}
+.status.bac {
+    background: #e0e0e0;
+    color: #555;
+}
+.status.dong {
+    background: #ffD7B9;
+    color: #B05200;
+}
+.status.khac {
+    background: #f0f0f0;
+    color: #777;
+}
+
+/* === 🔽 ĐÃ XÓA: class .action-btn (không còn dùng) === */
+
+/* Style cho ô loading/empty (Giữ nguyên) */
+.table-state-cell {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+/* Biến tiêu đề thành nút, thêm con trỏ */
+th.sortable {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    /* Xóa 'display: flex' khỏi đây.
+       Chúng ta giữ lại padding mặc định của <th>
+    */
+}
+
+/* Thêm class mới cho div bọc bên trong <th> */
+th.sortable .th-content {
+    display: flex; /* Áp dụng flexbox vào đây */
+    align-items: center; /* Căn giữa dọc */
+    justify-content: space-between; /* Đẩy icon sang phải */
+    width: 100%; /* Đảm bảo div chiếm hết <th> */
+}
+
+/* Hiệu ứng hover nhẹ (vẫn như cũ) */
+th.sortable:hover {
+    background-color: #fcfcfc;
+}
+
+/* Tiêu đề đang được chọn để sắp xếp (vẫn như cũ) */
+th.sort-active {
+    color: #333;
+}
+
+/* Style cho Icon sắp xếp (vẫn như cũ) */
+th.sortable i {
+    font-size: 0.8em;
+    color: #ccc;
+    margin-left: 8px; /* Khoảng cách với chữ */
+    transition: color 0.2s ease;
+}
+
+/* Icon khi cột đang được sắp xếp (vẫn như cũ) */
+th.sort-active i {
+    color: #567C02;
+}
+
+/* Ẩn icon fa-sort mặc định khi đang sắp xếp (vẫn như cũ) */
+th.sort-active i.fa-sort {
+    display: none;
+}
+
+/* Icon sắp xếp lên/xuống cụ thể (vẫn như cũ) */
+th.sortable i.fa-sort-up,
+th.sortable i.fa-sort-down {
+    color: #567C02;
+    opacity: 1;
+}
+/* === 🔽 MEDIA QUERY (Cập nhật logic ẩn cột) === */
+@media (max-width: 992px) {
+
+    /* 1. Xếp chồng các bộ lọc (Giữ nguyên) */
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filters input, .filters select, .filters button {
+        width: auto;
+    }
+
+    /* 2. Ẩn các cột
+        Các cột MỚI: 5 cột
+        1. Khách hàng (Tên, Email)
+        2. Số điện thoại
+        3. Mã KH
+        4. Ngày tham gia
+        5. Trạng thái (Hạng)
+        
+        Ẩn cột (3) Mã KH, (4) Ngày tham gia
+        Giữ lại (1) Khách hàng, (2) SĐT, (5) Trạng thái
+    */
+    .customer-list th:nth-child(3),
+    .customer-list th:nth-child(4),
+    .customer-list th:nth-child(5) {
+        display: none;
+    }
+    .customer-list td:nth-child(3),
+    .customer-list td:nth-child(4),
+    .customer-list td:nth-child(5) {
+        display: none;
+    }
+    
+    /* 3. Tùy chọn (Giữ nguyên) */
+    .main__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    th, td {
+        padding: 10px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .main {
+        padding: 10px;
+    }
+}
