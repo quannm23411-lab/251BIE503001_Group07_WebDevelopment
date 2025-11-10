@@ -30,8 +30,14 @@ export const routes: Routes = [
     children: [
       { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
+      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },      
+      { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
       { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
+      { path: 'order-add', loadComponent: () => import('./pages/admin/admin-order-add/admin-order-add').then(m => m.AdminOrderAdd) },
+      { path: 'order-detail/:id', loadComponent: () => import('./pages/admin/admin-order-detail/admin-order-detail').then(m => m.AdminOrderDetail) },
       { path: 'customer', loadComponent: () => import('./pages/admin/admin-customer/admin-customer').then(m => m.AdminCustomer) },
+      { path: 'customer-detail/:id', loadComponent: () => import('./pages/admin/admin-customer-detail/admin-customer-detail').then(m => m.AdminCustomerDetail) },
+      { path: 'customer-add', loadComponent: () => import('./pages/admin/admin-customer-add/admin-customer-add').then(m => m.AdminCustomerAdd) },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },

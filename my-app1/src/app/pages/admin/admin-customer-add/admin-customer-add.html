@@ -1,0 +1,137 @@
+<div class="main">
+    <div *ngIf="isLoading" class="table-state-cell">
+        Đang lưu khách hàng...
+    </div>
+
+    <div *ngIf="!isLoading">
+        <header class="main__header">
+            <div class="header-left">
+                <button (click)="goBack()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="header-title">
+                    <h1>Thêm khách hàng mới</h1>
+                    <span>Điền thông tin chi tiết bên dưới</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button (click)="saveChanges()" class="btn-save">
+                    <i class="fas fa-save"></i> Lưu khách hàng
+                </button>
+            </div>
+        </header>
+
+        <div class="detail-layout">
+            
+            <div class="detail-col-main">
+                <section class="card">
+                    <h2>Thông tin cá nhân</h2>
+                    <div class="form-group">
+                        <label for="hoTen">Họ và tên</label>
+                        <input type="text" id="hoTen" [(ngModel)]="newCustomer.hoTen" class="form-control">
+                    </div>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" [(ngModel)]="newCustomer.email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="soDienThoai">Số điện thoại</label>
+                            <input type="text" id="soDienThoai" [(ngModel)]="newCustomer.soDienThoai" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ngaySinh">Ngày sinh</label>
+                        <input type="date" id="ngaySinh" [(ngModel)]="newCustomer.ngaySinh" class="form-control">
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Địa chỉ</h2>
+                    <div class="form-group">
+                        <label for="soNhaDuong">Số nhà, Đường</label>
+                        <input type="text" id="soNhaDuong" [(ngModel)]="newCustomer.diaChi.soNhaDuong" class="form-control">
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="phuongXa">Phường/Xã</label>
+                            <input type="text" id="phuongXa" [(ngModel)]="newCustomer.diaChi.phuongXa" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="quanHuyen">Quận/Huyện</label>
+                            <input type="text" id="quanHuyen" [(ngModel)]="newCustomer.diaChi.quanHuyen" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tinhThanh">Tỉnh/Thành phố</label>
+                        <input type="text" id="tinhThanh" [(ngModel)]="newCustomer.diaChi.tinhThanh" class="form-control">
+                    </div>
+                </section>
+            </div>
+
+            <div class="detail-col-side">
+                <section class="card">
+                    <h2>Thông tin tài khoản</h2>
+                    <div class="form-group">
+                        <label for="maKhachHang">Mã khách hàng</label>
+                        <input type="text" id="maKhachHang" [value]="newCustomer.maKhachHang" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="hangThanhVien">Hạng thành viên</label>
+                        <select id="hangThanhVien" [(ngModel)]="newCustomer.hangThanhVien" class="form-control">
+                             <option *ngFor="let tier of memberTiers" [value]="tier">{{ tier }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayDangKy">Ngày đăng ký</label>
+                        <input type="text" id="ngayDangKy" [value]="newCustomer.ngayDangKy | date:'dd/MM/yyyy HH:mm'" class="form-control" readonly>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Thông tin bằng lái</h2>
+                    <div class="form-group">
+                        <label for="soBangLai">Số bằng lái</label>
+                        <input type="text" id="soBangLai" [(ngModel)]="newCustomer.thongTinBangLai.soBangLai" class="form-control">
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="hangBangLai">Hạng bằng lái</label>
+                            <input type="text" id="hangBangLai" [(ngModel)]="newCustomer.thongTinBangLai.hangBangLai" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ngayHetHan">Ngày hết hạn</label>
+                            <input type="date" id="ngayHetHan" [(ngModel)]="newCustomer.thongTinBangLai.ngayHetHan" class="form-control">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showConfirmPopup">
+        <div class="popup-container">
+            <h2>Xác nhận</h2>
+            <p>Bạn có chắc chắn muốn tạo khách hàng mới này?</p>
+            <div class="popup-actions">
+                <button (click)="onCancelSave()" class="btn-popup-cancel">Hủy</button>
+                <button (click)="onConfirmSave()" class="btn-popup-confirm">Tạo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showSuccessPopup">
+        <div class="popup-container">
+            <h2>Thành công</h2>
+            <p>Đã tạo khách hàng mới thành công!</p>
+            <div class="popup-actions">
+                <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Về danh sách</button>
+                <button (click)="onCloseSuccessAndReset()" class="btn-popup-confirm">Thêm khách mới</button>
+            </div>
+        </div>
+    </div>
+
+</div>

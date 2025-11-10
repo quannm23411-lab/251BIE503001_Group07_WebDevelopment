@@ -1,0 +1,229 @@
+<div class="main">
+    <div *ngIf="isLoading" class="table-state-cell">
+        Đang tải dữ liệu khách hàng và xe...
+    </div>
+
+    <div *ngIf="!isLoading">
+        <header class="main__header">
+            <div class="header-left">
+                <button (click)="goBack()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="header-title">
+                    <h1>Thêm đơn hàng mới</h1>
+                    <span>Điền thông tin đơn hàng bên dưới</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button (click)="saveChanges()" class="btn-save">
+                    <i class="fas fa-save"></i> Lưu đơn hàng
+                </button>
+            </div>
+        </header>
+
+        <div class="detail-layout">
+            
+            <div class="detail-col-main">
+                <section class="card">
+                    <h2>Thông tin chính</h2>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Mã đơn hàng</label>
+                            <input type="text" [value]="newOrder.maDonThue" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Thời gian đặt hàng</label>
+                            <input type="text" [value]="newOrder.thoiGianDatHang | date:'dd/MM/yyyy HH:mm'" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="customerSearch">Khách hàng</label>
+                            
+                            <input type="text" 
+                                id="customerSearch" 
+                                class="form-control" 
+                                placeholder="Gõ tên hoặc SĐT để tìm..."
+                                [value]="customerSearchDisplay"
+                                (keyup)="onCustomerSearch($event)"
+                                (blur)="onCustomerSearchBlur()">
+
+                        <div class="search-results-wrapper" *ngIf="customerSearchResults.length > 0">
+                            <ul class="search-results-list">
+                                <li *ngFor="let c of customerSearchResults" (mousedown)="selectCustomer(c)">
+                                    <strong>{{ c.hoTen }}</strong>
+                                    <span>{{ c.soDienThoai }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <button type="button" class="btn-link-add" (click)="goToAddCustomer()">
+                            Không tìm thấy? <i class="fas fa-user-plus"></i> Thêm khách hàng mới...
+                        </button>
+                    </div>
+                        <div class="form-group">
+                            <label for="orderStatus">Trạng thái đơn</label>
+                            <select id="orderStatus" [(ngModel)]="newOrder.tinhTrangDon" class="form-control">
+                                <option *ngFor="let s of orderStatuses" [value]="s">{{ s }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="tienDatCoc">Tiền đặt cọc</label>
+                            <input type="number" id="tienDatCoc" [(ngModel)]="newOrder.tienDatCoc" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="trangThaiCoc">Trạng thái cọc</label>
+                            <select id="trangThaiCoc" [(ngModel)]="newOrder.trangThaiCoc" class="form-control">
+                                <option *ngFor="let d of depositStatuses" [value]="d">{{ d }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Chi tiết xe thuê</h2>
+
+                    <div *ngFor="let item of newOrder.chiTietDonThue; let i = index" class="vehicle-item-form">
+                        
+                        <button (click)="removeVehicleItem(i)" class="btn-remove-item" title="Xóa xe này">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        
+                        <h4>Chi tiết xe #{{ i + 1 }}</h4>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="idXe-{{i}}">Chọn xe</label>
+                                <select id="idXe-{{i}}" [(ngModel)]="item.idXe" (ngModelChange)="onVehicleSelected(item)" class="form-control">
+                                    <option value="" disabled>-- Chọn xe --</option>
+                                    <option *ngFor="let p of products" [value]="p.id">
+                                        {{ p.vehicleName }} ({{ p.pricePerDay | number }}đ/ngày)
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tinhTrangXe-{{i}}">Trạng thái xe</label>
+                                <select id="tinhTrangXe-{{i}}" [(ngModel)]="item.tinhTrangXe" class="form-control">
+                                    <option *ngFor="let s of vehicleStatuses" [value]="s">{{ s }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-4">
+                            <div class="form-group">
+                                <label for="donGia-{{i}}">Đơn giá/ngày</label>
+                                <input type="number" id="donGia-{{i}}" [(ngModel)]="item.donGia" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="soNgayThue-{{i}}">Số ngày thuê</label>
+                                <input type="number" id="soNgayThue-{{i}}" [(ngModel)]="item.soNgayThue" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                            </div>
+                             <div class="form-group">
+                                <label for="soLuong-{{i}}">Số lượng</label>
+                                <input type="number" id="soLuong-{{i}}" [(ngModel)]="item.soLuong" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Tổng (xe {{i+1}})</label>
+                                <input type="text" [value]="item.tongGiaTri | number: '1.0-0'" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                             <div class="form-group">
+                                <label for="diaDiemNhanXe-{{i}}">Địa điểm nhận</label>
+                                <input type="text" id="diaDiemNhanXe-{{i}}" [(ngModel)]="item.diaDiemNhanXe" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="diaDiemTraXe-{{i}}">Địa điểm trả</label>
+                                <input type="text" id="diaDiemTraXe-{{i}}" [(ngModel)]="item.diaDiemTraXe" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="thoiGianNhanXe-{{i}}">Thời gian nhận</label>
+                                <input type="datetime-local" id="thoiGianNhanXe-{{i}}" [(ngModel)]="item.thoiGianNhanXe" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="thoiGianTraXe-{{i}}">Thời gian trả</label>
+                                <input type="datetime-local" id="thoiGianTraXe-{{i}}" [(ngModel)]="item.thoiGianTraXe" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button (click)="addVehicleItem()" class="btn-add-item">
+                        <i class="fas fa-plus"></i> Thêm xe vào đơn
+                    </button>
+                    
+                    <div *ngIf="newOrder.chiTietDonThue.length === 0" class="empty-vehicle-list">
+                        Chưa có xe nào trong đơn. Vui lòng bấm "Thêm xe".
+                    </div>
+
+                </section>
+            </div>
+            
+            <div class="detail-col-side">
+                <section class="card">
+                    <h2>Thông tin thanh toán</h2>
+                    
+                    <div class="form-group">
+                        <label>Tổng giá trị gốc</label>
+                        <input type="text" [value]="newOrder.thanhToan.tongGiaTriGoc | number: '1.0-0'" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="maGiamGia">Mã giảm giá</label>
+                            <input type="text" id="maGiamGia" [(ngModel)]="newOrder.thanhToan.maGiamGia" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="tienGiam">Tiền giảm</label>
+                            <input type="number" id="tienGiam" [(ngModel)]="newOrder.thanhToan.tienGiam" (ngModelChange)="updateCalculations()" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentStatus">Trạng thái thanh toán</label>
+                        <select id="paymentStatus" [(ngModel)]="newOrder.thanhToan.tinhTrangThanhToan" class="form-control">
+                            <option *ngFor="let p of paymentStatuses" [value]="p">{{ p }}</option>
+                        </select>
+                    </div>
+                    
+                    <hr class="divider">
+                    <div class="form-group total-price">
+                        <label>Tổng thanh toán (Sau giảm)</label>
+                        <input type="text" [value]="newOrder.thanhToan.chiPhiSauGiam | number: '1.0-0'" class="form-control" readonly>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showConfirmPopup">
+        <div class="popup-container">
+            <h2>Xác nhận</h2>
+            <p>Bạn có chắc chắn muốn tạo đơn hàng này?</p>
+            <div class="popup-actions">
+                <button (click)="onCancelSave()" class="btn-popup-cancel">Hủy</button>
+                <button (click)="onConfirmSave()" class="btn-popup-confirm">Tạo đơn</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showSuccessPopup">
+        <div class="popup-container">
+            <h2>Thành công</h2>
+            <p>Đã tạo đơn hàng {{ newOrder.maDonThue }} thành công!</p>
+            <div class="popup-actions">
+                <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Về danh sách</button>
+                <button (click)="onCloseSuccessAndReset()" class="btn-popup-confirm">Thêm đơn mới</button>
+            </div>
+        </div>
+    </div>
+</div>

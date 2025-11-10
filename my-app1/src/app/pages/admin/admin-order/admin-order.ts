@@ -186,7 +186,9 @@ export class AdminOrder implements OnInit {
   goToDetail(rental: ProcessedRental) {
     this.router.navigate(['/admin/order-detail', rental.maDonThue]);
   }
-  
+  goToAddPage() {
+    this.router.navigate(['/admin/order-add']);
+  }
   // 🔽 THÊM MỚI: Hàm được gọi khi click vào tiêu đề
   onSort(columnKey: keyof ProcessedRental) {
     if (this.sortColumn === columnKey) {

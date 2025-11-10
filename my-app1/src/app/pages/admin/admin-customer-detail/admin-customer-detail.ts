@@ -3,42 +3,24 @@ import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { forkJoin } from 'rxjs';
-
-// ... (brandMap giữ nguyên) ...
-const brandMap: Record<string, string> = {
-  B001: 'VinFast',
-  B002: 'Yadea',
-  B003: 'Dat Bike',
-  B004: 'Gogoro',
-  B005: 'DK Bike'
-};
 
 @Component({
-  selector: 'app-admin-bike-detail',
+  selector: 'app-admin-customer-detail',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './admin-bike-detail.html',
-  styleUrl: './admin-bike-detail.css'
+  templateUrl: './admin-customer-detail.html',
+  styleUrl: './admin-customer-detail.css'
 })
-export class AdminBikeDetail implements OnInit {
-  bike: any;
+export class AdminCustomerDetail implements OnInit {
+  customer: any; // Dùng 'any' để khớp với JSON
   isLoading: boolean = true;
   
-  // 🔽 THÊM MỚI: Biến kiểm soát popup
+  // Dữ liệu cho <select>
+  memberTiers = ['Vàng', 'Bạc', 'Đồng', 'Không rõ'];
+
+  // Biến kiểm soát popup
   showConfirmPopup: boolean = false;
   showSuccessPopup: boolean = false;
-  
-  // ... (brands, locations, vehicleTypes giữ nguyên) ...
-  brands = [
-    { id: 'B001', name: 'VinFast' },
-    { id: 'B002', name: 'Yadea' },
-    { id: 'B003', name: 'Dat Bike' },
-    { id: 'B004', name: 'Gogoro' },
-    { id: 'B005', name: 'DK Bike' }
-  ];
-  locations = ['TP.HCM', 'Hà Nội', 'Đà Nẵng'];
-  vehicleTypes = ['Scooter', 'Motorbike'];
 
   constructor(
     private route: ActivatedRoute,
@@ -48,24 +30,26 @@ export class AdminBikeDetail implements OnInit {
   ) { }
 
   ngOnInit() {
-    // ... (Hàm ngOnInit giữ nguyên) ...
     this.isLoading = true;
+    
     this.route.paramMap.subscribe(params => {
-        const bikeId = params.get('id');
-        if (bikeId) {
-            this.http.get<any[]>('assets/data/products.json').subscribe({
+        const customerId = params.get('id');
+
+        if (customerId) {
+            this.http.get<any[]>('assets/data/customers.json').subscribe({
                 next: (data) => {
-                    const foundBike = data.find(b => b.id === bikeId);
-                    if (foundBike) {
-                        this.bike = foundBike;
+                    const foundCustomer = data.find(c => c.maKhachHang === customerId);
+                    
+                    if (foundCustomer) {
+                        this.customer = foundCustomer;
                     } else {
-                        console.error('Không tìm thấy xe với ID:', bikeId);
+                        console.error('Không tìm thấy khách hàng với ID:', customerId);
                     }
                     this.isLoading = false; 
                     this.cdr.detectChanges();
                 },
                 error: (err) => {
-                    console.error('Lỗi khi tải products.json', err);
+                    console.error('Lỗi khi tải customers.json', err);
                     this.isLoading = false;
                     this.cdr.detectChanges();
                 }
@@ -78,43 +62,49 @@ export class AdminBikeDetail implements OnInit {
     });
   }
 
+  /**
+   * Quay lại trang trước
+   */
   goBack() {
     this.location.back();
   }
 
   /**
-   * 🔽 THAY ĐỔI: Hàm saveChanges() giờ chỉ mở popup xác nhận
+   * Mở popup xác nhận
    */
   saveChanges() {
     this.showConfirmPopup = true;
   }
 
   /**
-   * 🔽 THÊM MỚI: Hàm hủy từ popup
+   * Hủy từ popup
    */
   onCancelSave() {
     this.showConfirmPopup = false;
   }
 
   /**
-   * 🔽 THÊM MỚI: Hàm xác nhận lưu (logic cũ của saveChanges)
+   * Xác nhận lưu
    */
   onConfirmSave() {
-    this.showConfirmPopup = false; // Đóng popup xác nhận
-    this.isLoading = true; // Hiển thị loading
+    this.showConfirmPopup = false;
+    this.isLoading = true;
     this.cdr.detectChanges();
 
-    console.log('Đang lưu thay đổi cho:', this.bike);
+    console.log('Đang lưu thay đổi cho:', this.customer);
     
     // Giả lập lưu thành công
     setTimeout(() => {
       this.isLoading = false;
-      this.showSuccessPopup = true; // Mở popup thành công
+      this.showSuccessPopup = true;
       this.cdr.detectChanges(); 
     }, 1000);
   }
 
   /**
+   * Đóng popup thành công và quay lại
+   */
+/**
    * 🔽 THÊM MỚI: Hàm này chỉ đóng popup và ở lại trang
    */
   onCloseSuccessAndStay() {
@@ -122,11 +112,11 @@ export class AdminBikeDetail implements OnInit {
   }
 
   /**
-   * 🔽 THAY ĐỔI: Hàm này đổi tên (từ onCloseSuccessPopup) 
+   * 🔽 THAY ĐỔI: Đổi tên hàm (từ onCloseSuccessPopup) 
    * và sẽ được gọi bởi nút "Quay về"
    */
   onCloseSuccessAndGoBack() {
     this.showSuccessPopup = false;
-    this.goBack(); // Quay lại trang admin-bike
+    this.goBack(); // Quay lại trang admin-customer
   }
 }

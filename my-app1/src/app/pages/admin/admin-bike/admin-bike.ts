@@ -136,7 +136,9 @@ export class AdminBike implements OnInit {
     }
     this.applySort();
   }
-
+  goToAddPage() {
+    this.router.navigate(['/admin/bike-add']);
+  }
   // 🔽 THÊM MỚI: Hàm thực hiện sắp xếp
   applySort() {
     if (this.sortColumn) {

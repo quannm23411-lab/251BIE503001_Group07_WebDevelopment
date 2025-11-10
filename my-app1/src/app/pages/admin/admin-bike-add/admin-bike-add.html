@@ -1,28 +1,22 @@
 <div class="main">
     <div *ngIf="isLoading" class="table-state-cell">
-        Đang tải thông tin xe...
+        Đang lưu xe mới...
     </div>
 
-    <div *ngIf="!isLoading && !bike" class="table-state-cell">
-        Không tìm thấy thông tin xe.
-        <br><br>
-        <button (click)="goBack()" class="btn-back">Quay lại</button>
-    </div>
-
-    <div *ngIf="!isLoading && bike">
+    <div *ngIf="!isLoading">
         <header class="main__header">
             <div class="header-left">
                 <button (click)="goBack()" class="btn-back">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="header-title">
-                    <h1>{{ bike.vehicleName }}</h1>
-                    <span>ID: {{ bike.id }}</span>
+                    <h1>Thêm xe mới</h1>
+                    <span>Điền thông tin xe chi tiết bên dưới</span>
                 </div>
             </div>
             <div class="actions">
                 <button (click)="saveChanges()" class="btn-save">
-                    <i class="fas fa-save"></i> Lưu thay đổi
+                    <i class="fas fa-save"></i> Lưu xe
                 </button>
             </div>
         </header>
@@ -32,32 +26,42 @@
             <div class="detail-col-main">
                 <section class="card">
                     <h2>Thông tin cơ bản</h2>
-                    <div class="form-group">
-                        <label for="vehicleName">Tên xe</label>
-                        <input type="text" id="vehicleName" [(ngModel)]="bike.vehicleName" class="form-control">
+
+                    <div class="form-grid-2">
+                         <div class="form-group">
+                            <label for="id">Mã xe (ID)</label>
+                            <input type="text" id="id" 
+                                [value]="newBike.id" 
+                                class="form-control" 
+                                [readonly]="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleName">Tên xe</label>
+                            <input type="text" id="vehicleName" [(ngModel)]="newBike.vehicleName" class="form-control">
+                        </div>
                     </div>
                     
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="brand">Hãng xe</label>
-                            <select id="brand" [(ngModel)]="bike.brandId" class="form-control">
+                            <select id="brand" [(ngModel)]="newBike.brandId" class="form-control">
                                 <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="model">Model</label>
-                            <input type="text" id="model" [(ngModel)]="bike.model" class="form-control">
+                            <input type="text" id="model" [(ngModel)]="newBike.model" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="licensePlate">Biển số xe</label>
-                            <input type="text" id="licensePlate" [(ngModel)]="bike.licensePlate" class="form-control">
+                            <input type="text" id="licensePlate" [(ngModel)]="newBike.licensePlate" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="vehicleType">Loại xe</label>
-                            <select id="vehicleType" [(ngModel)]="bike.vehicleType" class="form-control">
+                            <select id="vehicleType" [(ngModel)]="newBike.vehicleType" class="form-control">
                                 <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
                             </select>
                         </div>
@@ -65,11 +69,14 @@
                 </section>
 
                 <section class="card">
-                    <h2>Hình ảnh</h2>
-                    <img [src]="bike.image" alt="{{ bike.vehicleName }}" class="detail-image">
+                    <h2>Hình ảnh & Mô tả</h2>
                     <div class="form-group">
                         <label for="imageUrl">Đường dẫn ảnh</label>
-                        <input type="text" id="imageUrl" [(ngModel)]="bike.image" class="form-control">
+                        <input type="text" id="imageUrl" [(ngModel)]="newBike.image" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Mô tả</label>
+                        <textarea id="description" [(ngModel)]="newBike.description" class="form-control" rows="6"></textarea>
                     </div>
                 </section>
             </div>
@@ -79,14 +86,14 @@
                     <h2>Trạng thái & Vị trí</h2>
                     <div class="form-group">
                         <label for="status">Trạng thái</label>
-                        <select id="status" [(ngModel)]="bike.availabilityStatus" class="form-control">
+                        <select id="status" [(ngModel)]="newBike.availabilityStatus" class="form-control">
                             <option [ngValue]="true">Sẵn sàng</option>
                             <option [ngValue]="false">Đang cho thuê</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="location">Khu vực</label>
-                        <select id="location" [(ngModel)]="bike.location" class="form-control">
+                        <select id="location" [(ngModel)]="newBike.location" class="form-control">
                              <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
                         </select>
                     </div>
@@ -97,35 +104,36 @@
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="pricePerDay">Giá / ngày (VND)</label>
-                            <input type="number" id="pricePerDay" [(ngModel)]="bike.pricePerDay" class="form-control">
+                            <input type="number" id="pricePerDay" [(ngModel)]="newBike.pricePerDay" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="pricePerHour">Giá / giờ (VND)</label>
-                            <input type="number" id="pricePerHour" [(ngModel)]="bike.pricePerHour" class="form-control">
+                            <input type="number" id="pricePerHour" [(ngModel)]="newBike.pricePerHour" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="discount">Giảm giá (%)</label>
-                        <input type="number" id="discount" [(ngModel)]="bike.discount" class="form-control">
+                        <input type="number" id="discount" [(ngModel)]="newBike.discount" class="form-control">
                     </div>
 
                     <div class="form-grid-2">
                         <div class="form-group">
-                            <label for="battery">Dung lượng pin (kWh)</label>
-                            <input type="text" id="battery" [(ngModel)]="bike.batteryCapacity" class="form-control">
+                            <label for="battery">Dung lượng pin</label>
+                            <input type="text" id="battery" [(ngModel)]="newBike.batteryCapacity" class="form-control" placeholder="Ví dụ: 3.5 kWh">
                         </div>
                         <div class="form-group">
                             <label for="range">Quãng đường (KM)</label>
-                            <input type="number" id="range" [(ngModel)]="bike.rangePerCharge" class="form-control">
+                            <input type="number" id="range" [(ngModel)]="newBike.rangePerCharge" class="form-control" placeholder="Ví dụ: 200">
                         </div>
                     </div>
                 </section>
 
                 <section class="card">
-                    <h2>Mô tả</h2>
+                    <h2>Tags</h2>
                     <div class="form-group">
-                        <textarea id="description" [(ngModel)]="bike.description" class="form-control" rows="6"></textarea>
+                        <label for="tags">Tags (cách nhau bằng dấu phẩy)</label>
+                        <input type="text" id="tags" [(ngModel)]="newBike.tags" class="form-control" placeholder="eco, popular, city">
                     </div>
                 </section>
             </div>
@@ -133,13 +141,13 @@
         </div>
     </div>
 
-<div class="popup-overlay" *ngIf="showConfirmPopup">
+    <div class="popup-overlay" *ngIf="showConfirmPopup">
         <div class="popup-container">
             <h2>Xác nhận</h2>
-            <p>Bạn có chắc chắn muốn lưu các thay đổi này?</p>
+            <p>Bạn có chắc chắn muốn tạo xe mới này?</p>
             <div class="popup-actions">
                 <button (click)="onCancelSave()" class="btn-popup-cancel">Hủy</button>
-                <button (click)="onConfirmSave()" class="btn-popup-confirm">Lưu</button>
+                <button (click)="onConfirmSave()" class="btn-popup-confirm">Tạo</button>
             </div>
         </div>
     </div>
@@ -147,13 +155,12 @@
     <div class="popup-overlay" *ngIf="showSuccessPopup">
         <div class="popup-container">
             <h2>Thành công</h2>
-            <p>Đã lưu thay đổi thành công!</p>
+            <p>Đã tạo xe mới thành công!</p>
             <div class="popup-actions">
-                <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Quay về</button>
-                <button (click)="onCloseSuccessAndStay()" class="btn-popup-confirm">OK</button>
+                <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Về danh sách</button>
+                <button (click)="onCloseSuccessAndReset()" class="btn-popup-confirm">Thêm xe mới</button>
             </div>
         </div>
     </div>
-
 
 </div>

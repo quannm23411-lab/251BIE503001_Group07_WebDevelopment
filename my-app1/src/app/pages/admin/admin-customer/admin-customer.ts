@@ -172,4 +172,7 @@ applySort() {
     // Sắp xếp lại danh sách đã lọc
     this.applySort();
   }
+  goToAddPage() {
+    this.router.navigate(['/admin/customer-add']);
+  }
 }
