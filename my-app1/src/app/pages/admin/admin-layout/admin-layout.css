@@ -6,23 +6,28 @@ body, html {
 }
 
 .admin {
-    display: flex;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+  display: flex;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* SIDEBAR (Bản Desktop) */
 .sidebar {
-    width: 240px;
-    background-color: #567C02;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    overflow-y: auto;
+  width: 240px;
+  /* fallback */
+  background-color: #596F00;
+  /* gradient: dark(top) -> light(bottom) */
+  background-image: linear-gradient(180deg, #596F00 0%, #8AB62D 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  /* tùy chọn: đường phân cách với nội dung */
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.08);
 }
 
 .sidebar-menu-container {
@@ -109,7 +114,7 @@ body, html {
         width: 100%;
         height: 60px; /* Chiều cao cố định cho header */
         padding: 0 15px;
-        background-color: #567C02; 
+        background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
         box-sizing: border-box; 
     }
 

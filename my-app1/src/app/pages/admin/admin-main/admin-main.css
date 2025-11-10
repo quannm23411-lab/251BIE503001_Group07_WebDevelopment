@@ -1,7 +1,7 @@
 /* ===== ADMIN DASHBOARD ===== */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #f8f9fa;
     color: #333;
 }
@@ -62,13 +62,20 @@ body {
 }
 
 .main__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Tiêu đề: viết hoa + đậm + nền gradient ngang */
 .main__header h1 {
-    color: #567C02;
+  text-transform: uppercase;                 /* viết hoa */
+  font-weight: 800;                           /* in đậm */
+  letter-spacing: .12em;                      /* (tuỳ) dãn chữ nhẹ */
+  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;                         /* hiển thị gradient trong chữ */
 }
 
 .btn-export {
