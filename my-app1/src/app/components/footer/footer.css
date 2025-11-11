@@ -1,7 +1,3 @@
-
-/* ===============================
-   FOOTER - ECO MOVE
-================================*/
 .footer {
     background-color: #000;
     color: #fff;
@@ -21,30 +17,28 @@
     margin-bottom: 6px;
 }
 
-/* === LOGO & THÔNG TIN CÔNG TY === */
+/* LOGO */
 .footer__logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
 }
 
 .footer__logo-img {
-    width: 52px;
+    width: 50px;
     height: auto;
 }
 
 .footer__cert {
     width: 125px;
     height: auto;
-    margin-top: 10px;
 }
 
-/* === LINK & TEXT === */
+/* LINK */
 .footer__link {
     color: #ccc;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.25s;
 }
 
 .footer__link:hover {
@@ -52,11 +46,10 @@
     text-decoration: underline;
 }
 
-/* === FORM ĐĂNG KÝ EMAIL === */
+/* FORM */
 .footer form {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .footer form input {
@@ -66,6 +59,8 @@
     border-radius: 4px;
     font-size: 0.9rem;
     margin-right: 8px;
+    background: #111;
+    color: #fff;
 }
 
 .footer form button {
@@ -83,7 +78,11 @@
     background-color: #5b9021;
 }
 
-/* === MẠNG XÃ HỘI === */
+.subscribe__msg {
+    min-height: 1em;
+}
+
+/* SOCIAL */
 .footer__social {
     display: flex;
     align-items: center;
@@ -100,52 +99,24 @@
     color: #6aa127;
 }
 
-/* === LIÊN HỆ === */
-.footer ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.footer ul li {
-    margin-bottom: 6px;
-}
-
-.footer ul li i {
-    color: #6aa127;
-    margin-right: 6px;
-}
-
-/* === COPYRIGHT === */
-.footer__bottom {
-    text-align: center;
-    margin-top: 30px;
-    border-top: 1px solid #333;
-    padding-top: 15px;
-    font-size: 0.9rem;
-    color: #aaa;
-}
-
-/* ===============================
-   RESPONSIVE
-================================*/
+/* RESPONSIVE FIXES */
 @media (max-width: 992px) {
     .footer {
         text-align: center;
     }
 
-    .footer .row {
-        gap: 30px;
+    .footer__col {
+        margin-bottom: 24px;
     }
 
     .footer form {
         flex-direction: column;
-        gap: 10px;
     }
 
     .footer form input {
         width: 100%;
         margin-right: 0;
+        margin-bottom: 10px;
     }
 
     .footer__social {
@@ -155,11 +126,28 @@
 }
 
 @media (max-width: 576px) {
+    .footer {
+        padding: 40px 0 30px;
+        text-align: left;
+    }
+
     .footer__logo h3 {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
+    }
+
+    .footer__cert {
+        width: 110px;
+    }
+
+    .footer h5 {
+        font-size: 1rem;
     }
 
     .footer form button {
         width: 100%;
+    }
+
+    .footer__col {
+        margin-bottom: 30px;
     }
 }
