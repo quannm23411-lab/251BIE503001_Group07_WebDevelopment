@@ -20,8 +20,25 @@ body {
 
 .left-panel {
   width: 50%;
-  background: #d75656;
+  /* ============================================= */
+  /* ĐÃ THAY ĐỔI: Thay màu đỏ bằng ảnh nền */
+  background: url('../../../assets/images/products/datbike-weaver200.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  /* ============================================= */
 }
+
+/* THÊM MỚI: Lớp phủ mờ cho ảnh nền */
+.left-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+}
+
 
 .right-panel {
   width: 50%;
@@ -30,14 +47,12 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem 4rem;
-  /* MỚI: Thêm padding dọc để không bị dính sát mép */
 }
 
 .header {
   width: 100%;
   max-width: 497px;
   margin-bottom: 1.5rem;
-  /* CŨ: 3rem */
   text-align: center;
   opacity: 0;
   transform: translateY(-10px);
@@ -68,7 +83,6 @@ body {
 
 .form-title {
   margin-bottom: 1.5rem;
-  /* CŨ: 2rem */
   background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -80,7 +94,6 @@ body {
 
 .form-group {
   margin-bottom: 1rem;
-  /* CŨ: 1.5rem */
   opacity: 0;
   transform: translateY(-10px);
 }
@@ -103,7 +116,6 @@ body {
 .form-input {
   width: 100%;
   height: 52px;
-  /* CŨ: 65px */
   padding: 0 1rem;
   background: white;
   border: 1px solid #999898;
@@ -154,7 +166,6 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.25rem;
-  /* CŨ: 1.5rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 800ms ease forwards;
@@ -196,7 +207,6 @@ body {
 .submit-btn {
   width: 100%;
   height: 52px;
-  /* CŨ: 66px */
   background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   border: none;
   border-radius: 10px;
@@ -205,15 +215,46 @@ body {
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 0.75rem;
-  /* CŨ: 1rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1000ms ease forwards;
   transition: opacity 0.3s;
+  
+  /* ============================================= */
+  /* ĐÃ THÊM: Căn giữa nội dung (cho spinner) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  /* ============================================= */
 }
 
 .submit-btn:hover {
   opacity: 0.9;
+}
+
+/* THÊM MỚI: Trạng thái disabled cho nút */
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* THÊM MỚI: Wrapper cho spinner */
+.loading-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* THÊM MỚI: Spinner animation */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Vòng mờ */
+  border-top-color: #ffffff; /* Vòng đậm */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 .divider {
@@ -221,9 +262,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.5rem 0;
-  /* CŨ: 1rem 0 */
   margin-bottom: 0.75rem;
-  /* CŨ: 1rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1200ms ease forwards;
@@ -244,7 +283,6 @@ body {
 .google-btn {
   width: 100%;
   height: 52px;
-  /* CŨ: 66px */
   background: white;
   border: none;
   border-radius: 5px;
@@ -258,11 +296,9 @@ body {
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
-  /* CŨ: 2rem */
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s 1400ms ease forwards;
-  /* transition: background 0.3s; */
 }
 
 .google-btn::before {
@@ -322,6 +358,14 @@ body {
   }
 }
 
+/* THÊM MỚI: Keyframes cho spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -330,6 +374,15 @@ body {
   .left-panel {
     width: 100%;
     height: 100px;
+    /* ============================================= */
+    /* ĐÃ THAY ĐỔI: Dùng gradient cho mobile */
+    background-image: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+    /* ============================================= */
+  }
+  
+  /* THÊM MỚI: Ẩn lớp phủ ảnh trên mobile */
+  .left-panel::before {
+    display: none;
   }
 
   .right-panel {
@@ -363,6 +416,21 @@ body {
   color: #ff3860;
   margin-top: 0.25rem;
   min-height: 1.2em;
+}
+
+/* THÊM MỚI: Style cho lỗi server */
+.server-error-message {
+  background-color: #fff5f5; /* Nền đỏ nhạt */
+  border: 1px solid #ff3860;  /* Viền đỏ */
+  color: #ff3860;           /* Chữ đỏ */
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;     /* Khoảng cách với form */
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  /* Dùng lại animation fadeIn có sẵn */
+  animation: fadeIn 0.5s ease forwards;
 }
 
 /* Class đa dụng để ẩn/hiện */
@@ -427,10 +495,34 @@ body {
   font-size: 16px;
   margin-bottom: 0;
   /* Bỏ margin-bottom */
+  
+  /* Đảm bảo animation không ảnh hưởng */
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
-/* --- THÊM VÀO CUỐI TỆP CSS --- */
 
+/* --- THÊM VÀO CUỐI TỆP CSS --- */
+/* ============================================= */
+/* THÊM MỚI: Style cho nút đóng modal tính năng */
+/* ============================================= */
+#feature-modal-close-btn {
+  width: auto;
+  padding: 0.5rem 1.5rem;
+  height: auto;
+  font-size: 16px;
+  margin-bottom: 0;
+  opacity: 1;
+  transform: none;
+  animation: none;
+  
+  /* Đổi màu nền cho nút thông báo */
+  background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+}
+#feature-modal-close-btn:hover {
+  opacity: 0.9;
+}
 /* Ẩn con mắt mặc định của trình duyệt (Chrome, Edge, Safari) */
 input[type="password"]::-webkit-reveal,
 input[type="password"]::-webkit-clear-button {

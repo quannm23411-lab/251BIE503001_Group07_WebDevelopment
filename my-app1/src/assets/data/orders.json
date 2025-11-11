@@ -121,7 +121,7 @@
   {
     "maDonThue": "RENT004",
     "maKhachHang": "KH003",
-    "thoiGianDatHang": "2025-12-25T09:15:00Z",
+    "thoiGianDatHang": "2025-10-25T09:15:00Z",
     "tienDatCoc": 300000,
     "trangThaiCoc": "Đã thanh toán",
     "thanhToan": {
@@ -140,8 +140,8 @@
         "donGia": 350000,
         "soNgayThue": 3,
         "tongGiaTri": 1050000,
-        "thoiGianNhanXe": "2026-01-01T10:00:00Z",
-        "thoiGianTraXe": "2026-01-04T10:00:00Z",
+        "thoiGianNhanXe": "2025-10-26T10:00:00Z",
+        "thoiGianTraXe": "2025-10-29T10:00:00Z",
         "diaDiemNhanXe": "789 Đường Hai Bà Trưng, TP. Hà Nội",
         "diaDiemTraXe": "Sân bay Nội Bài, TP. Hà Nội",
         "thoiGianTraXeThucTe": null,

@@ -1,23 +1,22 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core'; // 👈 THÊM ViewChild
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms'; // 👈 THÊM NgForm
 
 @Component({
   selector: 'app-admin-customer-add',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-customer-add.html',
-  styleUrl: './admin-customer-add.css' // Dùng chung style với trang detail
+  styleUrl: './admin-customer-add.css'
 })
 export class AdminCustomerAdd implements OnInit {
-  newCustomer: any; // Dùng 'any' để khớp với JSON
-  isLoading: boolean = false; // Bắt đầu không load
-  
-  // Dữ liệu cho <select>
-  memberTiers = ['Đồng', 'Bạc', 'Vàng']; // Mặc định
+  // 🔽 THÊM DÒNG NÀY: Tham chiếu đến <form #customerForm="ngForm">
+  @ViewChild('customerForm') customerForm!: NgForm;
 
-  // Biến kiểm soát popup
+  newCustomer: any; 
+  isLoading: boolean = false; 
+  memberTiers = ['Đồng', 'Bạc', 'Vàng']; 
   showConfirmPopup: boolean = false;
   showSuccessPopup: boolean = false;
 
@@ -26,19 +25,14 @@ export class AdminCustomerAdd implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {
-    // Khởi tạo đối tượng khách hàng mới ngay lập tức
     this.initializeNewCustomer();
   }
 
   ngOnInit() {
-    // Không cần tải dữ liệu gì, chỉ cần hiển thị form
   }
 
-  /**
-   * Khởi tạo/Reset form
-   */
   initializeNewCustomer() {
-    const newId = `KH${Math.floor(1000 + Math.random() * 9000)}`; // Tạo ID ngẫu nhiên
+    const newId = `KH${Math.floor(1000 + Math.random() * 9000)}`; 
     this.newCustomer = {
       maKhachHang: newId,
       hoTen: '',
@@ -56,45 +50,43 @@ export class AdminCustomerAdd implements OnInit {
         hangBangLai: '',
         ngayHetHan: ''
       },
-      ngayDangKy: new Date().toISOString(), // Đặt ngày đăng ký là hôm nay
-      hangThanhVien: 'Đồng' // Mặc định
+      ngayDangKy: new Date().toISOString(), 
+      hangThanhVien: 'Đồng' 
     };
   }
 
-  /**
-   * Quay lại trang trước
-   */
   goBack() {
     this.location.back();
   }
 
   /**
-   * Mở popup xác nhận
+   * 🔽 THAY ĐỔI HÀM NÀY 🔽
    */
   saveChanges() {
-    // TODO: Thêm kiểm tra form (validation) ở đây
+    // 1. Đánh dấu tất cả là "touched"
+    this.customerForm.form.markAllAsTouched();
+
+    // 2. Kiểm tra validation
+    if (this.customerForm.invalid) {
+      console.warn('Form không hợp lệ. Vui lòng kiểm tra lại.');
+      return; // Dừng lại nếu form lỗi
+    }
+
+    // 3. Nếu hợp lệ, tiếp tục
     console.log('Khách hàng mới:', this.newCustomer);
     this.showConfirmPopup = true;
   }
 
-  /**
-   * Hủy từ popup
-   */
   onCancelSave() {
     this.showConfirmPopup = false;
   }
 
-  /**
-   * Xác nhận lưu
-   */
   onConfirmSave() {
     this.showConfirmPopup = false;
     this.isLoading = true;
     this.cdr.detectChanges();
-
     console.log('Đang lưu khách hàng mới...', this.newCustomer);
     
-    // Giả lập lưu thành công
     setTimeout(() => {
       this.isLoading = false;
       this.showSuccessPopup = true;
@@ -102,19 +94,14 @@ export class AdminCustomerAdd implements OnInit {
     }, 1000);
   }
 
-  /**
-   * Đóng popup thành công và ở lại (reset form)
-   */
   onCloseSuccessAndReset() {
     this.showSuccessPopup = false;
-    this.initializeNewCustomer(); // Reset form để thêm người mới
+    this.initializeNewCustomer(); 
+    this.customerForm.resetForm(this.newCustomer); // Reset trạng thái validation
   }
 
-  /**
-   * Đóng popup thành công và quay về danh sách
-   */
   onCloseSuccessAndGoBack() {
     this.showSuccessPopup = false;
-    this.router.navigate(['/admin/customer']); // Quay về danh sách
+    this.router.navigate(['/admin/customer']); 
   }
 }

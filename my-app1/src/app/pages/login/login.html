@@ -10,6 +10,9 @@
     <div class="form-container">
       <h1 class="form-title">ĐĂNG NHẬP</h1>
 
+      <div *ngIf="error()" class="server-error-message">
+        {{ error() }}
+      </div>
       <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         
         <div class="form-group">
@@ -64,8 +67,15 @@
           </a>
         </div>
 
-        <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Đăng nhập</button>
-
+        <button type="submit" class="submit-btn" [disabled]="loginForm.invalid || isLoading()">
+          <span *ngIf="isLoading()" class="loading-wrapper">
+            <span class="spinner"></span>
+            Đang xử lý...
+          </span>
+          <span *ngIf="!isLoading()">
+            Đăng nhập
+          </span>
+        </button>
         <div class="divider">
           <div class="divider-line"></div>
           <span class="divider-text">Hoặc</span>
@@ -84,7 +94,7 @@
 
       <footer class="footer">
         <p>
-          <span class="footer-text">Bạn chưa có tài khoản?</span>
+          <span class="footer-text">Bạn chưa có tài khoản? </span>
           <a routerLink="/register" class="footer-link">Đăng ký ngay</a>
         </p>
       </footer>
@@ -100,5 +110,17 @@
     <h2>Đăng nhập thành công!</h2>
     <p>Chào mừng bạn trở lại! Bạn sẽ được chuyển đến trang chủ.</p>
     <button id="modal-close-btn" class="submit-btn" (click)="closeModalAndNavigate()">Đóng</button>
+  </div>
+</div>
+<div id="feature-modal" class="modal-overlay" 
+    *ngIf="isFeatureModalVisible()" 
+    (click)="closeFeatureModal()">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2>
+    <p>{{ featureModalBody() }}</p>
+    <button id="feature-modal-close-btn" class="submit-btn" (click)="closeFeatureModal()">
+      Đã hiểu
+    </button>
   </div>
 </div>

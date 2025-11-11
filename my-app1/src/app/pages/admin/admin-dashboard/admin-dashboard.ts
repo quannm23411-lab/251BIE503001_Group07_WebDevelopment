@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-admin-main',
+  selector: 'app-admin-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './admin-main.html',
-  styleUrl: './admin-main.css'
+  templateUrl: './admin-dashboard.html',
+  styleUrl: './admin-dashboard.css'
 })
-export class AdminMain implements OnInit {
+export class AdminDashboard implements OnInit {
   isLoading: boolean = true;
   
   // 1. Thẻ thống kê
