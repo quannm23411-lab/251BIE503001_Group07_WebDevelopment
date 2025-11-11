@@ -50,7 +50,7 @@ export const routes: Routes = [
       { path: '', loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage) },
 
       // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
-      // { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.Rent) },
+      { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.RentPage) },
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
       // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
