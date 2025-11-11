@@ -3,7 +3,6 @@ import { CommonModule, NgIf, NgFor, NgClass } from '@angular/common';
 
 // đúng với tên file m đang dùng (số nhiều)
 import { HotProductService, Product } from '../../services/hot-products.services';
-import { TrendingService } from '../../services/trending.services';
 
 // UI components (standalone)
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
@@ -72,8 +71,7 @@ export class Homepage implements OnInit, OnDestroy {
 
   constructor(
     private hot: HotProductService,
-    private cdr: ChangeDetectorRef,
-    private trending: TrendingService
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -94,10 +92,9 @@ export class Homepage implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     });
 
-    // 2) Hero / top rent (4) + feed trending
+    // 2) Hero / top rent (4)
     this.hot.getTopRent(4).subscribe(list => {
       this.topRentList = list;
-      this.trending.setTrending(list.map(p => ({ id: p.id, label: p.vehicleName, img: p.image })));
       this.cdr.detectChanges();
     });
 
