@@ -1,3 +1,7 @@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 <div class="admin">
     <aside class="sidebar">
         
@@ -14,14 +18,15 @@
             </div>
 
             <ul class="sidebar-menu">
-                <li routerLink="/admin/main" routerLinkActive="active" (click)="toggleMobileMenu()">Dashboard</li>
-                <li routerLink="/admin/bike" routerLinkActive="active" (click)="toggleMobileMenu()">Quản lý xe</li>
-                <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()">Đơn thuê xe</li>
-                <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()">Khách hàng</li>
-                <li >Marketing & Popup</li>
-                <li>Giao diện website</li>
-                <li>Tài khoản Admin</li>
-                <li>Hệ thống & Nhật ký</li>
+                <li routerLink="/admin/main" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-th-large" style="margin-right:10px;"></span>Dashboard</li>
+                <li routerLink="/admin/bike" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-briefcase" style="margin-right:10px;"></span>Quản lý xe</li>
+                <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-bookmark" style="margin-right:10px;"></span>Đơn thuê xe</li>
+                <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-globe" style="margin-right:10px;"></span>Khách hàng</li>
+                <li ><span class="glyphicon glyphicon-bullhorn" style="margin-right:10px;"></span>Marketing & Popup</li>
+                <li><span class="glyphicon glyphicon-edit" style="margin-right:10px;"></span>Giao diện website</li>
+                <li><span class="glyphicon glyphicon-user" style="margin-right:10px;"></span>Tài khoản Admin</li>
+                <li><span class="glyphicon glyphicon-cog" style="margin-right:10px;"></span>Hệ thống & Nhật ký</li>
+                <li><span class="glyphicon glyphicon-menu-left" style="margin-right:10px;"></span>Đăng xuất</li>
             </ul>
         </div>
     </aside>
@@ -32,6 +37,9 @@
     </div>
 
     <main class="main">
-        <router-outlet></router-outlet>
-    </main>
+  <div class="content-surface">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
 </div>
