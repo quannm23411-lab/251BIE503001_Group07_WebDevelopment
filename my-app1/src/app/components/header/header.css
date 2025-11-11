@@ -15,7 +15,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(180deg, #6dbb2c, #4b8b18);
+    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
     color: #fff;
     z-index: 1000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -24,7 +24,7 @@ body {
 
 /* ===== Ads ===== */
 .header__ads {
-    background: #619e21;
+    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
     text-align: center;
     font-size: 0.9rem;
     padding: 5px 0;
@@ -53,15 +53,9 @@ body {
 }
 
 .header__logo img {
-    width: 48px;
+    width: 100%;
     height: 48px;
     transition: width 0.3s ease, height 0.3s ease;
-}
-
-.header__logo-text {
-    font-size: 1.6rem;
-    font-weight: 700;
-    transition: opacity 0.3s ease;
 }
 
 /* ===== Controls (location + search) ===== */
@@ -264,7 +258,7 @@ body {
 
 /* ===== Nav ===== */
 .nav {
-    background-color: #5b9021;
+    background-color: #3b8661;
     display: flex;
     justify-content: center;
 }
@@ -289,7 +283,7 @@ body {
 
 .nav__link:hover,
 .nav__link--active {
-    color: #ffeb3b;
+    color: #00FFA1;
 }
 
 /* ===== Shrink Mode ===== */
@@ -299,7 +293,7 @@ body {
 }
 
 .header.shrink .header__middle {
-    background: rgba(91, 144, 33, 0.96);
+    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
     backdrop-filter: blur(4px);
     padding: 8px 5%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

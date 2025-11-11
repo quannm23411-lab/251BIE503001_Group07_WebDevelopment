@@ -26,12 +26,17 @@ body {
 /* --- Section title --- */
 .section-title {
   text-align: center;
-  color: #5e8c1a;
   font-size: 1.9rem;
   font-weight: 700;
   letter-spacing: 0.3px;
   margin-bottom: 6px;
+
+  /* gradient màu chữ */
+  background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 
 .section-subtitle {
   text-align: center;
@@ -50,30 +55,55 @@ body {
 }
 
 .product-card {
-  background-color: #f8f8f8;
+  position: relative;
+  background: #fff;
   border-radius: 10px;
   text-align: center;
-  padding: 14px;
+  overflow: hidden;
   border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* --- Hình xe --- */
 .product-card__img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 8px;
+  object-fit: contain;
+  background: #fff;
+  padding: 16px 10px 0;
+}
+
+/* --- Dải nền xanh dưới hình --- */
+.product-card__features {
+  background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-top-right-radius: 20px; /* góc bo lệch giống hình */
+}
+
+.product-card__features span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* --- Phần thông tin tên & giá --- */
+.product-card__body {
+  padding: 14px 12px 16px;
 }
 
 .product-card__name {
-  margin: 10px 0 5px;
-  font-weight: 600;
+  margin: 8px 0 4px;
+  font-weight: 700;
   font-size: 1rem;
   color: #222;
 }
@@ -83,16 +113,21 @@ body {
   color: #444;
 }
 
+.product-card__price small {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 4px;
+}
+
 .product-card__price span {
   color: #d32f2f;
   font-weight: 700;
   font-size: 1rem;
 }
 
-.product-card small {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.85rem;
+/* --- Hiệu ứng nhỏ khi hover --- */
+.product-card:hover .product-card__features {
+  filter: brightness(1.1);
 }
 
 /* ===============================
