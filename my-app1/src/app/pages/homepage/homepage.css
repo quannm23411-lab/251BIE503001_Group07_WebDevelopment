@@ -1,122 +1,117 @@
-/* ===============================
-   RESET & BASE
-================================*/
+/* =========================================
+   GLOBAL RESET & TOKENS
+========================================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --brand: #2f7d5c;
+  --brand-2: #42b883;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #ffffff;
+  --star: #f59e0b;
+  --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+
 body {
   font-family: "Inter", "Arial", sans-serif;
-  color: #333;
-  background-color: #f9f9f9;
+  color: var(--ink);
+  background-color: #f7f7f8;
   line-height: 1.6;
 }
 
-/* ===============================
-   MAIN CONTENT
-================================*/
+/* =========================================
+   LAYOUT WRAPPER
+========================================= */
 .main-content {
-  background-color: #fff;
-  padding: 40px 5%;
+  background: var(--card);
   margin-top: 10px;
+  padding: 40px 0;
 }
 
-/* --- Section title --- */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  width: 100%;
+}
+
+/* =========================================
+   SECTION TITLES
+========================================= */
 .section-title {
   text-align: center;
-  font-size: 1.9rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-bottom: 6px;
-
-  /* gradient màu chữ */
-  background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--brand);
+  margin: var(--space-xl) 0 var(--space-sm);
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
 }
-
 
 .section-subtitle {
   text-align: center;
-  color: #666;
-  margin-bottom: 30px;
-  font-size: 0.95rem;
+  color: var(--muted);
+  font-size: 14.5px;
+  margin-bottom: var(--space-lg);
 }
 
-/* ===============================
+/* =========================================
    PRODUCT GRID & CARD
-================================*/
+========================================= */
 .product-grid {
   display: grid;
   gap: 22px;
   grid-template-columns: repeat(4, 1fr);
+  margin-inline: auto;
 }
 
 .product-card {
   position: relative;
-  background: #fff;
-  border-radius: 10px;
+  background: var(--card);
+  border-radius: var(--radius);
   text-align: center;
   overflow: hidden;
-  border: 1px solid #eee;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* --- Hình xe --- */
 .product-card__img {
   width: 100%;
   object-fit: contain;
-  background: #fff;
+  background: var(--card);
   padding: 16px 10px 0;
-}
-
-/* --- Dải nền xanh dưới hình --- */
-.product-card__features {
-  background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
-  color: #fff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 8px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-top-right-radius: 20px; /* góc bo lệch giống hình */
-}
-
-.product-card__features span {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-/* --- Phần thông tin tên & giá --- */
-.product-card__body {
-  padding: 14px 12px 16px;
 }
 
 .product-card__name {
   margin: 8px 0 4px;
   font-weight: 700;
   font-size: 1rem;
-  color: #222;
+  color: var(--ink);
 }
 
 .product-card__price {
   font-size: 0.9rem;
-  color: #444;
-}
-
-.product-card__price small {
-  text-decoration: line-through;
-  color: #999;
-  margin-right: 4px;
+  color: var(--muted);
 }
 
 .product-card__price span {
@@ -125,88 +120,268 @@ body {
   font-size: 1rem;
 }
 
-/* --- Hiệu ứng nhỏ khi hover --- */
-.product-card:hover .product-card__features {
-  filter: brightness(1.1);
-}
-
-/* ===============================
-   PROMO BANNER
-================================*/
+/* =========================================
+   PROMO BANNER (component padding wrapper)
+========================================= */
 .promo-banner {
+  border-radius: var(--radius);
+  margin: var(--space-xl) 0;
+}
+
+/* =========================================
+   BENEFITS SECTION
+========================================= */
+.benefits {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.benefit-card {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #5e8c1a, #7bbf32);
-  color: #fff;
-  padding: 35px 45px;
-  border-radius: 12px;
-  margin: 50px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.promo-banner__content {
-  flex: 1;
-}
-
-.promo-banner__content h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.promo-banner .highlight {
-  color: #ffe91f;
-  font-weight: 700;
-}
-
-.countdown {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-.time-box {
-  background-color: #fff;
-  color: #5e8c1a;
+.benefit-card i {
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
-  padding: 8px 14px;
-  text-align: center;
+  flex: 0 0 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #cde8da;
+  color: var(--brand);
+  background: #effaf4;
+  font-size: 16px;
+}
+
+.benefit-title {
   font-weight: 700;
-  min-width: 75px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  color: var(--ink);
 }
 
-.time-box span {
-  display: block;
-  font-size: 1.2rem;
+.benefit-desc {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-top: 2px;
 }
 
-.time-box small {
-  display: block;
-  color: #777;
-  font-size: 0.8rem;
+/* =========================================
+   3 STEPS SECTION
+========================================= */
+.steps {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--space-md);
 }
 
-/* --- Image right side --- */
-.promo-banner__img-wrapper {
-  flex-shrink: 0;
-  text-align: right;
+.step {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
 }
 
-.promo-banner__img {
-  width: 130px;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+.step .no {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  margin-right: var(--space-sm);
 }
 
-/* ===============================
-   RESPONSIVE
-================================*/
+.step .title {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.step .desc {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-top: 6px;
+}
+
+/* =========================================
+   TESTIMONIALS SECTION
+========================================= */
+.testimonials {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.testi {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.testi .head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 6px;
+}
+
+.testi .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eef5f1;
+  display: grid;
+  place-items: center;
+  color: var(--brand);
+  font-weight: 800;
+  border: 1px solid #cde8da;
+}
+
+.testi .stars {
+  color: var(--star);
+  font-size: 14px;
+}
+
+.testi .quote {
+  color: var(--ink);
+  font-size: 15px;
+  margin: 6px 0 8px;
+}
+
+.testi .meta {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+/* =========================================
+   FAQ SECTION
+========================================= */
+.faqs {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.faq details {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-lg);
+  font-weight: 700;
+  color: var(--ink);
+  position: relative;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: "\f105";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.faq details[open] summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faq .answer {
+  padding: 0 var(--space-lg) var(--space-lg);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* =========================================
+   CTA SECTION
+========================================= */
+.cta {
+  text-align: center;
+  padding: 56px 0 64px;
+}
+
+.cta h4 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cta p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.cta .btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(66, 184, 131, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.cta .btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.cta .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(66, 184, 131, 0.25);
+}
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+========================================= */
 @media (max-width: 1200px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .testimonials,
+  .faqs {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -215,25 +390,14 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .promo-banner {
-    flex-direction: column;
-    text-align: center;
-    padding: 30px 25px;
-  }
-
-  .promo-banner__img-wrapper {
-    margin-top: 18px;
-    text-align: center;
-  }
-
-  .promo-banner__img {
-    width: 100px;
+  .section-title {
+    font-size: 20px;
   }
 }
 
 @media (max-width: 576px) {
   .main-content {
-    padding: 25px 15px;
+    padding: 25px 0;
   }
 
   .section-title {
@@ -241,38 +405,6 @@ body {
   }
 
   .product-grid {
-    display: grid;
-    gap: 22px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
-}
-
-/* 1) Utility container chuẩn hoá bề rộng trung tâm.
-   Nếu bạn dùng framework có .container thì KHÔNG thêm đoạn này. */
-.container {
-  max-width: 1200px;
-  /* tuỳ ý: 1140/1200/1280 */
-  margin-inline: auto;
-  padding-inline: 16px;
-  /* gutter nhẹ hai bên */
-  width: 100%;
-}
-
-/* 2) Đừng đẩy layout bằng % ở main nữa, để container lo căn giữa */
-.main-content {
-  padding: 40px 0;
-  /* bỏ padding 5% gây lệch thị giác */
-  margin-top: 10px;
-  background: #fff;
-}
-
-/* 3) Grid giữ nguyên số cột theo breakpoint, nhưng căn giữa khối */
-.product-grid {
-  margin-inline: auto;
-  /* nếu container rộng hơn grid, vẫn đứng giữa */
-}
-
-/* 4) Promo banner bám theo container (không loang full width kỳ cục) */
-.promo-banner {
-  border-radius: 12px;
 }

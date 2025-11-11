@@ -1,16 +1,24 @@
 import {
   Component, HostListener, inject, ElementRef, ViewChild, OnInit, OnDestroy, Renderer2
 } from '@angular/core';
-import { CommonModule } from '@angular/common';                 // <-- THÊM
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Auth } from '../../services/auth/auth';
-import { TrendingService, TrendItem } from '../../services/trending.services'; // <-- SỬA ĐƯỜNG DẪN
+
+// Dùng hot-products
+import { HotProductService, Product } from '../../services/hot-products.services';
 import { Subscription } from 'rxjs';
+
+export interface TrendItem {
+  id: string;
+  label: string;
+  img: string;
+}
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule], // <-- THÊM
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
@@ -18,7 +26,7 @@ export class Header implements OnInit, OnDestroy {
   private router = inject(Router);
   private auth = inject(Auth);
   private renderer = inject(Renderer2);
-  private trending = inject(TrendingService);
+  private hot = inject(HotProductService);
 
   // shrink state
   isShrink = false;
@@ -31,20 +39,25 @@ export class Header implements OnInit, OnDestroy {
   suggestOpen = false;
   query = '';
 
-  // suggestions from homepage hero
+  // suggestions: lấy từ hot-products service
   hotSuggestions: TrendItem[] = [];
-  private trendingSub?: Subscription;
+  private subs: Subscription[] = [];
+  private cachedTop: TrendItem[] = [];
 
   ngOnInit(): void {
-    // subscribe trending data pushed from Homepage
-    this.trendingSub = this.trending.trending$.subscribe(list => {
-      this.hotSuggestions = Array.isArray(list) ? list : [];
-    });
+    // nạp gợi ý top (hero/hot) cho lần đầu
+    this.subs.push(
+      this.hot.getTopRent(6).subscribe(list => {
+        this.cachedTop = list.map(this.mapToTrend);
+        this.hotSuggestions = this.cachedTop;
+      })
+    );
+
     this.updateOffset();
   }
 
   ngOnDestroy(): void {
-    this.trendingSub?.unsubscribe();
+    this.subs.forEach(s => s.unsubscribe());
   }
 
   // shrink + offset handlers
@@ -53,11 +66,8 @@ export class Header implements OnInit, OnDestroy {
     this.isShrink = window.scrollY > 120;
     this.updateOffset();
   }
-
   @HostListener('window:resize')
-  onResize() {
-    this.updateOffset();
-  }
+  onResize() { this.updateOffset(); }
 
   private updateOffset() {
     const h = document.getElementById('mainHeader');
@@ -80,7 +90,26 @@ export class Header implements OnInit, OnDestroy {
 
   // search handlers
   openSuggest() { this.suggestOpen = true; }
-  onQueryChange(v: string) { this.query = v; }
+
+  onQueryChange(v: string) {
+    this.query = v;
+    const q = (v ?? '').trim();
+
+    // nếu rỗng thì trả lại top
+    if (!q) {
+      this.hotSuggestions = this.cachedTop;
+      return;
+    }
+
+    // gợi ý theo search
+    this.subs.push(
+      this.hot.searchProducts(q).subscribe(products => {
+        const mapped = products.slice(0, 8).map(this.mapToTrend);
+        this.hotSuggestions = mapped.length ? mapped : this.cachedTop;
+      })
+    );
+  }
+
   onSearch(ev: Event) {
     ev.preventDefault();
     this.goSearch(this.query.trim());
@@ -97,6 +126,11 @@ export class Header implements OnInit, OnDestroy {
   private goSearch(q: string) {
     if (!q) return;
     this.router.navigate(['/search'], { queryParams: { q } });
+  }
+
+  // map Product -> TrendItem cho phần gợi ý
+  private mapToTrend(p: Product): TrendItem {
+    return { id: p.id, label: p.vehicleName, img: p.image };
   }
 
   // --- giữ nguyên logic đăng nhập ---

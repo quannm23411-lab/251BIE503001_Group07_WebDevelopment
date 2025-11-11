@@ -1,5 +1,12 @@
 <main class="main-content container-fluid">
 
+  <!-- BANNER -->
+  <section class="container py-3">
+    <app-banner-carousel [items]="banners" [intervalMs]="4500" [showArrows]="true" [showDots]="true"
+      [pauseOnHover]="true">
+    </app-banner-carousel>
+  </section>
+
   <!-- HERO / TOP RENT -->
   <section class="top-rent container py-5">
     <h2 class="section-title">Thuê nhiều tháng này</h2>
@@ -8,14 +15,11 @@
     <div class="product-grid">
       <ng-container *ngIf="topRentList.length > 0; else noTop">
         <article class="product-card position-relative" *ngFor="let p of topRentList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
-            -{{ p.discount }}%
-          </span>
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
+            }}%</span>
           <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">
-            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-          </p>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
@@ -27,25 +31,11 @@
     </div>
   </section>
 
-  <!-- PROMO BANNER -->
-  <section class="promo-banner container my-5">
-    <div class="promo-banner__content">
-      <h2>
-        MỪNG 20/10, NHẬP MÃ
-        <span class="highlight">{{ promoCode }}</span>
-        GIẢM NGAY <b>{{ promoAmount }}</b>% GIÁ THUÊ XE!
-      </h2>
-      <p>KẾT THÚC SAU</p>
-      <div class="countdown">
-        <div class="time-box"><span>{{ days }}</span><small>Ngày</small></div>
-        <div class="time-box"><span>{{ hours }}</span><small>Giờ</small></div>
-        <div class="time-box"><span>{{ minutes }}</span><small>Phút</small></div>
-        <div class="time-box"><span>{{ seconds }}</span><small>Giây</small></div>
-      </div>
-    </div>
-    <figure class="promo-banner__img-wrapper">
-      <img src="assets/images/gift.png" alt="Gift" class="promo-banner__img" />
-    </figure>
+  <!-- PROMO BANNER (đã tách component) -->
+  <section class="container my-5">
+    <app-promo-banner [active]="promo.active" [code]="promo.code" [amount]="promo.amount" [endDate]="promo.endDate"
+      variant="red"> <!-- dùng nền đỏ -->
+    </app-promo-banner>
   </section>
 
   <!-- MOTORBIKE -->
@@ -55,15 +45,12 @@
 
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
-        <article class="product-card position-relative" *ngFor="let p of motorbikeList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
-            -{{ p.discount }}%
-          </span>
+        <article class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
+            }}%</span>
           <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">
-            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-          </p>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
@@ -82,15 +69,12 @@
 
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
-        <article class="product-card position-relative" *ngFor="let p of ecoBikeList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
-            -{{ p.discount }}%
-          </span>
+        <article class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)">
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
+            }}%</span>
           <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">
-            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-          </p>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
@@ -110,14 +94,11 @@
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
         <article class="product-card position-relative" *ngFor="let p of compactBikeList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
-            -{{ p.discount }}%
-          </span>
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
+            }}%</span>
           <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">
-            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-          </p>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
@@ -127,6 +108,75 @@
         <p class="text-muted">Chưa có xe phù hợp.</p>
       </ng-template>
     </div>
+  </section>
+
+  <!-- LỢI ÍCH NỔI BẬT -->
+  <section class="container py-5">
+    <h3 class="section-title">Lợi ích nổi bật</h3>
+    <div class="row g-3 mt-3">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let b of benefits">
+        <div class="p-3 border rounded-3 bg-white h-100 d-flex gap-3 align-items-start">
+          <i class="fa-solid" [ngClass]="b.icon"></i>
+          <div>
+            <div class="fw-semibold">{{ b.title }}</div>
+            <div class="text-muted small">{{ b.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 BƯỚC LÀ CÓ XE -->
+  <section class="container py-4">
+    <h3 class="section-title">3 bước là có xe</h3>
+    <div class="row g-3 mt-3">
+      <div class="col-12 col-md-4" *ngFor="let s of steps">
+        <div class="p-3 border rounded-3 bg-white h-100">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-success">{{ s.no }}</span>
+            <span class="fw-semibold">{{ s.title }}</span>
+          </div>
+          <div class="text-muted small">{{ s.desc }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KHÁCH HÀNG NÓI GÌ -->
+  <section class="container py-4">
+    <h3 class="section-title">Khách hàng nói gì về EcoMOVE</h3>
+    <div class="row g-3 mt-3">
+      <div class="col-12 col-md-6" *ngFor="let t of testimonials">
+        <div class="p-3 border rounded-3 bg-white h-100">
+          <div class="mb-1 text-warning">
+            <i class="fa-solid fa-star" *ngFor="let s of [1,2,3,4,5]; let i = index"
+              [ngClass]="{'opacity-25': i >= t.rating}"></i>
+          </div>
+          <div class="mb-2">“{{ t.text }}”</div>
+          <div class="text-muted small">{{ t.name }}, {{ t.city }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container py-4">
+    <h3 class="section-title">Hỏi đáp nhanh</h3>
+    <div class="row g-3 mt-3">
+      <div class="col-12 col-md-6" *ngFor="let f of faqs">
+        <details class="p-3 border rounded-3 bg-white">
+          <summary class="fw-semibold cursor-pointer">{{ f.q }}</summary>
+          <div class="mt-2 text-muted small">{{ f.a }}</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container py-5 text-center">
+    <h4 class="fw-bold mb-1">Sẵn sàng di chuyển xanh?</h4>
+    <p class="text-muted mb-3">Chọn xe yêu thích và lên đường ngay hôm nay.</p>
+    <a routerLink="/rent" class="btn btn-success px-4">Đặt xe ngay</a>
   </section>
 
 </main>
