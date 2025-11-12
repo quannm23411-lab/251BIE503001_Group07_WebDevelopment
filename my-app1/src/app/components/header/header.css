@@ -199,8 +199,9 @@ body {
     position: relative;
 }
 
-.nav__cart img {
-    width: 26px;
+.nav__cart i {
+  font-size: 28px;          /* Kích thước icon */
+  color: white;    
 }
 
 .cart-badge {
@@ -210,11 +211,12 @@ body {
     background: #ff3b30;
     color: white;
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     font-size: 11px;
     text-align: center;
     line-height: 16px;
+    border: solid 1px white;
 }
 
 /* Login/User */

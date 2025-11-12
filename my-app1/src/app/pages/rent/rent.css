@@ -213,9 +213,9 @@ label input[type="checkbox"]:checked {
 
 /* --- Hình xe --- */
 .product-card__img {
+  background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
   width: 100%;
   object-fit: contain;
-  background: #fff;
   padding: 16px 10px 0;
 }
 
@@ -224,17 +224,19 @@ label input[type="checkbox"]:checked {
   background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
   color: #fff;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   padding: 10px 8px;
   font-size: 0.85rem;
   font-weight: 500;
-  border-top-right-radius: 20px;
 }
 
 .product-card__features span {
   display: inline-block;
   white-space: nowrap;
+    width: 48%; 
+  margin-bottom: 6px; 
 }
 
 /* --- Thông tin tên & giá --- */
@@ -409,7 +411,7 @@ label input[type="checkbox"]:checked {
 
 .product-card {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 0%;
   overflow: hidden;
   transition: 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
@@ -423,7 +425,6 @@ label input[type="checkbox"]:checked {
     width: 100%;
     height: 160px;
     object-fit: cover;
-    background: #f0f0f0;
   }
 
   .card-body {
