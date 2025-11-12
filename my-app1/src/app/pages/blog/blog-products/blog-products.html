@@ -2,7 +2,8 @@
 
 <main class="main-content container-fluid">
     <p class="lede">
-        Tin tức & Cẩm nang xe điện | Lối sống xanh cùng EcoMove </p>
+        Tin tức & Cẩm nang xe điện | Lối sống xanh cùng EcoMove
+    </p>
 
     <div class="searchbar">
         <div class="box box--right-icon">
@@ -20,12 +21,12 @@
         <div class="latest-grid">
             <article class="hero-card">
                 <a class="hero-media" role="img" [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
-                    [routerLink]="['/blog/details','offers', hero.id]" [attr.aria-label]="hero.title">
+                    [routerLink]="['/blog/details','products', hero.id]" [attr.aria-label]="hero.title">
                 </a>
 
                 <div class="hero-body">
                     <h4 class="blog-title">
-                        <a class="link-title" [routerLink]="['/blog/details','offers', hero.id]">
+                        <a class="link-title" [routerLink]="['/blog/details','products', hero.id]">
                             {{ hero.title }}
                         </a>
                     </h4>
@@ -39,10 +40,10 @@
             <div class="side">
                 <article class="side-card" *ngFor="let s of side">
                     <a class="media" role="img" [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
-                        [routerLink]="['/blog/details','offers', s.id]" [attr.aria-label]="s.title">
+                        [routerLink]="['/blog/details','products', s.id]" [attr.aria-label]="s.title">
                     </a>
                     <div class="body">
-                        <a class="side-title link-title" [routerLink]="['/blog/details','offers', s.id]">
+                        <a class="side-title link-title" [routerLink]="['/blog/details','products', s.id]">
                             {{ s.title }}
                         </a>
                         <span class="date">
@@ -61,12 +62,12 @@
         <div class="blog-list">
             <article class="blog-item" *ngFor="let it of visibleList">
                 <a class="thumb" role="img" [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
-                    [routerLink]="['/blog/details','offers', it.id]" [attr.aria-label]="it.title">
+                    [routerLink]="['/blog/details','products', it.id]" [attr.aria-label]="it.title">
                 </a>
 
                 <div>
                     <h4 class="blog-title">
-                        <a class="link-title" [routerLink]="['/blog/details','offers', it.id]">
+                        <a class="link-title" [routerLink]="['/blog/details','products', it.id]">
                             {{ it.title }}
                         </a>
                     </h4>
@@ -87,6 +88,5 @@
         <div class="more-wrap">
             <button class="more" (click)="loadMore()">Xem thêm</button>
         </div>
-
     </section>
 </main>

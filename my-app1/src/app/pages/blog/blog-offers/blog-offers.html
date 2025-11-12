@@ -1,20 +1,14 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
 <main class="main-content container-fluid">
   <p class="lede">
     Săn mã giảm giá, chương trình khuyến mãi thuê xe độc quyền chỉ có tại EcoMove.
   </p>
 
+  <!-- Search -->
   <div class="searchbar">
     <div class="box box--right-icon">
-      <input
-        #q
-        type="text"
-        [value]="keyword"
-        (input)="onSearch(q.value)"
+      <input #q type="text" [value]="keyword" (input)="onSearch(q.value)"
         placeholder="Tìm kiếm: Ưu đãi thuê xe, xe điện, luật giao thông…" />
       <button aria-label="search" type="button" class="search-btn">
         <i class="bi bi-search"></i>
@@ -24,14 +18,13 @@
 
   <h3 class="section">MỚI NHẤT</h3>
 
+  <!-- Latest -->
   <section class="latest" *ngIf="hero">
     <div class="latest-grid">
+      <!-- Left hero -->
       <article class="hero-card">
-        <a class="hero-media"
-           role="img"
-           [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
-           [routerLink]="['/blog/details','offers', hero.id]"
-           [attr.aria-label]="hero.title">
+        <a class="hero-media" role="img" [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
+          [routerLink]="['/blog/details','offers', hero.id]" [attr.aria-label]="hero.title">
         </a>
 
         <div class="hero-body">
@@ -47,13 +40,11 @@
         </div>
       </article>
 
+      <!-- Right 3 cards -->
       <div class="side">
         <article class="side-card" *ngFor="let s of side">
-          <a class="media"
-             role="img"
-             [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
-             [routerLink]="['/blog/details','offers', s.id]"
-             [attr.aria-label]="s.title">
+          <a class="media" role="img" [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
+            [routerLink]="['/blog/details','offers', s.id]" [attr.aria-label]="s.title">
           </a>
           <div class="body">
             <a class="side-title link-title" [routerLink]="['/blog/details','offers', s.id]">
@@ -69,16 +60,14 @@
     </div>
   </section>
 
+  <!-- BLOG LIST -->
   <section class="blog">
     <h3 class="section">BLOG</h3>
 
     <div class="blog-list">
       <article class="blog-item" *ngFor="let it of visibleList">
-        <a class="thumb"
-           role="img"
-           [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
-           [routerLink]="['/blog/details','offers', it.id]"
-           [attr.aria-label]="it.title">
+        <a class="thumb" role="img" [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
+          [routerLink]="['/blog/details','offers', it.id]" [attr.aria-label]="it.title">
         </a>
 
         <div>
@@ -104,6 +93,5 @@
     <div class="more-wrap">
       <button class="more" (click)="loadMore()">Xem thêm</button>
     </div>
-
   </section>
 </main>

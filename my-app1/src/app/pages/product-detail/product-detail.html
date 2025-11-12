@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <div class="pd-wrap" *ngIf="product() as p">
     <!-- breadcrumb -->
 <nav class="breadcrumb">
@@ -52,48 +53,173 @@
             </div>
 
             <div class="features">
-                <span>200km/1 lần sạc</span>
-                <span>Sạc 3–4 tiếng</span>
-                <span>Kèm mũ</span>
-                <span>GPS</span>
-                <span>Bảo hiểm</span>
-                <span>CSKH 24/7</span>
+            <span><i class="bi bi-battery-charging"></i> 200 km/lần sạc</span>
+            <span><i class="bi bi-speedometer"></i> Sạc 3–4 tiếng</span>
+            <span><i class="bi bi-speedometer"></i> Tối đa 90km/h</span>
+            <span><i class="bi bi-plus"></i> Hỗ trợ GPS</span>
+            <span><i class="bi bi-plus"></i> 2 nón bảo hiểm</span>
+            <span><i class="bi bi-plus"></i> Cứu hộ 24/7</span>
             </div>
 
-            <div class="pd-actions">
-                <button class="btn-primary" [disabled]="!p.availabilityStatus">ĐẶT XE NGAY</button>
-                <button class="btn-ghost">ĐẶT TRƯỚC</button>
-                <button class="btn-cart">THÊM VÀO GIỎ</button>
-            </div>
+            <div class="pd-dates">
+                <label>Ngày thuê:</label>
+                <input type="date" [(ngModel)]="rentStart" />
+                <label>Ngày trả:</label>
+                <input type="date" [(ngModel)]="rentEnd" />
+                </div>
 
-            <div class="pd-colors">
-                <span>Màu:</span>
-                <button class="c c1" aria-label="đen"></button>
-                <button class="c c2" aria-label="trắng"></button>
-                <button class="c c3" aria-label="xanh"></button>
-                <button class="c c4" aria-label="hồng"></button>
-            </div>
-        </div>
+                <div class="pd-colors">
+                <span>Màu sắc:</span>
+                <button class="c white" aria-label="trắng"></button>
+                <button class="c red" aria-label="đỏ"></button>
+                <button class="c black" aria-label="đen"></button>
+                <button class="c pink" aria-label="hồng"></button>
+                <button class="c blue" aria-label="xanh"></button>
+                </div>
+<div class="pd-actions">
+  <div class="top">
+    <button class="btn-primary big">ĐẶT XE NGAY</button>
+  </div>
+  <div class="bottom">
+    <button class="btn-ghost">ĐẶT TRƯỚC</button>
+    <button class="btn-cart">THÊM VÀO GIỎ</button>
+  </div>
+</div>
+    </div>
+    
     </section>
 
     <!-- Description -->
-    <section class="box">
-        <h3>MÔ TẢ</h3>
-        <p>{{ p.description || 'Đang cập nhật mô tả chi tiết cho mẫu xe này.' }}</p>
-    </section>
+<section class="pd-description">
+  <h3 class="desc-title">MÔ TẢ</h3>
+
+  <div class="desc-box" [class.expanded]="showFullDescription">
+    <div class="desc-content">
+      <p><strong>VinFast Feliz 2025: Di Chuyển Êm Ái, Quãng Đường Vượt Trội</strong></p>
+
+      <p>
+        Feliz S không chỉ là một chiếc xe máy điện, mà còn là giải pháp di chuyển thông minh và kinh tế nhất cho đô thị.
+        Với thiết kế thanh lịch, màu sắc trẻ trung và công nghệ pin LFP hiện đại, Feliz S mang đến trải nghiệm lái xe êm ái,
+        bền bỉ, giúp bạn tự tin khám phá mọi ngóc ngách thành phố.
+      </p>
+
+      <p><strong>Điểm Nổi Bật Dành Cho Khách Thuê Xe:</strong></p>
+        <ul>
+        <li>
+            <strong>Pin LFP Siêu Bền:</strong> Quãng đường di chuyển ấn tượng lên đến 200km/lần sạc 
+            (theo điều kiện tiêu chuẩn), giúp bạn tự tin di chuyển cả tuần mà không cần lo sạc lại. 
+            Pin LFP (Lithium Ferro Phosphate) nổi bật với tuổi thọ cao, khả năng chịu nhiệt tốt và 
+            độ an toàn vượt trội so với pin lithium-ion thông thường.  
+            Ngoài ra, pin có thể sạc nhanh trong vòng 3–4 tiếng, giữ dung lượng ổn định sau hàng nghìn chu kỳ sạc,
+            mang lại hiệu suất bền bỉ trong nhiều năm sử dụng.
+        </li>
+
+        <li>
+            <strong>Động Cơ Mạnh Mẽ:</strong> Feliz S được trang bị động cơ điện thế hệ mới với công suất tối đa 2200W, 
+            cho phép xe đạt tốc độ lên đến 90km/h, tăng tốc nhanh và vận hành êm ái trong mọi điều kiện đường phố.
+        </li>
+
+        <li>
+            <strong>Công Nghệ Thông Minh:</strong> Hệ thống định vị GPS, kết nối ứng dụng trên điện thoại, 
+            và cảnh báo an toàn theo thời gian thực giúp bạn dễ dàng quản lý, theo dõi xe mọi lúc mọi nơi.
+        </li>
+
+        <li>
+            <strong>Thiết Kế Hiện Đại:</strong> Đường nét thanh thoát, màu sắc trẻ trung cùng đèn LED toàn phần 
+            mang lại vẻ sang trọng, tinh tế nhưng vẫn giữ được sự năng động cho người dùng đô thị.
+        </li>
+
+        <li>
+            <strong>An Toàn & Tiện Ích:</strong> Trang bị phanh đĩa trước – sau, lốp không săm, 
+            và hai mũ bảo hiểm cao cấp đi kèm. Dịch vụ cứu hộ 24/7 luôn sẵn sàng hỗ trợ trong suốt hành trình.
+        </li>
+        </ul>
+    </div>
+  </div>
+
+<div class="toggle-wrapper">
+  <button class="toggle-btn" (click)="toggleDescription()">
+    <i class="bi" [ngClass]="showFullDescription ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
+  </button>
+</div>
+
+</section>
+
+
 
     <!-- Reviews: demo đơn giản -->
-    <section class="box">
-        <h3>ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
-        <div class="rating">4.9/5 • 35 lượt đánh giá mẫu</div>
-        <div class="review">
-            <div class="name">Hồng Phúc</div>
-            <p>Dịch vụ nhanh, xe đúng mô tả.</p>
+    <section class="pd-description">
+        <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
+
+        <div class="rating-score">
+            <div class="score">4.9/5</div>
+            <div class="stars">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="review-count">5 lượt đánh giá</p>
         </div>
-        <div class="review">
-            <div class="name">Khánh Xuân</div>
-            <p>Giao đúng giờ, chạy êm.</p>
+
+     <div class="desc-box" [class.expanded]="showFullDescription">
+    <div style="background-color: #D9D9D9;" class="desc-content">
+            <!-- REVIEW 1 -->
+            <div class="review-card">
+      <div class="review-header">
+        <img src="https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg" alt="avatar" class="review-avatar" />
+        <div class="review-info">
+          <h4 class="review-name">Hồng Phúc</h4>
+          <div class="review-stars">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <span class="review-date">Đánh giá ngày 10/11/2025</span>
         </div>
+      </div>
+
+      <p class="review-text">
+        Dịch vụ nhanh, xe đúng mô tả. Nhân viên hỗ trợ nhiệt tình, hướng dẫn sử dụng xe kỹ càng. 
+        Xe chạy êm, sạch và đầy pin khi nhận.
+      </p>
+
+      <div class="review-images">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWKWb6bezP-697v1B2Ye2zZZeAQpCWe_Eh_g&s" alt="ảnh đánh giá 1" />
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDYbK3b0Ku_LaRawNyUlwcZgz3awqvoq1hSw&s" alt="ảnh đánh giá 2" />
+      </div>
+    </div>
+    <!-- REVIEW 2 -->
+    <div class="review-card">
+      <div class="review-header">
+        <img src="https://jbagy.me/wp-content/uploads/2025/03/hinh-anh-cute-avatar-vo-tri-3.jpg" alt="avatar" class="review-avatar" />
+        <div class="review-info">
+          <h4 class="review-name">Khánh Xuân</h4>
+          <div class="review-stars">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <span class="review-date">Đánh giá ngày 08/11/2025</span>
+        </div>
+      </div>
+
+      <p class="review-text">
+        Xe giao đúng giờ, chạy ổn định, phanh tốt và pin dùng được lâu. 
+        Mình thuê 2 ngày đi công việc rất hài lòng, sẽ tiếp tục ủng hộ.
+      </p>
+      <div class="review-images">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJLg9Yxt8fRtld4-ldXSxaK_wf55Np3XKF6g&s" alt="ảnh đánh giá 1" />
+      </div>
+    </div>
+    </div>
+     </div>
+        
     </section>
 
     <!-- Related -->
