@@ -121,23 +121,23 @@ label input[type="checkbox"] {
 
 /* Khi hover label */
 label:hover input[type="checkbox"] {
-  box-shadow: 0 0 3px #00a859;
+  box-shadow: 0 0 3px #72D4A5;
 }
 
 /* Khi checkbox được chọn */
 label input[type="checkbox"]:checked {
-  accent-color: #008f4b;
+  accent-color: #72D4A5;
 }
 
 
     .price-range {
       width: 200px;
-      accent-color: #00a859;
+      accent-color: #72D4A5;
     }
 
     .price-value {
       font-weight: 600;
-      color: #00a859;
+      color: #72D4A5;
       margin-left: 6px;
       min-width: 80px;
       text-align: center;
@@ -166,9 +166,9 @@ label input[type="checkbox"]:checked {
     }
 
     .btn-green-outline.active {
-      background-color: #00a859;
+      background-color: #72D4A5;
       color: #fff;
-      border: 1px solid #00a859;
+      border: 1px solid #2B3B41;
     }
 
     i {
@@ -186,6 +186,9 @@ label input[type="checkbox"]:checked {
   margin-inline: auto;
 }
 
+.product-grid a{
+  text-decoration: none;
+}
 .product-card {
   position: relative;
   background: #fff;
@@ -220,6 +223,15 @@ label input[type="checkbox"]:checked {
 }
 
 /* --- Thanh thông tin dưới ảnh --- */
+.product-card a {
+  text-decoration: none;  
+  color: inherit;         
+}
+
+.product-card a:hover {
+  text-decoration: none;   
+  color: inherit;
+}
 .product-card__features {
   background: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
   color: #fff;
@@ -235,8 +247,10 @@ label input[type="checkbox"]:checked {
 .product-card__features span {
   display: inline-block;
   white-space: nowrap;
-    width: 48%; 
+  font-size: 12px;  
+  width: 48%; 
   margin-bottom: 6px; 
+  text-align: left;
 }
 
 /* --- Thông tin tên & giá --- */
@@ -257,7 +271,6 @@ label input[type="checkbox"]:checked {
 }
 
 .product-card__price small {
-  text-decoration: line-through;
   color: #999;
   margin-right: 4px;
 }
@@ -267,6 +280,36 @@ label input[type="checkbox"]:checked {
   font-weight: 700;
   font-size: 1rem;
 }
+/* Pagination custom style */
+.pager-btn {
+  border: none;                /* ❌ không viền */
+  background: transparent;     /* nền trong suốt */
+  color: #00a859;              /* màu chủ đạo */
+  font-weight: 600;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pager-btn:hover:not(:disabled) {
+  background-color: rgba(0, 168, 89, 0.1);
+  color: #008f4b;
+}
+
+.pager-btn.active {
+  background-color: #00a859;
+  color: #fff;
+}
+
+.pager-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 
 /* --- Trạng thái còn xe / hết xe --- */
 .text-success {
