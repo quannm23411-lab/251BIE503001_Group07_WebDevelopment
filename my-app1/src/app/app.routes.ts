@@ -93,6 +93,11 @@ export const routes: Routes = [
             data: { breadcrumb: 'Tin tức' },
             loadComponent: () => import('./pages/blog/blog-news/blog-news').then(m => m.BlogNews),
           },
+          {
+            path: 'details/:type/:id',
+            loadComponent: () => import('./pages/blog/blog-details/blog-details').then(m => m.BlogDetails),
+          },
+
         ],
       },
       // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
