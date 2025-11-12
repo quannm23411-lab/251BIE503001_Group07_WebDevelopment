@@ -1,71 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-// ⚠️ Giữ nguyên import cũ của offers (đã có BLOG_OFFERS .js)
 import { BLOG_OFFERS } from '../blog-offers.data';
+import { BLOG_PRODUCTS } from '../blog-products.data';
+import { BLOG_NEWS } from '../blog-news.data';
 
-// 👉 Nếu bạn có 2 file JS cho product/news thì mở comment 2 dòng dưới và sửa đúng đường dẫn:
-// import { BLOG_PRODUCTS } from '../blog-products.data';
-// import { BLOG_NEWS } from '../blog-news.data';
-
-type Post = {
-  id: string;
-  title: string;
-  excerpt?: string;
-  date?: string;          // yyyy-mm-dd
-  image?: string;
-  category?: string;
-  content?: string;       // HTML dài
-};
+type BlogType = 'offers' | 'products' | 'news';
 
 @Component({
   selector: 'app-blog-details',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './blog-details.html',
   styleUrls: ['./blog-details.css'],
 })
-export class BlogDetailsComponent implements OnInit {
-  type: 'offers' | 'products' | 'news' = 'offers';
-  id = '';
+export class BlogDetails implements OnInit {
+  private route = inject(ActivatedRoute);
 
-  post?: Post;
-  related: Post[] = [];
+  item: any;
+  related: any[] = [];
+  type: BlogType | '' = '';
+  showContent = false;
+
+  badgeText: string = 'Bài viết';
+  badgeClass: string = 'badge--default';
 
   ngOnInit(): void {
-    const route = (window as any).ng?.getInjector?.() ? null : null; // no-op
-  }
+    this.route.paramMap.subscribe((params) => {
+      const t = (params.get('type') ?? '') as BlogType | '';
+      const id = params.get('id') ?? '';
+      this.type = t;
 
-  constructor(private ar: ActivatedRoute) {
-    this.ar.paramMap.subscribe((p) => {
-      this.type = (p.get('type') as any) || 'offers';
-      this.id = p.get('id') || '';
-      this.resolveData();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const data = this.pickDataset(t);
+      this.item = data.find((x: any) => x.id === id) || null;
+      this.related = data.filter((x: any) => x.id !== id).slice(0, 4);
+
+      const cat = (this.item?.category || '').toString().toLowerCase();
+      if (this.type === 'offers' || cat.includes('ưu đãi')) {
+        this.badgeText = 'Ưu đãi';
+        this.badgeClass = 'badge--offers';
+      } else if (this.type === 'products' || cat.includes('sản phẩm')) {
+        this.badgeText = 'Sản phẩm mới';
+        this.badgeClass = 'badge--products';
+      } else if (this.type === 'news' || cat.includes('tin')) {
+        this.badgeText = 'Tin tức';
+        this.badgeClass = 'badge--news';
+      } else {
+        this.badgeText = 'Bài viết';
+        this.badgeClass = 'badge--default';
+      }
+
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
-  private resolveData() {
-    const data = this.getDataset(this.type);
-    this.post = data.find((x) => x.id === this.id);
-
-    // related: cùng type, khác id
-    this.related = data
-      .filter((x) => x.id !== this.id)
-      .slice(0, 4);
-  }
-
-  private getDataset(type: string): Post[] {
-    if (type === 'offers') {
-      return BLOG_OFFERS.items as unknown as Post[];
+  private pickDataset(t: BlogType | ''): any[] {
+    switch (t) {
+      case 'offers': return BLOG_OFFERS.items;
+      case 'products': return BLOG_PRODUCTS.items;
+      case 'news': return BLOG_NEWS.items;
+      default: return [];
     }
-    // Nếu đã có 2 file JS tương tự:
-    // if (type === 'products') return BLOG_PRODUCTS.items as Post[];
-    // if (type === 'news')     return BLOG_NEWS.items as Post[];
-
-    // fallback trống (khi bạn chưa có dữ liệu products/news)
-    return [];
   }
 
   formatVN(dateStr?: string): string {
@@ -73,6 +71,8 @@ export class BlogDetailsComponent implements OnInit {
     const [y, m, d] = dateStr.split('-');
     return `${d}/${m}/${y}`;
   }
-}
 
-export default BlogDetailsComponent;
+  trackById(_: number, item: any): string | number {
+    return item?.id ?? _;
+  }
+}

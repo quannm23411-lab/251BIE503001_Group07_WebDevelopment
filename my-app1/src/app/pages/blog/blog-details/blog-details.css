@@ -1,227 +1,429 @@
-:host {
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    color: #1b1d1f;
-    display: block;
+/* ================= TOKENS ================= */
+:root {
+    --brand: #45b880;
+    --brand-darker: #2a8f55;
+    --ink: #101828;
+    --muted: #667085;
+    --line: #e4e7ec;
+    --bg: #f5f7f9;
+    --radius: 10px;
+    /* góc bo nhỏ */
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+    --shadow-md: 0 8px 24px rgba(16, 24, 40, .12);
 }
 
-/* breadcrumb */
-.breadcrumb {
+/* ================= GRADIENT PHỦ TRANG ================= */
+.page-gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 260px;
+    z-index: 0;
+    pointer-events: none;
+    background-image: linear-gradient(180deg,
+            rgba(76, 223, 152, 0.95) 0%,
+            rgba(76, 223, 152, 0.65) 35%,
+            rgba(76, 223, 152, 0.25) 70%,
+            rgba(255, 255, 255, 0) 100%);
+    filter: brightness(1.05) saturate(1.1);
+}
+
+/* đảm bảo content nằm trên gradient */
+.blog-detail {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    padding: 0 0 56px;
+}
+
+/* ================= WRAP ================= */
+.blog-detail .bd-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* ================= HERO ================= */
+.bd-hero {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 8px 0 16px;
-    color: #54605b;
-    font-size: .9rem;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 8px;
 }
 
-.crumb {
-    color: #2a4f40;
-    text-decoration: none;
-}
-
-.crumb:hover {
-    text-decoration: underline;
-}
-
-.sep {
-    color: #97a19b;
-}
-
-.current {
-    color: #6b7671;
-    text-transform: capitalize;
-}
-
-/* wrapper */
-.detail-wrap {
+.bd-hero-frame {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden !important;
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
-    padding: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    -webkit-clip-path: inset(0 round var(--radius));
+    clip-path: inset(0 round var(--radius));
 }
 
-/* header */
-.detail-header {
-    margin-bottom: 12px;
+.bd-hero-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit !important;
+    transition: transform .4s ease;
 }
 
-.detail-title {
-    font-weight: 900;
-    font-size: 1.6rem;
-    line-height: 1.25;
-    margin: 0 0 8px;
-    color: #1a2c25;
+.bd-hero-img:hover {
+    transform: scale(1.02);
 }
 
-.detail-meta {
+/* ================= BODY (KHUNG CONTENT) ================= */
+.bd-body {
+    background: #fff;
+    border-radius: var(--radius);
+    /* shadow mạnh hơn */
+    box-shadow:
+        0 16px 40px rgba(16, 24, 40, 0.25),
+        0 0 50px rgba(69, 184, 128, 0.25),
+        0 0 12px rgba(255, 255, 255, 0.18);
+    padding: 28px 32px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #68746e;
-    font-size: .88rem;
+    flex-direction: column;
+    gap: 14px;
+    width: 90%;
+    margin: -20px auto 0;
+    position: relative;
+    z-index: 5;
+    overflow: hidden !important;
+    background-clip: padding-box !important;
+    -webkit-clip-path: inset(0 round var(--radius));
+    clip-path: inset(0 round var(--radius));
 }
 
-.detail-meta .date {
+/* ================= CHIP ================= */
+.bd-info-chip {
+    align-self: flex-start;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-}
-
-.cat {
-    padding: 4px 8px;
+    padding: 6px 12px;
     border-radius: 999px;
-    background: #eef4f1;
-    color: #2e604a;
+    border: 1px solid #bfe8d1;
+    background: #e8f5ee;
+    color: var(--brand-darker);
     font-weight: 600;
-    font-size: .76rem;
+    font-size: 13px;
+    line-height: 1;
 }
 
-/* cover */
-.detail-cover {
-    margin: 10px 0 16px;
-    height: 320px;
-    border-radius: 14px;
-    background: #f3f5f4 center/cover no-repeat;
+.bd-info-chip .bi {
+    font-size: 14px;
 }
 
-/* content */
-.detail-content {
-    color: #2a3430;
-    line-height: 1.75;
-    font-size: 1rem;
+/* ================= TEXT ================= */
+.bd-info-title {
+    margin: 2px 0 0;
+    font-size: clamp(22px, 3.2vw, 28px);
+    color: var(--ink);
+    font-weight: 750;
+    line-height: 1.25;
 }
 
-.detail-content h2,
-.detail-content h3 {
-    color: #234a3a;
-    margin: 18px 0 8px;
-    line-height: 1.35;
+.bd-info-excerpt {
+    color: var(--muted);
+    font-size: 15.5px;
+    margin: 2px 0 0;
 }
 
-.detail-content ul,
-.detail-content ol {
-    margin: 8px 0 12px 1.2em;
+.bd-info-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
 }
 
-.detail-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0 14px;
-    font-size: .95rem;
+.bd-info-meta .bi {
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
 }
 
-.detail-content table th,
-.detail-content table td {
-    border: 1px solid #e5ebe8;
-    padding: 8px 10px;
+.bd-info-meta .dot {
+    opacity: .6;
+    margin: 0 2px;
 }
 
-.detail-content blockquote {
-    margin: 12px 0;
-    padding: 12px 14px;
-    border-left: 4px solid #45b880;
-    background: #f6fbf8;
-    color: #2b3a34;
-    border-radius: 6px;
+/* ================= ACTIONS ================= */
+.bd-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+
 }
 
-/* divider */
-.divider {
-    height: 1px;
-    background: linear-gradient(90deg, #e6ece9, transparent);
-    margin: 18px 0;
+.bd-actions a,
+.bd-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all .2s ease;
+    cursor: pointer;
 }
 
-/* related */
-.related-heading {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #2a4f40;
-    margin-bottom: 10px;
+/* Primary CTA gradient */  
+.bd-actions .btn-primary {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg, #2b3b41 0%, #45b880 100%) !important;
+    color: #fff !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    padding: 10px 22px !important;
+    font-weight: 700;
+    letter-spacing: .1px;
+    box-shadow:
+        0 8px 18px rgba(43, 59, 65, .3),
+        0 2px 0 rgba(0, 0, 0, .08);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.bd-actions .btn-primary::before,
+.bd-bottom-cta .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 55%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+/* Hover effect */
+.bd-actions .btn-primary:hover,
+.bd-bottom-cta .btn-primary:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(43, 59, 65, .35),
+        0 3px 0 rgba(0, 0, 0, .08);
+}
+
+/* ================= CONTENT ================= */
+.bd-content {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  color: #000000;
+  line-height: 1.75;
+  text-align: justify;
+  margin-top: 16px;
+}
+
+/* Tiêu đề trong nội dung */
+.bd-content h1,
+.bd-content h2,
+.bd-content h3 {
+  color: #101828;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 20px 0 10px;
+}
+
+.bd-content h1 { font-size: 20px; }
+.bd-content h2 { font-size: 18px; }
+.bd-content h3 { font-size: 16px; }
+
+/* Đoạn văn */
+.bd-content p {
+  margin: 12px 0;
+}
+
+/* Danh sách */
+.bd-content ul,
+.bd-content ol {
+  margin: 10px 0 10px 24px;
+  padding: 0;
+}
+
+.bd-content li {
+  margin-bottom: 6px;
+}
+
+/* Trích dẫn / quote */
+.bd-content blockquote {
+  border-left: 4px solid #45b880;
+  padding-left: 12px;
+  color: #555;
+  font-style: italic;
+  background: #f9fafb;
+  margin: 16px 0;
+}
+
+/* ================= CTA CUỐI BÀI ================= */
+.bd-bottom-cta {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0 4px;
+}
+
+/* ===== Related: grid 4 cột, card có khung ===== */
+.related-section {
+    margin-top: 28px;
+}
+
+.related-title {
+  font-size: 25px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2B3B41, #72D4A5, #72D4A5, #72D4A5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 16px;
+}
+
+
+.related-title .highlight {
+    color: var(--brand);
 }
 
 .related-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
 }
 
 .related-card {
-    display: grid;
-    grid-template-rows: 120px auto;
+    display: flex;
+    flex-direction: column;
     background: #fff;
-    border: 1px solid #eef2f0;
-    border-radius: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e9eef3;
+    box-shadow: 0 6px 16px rgba(16, 24, 40, .10);
     text-decoration: none;
     color: inherit;
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .18s, box-shadow .18s, border-color .18s;
 }
 
 .related-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, .08);
+    transform: translateY(-2px);
+    border-color: #dfe7ee;
+    box-shadow: 0 14px 28px rgba(16, 24, 40, .16);
 }
 
 .related-thumb {
-    background: #f3f5f4 center/cover no-repeat;
+    width: 100%;
+    height: 160px;
+    /* khóa chiều cao ảnh đồng đều */
+    object-fit: cover;
+    display: block;
 }
 
 .related-body {
-    padding: 10px 12px;
+    padding: 12px 14px 14px;
+    flex: 1 1 auto;
 }
 
-.related-title {
+.related-card-title {
+    font-size: 15px;
     font-weight: 700;
-    line-height: 1.3;
-    font-size: .98rem;
-    color: #204e3b;
+    line-height: 1.4;
+    margin: 0 0 10px;
+    color: #0b1320;
 }
 
 .related-date {
-    margin-top: 6px;
-    color: #6c7772;
-    font-size: .8rem;
+    font-size: 13px;
+    color: #667085;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* empty */
-.empty {
-    text-align: center;
-    padding: 36px 12px;
+.related-date .bi {
+    font-size: 14px;
+    position: relative;
+    top: -1px;
 }
 
-.btn-back {
-    display: inline-block;
-    margin-top: 12px;
-    background: linear-gradient(90deg, #3b8661, #45b880);
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 999px;
-    text-decoration: none;
-}
-
-/* responsive */
-@media (max-width: 900px) {
+/* Responsive */
+@media (max-width:1024px) {
     .related-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .detail-cover {
-        height: 240px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width:768px) {
+    .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .related-thumb {
+        height: 150px;
+    }
+}
+
+@media (max-width:480px) {
     .related-grid {
         grid-template-columns: 1fr;
     }
 
-    .detail-wrap {
-        border-radius: 14px;
-        padding: 14px;
+    .related-thumb {
+        height: 140px;
     }
+}
 
-    .detail-title {
-        font-size: 1.35rem;
-    }
+/* FORCE 10px cho ảnh banner */
+.bd-hero-frame {
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    /* bắt buộc để cắt theo góc */
+    -webkit-clip-path: inset(0 round 5px) !important;
+    clip-path: inset(0 round 5px) !important;
+}
+
+.bd-hero-img,
+.bd-hero-frame img,
+.bd-hero-frame picture img {
+    border-radius: 5px !important;
+}
+
+/* FORCE 10px cho khung content */
+.bd-body {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background-clip: padding-box !important;
+    -webkit-clip-path: inset(0 round 5px) !important;
+    clip-path: inset(0 round 5px) !important;
+}
+
+/* --- FORCE SHADOW và BO cho khung content --- */
+.bd-body{
+  border-radius: 10px !important;
+  background: #fff;
+
+  overflow: hidden !important;
+
+  -webkit-clip-path: none !important;
+  clip-path: none !important;
+
+  -webkit-filter: drop-shadow(0 13px 15px rgba(16,24,40,.28))
+                  drop-shadow(0 2px 0 rgba(0,0,0,.09));
+          filter: drop-shadow(0 8px 10px rgba(16,24,40,.28))
+                  drop-shadow(0 2px 0 rgba(0,0,0,.09));
+}
+
+.bd-body{
+  box-shadow: none !important;
 }
