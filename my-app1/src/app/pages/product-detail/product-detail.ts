@@ -5,17 +5,23 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 import { ProductLoadingService, ProductVM } from '../../services/product-loading.services';
 
 @Component({
     selector: 'app-product-detail',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, FormsModule,  ],
     templateUrl: './product-detail.html',
     styleUrls: ['./product-detail.css']
 })
 export class ProductDetail {
+    
+      rentStart: string = new Date().toISOString().split('T')[0];
+  rentEnd: string = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0];
     private route = inject(ActivatedRoute);
     private router = inject(Router);
     private products = inject(ProductLoadingService);
@@ -74,4 +80,9 @@ export class ProductDetail {
             this.activeIndex.set(0);
         });
     }
+      showFullDescription = false;
+
+  toggleDescription() {
+    this.showFullDescription = !this.showFullDescription;
+  }
 }
