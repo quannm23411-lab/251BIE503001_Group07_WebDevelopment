@@ -55,6 +55,18 @@ export const routes: Routes = [
       // Trang chi tiết sản phẩm: /rent/:id
       { path: 'rent/:id', loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail) },
 
+      //Trang tài khoản khách hàng
+      {
+        path: 'account',
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', loadComponent: () => import('./pages/account/profile/profile-view').then(m => m.ProfileView) },
+          { path: 'profile/edit', loadComponent: () => import('./pages/account/profile/profile-edit').then(m => m.ProfileEdit) },
+          { path: 'orders', loadComponent: () => import('./pages/account/orders/orders').then(m => m.AccountOrders) },
+          { path: 'review/:id', loadComponent: () => import('./pages/account/review/review').then(m => m.AccountReview) }
+        ]
+      },
+
       // Khi nào có thì mở
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
       // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
