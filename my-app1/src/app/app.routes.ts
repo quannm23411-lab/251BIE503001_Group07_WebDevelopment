@@ -30,7 +30,7 @@ export const routes: Routes = [
     children: [
       { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
-      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },      
+      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },
       { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
       { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
       { path: 'order-add', loadComponent: () => import('./pages/admin/admin-order-add/admin-order-add').then(m => m.AdminOrderAdd) },
@@ -52,6 +52,30 @@ export const routes: Routes = [
       // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
       // { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.Rent) },
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
+      // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
+      // BLOG
+      {
+        path: 'blog',
+        loadComponent: () => import('./pages/blog/blog').then(m => m.Blog),
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'offers' }, // ← vào /blog tự tới Ưu đãi
+          {
+            path: 'offers',
+            data: { breadcrumb: 'Ưu đãi' },                       // ← label breadcrumb
+            loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent),
+          },
+          {
+            path: 'products',
+            data: { breadcrumb: 'Sản phẩm mới' },
+            loadComponent: () => import('./pages/blog/blog-products/blog-products').then(m => m.BlogProducts),
+          },
+          {
+            path: 'news',
+            data: { breadcrumb: 'Tin tức' },
+            loadComponent: () => import('./pages/blog/blog-news/blog-news').then(m => m.BlogNews),
+          },
+        ],
+      },
       // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
   },

@@ -1,0 +1,110 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+/>
+
+<main class="main-content container-fluid">
+  <p class="lede">
+    Săn mã giảm giá, chương trình khuyến mãi thuê xe độc quyền chỉ có tại EcoMove.
+  </p>
+
+  <div class="searchbar">
+    <div class="box box--right-icon">
+      <input
+        #q
+        type="text"
+        [value]="keyword"
+        (input)="onSearch(q.value)"
+        placeholder="Tìm kiếm: Ưu đãi thuê xe, xe điện, luật giao thông…" />
+      <button aria-label="search" type="button" class="search-btn">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <h3 class="section">MỚI NHẤT</h3>
+
+  <section class="latest" *ngIf="hero">
+    <div class="latest-grid">
+      <article class="hero-card">
+        <a class="hero-media"
+           role="img"
+           [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
+           [routerLink]="['/blog/details','offers', hero.id]"
+           [attr.aria-label]="hero.title">
+        </a>
+
+        <div class="hero-body">
+          <h4 class="blog-title">
+            <a class="link-title" [routerLink]="['/blog/details','offers', hero.id]">
+              {{ hero.title }}
+            </a>
+          </h4>
+          <div class="chip">
+            <i class="bi bi-clock-history"></i>
+            30 phút trước
+          </div>
+        </div>
+      </article>
+
+      <div class="side">
+        <article class="side-card" *ngFor="let s of side">
+          <a class="media"
+             role="img"
+             [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
+             [routerLink]="['/blog/details','offers', s.id]"
+             [attr.aria-label]="s.title">
+          </a>
+          <div class="body">
+            <a class="side-title link-title" [routerLink]="['/blog/details','offers', s.id]">
+              {{ s.title }}
+            </a>
+            <span class="date">
+              <i class="bi bi-calendar-event"></i>
+              {{ formatVN(s.date) }}
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog">
+    <h3 class="section">BLOG</h3>
+
+    <div class="blog-list">
+      <article class="blog-item" *ngFor="let it of visibleList">
+        <a class="thumb"
+           role="img"
+           [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
+           [routerLink]="['/blog/details','offers', it.id]"
+           [attr.aria-label]="it.title">
+        </a>
+
+        <div>
+          <h4 class="blog-title">
+            <a class="link-title" [routerLink]="['/blog/details','offers', it.id]">
+              {{ it.title }}
+            </a>
+          </h4>
+
+          <div class="blog-excerpt">{{ it.excerpt }}</div>
+
+          <div class="blog-meta">
+            <span class="date">
+              <i class="bi bi-calendar-event"></i>
+              {{ formatVN(it.date) }}
+            </span>
+            <span class="cat" *ngIf="it.category">{{ it.category }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="more-wrap">
+      <button class="more" (click)="loadMore()">Xem thêm</button>
+    </div>
+
+    <div class="floor"></div>
+  </section>
+</main>

@@ -1,0 +1,148 @@
+:host {
+    display: block;
+    background: #f7faf8;
+    color: #1b1d1f;
+    font-family: "Inter", sans-serif;
+}
+
+.blog-crumbbar {
+    background: #72D4A5;
+    box-shadow: 0 1px px rgba(0, 0, 0, .08);
+    margin-top: 57px;
+    position: relative;
+    z-index: 5;
+}
+@media (max-width: 1200px) {
+    .blog-crumbbar {
+        margin-top: 64px;
+    }
+}
+
+@media (max-width: 992px) {
+    .blog-crumbbar {
+        margin-top: 72px;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-crumbbar {
+        margin-top: 88px;
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-crumbbar {
+        margin-top: 104px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-crumbbar {
+        margin-top: 120px;
+    }
+}
+
+.blog-crumbbar .inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 10px 16px;
+}
+
+.crumb {
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.crumb .crumb-link {
+    color: #0b0b0b;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.crumb .crumb-link:hover {
+    text-decoration: underline;
+}
+
+.crumb .sep {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+}
+.crumb .sep1 {
+    color: #e6e6e6;
+    font-weight: 600;
+}
+
+.crumb .current {
+    color: #e6e6e6;
+    font-weight: 700;
+}
+
+.blog-tabs {
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+}
+
+.blog-tabs .inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 12px 20px 12px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+}
+
+.tab {
+    color: #1b1d1f;
+    font-weight: 800;
+    letter-spacing: .02em;
+    position: relative;
+    padding: 8px 4px 12px;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.tab:hover {
+    color: #45b880;
+}
+
+/* gạch chân mảnh */
+.tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 80px;
+    height: 2px;
+    border-radius: 2px;
+    background: #1b1d1f;
+    opacity: .15;
+}
+
+.tab.active {
+    color: #000;
+}
+
+.tab.active::after {
+    opacity: 1;
+    background: #000;
+}
+
+/* responsive */
+@media (max-width: 720px) {
+    .tabs {
+        gap: 28px;
+    }
+
+    .tab::after {
+        width: 60px;
+    }
+}
+
