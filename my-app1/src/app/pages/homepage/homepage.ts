@@ -1,46 +1,40 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule, NgIf, NgFor, NgClass } from '@angular/common';
+import { CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage } from '@angular/common';
 
-// đúng với tên file m đang dùng (số nhiều)
 import { HotProductService, Product } from '../../services/hot-products.services';
+import { ProductLoadingService } from '../../services/product-loading.services';
 
-// UI components (standalone)
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, PromoBanner, BannerCarousel],
+  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
 export class Homepage implements OnInit, OnDestroy {
 
-  // ===== Banner carousel (demo data để admin thay sau) =====
   banners: BannerItem[] = [
     { id: 'b1', src: 'assets/images/banner-1.jpg', alt: 'Khuyến mãi tháng này' },
     { id: 'b2', src: 'assets/images/banner-2.jpg', alt: 'Thuê xe nhanh trong 30 phút' },
     { id: 'b3', src: 'assets/images/banner-3.jpg', alt: 'Đi xa tiết kiệm' }
   ];
 
-  // ===== Lists (render) =====
   topRentList: Product[] = [];
   motorbikeList: Product[] = [];
   ecoBikeList: Product[] = [];
   compactBikeList: Product[] = [];
 
-  // ===== Section text (default; sẽ bị config ghi đè nếu có) =====
   sectionText = {
     motorbike: { title: 'Xe máy điện', subtitle: 'Động cơ mạnh mẽ, vượt dốc dễ dàng. Thích hợp cho chuyến đi dài.' },
     ebike: { title: 'Xe đạp điện', subtitle: 'Nhẹ nhàng, tiết kiệm, phù hợp di chuyển nội đô.' },
     compact: { title: 'Xe đạp điện gấp gọn', subtitle: 'Gọn gàng, dễ mang lên thang máy, phù hợp căn hộ.' }
   };
 
-  // ===== Promo cho <app-promo-banner> =====
   promo = { active: false, code: '', amount: 0, endDate: '' };
 
-  // ===== Sections dưới (theo Figma) – demo text =====
   benefits = [
     { icon: 'fa-circle-check', title: 'Tiết kiệm & minh bạch', desc: 'Giá niêm yết, không phụ phí ẩn.' },
     { icon: 'fa-truck-fast', title: 'Nhận xe nhanh', desc: 'Giao nhận 10–30 phút (khu vực trung tâm).' },
@@ -71,11 +65,11 @@ export class Homepage implements OnInit, OnDestroy {
 
   constructor(
     private hot: HotProductService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private img: ProductLoadingService
   ) { }
 
   ngOnInit(): void {
-    // 1) Load config titles và promo
     this.hot.getConfig().subscribe(cfg => {
       if (cfg?.sections) {
         this.sectionText.motorbike.title = cfg.sections.motorbike.title || this.sectionText.motorbike.title;
@@ -92,23 +86,27 @@ export class Homepage implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     });
 
-    // 2) Hero / top rent (4)
     this.hot.getTopRent(4).subscribe(list => {
       this.topRentList = list;
       this.cdr.detectChanges();
     });
 
-    // 3) Hot theo nhóm
     this.hot.getHotByCategory('motorbike', 4).subscribe(v => { this.motorbikeList = v; this.cdr.detectChanges(); });
     this.hot.getHotByCategory('ebike', 4).subscribe(v => { this.ecoBikeList = v; this.cdr.detectChanges(); });
     this.hot.getHotByCategory('compact', 8).subscribe(v => { this.compactBikeList = v; this.cdr.detectChanges(); });
   }
 
-  ngOnDestroy(): void {
-    // PromoBanner tự lo countdown; không giữ sub riêng
+  ngOnDestroy(): void { }
+
+  /** ===== Ảnh (qua ProductLoadingService) ===== */
+  getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
+    return this.img.getImageUrl(p, kind);
+  }
+  getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
+    return this.img.getImageSize(kind);
   }
 
-  // ===== Currency format =====
+  /** ===== Format giá ===== */
   formatVND(price: number): string {
     return (price ?? 0).toLocaleString('vi-VN') + 'đ';
   }

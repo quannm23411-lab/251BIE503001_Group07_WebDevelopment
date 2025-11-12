@@ -3,22 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 
-/** Schema đúng với assets/data/products.json bạn gửi */
+/** Schema đúng với assets/data/products.json */
 export interface Product {
     id: string;
     vehicleName: string;
     brandId: 'B001' | 'B002' | 'B003' | 'B004' | 'B005' | string;
     model: string;
     licensePlate: string;
-    batteryCapacity: string;      // "3.5 kWh"
-    rangePerCharge: number;       // 200
+    batteryCapacity: string;
+    rangePerCharge: number;
     vehicleType: 'Scooter' | 'Motorbike' | 'E-Bike' | 'Bicycle' | string;
     pricePerHour: number;
     pricePerDay: number;
     availabilityStatus: boolean;
     rating: number;
-    discount: number;             // %
-    location: string;             // "TP.HCM" | "Hà Nội" | ...
+    discount: number;
+    location: string;
     tags?: string[];
     image: string;
     description: string;
@@ -26,50 +26,48 @@ export interface Product {
 
 /** View model đã chuẩn hóa thêm vài field hữu ích */
 export interface ProductVM extends Product {
-    brandName?: string;           // Vinfast/Yadea/Dat Bike/Dibao/Pega
-    finalPricePerDay: number;     // đã áp dụng discount
+    brandName?: string;
+    finalPricePerDay: number;
 }
 
 /** brandId -> brandName */
-const BRAND_MAP: Record<string, string> = {
+const BRAND_MAP: Readonly<Record<string, string>> = {
     B001: 'Vinfast',
     B002: 'Yadea',
     B003: 'Dat Bike',
-    B004: 'Gogoro',   // theo data của bạn
+    B004: 'Gogoro',
     B005: 'DK Bike'
-};
+} as const;
 
-const STATE_KEY = makeStateKey<Product[]>('PRODUCTS_ALL_V1');
+/** placeholder ảnh mặc định */
+const IMG_PLACEHOLDER = 'assets/images/placeholder.png';
+
+type ImageKind = 'card' | 'detail' | 'thumb';
 
 @Injectable({ providedIn: 'root' })
 export class ProductLoadingService {
     private http = inject(HttpClient);
     private ts = inject(TransferState);
 
-    /** tải + TransferState + cache */
-    private readonly products$: Observable<Product[]> = this.fetchAll().pipe(
-        map(list => (Array.isArray(list) ? list : [])),
-        shareReplay(1)
-    );
+    private static readonly STATE_KEY = makeStateKey<ProductVM[]>('PRODUCTS_VM_V2');
 
-    /** Public: trả về toàn bộ dưới dạng VM đã chuẩn hóa */
+    /** Cache + SSR hydratation */
+    private readonly vm$: Observable<ProductVM[]> = this.loadVM();
+
+    /** ====== Public APIs ====== */
+
     getAll(): Observable<ProductVM[]> {
-        return this.products$.pipe(map(normalizeList));
+        return this.vm$;
     }
 
-    /** Public: tìm kiếm đơn giản (tên/loại/tags/brand) */
     search(keyword: string): Observable<ProductVM[]> {
         const q = (keyword ?? '').trim().toLowerCase();
-        if (!q) return this.getAll();
-        return this.getAll().pipe(
+        if (!q) return this.vm$;
+
+        return this.vm$.pipe(
             map(list =>
                 list.filter(p =>
-                    [
-                        p.vehicleName,
-                        p.vehicleType,
-                        p.brandName,
-                        ...((p.tags as string[]) || [])
-                    ]
+                    [p.vehicleName, p.vehicleType, p.brandName, ...(p.tags ?? [])]
                         .filter(Boolean)
                         .some(v => String(v).toLowerCase().includes(q))
                 )
@@ -77,31 +75,57 @@ export class ProductLoadingService {
         );
     }
 
-    /** Public: filter theo thành phố (nếu bạn muốn dùng ở header sau này) */
     byCity(city: string): Observable<ProductVM[]> {
-        const c = (city ?? '').trim().toLowerCase();
-        if (!c) return this.getAll();
-        return this.getAll().pipe(map(list => list.filter(p => p.location?.toLowerCase() === c)));
+        const c = (city ?? '').trim();
+        if (!c) return this.vm$;
+        const norm = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+        const nc = norm(c);
+        return this.vm$.pipe(map(list => list.filter(p => norm(p.location ?? '') === nc)));
     }
 
-    /* ---------------------------------- */
+    getById(id: string): Observable<ProductVM | undefined> {
+        return this.vm$.pipe(map(list => list.find(x => x.id === String(id))));
+    }
 
-    /** SSR-friendly fetch + TransferState hydrate */
-    private fetchAll(): Observable<Product[]> {
-        if (this.ts.hasKey(STATE_KEY)) {
-            return of(this.ts.get(STATE_KEY, [] as Product[]));
+    getByIds(ids: string[]): Observable<ProductVM[]> {
+        const set = new Set(ids.map(String));
+        return this.vm$.pipe(map(list => list.filter(x => set.has(x.id))));
+    }
+
+    /** ====== Ảnh & hiển thị ====== */
+
+    getImageUrl(p: { image?: string }, _kind: ImageKind = 'card'): string {
+        return p?.image || IMG_PLACEHOLDER;
+    }
+
+    getImageSize(kind: ImageKind = 'card') {
+        switch (kind) {
+            case 'detail': return { w: 960, h: 640 };
+            case 'thumb': return { w: 120, h: 80 };
+            default: return { w: 480, h: 320 };
         }
+    }
+
+    /** ====== Private ====== */
+
+    private loadVM(): Observable<ProductVM[]> {
+        if (this.ts.hasKey(ProductLoadingService.STATE_KEY)) {
+            return of(this.ts.get(ProductLoadingService.STATE_KEY, [] as ProductVM[]));
+        }
+
         return this.http.get<Product[]>('assets/data/products.json').pipe(
+            map(normalizeList),
             map(list => {
-                try { this.ts.set(STATE_KEY, list); } catch { }
+                try { this.ts.set(ProductLoadingService.STATE_KEY, list); } catch { }
                 return list;
             }),
-            catchError(() => of([] as Product[]))
+            catchError(() => of([] as ProductVM[])),
+            shareReplay(1)
         );
     }
 }
 
-/* ========== helpers ========== */
+/* ================== Helpers ================== */
 
 function normalizeList(list: Product[]): ProductVM[] {
     return list.map(p => normalizeItem(p));
@@ -109,14 +133,14 @@ function normalizeList(list: Product[]): ProductVM[] {
 
 function normalizeItem(p: Product): ProductVM {
     const discount = clampPercent(p.discount);
-    const base = Number(p.pricePerDay || 0);
+    const base = Number.isFinite(p.pricePerDay) ? Number(p.pricePerDay) : 0;
     const finalPricePerDay = Math.round(base * (1 - discount / 100));
 
     return {
         ...p,
         id: String(p.id),
         vehicleName: p.vehicleName || 'Sản phẩm',
-        image: p.image || 'assets/images/placeholder.png',
+        image: p.image || IMG_PLACEHOLDER,
         brandName: BRAND_MAP[p.brandId] || undefined,
         finalPricePerDay
     };

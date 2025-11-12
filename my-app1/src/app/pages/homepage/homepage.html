@@ -15,9 +15,13 @@
     <div class="product-grid">
       <ng-container *ngIf="topRentList.length > 0; else noTop">
         <article class="product-card position-relative" *ngFor="let p of topRentList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
-            }}%</span>
-          <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+
+          <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+            [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
+
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
@@ -31,10 +35,10 @@
     </div>
   </section>
 
-  <!-- PROMO BANNER (đã tách component) -->
+  <!-- PROMO BANNER -->
   <section class="container my-5">
     <app-promo-banner [active]="promo.active" [code]="promo.code" [amount]="promo.amount" [endDate]="promo.endDate"
-      variant="red"> <!-- dùng nền đỏ -->
+      variant="red">
     </app-promo-banner>
   </section>
 
@@ -46,9 +50,13 @@
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
         <article class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
-            }}%</span>
-          <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+
+          <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+            [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
+
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
@@ -70,9 +78,13 @@
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
         <article class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
-            }}%</span>
-          <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+
+          <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+            [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
+
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
@@ -94,9 +106,13 @@
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
         <article class="product-card position-relative" *ngFor="let p of compactBikeList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">-{{ p.discount
-            }}%</span>
-          <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
+          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+            -{{ p.discount }}%
+          </span>
+
+          <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+            [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
+
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
