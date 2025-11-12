@@ -36,23 +36,23 @@ export class Homepage implements OnInit, OnDestroy {
   promo = { active: false, code: '', amount: 0, endDate: '' };
 
   benefits = [
-    { icon: 'fa-circle-check', title: 'Tiết kiệm & minh bạch', desc: 'Giá niêm yết, không phụ phí ẩn.' },
-    { icon: 'fa-truck-fast', title: 'Nhận xe nhanh', desc: 'Giao nhận 10–30 phút (khu vực trung tâm).' },
-    { icon: 'fa-battery-full', title: 'Pin bền – đi xa', desc: 'Tầm chạy 70–200 km mỗi lần sạc.' },
-    { icon: 'fa-shield-halved', title: 'An toàn & bảo dưỡng', desc: 'Xe kiểm tra định kỳ, có bảo hiểm trách nhiệm.' },
-    { icon: 'fa-globe', title: 'Đặt & quản lý online', desc: 'Tất cả thao tác trên một nền tảng.' },
-    { icon: 'fa-headset', title: 'Hỗ trợ 24/7', desc: 'Có lỗi là có mặt, hỗ trợ tức thì.' }
+    { icon: 'bi bi-check-circle', title: 'Tiết kiệm & minh bạch', desc: 'Giá niêm yết, không phụ phí ẩn.' },
+    { icon: 'bi bi-truck', title: 'Nhận xe nhanh', desc: 'Giao nhận 10–30 phút (khu vực trung tâm).' },
+    { icon: 'bi bi-battery-charging', title: 'Pin bền – đi xa', desc: 'Tầm chạy 70–200 km mỗi lần sạc.' },
+    { icon: 'bi bi-shield-shaded', title: 'An toàn & bảo dưỡng', desc: 'Xe kiểm tra định kỳ, có bảo hiểm trách nhiệm.' },
+    { icon: 'bi bi-globe-americas', title: 'Đặt & quản lý online', desc: 'Tất cả thao tác trên một nền tảng.' },
+    { icon: 'bi bi-headset', title: 'Hỗ trợ 24/7', desc: 'Có lỗi là có mặt, hỗ trợ tức thì.' }
   ];
 
   steps = [
-    { no: 1, title: 'Chọn xe & lịch', desc: 'Nhập địa điểm, thời gian; hệ thống đề xuất phù hợp.' },
-    { no: 2, title: 'Xác nhận & thanh toán', desc: 'Online hoặc tại nơi nhận; xuất hoá đơn điện tử.' },
-    { no: 3, title: 'Nhận xe & lên đường', desc: 'Tại trạm hoặc giao tận nơi.' }
+    { no: 1, icon:'bi bi-calendar', title: 'Chọn xe & lịch', desc: 'Nhập địa điểm, thời gian; hệ thống đề xuất phù hợp.' },
+    { no: 2, icon:'bi bi-credit-card', title: 'Xác nhận & thanh toán', desc: 'Online hoặc tại nơi nhận; xuất hoá đơn điện tử.' },
+    { no: 3, icon:'bi bi-scooter', title: 'Nhận xe & lên đường', desc: 'Tại trạm hoặc giao tận nơi.' }
   ];
 
   testimonials = [
-    { name: 'K. Xuân', city: 'TP.HCM', text: 'Đặt 8h, 8h15 có xe tại khách sạn. Pin đi cả ngày vẫn còn.', rating: 5 },
-    { name: 'A. Linh', city: 'Đà Nẵng', text: 'Thủ tục nhanh, xe mới, hỗ trợ tận tình.', rating: 5 }
+    { avatar:'assets/images/avatar/k-xuan.jpg', name: 'K. Xuân', city: 'TP.HCM', text: 'Đặt 8h, 8h15 có xe tại khách sạn. Pin đi cả ngày vẫn còn.', rating: 5 },
+    { avatar:'assets/images/avatar/a-linh.jpg', name: 'A. Linh', city: 'Đà Nẵng', text: 'Thủ tục nhanh, xe mới, hỗ trợ tận tình.', rating: 5 }
   ];
 
   faqs = [
