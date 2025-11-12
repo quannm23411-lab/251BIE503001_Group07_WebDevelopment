@@ -120,7 +120,7 @@
 </div>
 <div id="feature-modal" class="modal-overlay" 
     *ngIf="isFeatureModalVisible()" 
-    (click)="closeFeatureModal()">
+    (click)="closeFeatureModal()"> 
   
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2>

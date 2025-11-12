@@ -1,0 +1,6 @@
+# Thư mục thư viện (quan trọng nhất)
+node_modules/
+
+# Các thư mục build (nếu có)
+dist/
+build/
