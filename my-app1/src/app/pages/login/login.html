@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <div class="container">
   <aside class="left-panel"></aside>
   
@@ -43,9 +44,14 @@
               formControlName="password"
               [ngClass]="{ 'input-error': password.invalid && (password.dirty || password.touched) }"
             />
-            <button type="button" class="toggle-password" id="togglePassword" (click)="togglePasswordVisibility()">
-              <span>{{ passwordFieldType === 'password' ? 'Hiện' : 'Ẩn' }}</span>
-            </button>
+            <button 
+  type="button" 
+  class="toggle-password btn btn-outline-secondary" 
+  id="togglePassword" 
+  (click)="togglePasswordVisibility()">
+  <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+</button>
+
           </div>
           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
             <p *ngIf="password.errors?.['required']">

@@ -488,6 +488,7 @@ left: -12px;
 .cta-content .btn:hover {
   transform: translateY(-2px);
   filter: brightness(1.05);
+  background-color: #1a1a1a;
 }
 
 .cta-content .btn:active {

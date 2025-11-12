@@ -20,6 +20,7 @@ body {
 
 .left-panel {
   width: 50%;
+  background: url('/my-app1/src/assets/images/background-log-in.jpg') center/cover no-repeat;
   background: #d75656;
 }
 
@@ -54,7 +55,7 @@ body {
 
 .logo-text {
   font-family: 'Zen Dots', sans-serif;
-  color: #596f00;
+ color: #121212 ;
   font-size: 36px;
 }
 
@@ -69,7 +70,7 @@ body {
 .form-title {
   margin-bottom: 1.5rem;
   /* CŨ: 2rem */
-  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -142,7 +143,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #596f00;
+  color: #2B3B41;
 }
 
 .toggle-password:hover {
@@ -197,7 +198,7 @@ body {
   width: 100%;
   height: 52px;
   /* CŨ: 66px */
-  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   border: none;
   border-radius: 10px;
   color: white;
@@ -271,7 +272,7 @@ body {
   inset: 0;
   padding: 1px;
   border-radius: 5px;
-  background: linear-gradient(91deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -301,7 +302,7 @@ body {
 
 .footer-link {
   font-weight: 700;
-  color: #596f00;
+  color: #45B880;
   text-decoration: none;
   cursor: pointer;
 }

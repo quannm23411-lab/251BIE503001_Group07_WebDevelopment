@@ -6,11 +6,12 @@ import { ProductLoadingService } from '../../services/product-loading.services';
 
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
+import { RouterLink } from '@angular/router';           
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel],
+  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })

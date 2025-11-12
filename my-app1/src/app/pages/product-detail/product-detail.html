@@ -1,29 +1,33 @@
 <div class="pd-wrap" *ngIf="product() as p">
     <!-- breadcrumb -->
-    <nav class="breadcrumb">
-        <a routerLink="/">Trang chủ</a><span>/</span>
-        <a routerLink="/rent">Thuê xe</a><span>/</span>
-        <span>{{ p.vehicleName }}</span>
-    </nav>
+<nav class="breadcrumb">
+  <a routerLink="/">Trang chủ</a>
+  <span>/</span>
+  <a routerLink="/rent">{{ p.vehicleType || 'Xe điện' }}</a>
+  <span>/</span>
+  <span class="current">{{ p.vehicleType }} {{ p.vehicleName }}</span>
+</nav>
 
     <section class="pd-grid">
         <!-- MEDIA -->
-        <div class="pd-media">
-            <div class="pd-cover" *ngIf="gallery().length; else noImg">
-                <img [src]="gallery()[activeIndex()]" [alt]="p.vehicleName" />
-            </div>
-            <ng-template #noImg>
-                <div class="noimg">Không có ảnh</div>
-            </ng-template>
+<div class="pd-media">
+  <div class="pd-cover" *ngIf="gallery().length; else noImg">
+    <img [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
+  </div>
 
-            <!-- giữ cấu trúc thumbs để sau có nhiều ảnh thì dùng, giờ 1 ảnh vẫn chạy -->
-            <div class="pd-thumbs" *ngIf="gallery().length > 1">
-                <button *ngFor="let img of gallery(); let i = index" (click)="setActive(i)"
-                    [class.active]="i === activeIndex()">
-                    <img [src]="img" [alt]="p.vehicleName" />
-                </button>
-            </div>
-        </div>
+  <ng-template #noImg>
+    <div class="noimg">Không có ảnh</div>
+  </ng-template>
+
+  <!-- Luôn hiển thị dãy ảnh nhỏ nếu có dữ liệu -->
+  <div class="pd-thumbs" *ngIf="gallery().length">
+    <button *ngFor="let img of gallery(); let i = index"
+            (click)="setActive(i)"
+            [class.active]="i === activeIndex()">
+      <img [src]="img" [alt]="product()?.vehicleName || ('Ảnh ' + (i+1))" />
+    </button>
+  </div>
+</div>
 
         <!-- INFO -->
         <div class="pd-info">
