@@ -28,7 +28,7 @@ export const routes: Routes = [
     canActivate: [requireAdmin],
     canActivateChild: [requireAdmin],
     children: [
-      { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
+      { path: 'dashboard', loadComponent: () => import('./pages/admin/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
       { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },
       { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
@@ -38,7 +38,9 @@ export const routes: Routes = [
       { path: 'customer', loadComponent: () => import('./pages/admin/admin-customer/admin-customer').then(m => m.AdminCustomer) },
       { path: 'customer-detail/:id', loadComponent: () => import('./pages/admin/admin-customer-detail/admin-customer-detail').then(m => m.AdminCustomerDetail) },
       { path: 'customer-add', loadComponent: () => import('./pages/admin/admin-customer-add/admin-customer-add').then(m => m.AdminCustomerAdd) },
-      { path: '', redirectTo: 'main', pathMatch: 'full' }
+      { path: 'promotion', loadComponent: () => import('./pages/admin/admin-promotion/admin-promotion').then(m => m.AdminPromotion) },
+      { path: 'promotion-add', loadComponent: () => import('./pages/admin/admin-promotion-add/admin-promotion-add').then(m => m.AdminPromotionAdd) },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 

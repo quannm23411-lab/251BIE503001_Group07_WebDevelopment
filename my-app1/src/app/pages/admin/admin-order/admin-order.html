@@ -13,18 +13,22 @@
     <section class="filters">
         <input type="text" placeholder="Mã đơn/ tên khách/ SĐT" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" />
         <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilter()">
-            <option value="">Tất cả trạng thái</option>
+            <option value="">Trạng thái</option>
             <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
         </select>
         <select [(ngModel)]="locationFilter" (ngModelChange)="applyFilter()">
-            <option value="">Tất cả khu vực</option>
+            <option value="">Khu vực</option>
             <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
         </select>
-        <label for="startDate">Từ ngày:</label>
-        <input type="date" id="startDate" [(ngModel)]="startDateFilter" (ngModelChange)="applyFilter()">
-        <label for="endDate">Đến ngày:</label>
-        <input type="date" id="endDate" [(ngModel)]="endDateFilter" (ngModelChange)="applyFilter()">
-        <button class="btn-reset" (click)="resetFilters()">Đặt lại</button>
+            <div class="date-filter-group">
+                <label for="startDate">Từ ngày:</label>
+                <input type="date" id="startDate" [(ngModel)]="startDateFilter" (ngModelChange)="applyFilter()">
+            </div>
+            <div class="date-filter-group">
+                <label for="endDate">Đến ngày:</label>            
+                <input type="date" id="endDate" [(ngModel)]="endDateFilter" (ngModelChange)="applyFilter()">
+            </div>
+            <button class="btn-reset" (click)="resetFilters()">Đặt lại</button>
     </section>
 
     <section class="rental-list">

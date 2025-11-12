@@ -1,14 +1,24 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+// =============================================
+// THÊM MỚI: Import RouterLink
+// =============================================
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { Auth, AuthUser } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  // =============================================
+  // THÊM MỚI: Thêm RouterLink vào mảng imports
+  // =============================================
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    RouterLink // <-- Thêm vào đây
+  ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -17,11 +27,17 @@ export class Login implements OnInit {
   isModalVisible = false;
   passwordFieldType: 'password' | 'text' = 'password';
   error = signal<string | null>(null);
+  isLoading = signal(false);
+
+  // Signal cho modal thông báo tính năng
+  isFeatureModalVisible = signal(false);
+  featureModalTitle = signal('');
+  featureModalBody = signal('');
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private loginService = inject(LoginService);
-  private auth = inject(Auth); // <- dùng Auth mới
+  private auth = inject(Auth);
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -35,17 +51,20 @@ export class Login implements OnInit {
   get password() { return this.loginForm.get('password')!; }
 
   onSubmit(): void {
+    this.error.set(null); 
     this.loginForm.markAllAsTouched();
+    
     if (!this.loginForm.valid) {
-      this.error.set('Vui lòng nhập đầy đủ thông tin hợp lệ.');
       return;
     }
 
+    this.isLoading.set(true); 
     const { email, password } = this.loginForm.value;
 
     this.loginService.login(email, password).subscribe({
       next: (user) => {
-        // Lưu đủ thông tin cho phân quyền admin
+        this.isLoading.set(false);
+        
         const authUser: AuthUser = {
           id: user.id,
           email: user.email,
@@ -55,13 +74,11 @@ export class Login implements OnInit {
         this.auth.login(authUser);
 
         this.isModalVisible = true;
-        setTimeout(() => {
-          this.isModalVisible = false;
-          if (user.role === 'admin') this.router.navigate(['/admin']);
-          else this.router.navigate(['/']);
-        }, 1500);
       },
-      error: (err) => this.error.set(err.message || 'Đăng nhập thất bại')
+      error: (err) => {
+        this.isLoading.set(false); 
+        this.error.set(err.message || 'Email hoặc mật khẩu không chính xác');
+      }
     });
   }
 
@@ -69,10 +86,27 @@ export class Login implements OnInit {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
-  handleGoogleLogin() { alert('Đăng nhập Google đang phát triển'); }
-  handleForgotPassword() { alert('Chức năng Quên mật khẩu đang phát triển'); }
+  handleGoogleLogin() { 
+    this.featureModalTitle.set('Tính năng đang phát triển');
+    this.featureModalBody.set('Chức năng Đăng nhập bằng Google hiện chưa có sẵn. Vui lòng quay lại sau.');
+    this.isFeatureModalVisible.set(true);
+  }
+  
+  handleForgotPassword() { 
+    this.featureModalTitle.set('Tính năng đang phát triển');
+    this.featureModalBody.set('Chức năng Quên mật khẩu hiện chưa có sẵn. Vui lòng quay lại sau.');
+    this.isFeatureModalVisible.set(true);
+  }
+  
+  closeFeatureModal() {
+    this.isFeatureModalVisible.set(false);
+  }
+
   closeModalAndNavigate() {
     this.isModalVisible = false;
-    this.router.navigate(['/']);
+    // Cập nhật: dùng .currentUser() (vì bạn đã đổi tên hàm trong register.ts)
+    const user = this.auth.getCurrentUser(); 
+    if (user?.role === 'admin') this.router.navigate(['/admin']);
+    else this.router.navigate(['/']);
   }
 }

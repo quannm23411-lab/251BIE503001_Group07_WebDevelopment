@@ -1,60 +1,57 @@
-/* === CÁC STYLE GỐC CỦA BẠN (Giữ nguyên) === */
+/* ... (Tất cả style cũ của bạn giữ nguyên) ... */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'Inter', sans-serif;
 }
-
 .admin {
   display: flex;
-  font-family: 'Inter', sans-serif;
   background-image: linear-gradient(180deg, #2B3B41 0%, #45B880 100%);
   height: 100vh;
   width: 100%;
   overflow: hidden;
 }
-
-/* SIDEBAR (Bản Desktop) */
 .sidebar {
   width: 240px;
-  /* fallback */
-  /* gradient: dark(top) -> light(bottom) */
   color: #fff;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   overflow-y: auto;
-  /* tùy chọn: đường phân cách với nội dung */
   box-shadow: inset -1px 0 0 rgba(255,255,255,0.08);
 }
-
 .sidebar-menu-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
+    /* 🔽 THÊM MỚI: Cho phép container co dãn 🔽 */
+    flex: 1; 
+    overflow-y: auto;
 }
-
 .sidebar-logo-desktop img {
     width: 100%;
 }
-
 .sidebar-menu {
     list-style: none;
     padding: 0;
     width: 100%;
+    /* 🔽 THÊM MỚI: Để đẩy user info xuống 🔽 */
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
 }
-
 .sidebar-menu li {
     border-radius: 16px;      
     transition: background .2s ease, color .2s ease, box-shadow .2s ease;
     padding: 12px 20px;
     cursor: pointer;
-    transition: background 0.3s;
-    font-weight: bold;
     gap: 8px;
 }
-
 .sidebar .sidebar-menu li:hover,
 .sidebar .sidebar-menu li:focus-visible,
 .sidebar .sidebar-menu li.active {
@@ -62,8 +59,6 @@ body, html {
   color: #2B3B41;
   box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
-
-/* MAIN CONTENT */
 .main {
     flex: 1;
     padding: 20px 30px;
@@ -76,78 +71,46 @@ body, html {
   border: 1px solid rgba(0,0,0,.05);
   padding: 16px 18px;
   margin: 14px 0 20px;
-  overflow: hidden; /* tránh nội dung tràn góc */
+  overflow: hidden; 
 }
-
-/* Nếu bên trong có bảng rộng/scroll ngang */
 .content-surface .table-wrap {
   overflow-x: auto;
   border-radius: 12px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.06);
 }
+.sidebar-header-mobile { display: none; }
+.sidebar-toggle { display: none; }
+.sidebar-logo-mobile { display: none; }
+.menu-overlay { display: none; }
 
-/* === Cấu hình cho Header di động === */
-
-/* Ẩn các thành phần di động trên Desktop */
-.sidebar-header-mobile {
-    display: none;
-}
-.sidebar-toggle {
-    display: none;
-}
-.sidebar-logo-mobile {
-    display: none;
-}
-
-/* 🔽 THÊM MỚI: Ẩn lớp phủ trên Desktop */
-.menu-overlay {
-    display: none;
-}
-
-
-/* === 🔽 MEDIA QUERY CHO RESPONSIVE (Đã cập nhật) === */
+/* === MEDIA QUERY === */
 @media (max-width: 992px) {
-    
-    /* 1. Thay đổi layout chính thành dọc */
     .admin {
         flex-direction: column;
         height: 100%; 
         overflow: auto;
     }
-
-    /* 2. Biến Sidebar thành Header */
     .sidebar {
         width: 100%;
         height: auto; 
         flex-direction: column; 
         overflow: visible; 
-        
-        /* 🔽 THAY ĐỔI: Thêm z-index để header luôn nổi trên */
-        position: relative; /* Cần thiết cho z-index hoạt động */
-        z-index: 101; /* Cao hơn menu và lớp phủ */
+        position: relative; 
+        z-index: 101; 
     }
-
-    /* 3. Hiển thị Header di động */
     .sidebar-header-mobile {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        height: 60px; /* Chiều cao cố định cho header */
+        height: 60px; 
         padding: 0 15px;
         background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
         box-sizing: border-box; 
     }
-
-    /* 4. Hiển thị logo di động & nút ☰ */
-    .sidebar-logo-mobile {
-        display: block;
-    }
-    .sidebar-logo-mobile img {
-        width: 200px; 
-    }
-
+    .sidebar-logo-mobile { display: block; }
+    .sidebar-logo-mobile img { width: 200px; }
     .sidebar-toggle {
         display: block;
         background: none;
@@ -156,73 +119,167 @@ body, html {
         font-size: 28px;
         cursor: pointer;
     }
-
-    /* 5. Ẩn logo desktop */
-    .sidebar-logo-desktop {
-        display: none;
-    }
-
-    /* 6. 🔽 THAY ĐỔI: Biến menu thành Dropdown TUYỆT ĐỐI (Absolute) */
+    .sidebar-logo-desktop { display: none; }
     .sidebar-menu-container {
-        /* Chuyển từ display: none thành position: absolute */
         position: absolute;
-        top: 60px; /* Ngay dưới header */
+        top: 60px; 
         left: 0;
         width: 100%;
-        
         background-color: #567C02; 
         padding: 0;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        
-        z-index: 100; /* Nổi lên trên */
-        
-        /* Ẩn menu bằng cách dịch chuyển nó lên trên */
+        z-index: 100; 
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
         transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+        /* 🔽 THÊM MỚI: Sửa lỗi layout di động 🔽 */
+        height: calc(100vh - 60px); 
+        overflow-y: auto; 
     }
-    
-    /* 7. 🔽 THAY ĐỔI: Khi bấm nút, hiển thị dropdown */
     .sidebar-menu-container.show {
-        display: block; /* Phải có display: block để các thuộc tính khác hoạt động */
+        display: block; 
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
     }
-
     .sidebar-menu li {
         color: white; 
         padding: 15px 20px;
     }
     .sidebar-menu li.active {
         background-color: #6fa304; 
+        color: white; 
     }
-
-    /* 8. Main content chiếm 100% chiều rộng */
-    .main {
-        padding: 15px;
-    }
-
-    /* 9. 🔽 THÊM MỚI: Cấu hình lớp phủ (Overlay) */
+    .main { padding: 15px; }
     .menu-overlay {
-        position: fixed; /* Phủ toàn màn hình */
-        top: 60px;       /* Bắt đầu bên dưới header */
+        position: fixed; 
+        top: 60px;       
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Lớp màu mờ (màu nhạt lại) */
-        z-index: 99; /* Dưới menu (100) nhưng trên main (mặc định) */
-        
-        /* Ẩn mặc định */
+        background-color: rgba(0, 0, 0, 0.5); 
+        z-index: 99; 
         display: none; 
         opacity: 0;
         transition: opacity 0.3s ease;
     }
-
-    /* Khi menu mở, hiện cả lớp phủ */
     .menu-overlay.show {
         display: block;
         opacity: 1;
     }
+}
+
+.sidebar-menu li i {
+    width: 20px; 
+    margin-right: 10px;
+    text-align: center; 
+}
+.sidebar-toggle { font-size: 24px; }
+
+/* === CSS cho User Info (Đã sửa) === */
+
+/* ❌ XÓA: .nav-list (đã chuyển vào .sidebar-menu) ❌ */
+
+.admin-user-info {
+  margin-top: auto; /* 👈 Đẩy xuống dưới cùng */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 15px; 
+  border-top: 1px solid rgba(255, 255, 255, 0.1); 
+}
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: #f0f0f0; 
+}
+.admin-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  color: white; 
+  font-family: 'Inter', sans-serif; 
+}
+.admin-name {
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap; 
+}
+
+.admin-role {
+  font-size: 13px;
+  color: #c0f0c0; 
+  text-transform: capitalize; 
+}
+.logout-link {
+  cursor: pointer;
+  color: #ffffff !important; /* 👈 Làm cho link Đăng xuất có màu đỏ nhạt */
+}
+.logout-link:hover {
+  background: #ffffff !important; /* 👈 Khi hover có nền đỏ */
+  color: #2B3B41 !important;
+}
+
+/* === 🔽 THÊM MỚI: CSS cho Popup Đăng xuất 🔽 === */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.popup-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.popup-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+.popup-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.popup-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.btn-popup-cancel {
+    background: #f0f0f0;
+    color: #555;
+}
+.btn-popup-cancel:hover {
+    background: #e0e0e0;
+}
+.btn-popup-danger {
+    background: #a30000;
+    color: white;
+}
+.btn-popup-danger:hover {
+    background: #c00000;
 }

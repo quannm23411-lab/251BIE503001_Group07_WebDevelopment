@@ -1,0 +1,67 @@
+[
+  {
+    "id": "KM001",
+    "maGiamGia": "HERO10",
+    "tenKhuyenMai": "Giảm 10% dịp lễ 30/4",
+    "loaiGiamGia": "percent",
+    "giaTri": 10,
+    "donHangToiThieu": 500000,
+    "soLuongToiDa": 100,
+    "soLuongDaDung": 45,
+    "ngayBatDau": "2025-04-20T00:00:00Z",
+    "ngayKetThuc": "2025-05-02T23:59:59Z",
+    "trangThai": "active"
+  },
+  {
+    "id": "KM002",
+    "maGiamGia": "GIAM50K",
+    "tenKhuyenMai": "Giảm 50.000đ cho đơn hàng đầu tiên",
+    "loaiGiamGia": "fixed",
+    "giaTri": 50000,
+    "donHangToiThieu": 250000,
+    "soLuongToiDa": 200,
+    "soLuongDaDung": 150,
+    "ngayBatDau": "2025-01-01T00:00:00Z",
+    "ngayKetThuc": "2025-12-31T23:59:59Z",
+    "trangThai": "active"
+  },
+  {
+    "id": "KM003",
+    "maGiamGia": "NEWYEAR",
+    "tenKhuyenMai": "Khuyến mãi Tết 2025",
+    "loaiGiamGia": "percent",
+    "giaTri": 15,
+    "donHangToiThieu": 1000000,
+    "soLuongToiDa": 50,
+    "soLuongDaDung": 50,
+    "ngayBatDau": "2025-01-25T00:00:00Z",
+    "ngayKetThuc": "2025-02-10T23:59:59Z",
+    "trangThai": "active"
+  },
+  {
+    "id": "KM004",
+    "maGiamGia": "HE2024",
+    "tenKhuyenMai": "Khuyến mãi hè (Đã hết hạn)",
+    "loaiGiamGia": "fixed",
+    "giaTri": 100000,
+    "donHangToiThieu": 800000,
+    "soLuongToiDa": 100,
+    "soLuongDaDung": 80,
+    "ngayBatDau": "2024-06-01T00:00:00Z",
+    "ngayKetThuc": "2024-08-01T23:59:59Z",
+    "trangThai": "active"
+  },
+  {
+    "id": "KM005",
+    "maGiamGia": "AN",
+    "tenKhuyenMai": "Mã nội bộ (Đã ẩn)",
+    "loaiGiamGia": "percent",
+    "giaTri": 50,
+    "donHangToiThieu": 0,
+    "soLuongToiDa": 10,
+    "soLuongDaDung": 1,
+    "ngayBatDau": "2025-01-01T00:00:00Z",
+    "ngayKetThuc": "2025-12-31T23:59:59Z",
+    "trangThai": "inactive"
+  }
+]

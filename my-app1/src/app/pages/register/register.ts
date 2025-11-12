@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core'; // <-- Đã thêm signal
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // <-- Đã thêm RouterLink
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -17,7 +17,11 @@ export function passwordMatcher(control: AbstractControl): ValidationErrors | nu
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    RouterLink // <-- Đã thêm vào đây
+  ],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
@@ -27,6 +31,15 @@ export class Register implements OnInit {
   isModalVisible = false;
   passwordFieldType: 'password' | 'text' = 'password';
   confirmPasswordFieldType: 'password' | 'text' = 'password';
+
+  // =============================================
+  // THÊM MỚI: Tín hiệu cho loading và modal tính năng
+  // =============================================
+  isLoading = signal(false);
+  isFeatureModalVisible = signal(false);
+  featureModalTitle = signal('');
+  featureModalBody = signal('');
+  // =============================================
 
   constructor(private fb: FormBuilder, private router: Router) { }
 
@@ -40,7 +53,7 @@ export class Register implements OnInit {
           [
             Validators.required,
             Validators.minLength(8),
-            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/)
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#])[A-Za-z\d@$!%*?&#]{8,}$/)
           ]
         ],
         confirmPassword: ['', [Validators.required]]
@@ -62,21 +75,21 @@ export class Register implements OnInit {
     this.signupForm.markAllAsTouched();
 
     if (this.signupForm.valid) {
-      const newUser = this.signupForm.value;
+      this.isLoading.set(true); // <-- BẬT LOADING
 
-      // 🔹 Lưu tạm vào localStorage (giả lập tạo tài khoản)
-      const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
-      existingUsers.push(newUser);
-      localStorage.setItem('users', JSON.stringify(existingUsers));
-
-      this.isModalVisible = true;
-      this.signupForm.reset();
-
-      // ✅ Tự động đóng modal và chuyển về trang đăng nhập
+      // 🔹 Giả lập gọi API mất 1 giây
       setTimeout(() => {
-        this.router.navigate(['/login']);
-        this.isModalVisible = false;
-      }, 3000);
+        const newUser = this.signupForm.value;
+        const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+        existingUsers.push(newUser);
+        localStorage.setItem('users', JSON.stringify(existingUsers));
+
+        this.isLoading.set(false); // <-- TẮT LOADING
+        this.isModalVisible = true; // <-- HIỆN MODAL THÀNH CÔNG
+        this.signupForm.reset();
+      }, 1000); // 1 giây chờ
+
+      // Đã xóa bỏ setTimeout tự động chuyển trang
     } else {
       console.log('Form không hợp lệ');
     }
@@ -104,8 +117,24 @@ export class Register implements OnInit {
     }
   }
 
+  /**
+   * Đóng modal thành công và chuyển trang
+   */
   closeModal(): void {
     this.isModalVisible = false;
     this.router.navigate(['/login']);
+  }
+  
+  // =============================================
+  // THÊM MỚI: Các hàm xử lý modal tính năng
+  // =============================================
+  handleGoogleLogin() { 
+    this.featureModalTitle.set('Tính năng đang phát triển');
+    this.featureModalBody.set('Chức năng Đăng ký bằng Google hiện chưa có sẵn. Vui lòng quay lại sau.');
+    this.isFeatureModalVisible.set(true);
+  }
+
+  closeFeatureModal() {
+    this.isFeatureModalVisible.set(false);
   }
 }

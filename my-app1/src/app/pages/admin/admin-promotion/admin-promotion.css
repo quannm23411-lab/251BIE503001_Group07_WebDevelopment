@@ -1,0 +1,153 @@
+/* --- Các style chung (Giữ nguyên) --- */
+.main { flex: 1; padding: 20px 30px}
+.main__header { display: flex; justify-content: space-between; align-items: center; }
+.main__header h1 {
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.actions button { border: none; border-radius: 6px; padding: 10px 14px; cursor: pointer; margin-left: 10px; }
+.btn-export { background: #6fa304; color: white; }
+.btn-add { background: #004d40; color: white; }
+
+/* --- Filters (Giữ nguyên) --- */
+.filters { background: white; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 15px; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+.filters input, .filters select, .filters button { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; }
+.filters label { font-size: 13px; color: #555; margin-left: 5px; }
+.filters input[type="date"] { padding: 7px 10px; }
+.filters button { background-color: #6fa304; color: white; }
+
+/* === Bọc label + input ngày tháng (Nếu bạn cần) === */
+.date-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* ======================================================= */
+
+/* --- Table (Giữ nguyên) --- */
+.promotion-list { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+th { color: #567C02; }
+
+/* ... (Trạng thái loading/empty) ... */
+.loading-cell, .empty-cell { text-align: center; padding: 40px; color: #888; }
+.promo-info { display: flex; flex-direction: column; }
+.promo-info span { font-size: 13px; color: #777; }
+
+/* === 🔽 THÊM MỚI: Style cho Trạng thái Khuyến mãi === */
+.status { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px; 
+    padding: 4px 10px; 
+    border-radius: 12px; 
+    font-size: 13px; 
+    font-weight: 500; 
+}
+.status.active { background: #d7f7b4; color: #336000; } /* Giống 'Paid' */
+.status.inactive { background: #e0e0e0; color: #555; } /* Giống 'Completed' */
+.status.expired { background: #ffd0d0; color: #a30000; } /* Giống 'Cancelled' */
+/* ===================================== */
+
+
+/* === Style cho hàng/tiêu đề Sắp xếp (Giữ nguyên) === */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.clickable-row:hover {
+    background-color: #f9f9f9;
+}
+th.sortable {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    position: relative;
+    padding-right: 30px;
+}
+th.sortable .th-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+th.sortable:hover { background-color: #fcfcfc; }
+th.sort-active { color: #333; }
+th.sortable i {
+    font-size: 0.8em;
+    color: #ccc;
+    transition: color 0.2s ease;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+th.sort-active i { color: #567C02; }
+th.sort-active i.fa-sort { display: none; }
+th.sortable i.fa-sort-up,
+th.sortable i.fa-sort-down {
+    color: #567C02;
+    opacity: 1;
+}
+/* ===================================== */
+
+
+/* === MEDIA QUERY (Responsive) === */
+@media (max-width: 992px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filters input, .filters select, .filters button, .filters label {
+        width: auto;
+        margin-left: 0;
+    }
+    .date-filter-group { display: block; }
+    .date-filter-group label { display: block; margin-bottom: 5px; }
+    .date-filter-group input[type="date"] { width: 100%; box-sizing: border-box; }
+
+    /* Ẩn bớt cột trên tablet */
+    /* Ẩn: Đơn tối thiểu (4), Hạn sử dụng (5) */
+    .promotion-list th:nth-child(4),
+    .promotion-list th:nth-child(5) {
+        display: none;
+    }
+    .promotion-list td:nth-child(4),
+    .promotion-list td:nth-child(5) {
+        display: none;
+    }
+    .main__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    th, td { padding: 10px 8px; }
+}
+
+@media (max-width: 580px) {
+    /* Ẩn thêm: Tên KM (2), Đã dùng (6), Trạng thái (7) */
+    /* Chỉ giữ lại Mã KM (1) và Giá trị (3) */
+    .promotion-list th:nth-child(2),
+    .promotion-list th:nth-child(6),
+    .promotion-list th:nth-child(7) {
+        display: none;
+    }
+    .promotion-list td:nth-child(2),
+    .promotion-list td:nth-child(6),
+    .promotion-list td:nth-child(7) {
+        display: none;
+    }
+    .main { padding: 10px; }
+}

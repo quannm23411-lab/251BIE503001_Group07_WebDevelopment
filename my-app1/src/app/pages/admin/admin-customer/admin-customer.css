@@ -1,10 +1,3 @@
-/* === Các style chung (Giữ nguyên) === */
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-}
 
 .main {
     flex: 1;
@@ -16,8 +9,8 @@ body {
     align-items: center;
 }
 .main__header h1 {
-  text-transform: uppercase;                 /* viết hoa */
-  font-weight: 800;                           /* in đậm */
+  text-transform: uppercase; 
+  font-weight: 700;                           /* in đậm */
   /* letter-spacing: .12em;                      (tuỳ) dãn chữ nhẹ */
   background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
   -webkit-background-clip: text;

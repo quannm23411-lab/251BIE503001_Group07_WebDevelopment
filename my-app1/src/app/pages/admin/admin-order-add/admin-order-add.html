@@ -1,5 +1,5 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
 <meta charset="utf-8">
 <div class="main">
@@ -7,11 +7,10 @@
         Đang tải dữ liệu khách hàng và xe...
     </div>
 
-    <div *ngIf="!isLoading">
+    <form #orderForm="ngForm" *ngIf="!isLoading" (ngSubmit)="saveChanges()">
         <header class="main__header">
             <div class="header-left">
-                <button (click)="goBack()" class="btn-back">
-                    <i class="fas fa-arrow-left"></i>
+                <button (click)="goBack()" type="button" class="btn-back"> <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="header-title">
                     <h1>Thêm đơn hàng mới</h1>
@@ -19,8 +18,7 @@
                 </div>
             </div>
             <div class="actions">
-                <button (click)="saveChanges()" class="btn-save">
-                    <i class="fas fa-save"></i> Lưu đơn hàng
+                <button type="submit" class="btn-save"> <i class="fas fa-save"></i> Lưu đơn hàng
                 </button>
             </div>
         </header>
@@ -46,30 +44,37 @@
                         <div class="form-group">
                             <label for="customerSearch">Khách hàng</label>
                             
+                            <input type="hidden" [(ngModel)]="newOrder.maKhachHang" name="maKhachHang" required #maKhachHang="ngModel">
+
                             <input type="text" 
                                 id="customerSearch" 
                                 class="form-control" 
                                 placeholder="Gõ tên hoặc SĐT để tìm..."
                                 [value]="customerSearchDisplay"
                                 (keyup)="onCustomerSearch($event)"
-                                (blur)="onCustomerSearchBlur()">
+                                (blur)="onCustomerSearchBlur()"
+                                [class.is-invalid]="maKhachHang.invalid && (maKhachHang.touched || orderForm.submitted)" autocomplete="off">
 
-                        <div class="search-results-wrapper" *ngIf="customerSearchResults.length > 0">
-                            <ul class="search-results-list">
-                                <li *ngFor="let c of customerSearchResults" (mousedown)="selectCustomer(c)">
-                                    <strong>{{ c.hoTen }}</strong>
-                                    <span>{{ c.soDienThoai }}</span>
-                                </li>
-                            </ul>
+                            <div class="search-results-wrapper" *ngIf="customerSearchResults.length > 0">
+                                <ul class="search-results-list">
+                                    <li *ngFor="let c of customerSearchResults" (mousedown)="selectCustomer(c)">
+                                        <strong>{{ c.hoTen }}</strong>
+                                        <span>{{ c.soDienThoai }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div *ngIf="maKhachHang.invalid && (maKhachHang.touched || orderForm.submitted)" class="invalid-feedback">
+                                Vui lòng chọn một khách hàng.
+                            </div>
+
+                            <button type="button" class="btn-link-add" (click)="goToAddCustomer()">
+                                Không tìm thấy? <i class="fas fa-user-plus"></i> Thêm khách hàng mới...
+                            </button>
                         </div>
-                        
-                        <button type="button" class="btn-link-add" (click)="goToAddCustomer()">
-                            Không tìm thấy? <i class="fas fa-user-plus"></i> Thêm khách hàng mới...
-                        </button>
-                    </div>
                         <div class="form-group">
                             <label for="orderStatus">Trạng thái đơn</label>
-                            <select id="orderStatus" [(ngModel)]="newOrder.tinhTrangDon" class="form-control">
+                            <select id="orderStatus" [(ngModel)]="newOrder.tinhTrangDon" name="orderStatus" class="form-control">
                                 <option *ngFor="let s of orderStatuses" [value]="s">{{ s }}</option>
                             </select>
                         </div>
@@ -78,23 +83,23 @@
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="tienDatCoc">Tiền đặt cọc</label>
-                            <input type="number" id="tienDatCoc" [(ngModel)]="newOrder.tienDatCoc" class="form-control">
+                            <input type="number" id="tienDatCoc" [(ngModel)]="newOrder.tienDatCoc" name="tienDatCoc" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="trangThaiCoc">Trạng thái cọc</label>
-                            <select id="trangThaiCoc" [(ngModel)]="newOrder.trangThaiCoc" class="form-control">
+                            <select id="trangThaiCoc" [(ngModel)]="newOrder.trangThaiCoc" name="trangThaiCoc" class="form-control">
                                 <option *ngFor="let d of depositStatuses" [value]="d">{{ d }}</option>
                             </select>
                         </div>
                     </div>
                 </section>
 
-                <section class="card">
+                <section class="card" ngModelGroup="chiTietDonThue">
                     <h2>Chi tiết xe thuê</h2>
 
-                    <div *ngFor="let item of newOrder.chiTietDonThue; let i = index" class="vehicle-item-form">
+                    <div *ngFor="let item of newOrder.chiTietDonThue; let i = index" class="vehicle-item-form" [ngModelGroup]="i.toString()">
                         
-                        <button (click)="removeVehicleItem(i)" class="btn-remove-item" title="Xóa xe này">
+                        <button (click)="removeVehicleItem(i)" type="button" class="btn-remove-item" title="Xóa xe này">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                         
@@ -103,33 +108,55 @@
                         <div class="form-grid-2">
                             <div class="form-group">
                                 <label for="idXe-{{i}}">Chọn xe</label>
-                                <select id="idXe-{{i}}" [(ngModel)]="item.idXe" (ngModelChange)="onVehicleSelected(item)" class="form-control">
+                                <select id="idXe-{{i}}" [(ngModel)]="item.idXe" (ngModelChange)="onVehicleSelected(item)" 
+                                        name="idXe" class="form-control"
+                                        required #idXe="ngModel"
+                                        [class.is-invalid]="idXe.invalid && idXe.touched">
                                     <option value="" disabled>-- Chọn xe --</option>
                                     <option *ngFor="let p of products" [value]="p.id">
                                         {{ p.vehicleName }} ({{ p.pricePerDay | number }}đ/ngày)
                                     </option>
                                 </select>
+                                <div *ngIf="idXe.invalid && idXe.touched" class="invalid-feedback">
+                                    Vui lòng chọn xe.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="tinhTrangXe-{{i}}">Trạng thái xe</label>
-                                <select id="tinhTrangXe-{{i}}" [(ngModel)]="item.tinhTrangXe" class="form-control">
+                                <select id="tinhTrangXe-{{i}}" [(ngModel)]="item.tinhTrangXe" name="tinhTrangXe" class="form-control">
                                     <option *ngFor="let s of vehicleStatuses" [value]="s">{{ s }}</option>
                                 </select>
                             </div>
                         </div>
 
+
                         <div class="form-grid-4">
                             <div class="form-group">
                                 <label for="donGia-{{i}}">Đơn giá/ngày</label>
-                                <input type="number" id="donGia-{{i}}" [(ngModel)]="item.donGia" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                                <input type="number" id="donGia-{{i}}" [(ngModel)]="item.donGia" (ngModelChange)="updateItemTotal(item)" name="donGia" class="form-control">
                             </div>
+                            
                             <div class="form-group">
                                 <label for="soNgayThue-{{i}}">Số ngày thuê</label>
-                                <input type="number" id="soNgayThue-{{i}}" [(ngModel)]="item.soNgayThue" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                                <input type="number" id="soNgayThue-{{i}}" [(ngModel)]="item.soNgayThue" 
+                                       name="soNgayThue" class="form-control"
+                                       [readonly]="true"
+                                       #soNgayThue="ngModel"
+                                       [class.is-invalid]="soNgayThue.invalid && (soNgayThue.touched || orderForm.submitted)">
+                                <div *ngIf="soNgayThue.invalid && (soNgayThue.touched || orderForm.submitted)" class="invalid-feedback">
+                                     <span *ngIf="soNgayThue.errors?.['minDays']">Phải thuê ít nhất 1 ngày.</span>
+                                </div>
                             </div>
+
                              <div class="form-group">
                                 <label for="soLuong-{{i}}">Số lượng</label>
-                                <input type="number" id="soLuong-{{i}}" [(ngModel)]="item.soLuong" (ngModelChange)="updateItemTotal(item)" class="form-control">
+                                <input type="number" id="soLuong-{{i}}" [(ngModel)]="item.soLuong" (ngModelChange)="updateItemTotal(item)" 
+                                       name="soLuong" class="form-control"
+                                       required min="1" #soLuong="ngModel"
+                                       [class.is-invalid]="soLuong.invalid && soLuong.touched">
+                                <div *ngIf="soLuong.invalid && soLuong.touched" class="invalid-feedback">
+                                    Số lượng phải ít nhất 1.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Tổng (xe {{i+1}})</label>
@@ -140,29 +167,48 @@
                         <div class="form-grid-2">
                              <div class="form-group">
                                 <label for="diaDiemNhanXe-{{i}}">Địa điểm nhận</label>
-                                <input type="text" id="diaDiemNhanXe-{{i}}" [(ngModel)]="item.diaDiemNhanXe" class="form-control">
+                                <input type="text" id="diaDiemNhanXe-{{i}}" [(ngModel)]="item.diaDiemNhanXe" name="diaDiemNhanXe" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="diaDiemTraXe-{{i}}">Địa điểm trả</label>
-                                <input type="text" id="diaDiemTraXe-{{i}}" [(ngModel)]="item.diaDiemTraXe" class="form-control">
+                                <input type="text" id="diaDiemTraXe-{{i}}" [(ngModel)]="item.diaDiemTraXe" name="diaDiemTraXe" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-grid-2">
                             <div class="form-group">
                                 <label for="thoiGianNhanXe-{{i}}">Thời gian nhận</label>
-                                <input type="datetime-local" id="thoiGianNhanXe-{{i}}" [(ngModel)]="item.thoiGianNhanXe" class="form-control">
+                                <input type="datetime-local" id="thoiGianNhanXe-{{i}}" [(ngModel)]="item.thoiGianNhanXe" 
+                                       (ngModelChange)="onDateChange(item)" name="thoiGianNhanXe" class="form-control"
+                                       required #thoiGianNhanXe="ngModel"
+                                       [class.is-invalid]="thoiGianNhanXe.invalid && thoiGianNhanXe.touched">
+                                <div *ngIf="thoiGianNhanXe.invalid && thoiGianNhanXe.touched" class="invalid-feedback">
+                                    Vui lòng chọn thời gian nhận xe.
+                                </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="thoiGianTraXe-{{i}}">Thời gian trả</label>
-                                <input type="datetime-local" id="thoiGianTraXe-{{i}}" [(ngModel)]="item.thoiGianTraXe" class="form-control">
+                                <input type="datetime-local" id="thoiGianTraXe-{{i}}" [(ngModel)]="item.thoiGianTraXe" 
+                                       (ngModelChange)="onDateChange(item)" name="thoiGianTraXe" class="form-control"
+                                       required #thoiGianTraXe="ngModel"
+                                       [class.is-invalid]="thoiGianTraXe.invalid && thoiGianTraXe.touched">
+                                <div *ngIf="thoiGianTraXe.invalid && thoiGianTraXe.touched" class="invalid-feedback">
+                                    <span *ngIf="thoiGianTraXe.errors?.['required']">Vui lòng chọn thời gian trả xe.</span>
+                                    <span *ngIf="thoiGianTraXe.errors?.['dateRangeInvalid']">Giờ trả xe phải sau giờ nhận xe.</span>
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <button (click)="addVehicleItem()" class="btn-add-item">
+                    <button (click)="addVehicleItem()" type="button" class="btn-add-item">
                         <i class="fas fa-plus"></i> Thêm xe vào đơn
                     </button>
+                    
+                    <div *ngIf="isVehicleListEmpty && orderForm.submitted" class="invalid-feedback-global">
+                        Vui lòng thêm ít nhất một xe vào đơn hàng.
+                    </div>
                     
                     <div *ngIf="newOrder.chiTietDonThue.length === 0" class="empty-vehicle-list">
                         Chưa có xe nào trong đơn. Vui lòng bấm "Thêm xe".
@@ -172,7 +218,7 @@
             </div>
             
             <div class="detail-col-side">
-                <section class="card">
+                <section class="card" ngModelGroup="thanhToan">
                     <h2>Thông tin thanh toán</h2>
                     
                     <div class="form-group">
@@ -183,17 +229,17 @@
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="maGiamGia">Mã giảm giá</label>
-                            <input type="text" id="maGiamGia" [(ngModel)]="newOrder.thanhToan.maGiamGia" class="form-control">
+                            <input type="text" id="maGiamGia" [(ngModel)]="newOrder.thanhToan.maGiamGia" name="maGiamGia" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="tienGiam">Tiền giảm</label>
-                            <input type="number" id="tienGiam" [(ngModel)]="newOrder.thanhToan.tienGiam" (ngModelChange)="updateCalculations()" class="form-control">
+                            <input type="number" id="tienGiam" [(ngModel)]="newOrder.thanhToan.tienGiam" (ngModelChange)="updateCalculations()" name="tienGiam" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="paymentStatus">Trạng thái thanh toán</label>
-                        <select id="paymentStatus" [(ngModel)]="newOrder.thanhToan.tinhTrangThanhToan" class="form-control">
+                        <select id="paymentStatus" [(ngModel)]="newOrder.thanhToan.tinhTrangThanhToan" name="paymentStatus" class="form-control">
                             <option *ngFor="let p of paymentStatuses" [value]="p">{{ p }}</option>
                         </select>
                     </div>
@@ -205,17 +251,16 @@
                     </div>
                 </section>
             </div>
-
         </div>
-    </div>
-
+    </form>
+    
     <div class="popup-overlay" *ngIf="showConfirmPopup">
         <div class="popup-container">
             <h2>Xác nhận</h2>
-            <p>Bạn có chắc chắn muốn tạo đơn hàng này?</p>
+            <p>Bạn có chắc chắn muốn tạo đơn hàng mới này?</p>
             <div class="popup-actions">
                 <button (click)="onCancelSave()" class="btn-popup-cancel">Hủy</button>
-                <button (click)="onConfirmSave()" class="btn-popup-confirm">Tạo đơn</button>
+                <button (click)="onConfirmSave()" class="btn-popup-confirm">Tạo</button>
             </div>
         </div>
     </div>
@@ -223,11 +268,12 @@
     <div class="popup-overlay" *ngIf="showSuccessPopup">
         <div class="popup-container">
             <h2>Thành công</h2>
-            <p>Đã tạo đơn hàng {{ newOrder.maDonThue }} thành công!</p>
+            <p>Đã tạo đơn hàng mới thành công!</p>
             <div class="popup-actions">
                 <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Về danh sách</button>
                 <button (click)="onCloseSuccessAndReset()" class="btn-popup-confirm">Thêm đơn mới</button>
             </div>
         </div>
     </div>
+    
 </div>

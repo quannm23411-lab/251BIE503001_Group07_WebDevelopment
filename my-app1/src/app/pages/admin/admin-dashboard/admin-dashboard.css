@@ -1,11 +1,11 @@
-/* === Import các style chung === */
+
 .main { flex: 1; padding: 20px 30px; }
 .main__header { display: flex; justify-content: space-between; align-items: center; }
 
 /* 🔽 THAY ĐỔI: Áp dụng style H1 từ admin-bike.css 🔽 */
 .main__header h1 {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -192,17 +192,50 @@ td { font-size: 14px; }
     .dashboard-layout {
         grid-template-columns: 1fr;
     }
+    th, td {
+        white-space: normal;
+    }
 }
-@media (max-width: 480px) {
-    .main { padding: 15px; }
+
+/* 🔽 THAY THẾ TOÀN BỘ KHỐI NÀY 🔽 */
+@media (max-width: 680px) {
+    .main { 
+        padding: 15px; 
+    }
+    .main__header h1 {
+        font-size: 24px; /* THÊM MỚI: Giảm kích thước tiêu đề chính */
+    }
     .stats-grid {
         grid-template-columns: 1fr;
     }
     .stat-card {
         padding: 15px;
+        gap: 15px; /* THÊM MỚI: Giảm khoảng cách icon và chữ */
+    }
+    .stat-icon {
+        width: 50px; /* THÊM MỚI: Thu nhỏ icon */
+        height: 50px;
+        font-size: 20px;
     }
     .stat-info h3 {
         font-size: 22px;
     }
-    .card { padding: 15px; }
+    .card { 
+        padding: 15px; 
+    }
+    
+    /* THÊM MỚI: Quan trọng nhất - Xử lý bảng không bị tràn */
+    th, td {
+        white-space: normal; /* Cho phép chữ trong ô tự động xuống dòng */
+        padding: 10px 8px;   /* Giảm padding để tiết kiệm không gian */
+    }
+
+    /* THÊM MỚI: Tinh chỉnh danh sách xe top */
+    .top-vehicle-list img {
+        width: 50px;
+        height: 37.5px;
+    }
+    .top-vehicle-info strong {
+        font-size: 14px;
+    }
 }

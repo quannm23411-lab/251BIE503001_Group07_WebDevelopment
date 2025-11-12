@@ -3,11 +3,10 @@
         Đang lưu khách hàng...
     </div>
 
-    <div *ngIf="!isLoading">
+    <form #customerForm="ngForm" *ngIf="!isLoading" (ngSubmit)="saveChanges()">
         <header class="main__header">
             <div class="header-left">
-                <button (click)="goBack()" class="btn-back">
-                    <i class="fas fa-arrow-left"></i>
+                <button (click)="goBack()" type="button" class="btn-back"> <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="header-title">
                     <h1>Thêm khách hàng mới</h1>
@@ -15,7 +14,7 @@
                 </div>
             </div>
             <div class="actions">
-                <button (click)="saveChanges()" class="btn-save">
+                <button type="submit" class="btn-save">
                     <i class="fas fa-save"></i> Lưu khách hàng
                 </button>
             </div>
@@ -28,45 +27,77 @@
                     <h2>Thông tin cá nhân</h2>
                     <div class="form-group">
                         <label for="hoTen">Họ và tên</label>
-                        <input type="text" id="hoTen" [(ngModel)]="newCustomer.hoTen" class="form-control">
+                        <input type="text" id="hoTen" [(ngModel)]="newCustomer.hoTen" 
+                               name="hoTen" class="form-control"
+                               required 
+                               #hoTen="ngModel"
+                               [class.is-invalid]="hoTen.invalid && hoTen.touched">
+                        <div *ngIf="hoTen.invalid && hoTen.touched" class="invalid-feedback">
+                            Vui lòng nhập họ tên.
+                        </div>
                     </div>
                     
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" [(ngModel)]="newCustomer.email" class="form-control">
+                            <input type="email" id="email" [(ngModel)]="newCustomer.email" 
+                                   name="email" class="form-control"
+                                   required 
+                                   email
+                                   #email="ngModel"
+                                   [class.is-invalid]="email.invalid && email.touched">
+                            <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+                                <span *ngIf="email.errors?.['required']">Vui lòng nhập email.</span>
+                                <span *ngIf="email.errors?.['email']">Email không đúng định dạng.</span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="soDienThoai">Số điện thoại</label>
-                            <input type="text" id="soDienThoai" [(ngModel)]="newCustomer.soDienThoai" class="form-control">
+                            <input type="text" id="soDienThoai" [(ngModel)]="newCustomer.soDienThoai" 
+                                   name="soDienThoai" class="form-control"
+                                   required
+                                   pattern="^(0[3|5|7|8|9])+([0-9]{8})\b$"
+                                   #soDienThoai="ngModel"
+                                   [class.is-invalid]="soDienThoai.invalid && soDienThoai.touched">
+                            <div *ngIf="soDienThoai.invalid && soDienThoai.touched" class="invalid-feedback">
+                                <span *ngIf="soDienThoai.errors?.['required']">Vui lòng nhập SĐT.</span>
+                                <span *ngIf="soDienThoai.errors?.['pattern']">SĐT Việt Nam không hợp lệ.</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="ngaySinh">Ngày sinh</label>
-                        <input type="date" id="ngaySinh" [(ngModel)]="newCustomer.ngaySinh" class="form-control">
+                        <input type="date" id="ngaySinh" [(ngModel)]="newCustomer.ngaySinh" 
+                               name="ngaySinh" class="form-control"
+                               required
+                               #ngaySinh="ngModel"
+                               [class.is-invalid]="ngaySinh.invalid && ngaySinh.touched">
+                        <div *ngIf="ngaySinh.invalid && ngaySinh.touched" class="invalid-feedback">
+                            Vui lòng chọn ngày sinh.
+                        </div>
                     </div>
                 </section>
 
-                <section class="card">
+                <section class="card" ngModelGroup="diaChi">
                     <h2>Địa chỉ</h2>
                     <div class="form-group">
                         <label for="soNhaDuong">Số nhà, Đường</label>
-                        <input type="text" id="soNhaDuong" [(ngModel)]="newCustomer.diaChi.soNhaDuong" class="form-control">
+                        <input type="text" id="soNhaDuong" [(ngModel)]="newCustomer.diaChi.soNhaDuong" name="soNhaDuong" class="form-control">
                     </div>
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="phuongXa">Phường/Xã</label>
-                            <input type="text" id="phuongXa" [(ngModel)]="newCustomer.diaChi.phuongXa" class="form-control">
+                            <input type="text" id="phuongXa" [(ngModel)]="newCustomer.diaChi.phuongXa" name="phuongXa" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="quanHuyen">Quận/Huyện</label>
-                            <input type="text" id="quanHuyen" [(ngModel)]="newCustomer.diaChi.quanHuyen" class="form-control">
+                            <input type="text" id="quanHuyen" [(ngModel)]="newCustomer.diaChi.quanHuyen" name="quanHuyen" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="tinhThanh">Tỉnh/Thành phố</label>
-                        <input type="text" id="tinhThanh" [(ngModel)]="newCustomer.diaChi.tinhThanh" class="form-control">
+                        <input type="text" id="tinhThanh" [(ngModel)]="newCustomer.diaChi.tinhThanh" name="tinhThanh" class="form-control">
                     </div>
                 </section>
             </div>
@@ -76,43 +107,41 @@
                     <h2>Thông tin tài khoản</h2>
                     <div class="form-group">
                         <label for="maKhachHang">Mã khách hàng</label>
-                        <input type="text" id="maKhachHang" [value]="newCustomer.maKhachHang" class="form-control" readonly>
+                        <input type="text" id="maKhachHang" [value]="newCustomer.maKhachHang" name="maKhachHang" class="form-control" readonly>
                     </div>
                     <div class="form-group">
                         <label for="hangThanhVien">Hạng thành viên</label>
-                        <select id="hangThanhVien" [(ngModel)]="newCustomer.hangThanhVien" class="form-control">
+                        <select id="hangThanhVien" [(ngModel)]="newCustomer.hangThanhVien" name="hangThanhVien" class="form-control">
                              <option *ngFor="let tier of memberTiers" [value]="tier">{{ tier }}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="ngayDangKy">Ngày đăng ký</label>
-                        <input type="text" id="ngayDangKy" [value]="newCustomer.ngayDangKy | date:'dd/MM/yyyy HH:mm'" class="form-control" readonly>
+                        <input type="text" id="ngayDangKy" [value]="newCustomer.ngayDangKy | date:'dd/MM/yyyy HH:mm'" name="ngayDangKy" class="form-control" readonly>
                     </div>
                 </section>
 
-                <section class="card">
+                <section class="card" ngModelGroup="thongTinBangLai">
                     <h2>Thông tin bằng lái</h2>
                     <div class="form-group">
                         <label for="soBangLai">Số bằng lái</label>
-                        <input type="text" id="soBangLai" [(ngModel)]="newCustomer.thongTinBangLai.soBangLai" class="form-control">
+                        <input type="text" id="soBangLai" [(ngModel)]="newCustomer.thongTinBangLai.soBangLai" name="soBangLai" class="form-control">
                     </div>
 
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="hangBangLai">Hạng bằng lái</label>
-                            <input type="text" id="hangBangLai" [(ngModel)]="newCustomer.thongTinBangLai.hangBangLai" class="form-control">
+                            <input type="text" id="hangBangLai" [(ngModel)]="newCustomer.thongTinBangLai.hangBangLai" name="hangBangLai" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="ngayHetHan">Ngày hết hạn</label>
-                            <input type="date" id="ngayHetHan" [(ngModel)]="newCustomer.thongTinBangLai.ngayHetHan" class="form-control">
+                            <input type="date" id="ngayHetHan" [(ngModel)]="newCustomer.thongTinBangLai.ngayHetHan" name="ngayHetHan" class="form-control">
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-    </div>
-
-    <div class="popup-overlay" *ngIf="showConfirmPopup">
+    </form> <div class="popup-overlay" *ngIf="showConfirmPopup">
         <div class="popup-container">
             <h2>Xác nhận</h2>
             <p>Bạn có chắc chắn muốn tạo khách hàng mới này?</p>
