@@ -1,21 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-
-// ✅ Import thư viện Chart.js (đã cài bằng npm install chart.js)
-import Chart from 'chart.js/auto';
-
-// ✅ Khai báo interface dữ liệu nhận từ dashboard.json
-interface DashboardData {
-  carsRented: number;
-  carsTotal: number;
-  ordersToday: number;
-  revenue: number;
-  newUsers: number;
-  alerts: string[];
-  months: string[];
-  revenueData: number[];
-}
+import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-main',
@@ -25,65 +12,144 @@ interface DashboardData {
   styleUrl: './admin-main.css'
 })
 export class AdminMain implements OnInit {
-  @ViewChild('revenueChartCanvas') chartRef!: ElementRef<HTMLCanvasElement>;
+  isLoading: boolean = true;
+  
+  // 1. Thẻ thống kê
+  stats = {
+    totalRevenue: 0,
+    totalOrders: 0,
+    activeRentals: 0,
+    uniqueCustomers: 0
+  };
 
-  data!: DashboardData;
-  revenueChart: any;
+  // 2. Bảng đơn hàng gần đây
+  recentOrders: any[] = [];
+  
+  // 3. Danh sách xe
+  topVehicles: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  // Map để tra cứu
+  private productsMap = new Map<string, any>();
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    // ✅ Đọc file JSON từ thư mục assets/data/
-    this.http.get<DashboardData>('assets/data/dashboard.json').subscribe({
-      next: (data) => {
-        this.data = data;
-        this.renderChart(); // Sau khi có data → vẽ biểu đồ
+    this.isLoading = true;
+    
+    // Tải đồng thời 2 file data chính
+    const orders$ = this.http.get<any[]>('assets/data/orders.json');
+    const products$ = this.http.get<any[]>('assets/data/products.json');
+
+    forkJoin([orders$, products$]).subscribe({
+      next: ([ordersData, productsData]) => {
+        // Tạo map tra cứu tên/ảnh xe
+        this.productsMap = new Map(productsData.map(p => [p.id, p]));
+        
+        // Bắt đầu xử lý
+        this.processStats(ordersData);
+        this.processRecentOrders(ordersData);
+        this.processTopVehicles(ordersData);
+        
+        this.isLoading = false;
+        this.cdr.detectChanges();
       },
-      error: () => console.error('❌ Không thể tải dữ liệu Dashboard.')
+      error: (err) => {
+        console.error('Lỗi khi tải dữ liệu Dashboard', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 
-  renderChart() {
-    if (!this.data) return;
-    const ctx = this.chartRef.nativeElement;
+  /**
+   * Tính toán 4 thẻ thống kê
+   */
+  processStats(orders: any[]) {
+    const totalRevenue = orders.reduce((sum, order) => sum + order.thanhToan.chiPhiSauGiam, 0);
+    const totalOrders = orders.length;
+    const activeRentals = orders.filter(o => o.tinhTrangDon === 'Đang thuê').length;
+    const uniqueCustomers = new Set(orders.map(o => o.maKhachHang)).size;
 
-    // Xóa biểu đồ cũ nếu tồn tại (tránh lỗi)
-    if (this.revenueChart) {
-      this.revenueChart.destroy();
-    }
+    this.stats = { totalRevenue, totalOrders, activeRentals, uniqueCustomers };
+  }
 
-    // ✅ Khởi tạo biểu đồ mới
-    this.revenueChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: this.data.months,
-        datasets: [
-          {
-            label: 'Doanh thu (triệu VNĐ)',
-            data: this.data.revenueData,
-            borderColor: '#6fa304',
-            backgroundColor: 'rgba(111, 163, 4, 0.15)',
-            tension: 0.3,
-            fill: true,
-            pointBackgroundColor: '#6fa304'
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'bottom' },
-          tooltip: { enabled: true }
-        },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#444' } },
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#444' },
-            grid: { color: '#eee' }
-          }
-        }
-      }
+  /**
+   * Lấy 5 đơn hàng mới nhất
+   */
+  processRecentOrders(orders: any[]) {
+    this.recentOrders = [...orders] // Copy mảng
+      .sort((a, b) => new Date(b.thoiGianDatHang).getTime() - new Date(a.thoiGianDatHang).getTime()) // Sắp xếp mới nhất
+      .slice(0, 5) // Lấy 5
+      .map(order => ({
+        ...order,
+        // Thêm class để CSS
+        tinhTrangDonClass: this.getStatusClass(order.tinhTrangDon),
+        paymentStatusClass: this.getPaymentStatusClass(order.thanhToan.tinhTrangThanhToan)
+      }));
+  }
+
+  /**
+   * Tính 5 xe được thuê nhiều nhất
+   */
+  processTopVehicles(orders: any[]) {
+    const vehicleCounts = new Map<string, number>();
+
+    // Đếm số lượng từ tất cả các đơn
+    orders.forEach(order => {
+      order.chiTietDonThue.forEach((item: any) => {
+        const currentCount = vehicleCounts.get(item.idXe) || 0;
+        // Cộng dồn theo số lượng (hoặc có thể cộng theo soNgayThue)
+        vehicleCounts.set(item.idXe, currentCount + item.soLuong); 
+      });
     });
+
+    // Chuyển Map thành mảng [[id, count], ...]
+    const sortedVehicles = [...vehicleCounts.entries()]
+      .sort((a, b) => b[1] - a[1]) // Sắp xếp theo count
+      .slice(0, 5); // Lấy 5
+
+    // Map với thông tin từ products.json
+    this.topVehicles = sortedVehicles.map(([id, count]) => {
+      return {
+        product: this.productsMap.get(id) || { vehicleName: 'Xe không rõ', image: '' },
+        count: count
+      };
+    });
+  }
+
+  // --- Các hàm Helper (Copy từ admin-order.ts) ---
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Đã hoàn thành': return 'completed';
+      case 'Đang thuê': return 'rented';
+      case 'Đã xác nhận': return 'confirmed';
+      case 'Đã hủy': return 'cancelled';
+      default: return '';
+    }
+  }
+
+  getPaymentStatusClass(status: string): any {
+    switch (status) {
+      case 'Đã thanh toán': return 'paid';
+      case 'Chờ thanh toán': return 'pending';
+      default: 'pending';
+    }
+  }
+
+  // --- Các hàm điều hướng ---
+  goToOrder(orderId: string) {
+    this.router.navigate(['/admin/order-detail', orderId]);
+  }
+
+  goToBike(bikeId: string) {
+    this.router.navigate(['/admin/bike-detail', bikeId]);
+  }
+
+  goToAllOrders() {
+    this.router.navigate(['/admin/order']);
   }
 }

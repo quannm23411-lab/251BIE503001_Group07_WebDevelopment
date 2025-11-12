@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core'; 
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms'; 
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -10,29 +10,30 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-order-add.html',
-  styleUrl: './admin-order-add.css' // Dùng file CSS riêng
+  styleUrl: './admin-order-add.css'
 })
 export class AdminOrderAdd implements OnInit {
-  
+  @ViewChild('orderForm') orderForm!: NgForm;
+
   // Dữ liệu thô từ server
   customers: any[] = [];
   products: any[] = [];
-  customerSearchDisplay: string = ''; // Text hiển thị trên ô input
-  customerSearchResults: any[] = [];    // Mảng kết quả
-  private selectedCustomer: any = null; // Lưu trữ khách hàng đã chọn
-  // Model chính cho form
+  customerSearchDisplay: string = ''; 
+  customerSearchResults: any[] = [];    
+  private selectedCustomer: any = null; 
+  
   newOrder: any; 
 
   // Trạng thái
   isLoading: boolean = true;
+  isVehicleListEmpty: boolean = false; 
   
-  // Dữ liệu cho các <select> (copy từ detail)
+  // Dữ liệu cho các <select>
   orderStatuses = ['Đã xác nhận', 'Đang thuê', 'Đã hoàn thành', 'Đã hủy'];
   paymentStatuses = ['Chờ thanh toán', 'Đã thanh toán'];
   depositStatuses = ['Chờ xử lý', 'Đã thanh toán', 'Không yêu cầu'];
   vehicleStatuses = ['Đã đặt', 'Chờ giao', 'Đang thuê'];
   
-  // Biến kiểm soát popup
   showConfirmPopup: boolean = false;
   showSuccessPopup: boolean = false;
 
@@ -44,23 +45,19 @@ export class AdminOrderAdd implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {
-    // Khởi tạo model newOrder ngay lập tức
     this.initializeNewOrder();
   }
 
   ngOnInit() {
     this.isLoading = true;
     
-    // Tải danh sách khách hàng và sản phẩm
     const customers$ = this.http.get<any[]>('assets/data/customers.json');
     const products$ = this.http.get<any[]>('assets/data/products.json');
 
     forkJoin([customers$, products$]).subscribe({
       next: ([customersData, productsData]) => {
         this.customers = customersData;
-        this.products = productsData.filter(p => p.availabilityStatus === true); // Chỉ lấy xe khả dụng
-        
-        // Tạo map để tra cứu giá xe nhanh
+        this.products = productsData.filter(p => p.availabilityStatus === true);
         this.productMap = new Map(this.products.map(p => [p.id, p]));
         
         this.isLoading = false;
@@ -74,13 +71,10 @@ export class AdminOrderAdd implements OnInit {
     });
   }
 
-  /**
-   * Khởi tạo đối tượng đơn hàng mới với giá trị mặc định
-   */
   initializeNewOrder() {
     this.newOrder = {
       maDonThue: this.generateOrderId(),
-      maKhachHang: '', // Sẽ được chọn
+      maKhachHang: '', 
       thoiGianDatHang: new Date().toISOString(),
       tienDatCoc: 0,
       trangThaiCoc: 'Chờ xử lý',
@@ -93,129 +87,118 @@ export class AdminOrderAdd implements OnInit {
         donViTienTe: 'VND',
         tinhTrangThanhToan: 'Chờ thanh toán'
       },
-      chiTietDonThue: [] // Mảng rỗng chờ thêm xe
+      chiTietDonThue: [] 
     };
+    
+    this.isVehicleListEmpty = false;
   }
 
   generateOrderId(): string {
-    // Tạo ID ngẫu nhiên, vd: RENT12345
     const randomSuffix = Math.floor(10000 + Math.random() * 90000);
     return `RENT${randomSuffix}`;
   }
 
-  /**
-   * Thêm một dòng xe mới vào chiTietDonThue
-   */
   addVehicleItem() {
     this.newOrder.chiTietDonThue.push({
       idXe: '',
       soLuong: 1,
-      donGia: 0,     // Sẽ được cập nhật khi chọn xe
-      soNgayThue: 1,
-      tongGiaTri: 0, // Sẽ được tính
+      donGia: 0,
+      soNgayThue: 0, // Mặc định là 0
+      tongGiaTri: 0,
       thoiGianNhanXe: '',
       thoiGianTraXe: '',
       diaDiemNhanXe: '',
       diaDiemTraXe: '',
       tinhTrangXe: 'Đã đặt'
     });
+    this.isVehicleListEmpty = false;
   }
 
-  /**
-   * Xóa một dòng xe
-   */
   removeVehicleItem(index: number) {
     this.newOrder.chiTietDonThue.splice(index, 1);
-    this.updateCalculations(); // Tính lại tổng tiền
+    this.updateCalculations();
   }
 
-  /**
-   * Khi admin chọn một xe từ dropdown
-   */
   onVehicleSelected(item: any) {
     const product = this.productMap.get(item.idXe);
     if (product) {
-      item.donGia = product.pricePerDay; // Tự động điền đơn giá
+      item.donGia = product.pricePerDay; 
     }
-    this.updateItemTotal(item); // Tính lại tiền
+    this.updateItemTotal(item); 
   }
 
-  /**
-   * Tính lại tổng của 1 dòng xe
-   */
   updateItemTotal(item: any) {
     item.tongGiaTri = (item.donGia || 0) * (item.soNgayThue || 0) * (item.soLuong || 0);
-    this.updateCalculations(); // Cập nhật tổng tiền
+    this.updateCalculations(); 
   }
 
   /**
-   * 🔽 THÊM MỚI: Xử lý khi chọn khách hàng
-   * Kiểm tra xem admin có chọn "Thêm khách hàng mới" không
+   * Hàm tính toán số ngày thuê
    */
+  onDateChange(item: any) {
+    if (item.thoiGianNhanXe && item.thoiGianTraXe) {
+      const startDate = new Date(item.thoiGianNhanXe);
+      const endDate = new Date(item.thoiGianTraXe);
+
+      if (endDate <= startDate) {
+        item.soNgayThue = 0; 
+      } else {
+        const diffMs = endDate.getTime() - startDate.getTime();
+        const diffDays = diffMs / (1000 * 60 * 60 * 24); 
+        item.soNgayThue = Math.ceil(diffDays); 
+      }
+    } else {
+      item.soNgayThue = 0; 
+    }
+    
+    this.updateItemTotal(item);
+  }
+
   onCustomerSearch(event: any) {
     const searchTerm = event.target.value.toLowerCase().trim();
-    this.customerSearchDisplay = event.target.value; // Cập nhật text hiển thị
+    this.customerSearchDisplay = event.target.value; 
 
     if (!searchTerm) {
       this.customerSearchResults = [];
-      // Nếu xóa hết text, coi như bỏ chọn
       this.selectedCustomer = null;
       this.newOrder.maKhachHang = '';
       return;
     }
 
-    // Lọc trên mảng customers đã tải
     this.customerSearchResults = this.customers.filter(c => 
       c.hoTen.toLowerCase().includes(searchTerm) || 
       c.soDienThoai.includes(searchTerm)
-    ).slice(0, 5); // Chỉ hiển thị 5 kết quả đầu
+    ).slice(0, 5); 
   }
-
-  /**
-   * 🔽 THÊM MỚI: Xử lý khi click chọn 1 khách hàng từ danh sách
-   */
+  
   selectCustomer(customer: any) {
-    // 1. Lưu thông tin
     this.selectedCustomer = customer;
     this.newOrder.maKhachHang = customer.maKhachHang;
-    
-    // 2. Cập nhật ô input để hiển thị
     this.customerSearchDisplay = `${customer.hoTen} (${customer.soDienThoai})`;
-    
-    // 3. Ẩn danh sách kết quả
     this.customerSearchResults = [];
-  }
+    
+    this.orderForm.controls['maKhachHang']?.setValue(customer.maKhachHang);
+    this.orderForm.controls['maKhachHang']?.markAsDirty();
 
-  /**
-   * 🔽 THÊM MỚI: Xử lý khi click ra ngoài ô input
-   * Dùng để ẩn danh sách kết quả
-   */
+    this.cdr.detectChanges(); 
+  }
+  
   onCustomerSearchBlur() {
-    // Dùng setTimeout để sự kiện 'mousedown' (của selectCustomer)
-    // kịp chạy trước khi danh sách bị ẩn đi
     setTimeout(() => {
       this.customerSearchResults = [];
     }, 200);
   }
-
-  /**
-   * 🔽 THÊM MỚI: Hàm riêng cho nút Thêm mới (dễ quản lý)
-   */
+  
   goToAddCustomer() {
     this.router.navigate(['/admin/customer-add']);
   }
-  /**
-   * Tính lại toàn bộ thanh toán (tổng gốc, sau giảm)
-   */
+  
   updateCalculations() {
-    // 1. Tính tổng giá trị gốc
     let totalGoc = 0;
     for (const item of this.newOrder.chiTietDonThue) {
       totalGoc += item.tongGiaTri;
     }
     this.newOrder.thanhToan.tongGiaTriGoc = totalGoc;
-
-    // 2. Tính tổng sau giảm
     this.newOrder.thanhToan.chiPhiSauGiam = totalGoc - (this.newOrder.thanhToan.tienGiam || 0);
   }
 
@@ -225,8 +208,53 @@ export class AdminOrderAdd implements OnInit {
     this.location.back();
   }
 
+  /**
+   * 🔽 CẬP NHẬT: Logic gán lỗi
+   */
   saveChanges() {
-    // TODO: Thêm bước kiểm tra (validate) form tại đây
+    this.orderForm.form.markAllAsTouched();
+    this.isVehicleListEmpty = this.newOrder.chiTietDonThue.length === 0;
+
+    let isDateInvalid = false;
+    const chiTietControlsGroup = (this.orderForm.controls['chiTietDonThue'] as any);
+
+    if (chiTietControlsGroup && chiTietControlsGroup.controls) {
+      const chiTietControls = chiTietControlsGroup.controls;
+      
+      for (let i = 0; i < this.newOrder.chiTietDonThue.length; i++) {
+        const item = this.newOrder.chiTietDonThue[i];
+        const itemControls = chiTietControls[i].controls;
+
+        if (item.thoiGianNhanXe && item.thoiGianTraXe) {
+          // Kiểm tra 1: Ngày trả > Ngày nhận
+          if (new Date(item.thoiGianNhanXe) >= new Date(item.thoiGianTraXe)) {
+            isDateInvalid = true;
+            itemControls['thoiGianTraXe']?.setErrors({ dateRangeInvalid: true });
+          } 
+          // Kiểm tra 2: Số ngày thuê (đã tính) phải > 0
+          else if (item.soNgayThue <= 0) { 
+            isDateInvalid = true;
+            // Gán lỗi cho ô "Số ngày thuê"
+            itemControls['soNgayThue']?.setErrors({ minDays: true }); 
+          }
+          // Nếu không có lỗi
+          else {
+            if (itemControls['thoiGianTraXe']?.errors?.['dateRangeInvalid']) {
+              itemControls['thoiGianTraXe']?.setErrors(null);
+            }
+            if (itemControls['soNgayThue']?.errors?.['minDays']) {
+              itemControls['soNgayThue']?.setErrors(null);
+            }
+          }
+        }
+      }
+    }
+
+    if (this.orderForm.invalid || this.isVehicleListEmpty || isDateInvalid) {
+      console.warn('Form không hợp lệ. Vui lòng kiểm tra lại.');
+      return; 
+    }
+
     console.log('Dữ liệu đơn hàng mới:', this.newOrder);
     this.showConfirmPopup = true;
   }
@@ -240,7 +268,6 @@ export class AdminOrderAdd implements OnInit {
     this.isLoading = true;
     this.cdr.detectChanges();
 
-    // --- Giả lập gọi API ---
     console.log('ĐANG GỬI ĐƠN HÀNG MỚI...', this.newOrder);
     
     setTimeout(() => {
@@ -250,17 +277,16 @@ export class AdminOrderAdd implements OnInit {
     }, 1000);
   }
 
-  // Đóng popup và reset form để thêm đơn mới
   onCloseSuccessAndReset() {
     this.showSuccessPopup = false;
-    this.initializeNewOrder(); // Reset lại form
+    this.initializeNewOrder(); 
+    this.customerSearchDisplay = ''; 
+    this.orderForm.resetForm(); 
+    this.orderForm.form.patchValue(this.newOrder);
   }
 
-  // Đóng popup và quay về danh sách
   onCloseSuccessAndGoBack() {
     this.showSuccessPopup = false;
-    this.router.navigate(['/admin/order']); // Điều hướng về danh sách
+    this.router.navigate(['/admin/order']); 
   }
 }
-
-

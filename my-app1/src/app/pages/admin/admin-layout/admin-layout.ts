@@ -1,21 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { Auth, AuthUser } from '../../../services/auth/auth'; 
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    RouterLink 
+  ], 
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css'
 })
-export class AdminLayout { 
-// 🔽 THÊM VÀO: Biến để theo dõi trạng thái menu di động
-  isMobileMenuOpen = false;
+export class AdminLayout implements OnInit {
+  
+  private auth = inject(Auth); 
+  private router = inject(Router); 
 
-  // 🔽 THÊM VÀO: Hàm để bật/tắt menu
+  currentUser: AuthUser | null = null; 
+  isMobileMenuOpen: boolean = false; 
+
+  // 🔽 THÊM MỚI: Biến cho popup
+  showLogoutConfirmPopup: boolean = false;
+
+  ngOnInit() {
+    this.currentUser = this.auth.getCurrentUser(); 
+  }
+
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
+  /**
+   * 🔽 THAY ĐỔI: Hàm này giờ chỉ mở popup
+   */
+  logout() {
+    this.showLogoutConfirmPopup = true;
+  }
+
+  /**
+   * 🔽 THÊM MỚI: Hàm hủy đăng xuất
+   */
+  cancelLogout() {
+    this.showLogoutConfirmPopup = false;
+  }
+
+  /**
+   * 🔽 THÊM MỚI: Hàm xác nhận đăng xuất
+   */
+  confirmLogout() {
+    this.showLogoutConfirmPopup = false;
+    this.auth.logout(); 
+    this.router.navigate(['/login']);
+  }
 }

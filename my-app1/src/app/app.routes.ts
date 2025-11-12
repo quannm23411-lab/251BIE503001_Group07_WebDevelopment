@@ -28,7 +28,7 @@ export const routes: Routes = [
     canActivate: [requireAdmin],
     canActivateChild: [requireAdmin],
     children: [
-      { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
+      { path: 'dashboard', loadComponent: () => import('./pages/admin/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
       { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },
       { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
@@ -38,7 +38,9 @@ export const routes: Routes = [
       { path: 'customer', loadComponent: () => import('./pages/admin/admin-customer/admin-customer').then(m => m.AdminCustomer) },
       { path: 'customer-detail/:id', loadComponent: () => import('./pages/admin/admin-customer-detail/admin-customer-detail').then(m => m.AdminCustomerDetail) },
       { path: 'customer-add', loadComponent: () => import('./pages/admin/admin-customer-add/admin-customer-add').then(m => m.AdminCustomerAdd) },
-      { path: '', redirectTo: 'main', pathMatch: 'full' }
+      { path: 'promotion', loadComponent: () => import('./pages/admin/admin-promotion/admin-promotion').then(m => m.AdminPromotion) },
+      { path: 'promotion-add', loadComponent: () => import('./pages/admin/admin-promotion-add/admin-promotion-add').then(m => m.AdminPromotionAdd) },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 
@@ -54,6 +56,18 @@ export const routes: Routes = [
 
       // Trang chi tiết sản phẩm: /rent/:id
       { path: 'rent/:id', loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail) },
+
+      //Trang tài khoản khách hàng
+      {
+        path: 'account',
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', loadComponent: () => import('./pages/account/profile/profile-view').then(m => m.ProfileView) },
+          { path: 'profile/edit', loadComponent: () => import('./pages/account/profile/profile-edit').then(m => m.ProfileEdit) },
+          { path: 'orders', loadComponent: () => import('./pages/account/orders/orders').then(m => m.AccountOrders) },
+          { path: 'review/:id', loadComponent: () => import('./pages/account/review/review').then(m => m.AccountReview) }
+        ]
+      },
 
       // Khi nào có thì mở
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },

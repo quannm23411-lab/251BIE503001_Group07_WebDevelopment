@@ -82,13 +82,19 @@
           <span class="text-gray"> của EcoMOVE</span>
         </p>
 
-        <button type="submit" class="btn-submit" [disabled]="signupForm.invalid">
-          Đăng ký
+        <button type="submit" class="btn-submit" [disabled]="signupForm.invalid || isLoading()">
+          <span *ngIf="isLoading()" class="loading-wrapper">
+            <span class="spinner"></span>
+            Đang xử lý...
+          </span>
+          <span *ngIf="!isLoading()">
+            Đăng ký
+          </span>
         </button>
 
         <div class="divider"><span>Hoặc</span></div>
 
-        <button type="button" class="btn-google">
+        <button type="button" class="btn-google" (click)="handleGoogleLogin()">
           <img src="https://c.animaapp.com/mhiy3qbcWLq1hC/img/frame-1.svg" alt="Google" class="google-icon" />
           Đăng nhập bằng Google
         </button>
@@ -96,7 +102,7 @@
 
       <footer class="footer">
         <p>
-          <span class="footer-text">Bạn đã có tài khoản?</span>
+          <span class="footer-text">Bạn đã có tài khoản? </span>
           <a routerLink="/login" class="footer-link">Đăng nhập</a>
         </p>
       </footer>
@@ -104,11 +110,23 @@
   </main>
 </div>
 
-<!-- Modal đăng ký thành công -->
 <div id="success-modal" class="modal-overlay" *ngIf="isModalVisible" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h2>Đăng ký thành công!</h2>
     <p>Chào mừng bạn đến với EcoMOVE. Bạn sẽ được chuyển về trang đăng nhập.</p>
-    <button id="modal-close-btn" class="btn-submit" (click)="closeModal()">Đóng</button>
+    <button id="modal-close-btn" class="btn-submit" (click)="closeModal()">Tuyệt vời!</button>
+  </div>
+</div>
+
+<div id="feature-modal" class="modal-overlay" 
+    *ngIf="isFeatureModalVisible()" 
+    (click)="closeFeatureModal()">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2> 
+    <p>{{ featureModalBody() }}</p>
+    <button id="feature-modal-close-btn" class="btn-submit" (click)="closeFeatureModal()">
+      Đã hiểu
+    </button>
   </div>
 </div>

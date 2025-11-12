@@ -1,7 +1,3 @@
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
 <div class="admin">
     <aside class="sidebar">
         
@@ -9,7 +5,9 @@
             <div class="sidebar-logo-mobile">
                 <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
             </div>
-            <button class="sidebar-toggle" (click)="toggleMobileMenu()">☰</button>
+            <button class="sidebar-toggle" (click)="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
         <div class="sidebar-menu-container" [class.show]="isMobileMenuOpen">
@@ -17,19 +15,32 @@
                 <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
             </div>
 
-            <ul class="sidebar-menu">
-                <li routerLink="/admin/main" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-th-large" style="margin-right:10px;"></span>Dashboard</li>
-                <li routerLink="/admin/bike" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-briefcase" style="margin-right:10px;"></span>Quản lý xe</li>
-                <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-bookmark" style="margin-right:10px;"></span>Đơn thuê xe</li>
-                <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()"><span class="glyphicon glyphicon-globe" style="margin-right:10px;"></span>Khách hàng</li>
-                <li ><span class="glyphicon glyphicon-bullhorn" style="margin-right:10px;"></span>Marketing & Popup</li>
-                <li><span class="glyphicon glyphicon-edit" style="margin-right:10px;"></span>Giao diện website</li>
-                <li><span class="glyphicon glyphicon-user" style="margin-right:10px;"></span>Tài khoản Admin</li>
-                <li><span class="glyphicon glyphicon-cog" style="margin-right:10px;"></span>Hệ thống & Nhật ký</li>
-                <li><span class="glyphicon glyphicon-menu-left" style="margin-right:10px;"></span>Đăng xuất</li>
+            <ul class="sidebar-menu nav-list">
+                <li routerLink="/admin/dashboard" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-th-large"></i>Dashboard</li>
+                <li routerLink="/admin/bike" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-briefcase"></i>Quản lý xe</li>
+                <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-bookmark"></i>Đơn thuê xe</li>
+                <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-globe"></i>Khách hàng</li>
+                <li routerLink="/admin/promotion" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-globe"></i>Khuyến mãi</li>
+                <li><i class="fas fa-bullhorn"></i>Marketing & Popup</li>
+                <li><i class="fas fa-edit"></i>Giao diện website</li>
+                <li><i class="fas fa-user"></i>Tài khoản Admin</li>
+                <li><i class="fas fa-cog"></i>Hệ thống & Nhật ký</li>
+                
+                <div class="admin-user-info" *ngIf="currentUser">
+                    <img src="assets/images/admin-avatar.png" alt="Admin" class="admin-avatar">
+                    <div class="admin-details">
+                      <span class="admin-name">{{ currentUser.fullname }}</span>
+                      <span class="admin-role">{{ currentUser.role }}</span>
+                    </div>
+                </div>
+
+                <li (click)="logout()" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>Đăng xuất
+                </li> 
             </ul>
         </div>
-    </aside>
+
+        </aside>
 
     <div class="menu-overlay" 
          [class.show]="isMobileMenuOpen" 
@@ -37,9 +48,20 @@
     </div>
 
     <main class="main">
-  <div class="content-surface">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+      <div class="content-surface">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
 
+    <div class="popup-overlay" *ngIf="showLogoutConfirmPopup">
+      <div class="popup-container">
+          <h2>Xác nhận đăng xuất</h2>
+          <p>Bạn có chắc chắn muốn đăng xuất?</p>
+          <div class="popup-actions">
+              <button (click)="cancelLogout()" class="btn-popup-cancel">Hủy</button>
+              <button (click)="confirmLogout()" class="btn-popup-danger">Đăng xuất</button>
+          </div>
+      </div>
+    </div>
+    
 </div>

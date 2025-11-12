@@ -1,0 +1,259 @@
+/* --- Bố cục chính --- */
+.main { flex: 1; padding: 20px 30px; }
+.main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* 👈 THÊM MỚI */
+    margin-bottom: 20px; /* 👈 THÊM MỚI */
+}
+
+/* === 🔽 THÊM MỚI: Style cho Header (từ admin-bike-add.css) === */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.header-title h1 {
+  font-weight: 700;
+  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;    
+  font-size: 32px; /* 👈 THÊM MỚI */
+  margin: 0;
+}
+.header-title span {
+    font-size: 14px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.btn-back {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-back:hover {
+    background: #e0e0e0;
+}
+/* === 🔼 HẾT PHẦN THÊM MỚI HEADER 🔼 === */
+
+
+/* --- Các nút hành động --- */
+.actions button { 
+    border: none; 
+    border-radius: 6px; 
+    padding: 10px 14px; 
+    cursor: pointer; 
+    margin-left: 10px; 
+    font-weight: 500;
+}
+.btn-cancel {
+    background-color: #f1f1f1;
+    color: #555;
+    border: 1px solid #ddd;
+}
+.btn-save {
+    background: #567C02; /* 👈 THAY ĐỔI: Màu xanh lá cây (giống admin-bike-add) */
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-save:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* === 🔽 THÊM MỚI: Layout 2 cột (từ admin-bike-add.css) === */
+.detail-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+.detail-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.detail-col-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+/* === 🔼 HẾT PHẦN LAYOUT 🔼 === */
+
+/* === 🔽 THÊM MỚI: Style Thẻ "Card" (từ admin-bike-add.css) === */
+.card {
+    background: white;
+    padding: 20px 25px; /* Giữ padding gốc của promotion-add */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    font-size: 18px; /* Giữ font-size gốc */
+}
+/* === 🔼 HẾT PHẦN CARD 🔼 === */
+
+
+/* --- ❌ XÓA BỎ: Các style layout cũ ❌ --- */
+/* .form-card { ... } */
+/* .form-grid { ... } */
+/* .form-col h2 { ... } */
+
+
+/* --- Các nhóm Form (Giữ nguyên) --- */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: #333; /* Đổi màu đậm hơn */
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="datetime-local"],
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; /* 👈 THÊM MỚI */
+}
+.form-group input:focus, .form-group select:focus {
+    border-color: #567C02;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(138, 182, 45, 0.2);
+}
+
+/* --- Ghi chú & Lỗi (Giữ nguyên) --- */
+.form-text {
+    font-size: 13px;
+    color: #777;
+    margin-top: 5px;
+    display: block;
+}
+.invalid-feedback {
+    color: #a30000;
+    font-size: 13px;
+    margin-top: 5px;
+}
+.form-group input.is-invalid,
+.form-group select.is-invalid {
+    border-color: #a30000;
+}
+.form-group input.is-invalid:focus,
+.form-group select.is-invalid:focus {
+     border-color: #a30000;
+    box-shadow: 0 0 0 2px rgba(163, 0, 0, 0.2);
+}
+
+/* --- Responsive (Thay thế bằng style của admin-bike-add) --- */
+@media (max-width: 992px) {
+    .detail-layout {
+        grid-template-columns: 1fr; /* Chuyển thành 1 cột */
+    }
+    .main__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .actions {
+        width: 100%;
+        margin-left: 0;
+    }
+    .btn-save {
+        width: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .main { padding: 15px; }
+    .card { padding: 15px; } /* 👈 THAY ĐỔI: .form-card -> .card */
+    .actions button { flex: 1; }
+}
+
+/* --- Style cho Loading State (Giữ nguyên) --- */
+.table-state-cell {
+    text-align: center;
+    padding: 60px 40px;
+    color: #888;
+    font-size: 18px;
+}
+
+/* --- Style Popup (Cập nhật màu nút) --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.popup-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.popup-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+.popup-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.popup-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.btn-popup-cancel {
+    background: #f0f0f0;
+    color: #555;
+}
+.btn-popup-cancel:hover {
+    background: #e0e0e0;
+}
+.btn-popup-confirm {
+    background: #567C02; /* 👈 THAY ĐỔI: Màu xanh lá cây (giống admin-bike-add) */
+    color: white;
+}
+.btn-popup-confirm:hover {
+    background: #6fa304; /* 👈 THAY ĐỔI */
+}

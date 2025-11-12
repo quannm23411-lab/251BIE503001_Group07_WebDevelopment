@@ -1,0 +1,14 @@
+@import '../profile/profile.css';
+
+.order-top{ display:grid; grid-template-columns:92px 1fr auto auto; gap:12px; align-items:center; border:1px solid #eaecef; border-radius:12px; padding:12px; margin:10px 0 16px; }
+.order-top img{ width:92px; height:68px; object-fit:cover; border-radius:8px; background:#f5f6f7; }
+.order-top .status{ color:#6b7280; }
+.order-top .actions button{ height:32px; border-radius:8px; padding:0 10px; border:1px solid #cfd6da; background:#fff; cursor:pointer; }
+
+.feedback{ border:1px solid #eaecef; border-radius:12px; padding:12px; }
+.feedback .who{ display:flex; gap:12px; align-items:center; margin-bottom:8px; }
+.feedback .who .avatar{ width:40px; height:40px; border-radius:50%; object-fit:cover; }
+.feedback .stars{ color:#f59e0b; }
+.feedback .text{ margin:8px 0; }
+.feedback .photo{ width:180px; height:120px; object-fit:cover; border-radius:8px; display:block; margin:8px 0; }
+.feedback .time{ color:#6b7280; font-size:12px; }
