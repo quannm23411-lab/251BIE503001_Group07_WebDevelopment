@@ -4,7 +4,6 @@
     min-height: 100vh;
 }
 
-/* ... (Giữ nguyên Sidebar, Main, Header, Filters) ... */
 .sidebar { width: 240px; background-color: #567C02; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px 10px; }
 .sidebar__logo img { width: 60px; }
 .sidebar__logo h2 { font-size: 20px; margin-top: 10px; }
@@ -17,15 +16,13 @@
   justify-content: space-between;
   align-items: center;
 }
-
-/* Tiêu đề: viết hoa + đậm + nền gradient ngang */
 .main__header h1 {
-  text-transform: uppercase;                 /* viết hoa */
-  font-weight: 700;                           /* in đậm */
-  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  text-transform: uppercase;                 
+  font-weight: 700;                           
+  background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;                         /* hiển thị gradient trong chữ */
+  color: transparent;                         
 }
 .actions button { border: none; border-radius: 6px; padding: 10px 14px; cursor: pointer; margin-left: 10px; }
 .btn-export { background: #6fa304; color: white; }
@@ -33,7 +30,6 @@
 .filters { background: white; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 15px; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
 .filters input, .filters select, .filters button { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; background-color: #ffffff; }
 .filters button { background-color: #6fa304; color: white; }
-/* ... (Hết phần giữ nguyên) ... */
 
 
 /* Table */
@@ -47,7 +43,6 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    /* table-layout: fixed; 👈 THÊM DÒNG NÀY (chống giật) */
 }
 
 th,
@@ -74,7 +69,6 @@ th {
 .status.rented { background: #ffe3a3; color: #995c00; }
 .status.maintain { background: #ffd0d0; color: #a30000; }
 
-/* 🔽 ĐÃ XÓA: class .action-btn (không còn dùng) */
 
 .bike-info {
     display: flex;
@@ -101,13 +95,11 @@ th {
     color: #888;
 }
 
-/* ... (Giữ nguyên phần .filters select) ... */
 .filters select:invalid { color: #999; }
 .filters select option { color: #333; }
 .filters select option[value=""] { color: #999; }
 
 
-/* === 🔽 THÊM MỚI: Style cho hàng/tiêu đề (Copy từ customer) === */
 
 /* Style cho dòng có thể click */
 .clickable-row {
@@ -115,7 +107,7 @@ th {
     transition: background-color 0.2s ease;
 }
 .clickable-row:hover {
-    background-color: #f9f9f9; /* Màu nền nhạt khi hover */
+    background-color: #f9f9f9; 
 }
 
 /* Style cho Sắp xếp Bảng */
@@ -123,18 +115,14 @@ th.sortable {
     cursor: pointer;
     transition: background-color 0.2s ease;
     user-select: none;
-    position: relative; /* 👈 THÊM DÒNG NÀY */
-    
-    /* Căn lề phải cho text, để chừa chỗ cho icon */
+    position: relative; 
     padding-right: 30px; 
 }
 
-/* Xóa justify-content */
 th.sortable .th-content {
     display: flex;
     align-items: center;
     width: 100%;
-    /* 🔽 ĐÃ XÓA: justify-content: space-between; */
 }
 
 th.sortable:hover {
@@ -145,16 +133,13 @@ th.sort-active {
     color: #333;
 }
 
-/* 🔽 THAY THẾ TOÀN BỘ style cho icon 'i' bằng khối này */
 th.sortable i {
     font-size: 0.8em;
     color: #ccc;
     transition: color 0.2s ease;
-
-    /* Dùng position: absolute để icon không ảnh hưởng layout */
     position: absolute;
-    right: 12px; /* Căn phải (12px là padding gốc) */
-    top: 50%; /* Căn giữa theo chiều dọc */
+    right: 12px; 
+    top: 50%; 
     transform: translateY(-50%);
 }
 
@@ -174,15 +159,7 @@ th.sortable i.fa-sort-down {
 /* ===================================== */
 
 
-/* === 🔽 MEDIA QUERY (Cập nhật logic ẩn cột) === */
-/* Cấu trúc cột mới: 6 cột
-   1. Tên xe / Mã xe
-   2. Giá thuê
-   3. Dung lượng pin
-   4. Quãng đường
-   5. Trạng thái
-   6. Khu vực
-*/
+/* ===  MEDIA QUERY  === */
 @media (max-width: 992px) {
     .filters {
         flex-direction: column;
@@ -192,13 +169,11 @@ th.sortable i.fa-sort-down {
         width: auto;
     }
 
-    /* Ẩn tiêu đề (th): Cột 2, 3, 4 (Giữ nguyên) */
     .bike-list th:nth-child(2),
     .bike-list th:nth-child(3),
     .bike-list th:nth-child(4) {
         display: none;
     }
-    /* Ẩn nội dung (td): Cột 2, 3, 4 (Giữ nguyên) */
     .bike-list td:nth-child(2),
     .bike-list td:nth-child(3),
     .bike-list td:nth-child(4) {
@@ -218,7 +193,6 @@ th.sortable i.fa-sort-down {
 }
 
 @media (max-width: 480px) {
-    /* Ẩn thêm: Trạng thái (5), Khu vực (6) (Giữ nguyên) */
     .bike-list th:nth-child(5),
     .bike-list th:nth-child(6) {
         display: none;

@@ -2,31 +2,29 @@
 .main { flex: 1; padding: 20px 30px}
 .main__header { display: flex; justify-content: space-between; align-items: center; }
 .main__header h1 {
-  text-transform: uppercase;                 /* viết hoa */
-  font-weight: 700;                           /* in đậm */
-  /* letter-spacing: .12em;                      (tuỳ) dãn chữ nhẹ */
-  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  text-transform: uppercase;               
+  font-weight: 700;                         
+  background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;                         /* hiển thị gradient trong chữ */
+  color: transparent;                        
 }
 .actions button { border: none; border-radius: 6px; padding: 10px 14px; cursor: pointer; margin-left: 10px; }
 .btn-export { background: #6fa304; color: white; }
 .btn-add { background: #004d40; color: white; }
 
-/* --- Filters (Giữ nguyên) --- */
+/* --- Filters--- */
 .filters { background: white; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 15px; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
 .filters input, .filters select, .filters button { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; }
 .filters label { font-size: 13px; color: #555; margin-left: 5px; }
 .filters input[type="date"] { padding: 7px 10px; }
 .filters button { background-color: #6fa304; color: white; }
 
-/* --- Table (Giữ nguyên) --- */
+/* --- Table--- */
 .rental-list { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
 table {
     width: 100%;
     border-collapse: collapse;
-    /* KHÔNG dùng table-layout: fixed (theo ý bạn) */
 }
 th, td {
     padding: 12px;
@@ -36,9 +34,6 @@ th, td {
 }
 th { color: #567C02; }
 
-/* 🔽 ĐÃ XÓA: class .action-btn (không còn dùng) */
-
-/* ... (Giữ nguyên .customer-info, .loading-cell, .empty-cell, .status, .payment-status) ... */
 .customer-info { display: flex; flex-direction: column; }
 .customer-info span { font-size: 13px; color: #777; }
 .loading-cell, .empty-cell { text-align: center; padding: 40px; color: #888; }
@@ -50,12 +45,9 @@ th { color: #567C02; }
 .payment-status { display: inline-flex; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
 .payment-status.paid { background: #d7f7b4; color: #336000; }
 .payment-status.pending { background: #ffe3a3; color: #995c00; }
-/* ... (Hết phần giữ nguyên) ... */
 
 
-/* === 🔽 THÊM MỚI: Style cho hàng/tiêu đề (Copy từ bike/customer) === */
 
-/* Style cho dòng có thể click */
 .clickable-row {
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -64,19 +56,18 @@ th { color: #567C02; }
     background-color: #f9f9f9;
 }
 
-/* Style cho Sắp xếp Bảng (loại không giật layout) */
 th.sortable {
     cursor: pointer;
     transition: background-color 0.2s ease;
     user-select: none;
-    position: relative; /* 👈 Quan trọng */
-    padding-right: 30px; /* 👈 Chừa chỗ cho icon */
+    position: relative; 
+    padding-right: 30px; 
 }
 th.sortable .th-content {
     display: flex;
     align-items: center;
     width: 100%;
-    /* Không có justify-content: space-between */
+
 }
 th.sortable:hover {
     background-color: #fcfcfc;
@@ -88,7 +79,6 @@ th.sortable i {
     font-size: 0.8em;
     color: #ccc;
     transition: color 0.2s ease;
-    /* Dùng position: absolute để icon không ảnh hưởng layout */
     position: absolute;
     right: 12px; /* Căn phải */
     top: 50%; /* Căn giữa */
@@ -110,12 +100,12 @@ th.sortable i.fa-sort-down {
 .date-filter-group {
   display: flex;
   align-items: center;
-  gap: 5px; /* Tạo khoảng cách nhỏ giữa label và input */
+  gap: 5px; 
 }
 /*
 
-/* === MEDIA QUERY (Giữ nguyên) === */
-/* Logic ẩn cột không thay đổi vì các cột bị ẩn vẫn ở đúng vị trí */
+/* === MEDIA QUERY=== */
+
 @media (max-width: 992px) {
     .filters {
         flex-direction: column;
@@ -125,7 +115,6 @@ th.sortable i.fa-sort-down {
         width: auto;
         margin-left: 0;
     }
-    /* Ẩn: Ngày đặt (3), Tổng tiền (4), Thanh toán (5), Khu vực (6) */
     .rental-list th:nth-child(3),
     .rental-list th:nth-child(4),
     .rental-list th:nth-child(5),
@@ -149,26 +138,23 @@ th.sortable i.fa-sort-down {
     .customer-info strong {
         font-size: 14px;
     }
-    /* === 🔽 THÊM MỚI ĐỂ NHÓM LABEL VÀ INPUT NGÀY THÁNG === */
-/* === 🔽 THÊM MỚI: Xếp chồng bộ lọc ngày trên mobile === */
+
     .date-filter-group {
-        display: block; /* Hủy bỏ 'display: flex' của nhóm */
-    }
+        display: block;
     .date-filter-group label {
-        display: block; /* Cho nhãn nằm 1 hàng riêng (ở trên) */
-        margin-bottom: 5px; /* Thêm khoảng cách với ô input bên dưới */
+        display: block; 
+        margin-bottom: 5px; 
     }
     .date-filter-group input[type="date"] {
-        width: 100%; /* Cho ô input ngày chiếm đủ chiều rộng */
-        box-sizing: border-box; /* Đảm bảo padding không làm vỡ layout */
+        width: 100%; 
+        box-sizing: border-box; 
     }
 
 
 }
+}
 
 @media (max-width: 480px) {
-    /* Ẩn thêm: Khách hàng (2), Trạng thái (7) */
-    /* Chỉ giữ lại Mã đơn (1) */
     .rental-list th:nth-child(2),
     .rental-list th:nth-child(7) {
         display: none;
@@ -181,17 +167,16 @@ th.sortable i.fa-sort-down {
         padding: 10px;
     }
 
-    /* === 🔽 THÊM MỚI ĐỂ NHÓM LABEL VÀ INPUT NGÀY THÁNG === */
-/* === 🔽 THÊM MỚI: Xếp chồng bộ lọc ngày trên mobile === */
+
     .date-filter-group {
-        display: block; /* Hủy bỏ 'display: flex' của nhóm */
+        display: block; 
     }
     .date-filter-group label {
-        display: block; /* Cho nhãn nằm 1 hàng riêng (ở trên) */
-        margin-bottom: 5px; /* Thêm khoảng cách với ô input bên dưới */
+        display: block; 
+        margin-bottom: 5px; 
     }
     .date-filter-group input[type="date"] {
-        width: 100%; /* Cho ô input ngày chiếm đủ chiều rộng */
-        box-sizing: border-box; /* Đảm bảo padding không làm vỡ layout */
+        width: 100%; 
+        box-sizing: border-box; 
     }
 }
