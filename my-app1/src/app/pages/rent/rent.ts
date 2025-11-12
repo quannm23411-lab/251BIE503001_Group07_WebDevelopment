@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink  } from '@angular/router';
 import { ProductLoadingService, ProductVM } from '../../services/product-loading.services';
 
 type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
@@ -22,7 +22,7 @@ const BRAND_MAP: Record<string, string> = {
 @Component({
     selector: 'app-rent',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterLink],
     templateUrl: './rent.html',
     styleUrls: ['./rent.css']
 })

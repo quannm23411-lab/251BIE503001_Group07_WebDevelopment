@@ -30,7 +30,7 @@ export const routes: Routes = [
     children: [
       { path: 'main', loadComponent: () => import('./pages/admin/admin-main/admin-main').then(m => m.AdminMain) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
-      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },      
+      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },
       { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
       { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
       { path: 'order-add', loadComponent: () => import('./pages/admin/admin-order-add/admin-order-add').then(m => m.AdminOrderAdd) },
@@ -42,15 +42,20 @@ export const routes: Routes = [
     ]
   },
 
-  // User layout + homepage (chỉ mở route có thật)
+  // User layout + trang công khai
   {
     path: '',
     loadComponent: () => import('./pages/main-layout/main-layout').then(m => m.MainLayout),
     children: [
       { path: '', loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage) },
 
-      // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
-      { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.RentPage) },
+      // Danh sách thuê xe
+      { path: 'rent', loadComponent: () => import('./pages/rent/rent').then(m => m.RentPage) },
+
+      // Trang chi tiết sản phẩm: /rent/:id
+      { path: 'rent/:id', loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail) },
+
+      // Khi nào có thì mở
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
       // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
