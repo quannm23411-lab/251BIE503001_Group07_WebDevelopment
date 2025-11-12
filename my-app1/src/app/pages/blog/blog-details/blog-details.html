@@ -1,0 +1,57 @@
+<nav class="breadcrumb">
+    <a routerLink="/" class="crumb">Trang chủ</a>
+    <span class="sep">/</span>
+    <a routerLink="/blog" class="crumb">Blog</a>
+    <span class="sep">/</span>
+    <span class="crumb current">{{ type }}</span>
+</nav>
+
+<section *ngIf="post as p" class="detail-wrap">
+    <!-- Header -->
+    <header class="detail-header">
+        <h1 class="detail-title">{{ p.title }}</h1>
+        <div class="detail-meta">
+            <span class="date" *ngIf="p.date">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a746f" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {{ formatVN(p.date) }}
+            </span>
+            <span class="cat" *ngIf="p.category">{{ p.category }}</span>
+        </div>
+    </header>
+
+    <!-- Cover -->
+    <div class="detail-cover" *ngIf="p.image" [style.backgroundImage]="'url(' + p.image + ')'"></div>
+
+    <!-- Content -->
+    <article class="detail-content" [innerHTML]="p.content || p.excerpt"></article>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Related -->
+    <section *ngIf="related.length" class="related">
+        <h3 class="related-heading">Bài viết liên quan</h3>
+        <div class="related-grid">
+            <a class="related-card" *ngFor="let r of related" [routerLink]="['/blog/details', type, r.id]">
+                <div class="related-thumb" [style.backgroundImage]="r.image ? 'url(' + r.image + ')' : ''"></div>
+                <div class="related-body">
+                    <div class="related-title">{{ r.title }}</div>
+                    <div class="related-date" *ngIf="r.date">{{ formatVN(r.date) }}</div>
+                </div>
+            </a>
+        </div>
+    </section>
+</section>
+
+<!-- Fallback khi không tìm thấy -->
+<section *ngIf="!post" class="empty">
+    <h2>Không tìm thấy bài viết</h2>
+    <p>Liên kết có thể đã thay đổi hoặc bài viết đã bị gỡ.</p>
+    <a routerLink="/blog" class="btn-back">Quay về Blog</a>
+</section>

@@ -30,7 +30,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', loadComponent: () => import('./pages/admin/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard) },
       { path: 'bike', loadComponent: () => import('./pages/admin/admin-bike/admin-bike').then(m => m.AdminBike) },
-      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },      
+      { path: 'bike-detail/:id', loadComponent: () => import('./pages/admin/admin-bike-detail/admin-bike-detail').then(m => m.AdminBikeDetail) },
       { path: 'bike-add', loadComponent: () => import('./pages/admin/admin-bike-add/admin-bike-add').then(m => m.AdminBikeAdd) },
       { path: 'order', loadComponent: () => import('./pages/admin/admin-order/admin-order').then(m => m.AdminOrder) },
       { path: 'order-add', loadComponent: () => import('./pages/admin/admin-order-add/admin-order-add').then(m => m.AdminOrderAdd) },
@@ -44,16 +44,45 @@ export const routes: Routes = [
     ]
   },
 
-  // User layout + homepage (chỉ mở route có thật)
+  // User layout + trang công khai
   {
     path: '',
     loadComponent: () => import('./pages/main-layout/main-layout').then(m => m.MainLayout),
     children: [
       { path: '', loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage) },
 
-      // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
-      // { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.Rent) },
+      // Danh sách thuê xe
+      { path: 'rent', loadComponent: () => import('./pages/rent/rent').then(m => m.RentPage) },
+
+      // Trang chi tiết sản phẩm: /rent/:id
+      { path: 'rent/:id', loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail) },
+
+      // Khi nào có thì mở
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
+      // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
+      // BLOG
+      {
+        path: 'blog',
+        loadComponent: () => import('./pages/blog/blog').then(m => m.Blog),
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'offers' }, // ← vào /blog tự tới Ưu đãi
+          {
+            path: 'offers',
+            data: { breadcrumb: 'Ưu đãi' },                       // ← label breadcrumb
+            loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent),
+          },
+          {
+            path: 'products',
+            data: { breadcrumb: 'Sản phẩm mới' },
+            loadComponent: () => import('./pages/blog/blog-products/blog-products').then(m => m.BlogProducts),
+          },
+          {
+            path: 'news',
+            data: { breadcrumb: 'Tin tức' },
+            loadComponent: () => import('./pages/blog/blog-news/blog-news').then(m => m.BlogNews),
+          },
+        ],
+      },
       // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
   },

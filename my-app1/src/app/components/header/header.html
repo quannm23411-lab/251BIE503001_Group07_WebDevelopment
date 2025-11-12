@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <header class="header" id="mainHeader" [class.shrink]="isShrink">
   <!-- Quảng cáo chạy -->
   <div class="header__ads">
-    <marquee behavior="scroll" direction="left" scrollamount="4">
+    <marquee behavior="scroll" direction="left" scrollamount="6" loop="infinite">
       🌿 Miễn phí giao/nhận xe tại 30+ điểm trong thành phố • Hỗ trợ kỹ thuật 24/7 • Ưu đãi đến 10% tuần đầu thuê 🌿
     </marquee>
   </div>
@@ -10,14 +11,14 @@
   <div class="header__middle">
     <!-- Logo -->
     <div class="header__logo">
-      <img src="assets/images/logofull.png" alt="EcoMOVE Logo" />
+      <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
     </div>
 
     <!-- Location + Search -->
     <div class="header__controls">
       <!-- Nút địa điểm -->
       <button type="button" class="btn-loc" (click)="notifyLocationWip()">
-        <img src="assets/icons/location.png" alt="location" />
+        <img src="../../../assets/images/location.png" alt="location" />
         <span>{{ currentCity }}</span>
         <svg class="chev" viewBox="0 0 24 24">
           <path d="M7 10l5 5 5-5" />
@@ -27,7 +28,7 @@
       <!-- Ô tìm kiếm -->
       <form class="header__search" (submit)="onSearch($event)">
         <button type="submit" class="search-icon-btn" aria-label="Tìm kiếm">
-          <img src="assets/icons/search.png" alt="Tìm kiếm" />
+          <img src="../../../assets/images/search.png" alt="Tìm kiếm" />
         </button>
         <input #searchInput type="text" class="header__search-input" placeholder="Bạn muốn thuê gì hôm nay?"
           (focus)="openSuggest()" (input)="onQueryChange(searchInput.value)" (keydown)="onSearchKey($event)"
@@ -49,7 +50,7 @@
     <!-- Khu vực hành động -->
     <div class="header__actions">
       <a routerLink="/cart" class="nav__cart" aria-label="Giỏ hàng">
-        <img src="assets/icons/cart.png" alt="Cart" />
+        <i class="bi bi-cart"></i>
         <span class="cart-badge">1</span>
       </a>
 

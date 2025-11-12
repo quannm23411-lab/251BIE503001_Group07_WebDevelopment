@@ -1,0 +1,115 @@
+<div class="pd-wrap" *ngIf="product() as p">
+    <!-- breadcrumb -->
+<nav class="breadcrumb">
+  <a routerLink="/">Trang chủ</a>
+  <span>/</span>
+  <a routerLink="/rent">{{ p.vehicleType || 'Xe điện' }}</a>
+  <span>/</span>
+  <span class="current">{{ p.vehicleType }} {{ p.vehicleName }}</span>
+</nav>
+
+    <section class="pd-grid">
+        <!-- MEDIA -->
+<div class="pd-media">
+  <div class="pd-cover" *ngIf="gallery().length; else noImg">
+    <img [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
+  </div>
+
+  <ng-template #noImg>
+    <div class="noimg">Không có ảnh</div>
+  </ng-template>
+
+  <!-- Luôn hiển thị dãy ảnh nhỏ nếu có dữ liệu -->
+  <div class="pd-thumbs" *ngIf="gallery().length">
+    <button *ngFor="let img of gallery(); let i = index"
+            (click)="setActive(i)"
+            [class.active]="i === activeIndex()">
+      <img [src]="img" [alt]="product()?.vehicleName || ('Ảnh ' + (i+1))" />
+    </button>
+  </div>
+</div>
+
+        <!-- INFO -->
+        <div class="pd-info">
+            <h1 class="pd-title">{{ p.vehicleName }}</h1>
+
+            <div class="pd-meta">
+                <span class="brand">{{ p.brandName || '—' }}</span>
+                <span class="dot">•</span>
+                <span class="type">{{ p.vehicleType || 'Xe điện' }}</span>
+                <span class="dot">•</span>
+                <span class="status" [class.ok]="p.availabilityStatus" [class.bad]="!p.availabilityStatus">
+                    {{ statusLabel() }}
+                </span>
+            </div>
+
+            <div class="pd-pricing">
+                <div class="now">{{ vnd(p.finalPricePerDay) }}/ngày</div>
+                <div class="old" *ngIf="p.pricePerDay && p.pricePerDay !== p.finalPricePerDay">
+                    {{ vnd(p.pricePerDay) }}
+                </div>
+                <div class="discount" *ngIf="p.discount">-{{ p.discount }}%</div>
+            </div>
+
+            <div class="features">
+                <span>200km/1 lần sạc</span>
+                <span>Sạc 3–4 tiếng</span>
+                <span>Kèm mũ</span>
+                <span>GPS</span>
+                <span>Bảo hiểm</span>
+                <span>CSKH 24/7</span>
+            </div>
+
+            <div class="pd-actions">
+                <button class="btn-primary" [disabled]="!p.availabilityStatus">ĐẶT XE NGAY</button>
+                <button class="btn-ghost">ĐẶT TRƯỚC</button>
+                <button class="btn-cart">THÊM VÀO GIỎ</button>
+            </div>
+
+            <div class="pd-colors">
+                <span>Màu:</span>
+                <button class="c c1" aria-label="đen"></button>
+                <button class="c c2" aria-label="trắng"></button>
+                <button class="c c3" aria-label="xanh"></button>
+                <button class="c c4" aria-label="hồng"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Description -->
+    <section class="box">
+        <h3>MÔ TẢ</h3>
+        <p>{{ p.description || 'Đang cập nhật mô tả chi tiết cho mẫu xe này.' }}</p>
+    </section>
+
+    <!-- Reviews: demo đơn giản -->
+    <section class="box">
+        <h3>ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
+        <div class="rating">4.9/5 • 35 lượt đánh giá mẫu</div>
+        <div class="review">
+            <div class="name">Hồng Phúc</div>
+            <p>Dịch vụ nhanh, xe đúng mô tả.</p>
+        </div>
+        <div class="review">
+            <div class="name">Khánh Xuân</div>
+            <p>Giao đúng giờ, chạy êm.</p>
+        </div>
+    </section>
+
+    <!-- Related -->
+    <section class="box">
+        <h3>BẠN CŨNG CÓ THỂ THÍCH</h3>
+        <div class="rel">
+            <a class="card" *ngFor="let r of related()" (click)="goTo(r)">
+                <div class="img">
+                    <img [src]="r.image || 'assets/images/placeholder.png'" [alt]="r.vehicleName" />
+                </div>
+                <div class="name">{{ r.vehicleName }}</div>
+                <div class="meta">
+                    <span>{{ r.brandName || '—' }}</span>
+                    <span class="price">{{ vnd(r.finalPricePerDay) }}/ngày</span>
+                </div>
+            </a>
+        </div>
+    </section>
+</div>

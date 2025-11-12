@@ -1,30 +1,30 @@
 :root {
+    --header-h: 64px;
     --header-offset: 145px;
 }
 
-/* Base body padding to avoid overlap */
+/* Base */
 body {
     margin: 0;
     padding-top: var(--header-offset);
     font-family: "Inter", sans-serif;
 }
 
-/* ===== Header Base ===== */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+    background-image: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
     color: #fff;
     z-index: 1000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
-/* ===== Ads ===== */
+/* Ads */
 .header__ads {
-    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+    background-image: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
     text-align: center;
     font-size: 0.9rem;
     padding: 5px 0;
@@ -36,36 +36,40 @@ body {
     font-weight: 500;
 }
 
-/* ===== Middle ===== */
+/* Middle */
 .header__middle {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 5%;
-    transition: padding 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    padding: 8px 5%;
+    min-height: var(--header-h);
+    transition: padding 0.25s ease;
 }
 
-/* Logo */
+/* Logo cố định */
 .header__logo {
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 160px;
 }
 
 .header__logo img {
-    width: 100%;
-    height: 48px;
-    transition: width 0.3s ease, height 0.3s ease;
+    width: 132px;
+    height: 36px;
+    object-fit: contain;
+    flex: 0 0 132px;
+    max-width: none;
 }
 
-/* ===== Controls (location + search) ===== */
+/* Controls */
 .header__controls {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* Location button */
+/* Location */
 .btn-loc {
     display: inline-flex;
     align-items: center;
@@ -97,7 +101,7 @@ body {
     stroke-width: 2;
 }
 
-/* Search box */
+/* Search */
 .header__search {
     position: relative;
     display: flex;
@@ -131,7 +135,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* Suggestion panel */
+/* Suggestion */
 .search-suggest {
     position: absolute;
     top: calc(100% + 8px);
@@ -183,11 +187,11 @@ body {
     color: #222;
 }
 
-/* ===== Actions ===== */
+/* Actions */
 .header__actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 /* Cart */
@@ -195,8 +199,9 @@ body {
     position: relative;
 }
 
-.nav__cart img {
-    width: 26px;
+.nav__cart i {
+  font-size: 28px;          /* Kích thước icon */
+  color: white;    
 }
 
 .cart-badge {
@@ -206,11 +211,12 @@ body {
     background: #ff3b30;
     color: white;
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     font-size: 11px;
     text-align: center;
     line-height: 16px;
+    border: solid 1px white;
 }
 
 /* Login/User */
@@ -219,7 +225,7 @@ body {
     color: #5b9021;
     border: none;
     border-radius: 20px;
-    padding: 8px 18px;
+    padding: 6px 14px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -230,23 +236,32 @@ body {
     background: #f2f2f2;
 }
 
+/* Greeting */
 .nav__user {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .nav__welcome {
     font-weight: 500;
     color: #fff;
+    font-size: 12px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    padding: 0;
+    margin: 0;
 }
 
 .nav__logout-btn {
     background-color: #fff;
     color: #2e7d32;
     border: none;
-    padding: 5px 12px;
-    border-radius: 20px;
+    padding: 4px 10px;
+    border-radius: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -256,7 +271,7 @@ body {
     background-color: #c8e6c9;
 }
 
-/* ===== Nav ===== */
+/* Nav */
 .nav {
     background-color: #3b8661;
     display: flex;
@@ -283,23 +298,27 @@ body {
 
 .nav__link:hover,
 .nav__link--active {
-    color: #00FFA1;
+    color: #00ffa1;
 }
 
-/* ===== Shrink Mode ===== */
+/* Shrink */
 .header.shrink .header__ads,
 .header.shrink .nav {
     display: none;
 }
 
 .header.shrink .header__middle {
-    background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+    background-image: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
     backdrop-filter: blur(4px);
-    padding: 8px 5%;
+    padding: 6px 5%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== Dropdown ===== */
+.header.shrink .nav__welcome {
+    display: none;
+}
+
+/* Dropdown */
 .nav__item {
     position: relative;
 }
@@ -368,26 +387,16 @@ body {
     color: #ffeb3b;
 }
 
-/* ===== Responsive Layers ===== */
-
-/* --- Tablet landscape (≤ 1200px): co search nhẹ --- */
+/* Responsive */
 @media (max-width: 1200px) {
     .header__search {
         width: 380px;
     }
 }
 
-/* --- Tablet portrait (≤ 992px): thu nhỏ logo + ẩn chữ --- */
 @media (max-width: 992px) {
-    .header__logo img {
-        width: 42px;
-        height: 42px;
-    }
-
-    .header__logo-text {
-        opacity: 0;
-        visibility: hidden;
-        width: 0;
+    .nav__welcome {
+        display: none;
     }
 
     .header__search {
@@ -395,7 +404,6 @@ body {
     }
 }
 
-/* --- Mobile large (≤ 768px): ẩn nút TP.HCM, search rộng hơn --- */
 @media (max-width: 768px) {
     .btn-loc {
         display: none;
@@ -410,33 +418,18 @@ body {
     }
 }
 
-/* --- Mobile medium (≤ 600px): chỉ giữ logo, ẩn chữ, thu nhỏ search --- */
 @media (max-width: 600px) {
     .header__search {
         width: 55vw;
     }
-
-    .header__logo-text {
-        display: none;
-    }
 }
 
-/* --- Mobile small (≤ 480px): chỉ còn logo --- */
 @media (max-width: 480px) {
     .header__search {
         display: none;
     }
 
     .btn-loc {
-        display: none;
-    }
-
-    .header__logo img {
-        width: 40px;
-        height: 40px;
-    }
-
-    .header__logo-text {
         display: none;
     }
 }
