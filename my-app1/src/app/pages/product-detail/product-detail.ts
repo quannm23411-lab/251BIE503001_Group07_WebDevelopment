@@ -1,5 +1,5 @@
 // src/app/pages/product/product-detail/product-detail.ts
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -71,7 +71,11 @@ export class ProductDetail {
         return n.toLocaleString('vi-VN') + '₫';
     }
 
-    goTo(p: ProductVM) { this.router.navigate(['/rent', p.id]); }
+goTo(p: ProductVM) {
+  this.router.navigate(['/rent', p.id]).then(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
     constructor() {
         // Đổi id thì reset thumbnail (cho đồng bộ)
@@ -84,5 +88,35 @@ export class ProductDetail {
 
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
+  }
+showFullReviews: boolean = false;
+  toggleReviews() {
+  this.showFullReviews = !this.showFullReviews;
+
+  if (this.showFullReviews) {
+    setTimeout(() => {
+      const reviewSection = document.querySelector('.pd-description:last-of-type');
+      reviewSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+  }
+}
+  @ViewChild('slider') slider!: ElementRef;
+
+  scrollLeft() {
+    if (this.slider) {
+      this.slider.nativeElement.scrollBy({
+        left: -300,
+        behavior: 'smooth',
+      });
+    }
+  }
+
+  scrollRight() {
+    if (this.slider) {
+      this.slider.nativeElement.scrollBy({
+        left: 300,
+        behavior: 'smooth',
+      });
+    }
   }
 }

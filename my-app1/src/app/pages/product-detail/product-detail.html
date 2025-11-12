@@ -148,94 +148,166 @@
 
 
     <!-- Reviews: demo đơn giản -->
-    <section class="pd-description">
-        <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
+<!-- Reviews Section -->
+<section class="pd-description">
+  <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
 
-        <div class="rating-score">
-            <div class="score">4.9/5</div>
-            <div class="stars">
+  <div class="rating-score">
+    <div class="score">4.9/5</div>
+    <div class="stars">
       <i class="bi bi-star-fill"></i>
       <i class="bi bi-star-fill"></i>
       <i class="bi bi-star-fill"></i>
       <i class="bi bi-star-fill"></i>
       <i class="bi bi-star-fill"></i>
+    </div>
+    <p class="review-count">5 lượt đánh giá</p>
+  </div>
+
+  <!-- 👇 Thêm toggle box như phần mô tả -->
+  <div class="desc-box" [class.expanded]="showFullReviews">
+    <div class="desc-content" style="background-color: #D9D9D9;">
+      <!-- REVIEW 1 -->
+      <div class="review-card">
+        <div class="review-header">
+          <img
+            src="https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg"
+            alt="avatar"
+            class="review-avatar"
+          />
+          <div class="review-info">
+            <h4 class="review-name">Hồng Phúc</h4>
+            <div class="review-stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
             </div>
-            <p class="review-count">5 lượt đánh giá</p>
-        </div>
-
-     <div class="desc-box" [class.expanded]="showFullDescription">
-    <div style="background-color: #D9D9D9;" class="desc-content">
-            <!-- REVIEW 1 -->
-            <div class="review-card">
-      <div class="review-header">
-        <img src="https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg" alt="avatar" class="review-avatar" />
-        <div class="review-info">
-          <h4 class="review-name">Hồng Phúc</h4>
-          <div class="review-stars">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
+            <span class="review-date">Đánh giá ngày 10/11/2025</span>
           </div>
-          <span class="review-date">Đánh giá ngày 10/11/2025</span>
+        </div>
+
+        <p class="review-text">
+          Dịch vụ nhanh, xe đúng mô tả. Nhân viên hỗ trợ nhiệt tình, hướng dẫn sử dụng xe kỹ càng. 
+          Xe chạy êm, sạch và đầy pin khi nhận.
+        </p>
+
+        <div class="review-images">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWKWb6bezP-697v1B2Ye2zZZeAQpCWe_Eh_g&s"
+            alt="ảnh đánh giá 1"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDYbK3b0Ku_LaRawNyUlwcZgz3awqvoq1hSw&s"
+            alt="ảnh đánh giá 2"
+          />
         </div>
       </div>
 
-      <p class="review-text">
-        Dịch vụ nhanh, xe đúng mô tả. Nhân viên hỗ trợ nhiệt tình, hướng dẫn sử dụng xe kỹ càng. 
-        Xe chạy êm, sạch và đầy pin khi nhận.
-      </p>
-
-      <div class="review-images">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWKWb6bezP-697v1B2Ye2zZZeAQpCWe_Eh_g&s" alt="ảnh đánh giá 1" />
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDYbK3b0Ku_LaRawNyUlwcZgz3awqvoq1hSw&s" alt="ảnh đánh giá 2" />
-      </div>
-    </div>
-    <!-- REVIEW 2 -->
-    <div class="review-card">
-      <div class="review-header">
-        <img src="https://jbagy.me/wp-content/uploads/2025/03/hinh-anh-cute-avatar-vo-tri-3.jpg" alt="avatar" class="review-avatar" />
-        <div class="review-info">
-          <h4 class="review-name">Khánh Xuân</h4>
-          <div class="review-stars">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
+      <!-- REVIEW 2 -->
+      <div class="review-card">
+        <div class="review-header">
+          <img
+            src="https://jbagy.me/wp-content/uploads/2025/03/hinh-anh-cute-avatar-vo-tri-3.jpg"
+            alt="avatar"
+            class="review-avatar"
+          />
+          <div class="review-info">
+            <h4 class="review-name">Khánh Xuân</h4>
+            <div class="review-stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <span class="review-date">Đánh giá ngày 08/11/2025</span>
           </div>
-          <span class="review-date">Đánh giá ngày 08/11/2025</span>
+        </div>
+
+        <p class="review-text">
+          Xe giao đúng giờ, chạy ổn định, phanh tốt và pin dùng được lâu. 
+          Mình thuê 2 ngày đi công việc rất hài lòng, sẽ tiếp tục ủng hộ.
+        </p>
+
+        <div class="review-images">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJLg9Yxt8fRtld4-ldXSxaK_wf55Np3XKF6g&s"
+            alt="ảnh đánh giá 1"
+          />
         </div>
       </div>
+    </div>
+  </div>
 
-      <p class="review-text">
-        Xe giao đúng giờ, chạy ổn định, phanh tốt và pin dùng được lâu. 
-        Mình thuê 2 ngày đi công việc rất hài lòng, sẽ tiếp tục ủng hộ.
-      </p>
-      <div class="review-images">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJLg9Yxt8fRtld4-ldXSxaK_wf55Np3XKF6g&s" alt="ảnh đánh giá 1" />
-      </div>
-    </div>
-    </div>
-     </div>
-        
-    </section>
+  <!-- 👇 Nút toggle -->
+  <div class="toggle-wrapper">
+    <button class="toggle-btn" (click)="toggleReviews()">
+      <i class="bi" [ngClass]="showFullReviews ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
+    </button>
+  </div>
+</section>
+
 
     <!-- Related -->
-    <section class="box">
-        <h3>BẠN CŨNG CÓ THỂ THÍCH</h3>
-        <div class="rel">
-            <a class="card" *ngFor="let r of related()" (click)="goTo(r)">
-                <div class="img">
-                    <img [src]="r.image || 'assets/images/placeholder.png'" [alt]="r.vehicleName" />
-                </div>
-                <div class="name">{{ r.vehicleName }}</div>
-                <div class="meta">
-                    <span>{{ r.brandName || '—' }}</span>
-                    <span class="price">{{ vnd(r.finalPricePerDay) }}/ngày</span>
-                </div>
-            </a>
+<section class="pd-description related-slider">
+  <h3 class="desc-title">BẠN CŨNG CÓ THỂ THÍCH</h3>
+
+  <div class="slider-container">
+    <!-- Nút mũi tên trái -->
+    <button class="arrow left" (click)="scrollLeft()">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <!-- Vùng hiển thị sản phẩm -->
+    <div class="product-slider" #slider>
+      <a
+        class="product-card"
+        *ngFor="let r of related()"
+        (click)="goTo(r)"
+      >
+        <div class="image">
+          <img
+            [src]="r.image || 'assets/images/placeholder.png'"
+            [alt]="r.vehicleName"
+          />
+          <div class="discount" *ngIf="r.discount">-{{ r.discount }}%</div>
         </div>
-    </section>
+
+        <div class="product-card__features">
+          <span><i class="bi bi-battery-charging"></i> 200 km/lần sạc</span>
+          <span><i class="bi bi-speedometer2"></i> Tốc độ tối đa 90 km/h</span>
+          <span><i class="bi bi-lightning"></i> Sạc nhanh 3–4 tiếng</span>
+          <span><i class="bi bi-shield-check"></i> 2 nón bảo hiểm</span>
+        </div>
+
+        <div class="details">
+          <div class="name">{{ r.vehicleName }}</div>
+          <div class="meta">
+            <span>{{ r.brandName || '—' }}</span>
+            <span class="dot">•</span>
+            <span>{{ r.vehicleType || 'Xe điện' }}</span>
+          </div>
+
+          <div class="price">
+            <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
+            <span
+              class="old"
+              *ngIf="r.pricePerDay && r.pricePerDay !== r.finalPricePerDay"
+              >{{ vnd(r.pricePerDay) }}</span
+            >
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Nút mũi tên phải -->
+    <button class="arrow right" (click)="scrollRight()">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+
 </div>
