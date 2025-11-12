@@ -42,15 +42,20 @@ export const routes: Routes = [
     ]
   },
 
-  // User layout + homepage (chỉ mở route có thật)
+  // User layout + trang công khai
   {
     path: '',
     loadComponent: () => import('./pages/main-layout/main-layout').then(m => m.MainLayout),
     children: [
       { path: '', loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage) },
 
-      // Khi nào tạo thư mục thì bỏ comment ba dòng dưới và đảm bảo đường dẫn đúng:
-      // { path: 'rent',  loadComponent: () => import('./pages/rent/rent').then(m => m.Rent) },
+      // Danh sách thuê xe
+      { path: 'rent', loadComponent: () => import('./pages/rent/rent').then(m => m.RentPage) },
+
+      // Trang chi tiết sản phẩm: /rent/:id
+      { path: 'rent/:id', loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail) },
+
+      // Khi nào có thì mở
       // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
       // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
       // BLOG
