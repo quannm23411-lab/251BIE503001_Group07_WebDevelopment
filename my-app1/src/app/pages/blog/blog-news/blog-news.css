@@ -315,13 +315,6 @@ h3.section::after {
     transform: translateY(-1px)
 }
 
-.floor {
-    height: 120px;
-    background: linear-gradient(180deg, rgba(69, 184, 128, .22), rgba(43, 59, 65, .25));
-    border-radius: 18px;
-    margin-top: 8px
-}
-
 /* ===== Responsive ===== */
 @media (max-width:1100px) {
     .latest-grid {

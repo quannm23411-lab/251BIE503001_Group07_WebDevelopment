@@ -8,9 +8,11 @@
 .blog-crumbbar {
     background: #72D4A5;
     box-shadow: 0 1px px rgba(0, 0, 0, .08);
-    margin-top: 57px;
+    margin-top: 50px;
+    /* padding-top: 50px; */
     position: relative;
     z-index: 5;
+    
 }
 @media (max-width: 1200px) {
     .blog-crumbbar {
@@ -71,12 +73,12 @@
     font-weight: 600;
 }
 .crumb .sep1 {
-    color: #e6e6e6;
+    color: #ffffff;
     font-weight: 600;
 }
 
 .crumb .current {
-    color: #e6e6e6;
+    color: #ffffff;
     font-weight: 700;
 }
 
