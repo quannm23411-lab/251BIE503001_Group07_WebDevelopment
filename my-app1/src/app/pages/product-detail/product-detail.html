@@ -116,170 +116,174 @@
       <!-- NÚT HÀNH ĐỘNG -->
       <div class="pd-actions">
         <div class="top">
-          <button class="btn-primary big">ĐẶT XE NGAY</button>
+          <button class="btn-primary big" (click)="bookNow()">
+            ĐẶT XE NGAY
+          </button>
         </div>
         <div class="bottom">
-          <button class="btn-ghost">ĐẶT TRƯỚC</button>
-          <button class="btn-cart">THÊM VÀO GIỎ</button>
+          <button class="btn-ghost" (click)="preOrder()">
+            ĐẶT TRƯỚC
+          </button>
+          <button class="btn-cart" (click)="addToCart()">
+            THÊM VÀO GIỎ
+          </button>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- MÔ TẢ -->
-  <section class="pd-description">
-    <h3 class="desc-title">MÔ TẢ</h3>
+      <!-- MÔ TẢ -->
+      <section class="pd-description">
+        <h3 class="desc-title">MÔ TẢ</h3>
 
-    <div class="desc-box" [class.expanded]="showFullDescription" *ngIf="detail() as d">
-      <div class="desc-content">
-        <p><strong>{{ d.title }}</strong></p>
+        <div class="desc-box" [class.expanded]="showFullDescription" *ngIf="detail() as d">
+          <div class="desc-content">
+            <p><strong>{{ d.title }}</strong></p>
 
-        <p *ngFor="let para of d.paragraphs ?? []">
-          {{ para }}
-        </p>
+            <p *ngFor="let para of d.paragraphs ?? []">
+              {{ para }}
+            </p>
 
-        <p *ngIf="(d.features ?? []).length">
-          <strong>Điểm nổi bật dành cho khách thuê xe:</strong>
-        </p>
+            <p *ngIf="(d.features ?? []).length">
+              <strong>Điểm nổi bật dành cho khách thuê xe:</strong>
+            </p>
 
-        <ul *ngIf="(d.features ?? []).length">
-          <li *ngFor="let f of d.features ?? []">
-            {{ f }}
-          </li>
-        </ul>
-      </div>
-    </div>
+            <ul *ngIf="(d.features ?? []).length">
+              <li *ngFor="let f of d.features ?? []">
+                {{ f }}
+              </li>
+            </ul>
+          </div>
+        </div>
 
-    <div class="toggle-wrapper">
-      <button class="toggle-btn" (click)="toggleDescription()">
-        <i class="bi" [ngClass]="
+        <div class="toggle-wrapper">
+          <button class="toggle-btn" (click)="toggleDescription()">
+            <i class="bi" [ngClass]="
             showFullDescription
               ? 'bi-chevron-double-up'
               : 'bi-chevron-double-down'
           "></i>
-      </button>
-    </div>
-  </section>
+          </button>
+        </div>
+      </section>
 
-  <!-- ĐÁNH GIÁ -->
-  <section class="pd-description reviews-section">
-    <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
+      <!-- ĐÁNH GIÁ -->
+      <section class="pd-description reviews-section">
+        <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
 
-    <div class="rating-score">
-      <div class="score">{{ avgRating() | number: '1.1-1' }}/5</div>
-      <div class="stars">
-        <i class="bi" *ngFor="let s of stars" [ngClass]="s <= avgRatingRounded() ? 'bi-star-fill' : 'bi-star'"></i>
-      </div>
-      <p class="review-count">
-        {{ reviewCount() }} lượt đánh giá
-      </p>
-    </div>
+        <div class="rating-score">
+          <div class="score">{{ avgRating() | number: '1.1-1' }}/5</div>
+          <div class="stars">
+            <i class="bi" *ngFor="let s of stars" [ngClass]="s <= avgRatingRounded() ? 'bi-star-fill' : 'bi-star'"></i>
+          </div>
+          <p class="review-count">
+            {{ reviewCount() }} lượt đánh giá
+          </p>
+        </div>
 
-    <div class="desc-box" [class.expanded]="showFullReviews">
-      <div class="desc-content reviews-box">
-        <div class="review-card" *ngFor="let r of reviews() ?? []">
-          <div class="review-header">
-            <img src="assets/images/avatar-default.png" alt="avatar" class="review-avatar" />
-            <div class="review-info">
-              <h4 class="review-name">{{ r.customerName }}</h4>
-              <div class="review-stars">
-                <i class="bi" *ngFor="let s of stars" [ngClass]="s <= r.rating ? 'bi-star-fill' : 'bi-star'"></i>
+        <div class="desc-box" [class.expanded]="showFullReviews">
+          <div class="desc-content reviews-box">
+            <div class="review-card" *ngFor="let r of reviews() ?? []">
+              <div class="review-header">
+                <img src="assets/images/avatar-default.png" alt="avatar" class="review-avatar" />
+                <div class="review-info">
+                  <h4 class="review-name">{{ r.customerName }}</h4>
+                  <div class="review-stars">
+                    <i class="bi" *ngFor="let s of stars" [ngClass]="s <= r.rating ? 'bi-star-fill' : 'bi-star'"></i>
+                  </div>
+                  <span class="review-date">
+                    Đánh giá ngày {{ r.reviewDate | date: 'dd/MM/yyyy' }}
+                  </span>
+                </div>
               </div>
-              <span class="review-date">
-                Đánh giá ngày {{ r.reviewDate | date: 'dd/MM/yyyy' }}
-              </span>
+
+              <p class="review-title" *ngIf="r.title">
+                <strong>{{ r.title }}</strong>
+              </p>
+              <p class="review-text">
+                {{ r.content }}
+              </p>
+
+              <div class="review-images" *ngIf="(r.images ?? []).length">
+                <img *ngFor="let img of r.images ?? []" [src]="img" alt="ảnh đánh giá" />
+              </div>
+            </div>
+
+            <div *ngIf="(reviews() ?? []).length === 0" class="no-review">
+              Chưa có đánh giá cho xe này.
             </div>
           </div>
-
-          <p class="review-title" *ngIf="r.title">
-            <strong>{{ r.title }}</strong>
-          </p>
-          <p class="review-text">
-            {{ r.content }}
-          </p>
-
-          <div class="review-images" *ngIf="(r.images ?? []).length">
-            <img *ngFor="let img of r.images ?? []" [src]="img" alt="ảnh đánh giá" />
-          </div>
         </div>
 
-        <div *ngIf="(reviews() ?? []).length === 0" class="no-review">
-          Chưa có đánh giá cho xe này.
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle-wrapper">
-      <button class="toggle-btn" (click)="toggleReviews()">
-        <i class="bi" [ngClass]="
+        <div class="toggle-wrapper">
+          <button class="toggle-btn" (click)="toggleReviews()">
+            <i class="bi" [ngClass]="
             showFullReviews
               ? 'bi-chevron-double-up'
               : 'bi-chevron-double-down'
           "></i>
-      </button>
-    </div>
-  </section>
+          </button>
+        </div>
+      </section>
 
-  <!-- RELATED -->
-  <section class="pd-description related-slider">
-    <h3 class="desc-title">BẠN CŨNG CÓ THỂ THÍCH</h3>
+      <!-- RELATED -->
+      <section class="pd-description related-slider">
+        <h3 class="desc-title">BẠN CŨNG CÓ THỂ THÍCH</h3>
 
-    <div class="slider-container">
-      <button class="arrow left" (click)="scrollLeft()">
-        <i class="bi bi-chevron-left"></i>
-      </button>
+        <div class="slider-container">
+          <button class="arrow left" (click)="scrollLeft()">
+            <i class="bi bi-chevron-left"></i>
+          </button>
 
-      <div class="product-slider" #slider>
-        <a class="product-card" *ngFor="let r of related()" (click)="goTo(r)">
-          <div class="image">
-            <img [src]="r.image || 'assets/images/placeholder.png'" [alt]="r.vehicleName" />
-            <div class="discount" *ngIf="r.discount">-{{ r.discount }}%</div>
-          </div>
+          <div class="product-slider" #slider>
+            <a class="product-card" *ngFor="let r of related()" (click)="goTo(r)">
+              <div class="image">
+                <img [src]="r.image || 'assets/images/placeholder.png'" [alt]="r.vehicleName" />
+                <div class="discount" *ngIf="r.discount">-{{ r.discount }}%</div>
+              </div>
 
-          <div class="product-card__features">
-            <span>
-              <i class="bi bi-battery-charging"></i>
-              {{ r.rangePerCharge }} km/lần sạc
-            </span>
-            <span>
-              <i class="bi bi-speedometer2"></i>
-              {{
-              r.vehicleType === 'Motorbike'
-              ? 'Động cơ mạnh mẽ'
-              : 'Vận hành êm ái'
-              }}
-            </span>
-            <span>
-              <i class="bi bi-lightning"></i>
-              Pin {{ r.batteryCapacity }}
-            </span>
-            <span>
-              <i class="bi bi-shield-check"></i>
-              Bao gồm 2 nón bảo hiểm
-            </span>
-          </div>
+              <div class="product-card__features">
+                <span>
+                  <i class="bi bi-battery-charging"></i>
+                  {{ r.rangePerCharge }} km/lần sạc
+                </span>
+                <span>
+                  <i class="bi bi-speedometer2"></i>
+                  {{
+                  r.vehicleType === 'Motorbike'
+                  ? 'Động cơ mạnh mẽ'
+                  : 'Vận hành êm ái'
+                  }}
+                </span>
+                <span>
+                  <i class="bi bi-lightning"></i>
+                  Pin {{ r.batteryCapacity }}
+                </span>
+                <span>
+                  <i class="bi bi-shield-check"></i>
+                  Bao gồm 2 nón bảo hiểm
+                </span>
+              </div>
 
-          <div class="details">
-            <div class="name">{{ r.vehicleName }}</div>
-            <div class="meta">
-              <span>{{ r.brandName || '—' }}</span>
-              <span class="dot">•</span>
-              <span>{{ r.vehicleType || 'Xe điện' }}</span>
-            </div>
+              <div class="details">
+                <div class="name">{{ r.vehicleName }}</div>
+                <div class="meta">
+                  <span>{{ r.brandName || '—' }}</span>
+                  <span class="dot">•</span>
+                  <span>{{ r.vehicleType || 'Xe điện' }}</span>
+                </div>
 
-            <div class="price">
-              <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
-              <span class="old" *ngIf="
+                <div class="price">
+                  <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
+                  <span class="old" *ngIf="
                   r.pricePerDay && r.pricePerDay !== r.finalPricePerDay
                 ">{{ vnd(r.pricePerDay) }}</span>
-            </div>
+                </div>
+              </div>
+            </a>
           </div>
-        </a>
-      </div>
 
-      <button class="arrow right" (click)="scrollRight()">
-        <i class="bi bi-chevron-right"></i>
-      </button>
+          <button class="arrow right" (click)="scrollRight()">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </section>
     </div>
-  </section>
-</div>

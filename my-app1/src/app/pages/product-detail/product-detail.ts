@@ -22,6 +22,7 @@ import {
   ProductReviewService,
   ProductReview
 } from '../../services/product-review.services';
+import { CartService } from '../../services/cart.services';
 
 @Component({
   selector: 'app-product-detail',
@@ -41,6 +42,7 @@ export class ProductDetail {
   private router = inject(Router);
   private products = inject(ProductLoadingService);
   private reviewsService = inject(ProductReviewService);
+  private cart = inject(CartService);
 
   // dùng cho render sao
   readonly stars = [1, 2, 3, 4, 5];
@@ -88,7 +90,6 @@ export class ProductDetail {
   });
 
   // ====== Reviews ======
-  // Observable đã ép undefined -> [] rồi, nhưng toSignal coi là async nên trả về T | undefined
   private reviews$ = this.route.paramMap.pipe(
     map(pm => pm.get('id') || ''),
     switchMap(id =>
@@ -123,6 +124,44 @@ export class ProductDetail {
   vnd(n?: number) {
     if (n == null) return '';
     return n.toLocaleString('vi-VN') + '₫';
+  }
+
+  // ====== CART ACTIONS ======
+  private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
+    const p = this.product();
+    if (!p) return;
+
+    this.cart.addOrUpdateFromProduct({
+      productId: String(p.id),
+      name: p.vehicleName,
+      imageUrl: this.products.getImageUrl(p, 'detail'),
+      brandName: p.brandName,
+      vehicleType: p.vehicleType,
+      pricePerDay: p.pricePerDay ?? p.finalPricePerDay,
+      finalPricePerDay: p.finalPricePerDay,
+      rentStart: this.rentStart,
+      rentEnd: this.rentEnd,
+      quantity: 1
+    });
+
+    if (options?.redirectToCart) {
+      this.router.navigate(['/cart']);
+    }
+  }
+
+  bookNow() {
+    // ĐẶT XE NGAY: thêm vào giỏ + nhảy sang /cart
+    this.addCurrentProductToCart({ redirectToCart: true });
+  }
+
+  addToCart() {
+    // THÊM VÀO GIỎ: chỉ thêm, không chuyển trang
+    this.addCurrentProductToCart();
+  }
+
+  preOrder() {
+    // ĐẶT TRƯỚC: tạm thời giống THÊM VÀO GIỎ
+    this.addCurrentProductToCart();
   }
 
   goTo(p: ProductVM) {

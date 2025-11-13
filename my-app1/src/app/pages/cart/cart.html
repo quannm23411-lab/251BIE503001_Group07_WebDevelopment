@@ -1,0 +1,120 @@
+<main class="cart-page container mt-5 pt-4">
+    <h1 class="cart-title">Giỏ xe của bạn</h1>
+
+    <section *ngIf="items().length > 0; else emptyCart" class="cart-layout">
+        <!-- DANH SÁCH ITEM -->
+        <div class="cart-items">
+            <div class="cart-item" *ngFor="let item of items(); trackBy: trackById">
+                <div class="cart-item__image">
+                    <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+                </div>
+
+                <div class="cart-item__content">
+                    <div class="cart-item__header">
+                        <h2 class="cart-item__name">
+                            {{ item.name }}
+                        </h2>
+                        <p class="cart-item__meta">
+                            <span *ngIf="item.brandName">{{ item.brandName }}</span>
+                            <span *ngIf="item.vehicleType">
+                                · {{ item.vehicleType }}
+                            </span>
+                        </p>
+                        <p class="cart-item__date">
+                            {{ getRentalDateLabel(item) }}
+                        </p>
+                    </div>
+
+                    <div class="cart-item__body">
+                        <div class="cart-item__price">
+                            <span class="label">Giá / ngày</span>
+                            <div class="cart-item__price-values">
+                                <span class="price">
+                                    {{ item.finalPricePerDay | number: '1.0-0' }} đ
+                                </span>
+                                <span *ngIf="item.pricePerDay > item.finalPricePerDay" class="price-old">
+                                    {{ item.pricePerDay | number: '1.0-0' }} đ
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="cart-item__qty">
+                            <span class="label">Số lượng</span>
+                            <div class="qty-control">
+                                <button type="button" class="qty-btn" (click)="decrease(item)">
+                                    −
+                                </button>
+                                <span class="qty-value">{{ item.quantity }}</span>
+                                <button type="button" class="qty-btn" (click)="increase(item)">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="cart-item__subtotal">
+                            <span class="label">Tạm tính</span>
+                            <div class="subtotal-value">
+                                {{ item.subtotal | number: '1.0-0' }} đ
+                            </div>
+                            <button type="button" class="link-remove" (click)="remove(item)">
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="cart-clear" (click)="clear()">
+                Xóa toàn bộ giỏ
+            </button>
+        </div>
+
+        <!-- TÓM TẮT ĐƠN -->
+        <aside class="cart-summary">
+            <div class="summary-card">
+                <h2 class="summary-title">Tóm tắt đơn thuê</h2>
+
+                <div class="summary-row">
+                    <span>Số xe</span>
+                    <span>{{ totalQuantity() }}</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Tạm tính</span>
+                    <span>
+                        {{ totalAmount() | number: '1.0-0' }} đ
+                    </span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row summary-row--strong">
+                    <span>Tổng thanh toán</span>
+                    <span class="summary-total">
+                        {{ totalAmount() | number: '1.0-0' }} đ
+                    </span>
+                </div>
+
+                <button type="button" class="summary-checkout-btn">
+                    TIẾP TỤC ĐẶT XE
+                </button>
+
+                <a routerLink="/rent" class="summary-back-link">
+                    ← Tiếp tục chọn xe
+                </a>
+            </div>
+        </aside>
+    </section>
+
+    <ng-template #emptyCart>
+        <section class="cart-empty text-center">
+            <h2>Giỏ xe đang trống</h2>
+            <p>
+                Thêm vài chiếc xe điện trước khi tính chuyện đi chơi xa.
+            </p>
+            <a routerLink="/rent" class="btn-primary-link">
+                Bắt đầu thuê xe
+            </a>
+        </section>
+    </ng-template>
+</main>
