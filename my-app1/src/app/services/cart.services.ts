@@ -20,6 +20,9 @@ export interface CartItem {
 
     quantity: number;
     subtotal: number;         // finalPricePerDay * totalDays * quantity
+
+    // map trực tiếp từ products.json: true = còn xe, false = hết hàng
+    availabilityStatus?: boolean;
 }
 
 @Injectable({
@@ -99,7 +102,7 @@ export class CartService {
         this._items.set([]);
     }
 
-    // Hàm này sau mày sẽ gọi từ Product Detail
+    // Hàm này gọi từ Product Detail
     addOrUpdateFromProduct(payload: {
         productId: string;
         name: string;
@@ -111,6 +114,7 @@ export class CartService {
         rentStart?: string | null;
         rentEnd?: string | null;
         quantity?: number;
+        availabilityStatus?: boolean;  // true/false giống products.json
     }) {
         const rentStart = payload.rentStart || undefined;
         const rentEnd = payload.rentEnd || undefined;
@@ -138,7 +142,9 @@ export class CartService {
                         pricePerDay: payload.pricePerDay,
                         finalPricePerDay: payload.finalPricePerDay,
                         quantity,
-                        subtotal
+                        subtotal,
+                        // nếu không truyền thì mặc định true = còn xe
+                        availabilityStatus: payload.availabilityStatus ?? true
                     }
                 ];
             }

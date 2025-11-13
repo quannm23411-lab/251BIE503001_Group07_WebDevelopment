@@ -1,0 +1,220 @@
+<main class="checkout-page container-fluid mt-5 pt-4">
+    <!-- Giỏ trống -->
+    <section *ngIf="!hasItems && !isSuccess()" class="checkout-empty container">
+        <div class="empty-card">
+            <h2>Giỏ hàng trống</h2>
+            <p>Chưa có xe nào trong đơn. Quay lại chọn xe để tiếp tục.</p>
+            <button class="btn btn-main" type="button" (click)="backToRent()">
+                Bắt đầu thuê xe
+            </button>
+        </div>
+    </section>
+
+    <!-- Thành công -->
+    <section *ngIf="isSuccess()" class="checkout-success container">
+        <div class="success-card">
+            <div class="success-icon">✔</div>
+            <h2>Đặt xe thành công</h2>
+            <p>Cảm ơn bạn đã tin tưởng EcoMOVE.</p>
+
+            <div class="order-info" *ngIf="orderCode() as code">
+                <div class="order-row">
+                    <span>Mã đơn:</span>
+                    <strong>{{ code }}</strong>
+                </div>
+                <div class="order-row" *ngIf="createdAt() as created">
+                    <span>Thời gian tạo:</span>
+                    <strong>{{ created | date: 'HH:mm dd/MM/yyyy' }}</strong>
+                </div>
+                <div class="order-row">
+                    <span>Phương thức thanh toán:</span>
+                    <strong>
+                        {{
+                        form.paymentMethod === 'cod'
+                        ? 'Thanh toán khi nhận xe'
+                        : form.paymentMethod === 'bank'
+                        ? 'Chuyển khoản ngân hàng'
+                        : 'Ví điện tử'
+                        }}
+                    </strong>
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <button class="btn btn-outline" type="button" (click)="backToRent()">
+                    Tiếp tục thuê xe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trang thanh toán chính -->
+    <section *ngIf="hasItems && !isSuccess()" class="checkout-main container">
+
+        <form class="checkout-flow" #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)" novalidate>
+            <!-- CARD 1: Sản phẩm + điểm nhận/trả -->
+            <section class="checkout-card product-card" *ngFor="let item of cartItems()">
+                <div class="product-main">
+                    <div class="product-thumb">
+                        <img [src]="item.imageUrl" [alt]="item.name" />
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-header">
+                            <h2 class="product-name">{{ item.name }}</h2>
+
+                            <div class="product-color">
+                                <button type="button" class="color-selector">
+                                    <span class="color-dot"></span>
+                                    <span>Xanh mint</span>
+                                    <span class="icon-caret">▾</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-dates">
+                            <div>
+                                <span class="label">Ngày nhận:</span>
+                                <span class="value">
+                                    {{ item.rentStart | date: 'dd/MM/yyyy' }}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="label">Ngày trả:</span>
+                                <span class="value">
+                                    {{ item.rentEnd | date: 'dd/MM/yyyy' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="product-price">
+                            {{ vnd(item.finalPricePerDay || item.pricePerDay) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-locations">
+                    <div class="location-row">
+                        <span class="label">Điểm nhận xe:</span>
+                        <select>
+                            <option selected>
+                                Cửa hàng EcoMove, 127/41b, Bình Thạnh, TP.HCM
+                            </option>
+                            <option>Quận 1, TP.HCM</option>
+                            <option>Quận 7, TP.HCM</option>
+                        </select>
+                    </div>
+                    <div class="location-row">
+                        <span class="label">Điểm trả xe:</span>
+                        <select>
+                            <option selected>
+                                Cửa hàng EcoMove, 127/41b, Bình Thạnh, TP.HCM
+                            </option>
+                            <option>Quận 1, TP.HCM</option>
+                            <option>Quận 7, TP.HCM</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD 2: Mã giảm giá + phương thức thanh toán -->
+            <section class="checkout-card payment-card">
+                <!-- Mã giảm giá -->
+                <div class="voucher-row">
+                    <label for="voucher">Nhập mã giảm giá:</label>
+                    <div class="voucher-input-group">
+                        <input id="voucher" type="text" placeholder="Nhập mã voucher (nếu có)" />
+                        <button type="button" class="btn btn-apply">
+                            Áp dụng
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="divider" />
+
+                <!-- Phương thức thanh toán -->
+                <div class="payment-header">
+                    <span>Phương thức thanh toán</span>
+                </div>
+
+                <div class="payment-content">
+                    <div class="voucher-summary">
+                        <div class="voucher-box"></div>
+                        <div class="voucher-text">
+                            <span class="label">Tổng cộng Voucher giảm giá</span>
+                            <span class="value">0Đ</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="cod" [(ngModel)]="form.paymentMethod" />
+                            <div class="payment-card-visual">
+                                <div class="payment-thumb"></div>
+                                <div class="payment-label">Phương thức thanh toán A</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-option payment-option--active">
+                            <input type="radio" name="paymentMethod" value="ewallet" [(ngModel)]="form.paymentMethod" />
+                            <div class="payment-card-visual">
+                                <div class="payment-thumb"></div>
+                                <div class="payment-label">Ví điện tử Momo</div>
+                                <div class="payment-discount">-0Đ</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="bank" [(ngModel)]="form.paymentMethod" />
+                            <div class="payment-card-visual">
+                                <div class="payment-thumb"></div>
+                                <div class="payment-label">Phương thức thanh toán B</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD 3: Chi tiết thanh toán -->
+            <section class="checkout-card summary-card">
+                <h2 class="summary-title">Chi tiết thanh toán</h2>
+
+                <div class="summary-row">
+                    <span>Tổng tiền thuê</span>
+                    <span>{{ vnd(totalAmount()) }}</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Chi phát sinh</span>
+                    <span>0Đ</span>
+                </div>
+
+                <hr class="divider" />
+
+                <div class="summary-row summary-row--total">
+                    <span>Tổng thanh toán</span>
+                    <span class="summary-total">{{ vnd(totalAmount()) }}</span>
+                </div>
+            </section>
+
+            <p class="checkout-note">
+                Nhấn
+                <strong>“Thuê xe”</strong>
+                đồng nghĩa với việc bạn đồng ý tuân theo
+                <a href="javascript:void(0)">Điều khoản EcoMove</a>.
+            </p>
+
+            <!-- Thanh dưới cùng -->
+            <div class="checkout-bottom">
+                <div class="bottom-total">
+                    <span>Tổng cộng</span>
+                    <span class="bottom-price">{{ vnd(totalAmount()) }}</span>
+                </div>
+
+                <button type="submit" class="btn btn-main btn-main-large" [disabled]="isSubmitting()">
+                    {{ isSubmitting() ? 'Đang xử lý...' : 'Thuê xe' }}
+                </button>
+            </div>
+        </form>
+    </section>
+</main>

@@ -180,6 +180,13 @@ export const routes: Routes = [
           import('./pages/cart/cart').then(m => m.CartPage),
       },
 
+      // Trang thanh toán: /checkout
+      {
+        path: 'checkout',
+        loadComponent: () =>
+          import('./pages/checkout/checkout').then(m => m.Checkout),
+      },
+
       // Trang tài khoản khách hàng
       {
         path: 'account',
