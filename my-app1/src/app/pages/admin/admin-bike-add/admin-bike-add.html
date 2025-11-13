@@ -31,7 +31,6 @@
                 <div class="detail-col-main">
                     <section class="card">
                         <h2>Thông tin cơ bản</h2>
-
                         <div class="form-grid-2">
                              <div class="form-group">
                                 <label for="id">Mã xe (ID)</label>
@@ -97,9 +96,33 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description">Mô tả</label>
-                            <textarea id="description" formControlName="description" class="form-control" rows="6"></textarea>
+                            <label for="description">Mô tả ngắn (Tóm tắt)</label>
+                            <textarea id="description" formControlName="description" class="form-control" rows="4"></textarea>
                         </div>
+                        
+                        <div formGroupName="details">
+                            <hr class="form-divider">
+
+                            <div class="form-group">
+                                <label for="detailTitle">Tiêu đề chi tiết</label>
+                                <input type="text" id="detailTitle" formControlName="title" class="form-control"
+                                       [class.is-invalid]="bikeForm.get('details.title')?.touched && bikeForm.get('details.title')?.invalid">
+                                <div *ngIf="bikeForm.get('details.title')?.touched && bikeForm.get('details.title')?.invalid" class="invalid-feedback">
+                                    <span *ngIf="bikeForm.get('details.title')?.errors?.['required']">Vui lòng nhập tiêu đề chi tiết.</span>
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="detailParagraphs">Các đoạn mô tả (Mỗi đoạn 1 dòng)</label>
+                                <textarea id="detailParagraphs" formControlName="paragraphs" class="form-control" rows="5"></textarea>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="detailFeatures">Tính năng nổi bật (Mỗi tính năng 1 dòng)</label>
+                                <textarea id="detailFeatures" formControlName="features" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+
                     </section>
                 </div>
 
@@ -135,22 +158,39 @@
                             </div>
                             <div class="form-group">
                                 <label for="pricePerHour">Giá / giờ (VND)</label>
-                                <input type="number" id="pricePerHour" formControlName="pricePerHour" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="discount">Giảm giá (%)</label>
-                            <input type="number" id="discount" formControlName="discount" class="form-control"
-                                   [class.is-invalid]="f['discount'].touched && f['discount'].invalid">
-                            <div *ngIf="f['discount'].touched && f['discount'].invalid" class="invalid-feedback">
-                                <span *ngIf="f['discount'].errors?.['min']">Không được nhỏ hơn 0.</span>
-                                <span *ngIf="f['discount'].errors?.['max']">Không được lớn hơn 100.</span>
+                                <input type="number" id="pricePerHour" formControlName="pricePerHour" class="form-control"
+                                       [class.is-invalid]="f['pricePerHour'].touched && f['pricePerHour'].invalid">
+                                <div *ngIf="f['pricePerHour'].touched && f['pricePerHour'].invalid" class="invalid-feedback">
+                                    <span *ngIf="f['pricePerHour'].errors?.['required']">Vui lòng nhập giá.</span>
+                                    <span *ngIf="f['pricePerHour'].errors?.['min']">Giá phải là số dương.</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-grid-2">
                             <div class="form-group">
+                                <label for="discount">Giảm giá (%)</label>
+                                <input type="number" id="discount" formControlName="discount" class="form-control"
+                                       [class.is-invalid]="f['discount'].touched && f['discount'].invalid">
+                                <div *ngIf="f['discount'].touched && f['discount'].invalid" class="invalid-feedback">
+                                    <span *ngIf="f['discount'].errors?.['min']">Không được nhỏ hơn 0.</span>
+                                    <span *ngIf="f['discount'].errors?.['max']">Không được lớn hơn 100.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rating">Đánh giá (sao)</label>
+                                <input type="number" id="rating" formControlName="rating" class="form-control"
+                                       [class.is-invalid]="f['rating'].touched && f['rating'].invalid" step="0.1">
+                                <div *ngIf="f['rating'].touched && f['rating'].invalid" class="invalid-feedback">
+                                    <span *ngIf="f['rating'].errors?.['min']">Không được nhỏ hơn 0.</span>
+                                    <span *ngIf="f['rating'].errors?.['max']">Không được lớn hơn 5.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                             <div class="form-group">
                                 <label for="battery">Dung lượng pin</label>
                                 <input type="text" id="battery" formControlName="batteryCapacity" class="form-control" placeholder="Ví dụ: 3.5 kWh">
                             </div>
@@ -162,7 +202,7 @@
                                     <span *ngIf="f['rangePerCharge'].errors?.['min']">Quãng đường phải là số dương (lớn hơn 0).</span>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </section>
 
                     <section class="card">
