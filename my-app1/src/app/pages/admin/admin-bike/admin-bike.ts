@@ -15,6 +15,7 @@ interface Bike {
   statusClass: string;
   location: string;
   image: string;
+  rawProductData: any; // ⬅️ THÊM DÒNG NÀY
 }
 
 @Component({
@@ -35,6 +36,7 @@ export class AdminBike implements OnInit {
   searchTerm = '';
   locationFilter = '';
   isLoading: boolean = true;
+
   
   // 🔽 THÊM MỚI: Biến theo dõi trạng thái sắp xếp
   sortColumn: keyof Bike | '' = '';
@@ -82,7 +84,8 @@ export class AdminBike implements OnInit {
       status: item.availabilityStatus ? 'Sẵn sàng' : 'Hết hàng'  ,
       statusClass: item.availabilityStatus ? 'ready' : 'rented',
       location: item.location,
-      image: '' + item.image
+      image: '' + item.image,
+      rawProductData: item // ⬅️ THÊM DÒNG NÀY
     }));
   }
 
@@ -160,5 +163,92 @@ export class AdminBike implements OnInit {
         return (this.sortDirection === 'desc') ? (comparison * -1) : comparison;
       });
     }
+  }
+  // =============================================
+  // 🔽 THAY THẾ HÀM CŨ BẰNG HÀM MỚI NÀY
+  // =============================================
+  exportToCSV() {
+    // 1. Lấy dữ liệu (chúng ta sẽ xuất danh sách đã lọc)
+    const dataToExport = this.filtered;
+
+    if (dataToExport.length === 0) {
+      alert('Không có dữ liệu để xuất.');
+      return;
+    }
+
+    // 2. Định nghĩa tiêu đề cột (đã trải phẳng)
+    const headers = [
+      'id', 'vehicleName', 'brandId', 'model', 'licensePlate', 
+      'batteryCapacity', 'rangePerCharge', 'vehicleType', 
+      'pricePerHour', 'pricePerDay', 'availabilityStatus', 
+      'rating', 'discount', 'location', 'tags', 'image', 'description', 
+      'details_title', 'details_paragraphs', 'details_features'
+    ];
+    
+    // 3. Chuẩn bị nội dung CSV
+    let csvContent = headers.join(',') + '\n'; // Dòng tiêu đề
+
+    // Hàm xử lý giá trị
+    const escapeCSV = (val: any) => {
+      if (val === null || val === undefined) {
+        return ''; // Trả về chuỗi rỗng
+      }
+      let str = String(val);
+      // Bọc trong dấu ngoặc kép nếu chứa dấu phẩy, " hoặc xuống dòng
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        str = `"${str.replace(/"/g, '""')}"`; // Gấp đôi dấu "
+      }
+      return str;
+    };
+
+    // 4. Thêm các dòng dữ liệu
+    dataToExport.forEach(bike => {
+      const item = bike.rawProductData; // Lấy dữ liệu JSON gốc
+      const details = item.details || {}; // Lấy object details
+
+      // Xử lý các mảng (array) -> đổi thành chuỗi phân cách bằng " | "
+      const tags = (item.tags || []).join(' | ');
+      const paragraphs = (details.paragraphs || []).join(' | ');
+      const features = (details.features || []).join(' | ');
+
+      const row = [
+        escapeCSV(item.id),
+        escapeCSV(item.vehicleName),
+        escapeCSV(item.brandId),
+        escapeCSV(item.model),
+        escapeCSV(item.licensePlate),
+        escapeCSV(item.batteryCapacity),
+        escapeCSV(item.rangePerCharge),
+        escapeCSV(item.vehicleType),
+        escapeCSV(item.pricePerHour),
+        escapeCSV(item.pricePerDay),
+        escapeCSV(item.availabilityStatus),
+        escapeCSV(item.rating),
+        escapeCSV(item.discount),
+        escapeCSV(item.location),
+        escapeCSV(tags), // Mảng đã xử lý
+        escapeCSV(item.image),
+        escapeCSV(item.description),
+        escapeCSV(details.title), // Từ object lồng
+        escapeCSV(paragraphs), // Mảng đã xử lý
+        escapeCSV(features)  // Mảng đã xử lý
+      ];
+      csvContent += row.join(',') + '\n';
+    });
+
+    // 5. Tạo và tải file (vẫn giữ BOM cho tiếng Việt)
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); // BOM cho UTF-8
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+
+    const date = new Date().toISOString().slice(0, 10);
+    link.setAttribute('download', `danh-sach-xe-${date}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

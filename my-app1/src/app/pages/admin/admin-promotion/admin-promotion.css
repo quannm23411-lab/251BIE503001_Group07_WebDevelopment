@@ -29,7 +29,7 @@
 /* ======================================================= */
 
 /* --- Table (Giữ nguyên) --- */
-.promotion-list { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+.promotion-list { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); overflow-x: auto; /* ◀️ DÒNG NÀY LÀ QUAN TRỌNG NHẤT */}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -40,7 +40,7 @@ th, td {
     border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
-th { color: #567C02; }
+th { color: #567C02;white-space: nowrap; /* ◀️ DÒNG NÀY CŨNG QUAN TRỌNG */ }
 
 /* ... (Trạng thái loading/empty) ... */
 .loading-cell, .empty-cell { text-align: center; padding: 40px; color: #888; }
@@ -104,50 +104,3 @@ th.sortable i.fa-sort-down {
 /* ===================================== */
 
 
-/* === MEDIA QUERY (Responsive) === */
-@media (max-width: 992px) {
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .filters input, .filters select, .filters button, .filters label {
-        width: auto;
-        margin-left: 0;
-    }
-    .date-filter-group { display: block; }
-    .date-filter-group label { display: block; margin-bottom: 5px; }
-    .date-filter-group input[type="date"] { width: 100%; box-sizing: border-box; }
-
-    /* Ẩn bớt cột trên tablet */
-    /* Ẩn: Đơn tối thiểu (4), Hạn sử dụng (5) */
-    .promotion-list th:nth-child(4),
-    .promotion-list th:nth-child(5) {
-        display: none;
-    }
-    .promotion-list td:nth-child(4),
-    .promotion-list td:nth-child(5) {
-        display: none;
-    }
-    .main__header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    th, td { padding: 10px 8px; }
-}
-
-@media (max-width: 580px) {
-    /* Ẩn thêm: Tên KM (2), Đã dùng (6), Trạng thái (7) */
-    /* Chỉ giữ lại Mã KM (1) và Giá trị (3) */
-    .promotion-list th:nth-child(2),
-    .promotion-list th:nth-child(6),
-    .promotion-list th:nth-child(7) {
-        display: none;
-    }
-    .promotion-list td:nth-child(2),
-    .promotion-list td:nth-child(6),
-    .promotion-list td:nth-child(7) {
-        display: none;
-    }
-    .main { padding: 10px; }
-}

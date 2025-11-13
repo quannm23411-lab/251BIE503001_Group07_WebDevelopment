@@ -160,7 +160,7 @@ th.sortable i.fa-sort-down {
 
 
 /* ===  MEDIA QUERY  === */
-@media (max-width: 992px) {
+@media (max-width: 1080px) {
     .filters {
         flex-direction: column;
         align-items: stretch;

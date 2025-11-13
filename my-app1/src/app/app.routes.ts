@@ -134,6 +134,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'review',
+        loadComponent: () =>
+          import('./pages/admin/admin-product-review/admin-product-review').then(
+            m => m.AdminProductReview
+          ),
+      },
+      {
         path: 'homepage',
         loadComponent: () =>
           import('./pages/homepage/homepage').then(

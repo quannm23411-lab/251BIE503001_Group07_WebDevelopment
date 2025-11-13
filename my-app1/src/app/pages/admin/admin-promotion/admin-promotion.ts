@@ -24,6 +24,7 @@ interface ProcessedPromotion extends Promotion {
   trangThaiHienThi: string;
   trangThaiClass: string;
   giaTriHienThi: string;
+  rawPromotionData: Promotion; // ⬅️ THÊM DÒNG NÀY
 }
 
 @Component({
@@ -82,7 +83,8 @@ export class AdminPromotion implements OnInit {
       trangThaiClass: statusInfo.class,
       giaTriHienThi: promo.loaiGiamGia === 'percent'
         ? `${promo.giaTri}%`
-        : `${promo.giaTri.toLocaleString('vi-VN')}đ`
+        : `${promo.giaTri.toLocaleString('vi-VN')}đ`,
+      rawPromotionData: promo // ⬅️ THÊM DÒNG NÀY
     };
   }
 
@@ -193,5 +195,76 @@ export class AdminPromotion implements OnInit {
   goToAddPage() {
     // Chuyển đến trang thêm mới
     this.router.navigate(['/admin/promotion-add']);
+  }
+  exportToCSV() {
+    // 1. Lấy dữ liệu (xuất danh sách đã lọc)
+    const dataToExport = this.filteredPromotions;
+
+    if (dataToExport.length === 0) {
+      alert('Không có dữ liệu để xuất.');
+      return;
+    }
+
+    // 2. Định nghĩa tiêu đề cột (giống file JSON)
+    const headers = [
+      'id', 'maGiamGia', 'tenKhuyenMai', 'loaiGiamGia', 'giaTri',
+      'donHangToiThieu', 'soLuongToiDa', 'soLuongDaDung', 
+      'ngayBatDau', 'ngayKetThuc', 'trangThai'
+    ];
+    
+    // 3. Chuẩn bị nội dung CSV
+    let csvContent = headers.join(',') + '\n'; // Dòng tiêu đề
+
+    // Hàm xử lý giá trị
+    const escapeCSV = (val: any) => {
+      if (val === null || val === undefined) {
+        return '';
+      }
+      let str = String(val);
+      // Xử lý ngày tháng
+      if (str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)) {
+         str = new Date(str).toLocaleString('vi-VN');
+      }
+      // Xử lý dấu phẩy, "
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        str = `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    // 4. Thêm các dòng dữ liệu
+    dataToExport.forEach(promo => {
+      const item = promo.rawPromotionData; // Lấy dữ liệu JSON gốc
+
+      const row = [
+        escapeCSV(item.id),
+        escapeCSV(item.maGiamGia),
+        escapeCSV(item.tenKhuyenMai),
+        escapeCSV(item.loaiGiamGia),
+        escapeCSV(item.giaTri),
+        escapeCSV(item.donHangToiThieu),
+        escapeCSV(item.soLuongToiDa),
+        escapeCSV(item.soLuongDaDung),
+        escapeCSV(item.ngayBatDau),
+        escapeCSV(item.ngayKetThuc),
+        escapeCSV(item.trangThai)
+      ];
+      csvContent += row.join(',') + '\n';
+    });
+
+    // 5. Tạo và tải file (vẫn giữ BOM cho tiếng Việt)
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); // BOM cho UTF-8
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+
+    const date = new Date().toISOString().slice(0, 10);
+    link.setAttribute('download', `danh-sach-khuyen-mai-${date}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

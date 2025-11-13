@@ -175,4 +175,82 @@ applySort() {
   goToAddPage() {
     this.router.navigate(['/admin/customer-add']);
   }
+// =============================================
+  // 🔽 THAY THẾ HÀM CŨ BẰNG HÀM MỚI NÀY
+  // =============================================
+  exportToCSV() {
+    // 1. Lấy dữ liệu
+    const dataToExport = this.filtered;
+
+    if (dataToExport.length === 0) {
+      alert('Không có dữ liệu để xuất.');
+      return;
+    }
+
+    // 2. Định nghĩa tiêu đề cột (đã trải phẳng)
+    const headers = [
+      'maKhachHang', 'hoTen', 'email', 'soDienThoai', 'ngaySinh', 
+      'diaChi_soNhaDuong', 'diaChi_phuongXa', 'diaChi_quanHuyen', 'diaChi_tinhThanh',
+      'bangLai_soBangLai', 'bangLai_hangBangLai', 'bangLai_ngayHetHan',
+      'ngayDangKy', 'hangThanhVien'
+    ];
+    
+    // 3. Chuẩn bị nội dung CSV
+    let csvContent = headers.join(',') + '\n'; // Dòng tiêu đề
+
+    // Hàm xử lý giá trị
+    const escapeCSV = (val: any) => {
+      if (val === null || val === undefined) {
+        return '';
+      }
+      let str = String(val);
+      if (str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)) {
+         str = new Date(str).toLocaleString('vi-VN');
+      }
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        str = `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    // 4. Thêm các dòng dữ liệu
+    dataToExport.forEach(customer => {
+      const item = customer.rawCustomerData; // Lấy dữ liệu JSON gốc
+      const diaChi = item.diaChi || {};
+      const bangLai = item.thongTinBangLai || {};
+
+      const row = [
+        escapeCSV(item.maKhachHang),
+        escapeCSV(item.hoTen),
+        escapeCSV(item.email),
+        escapeCSV(item.soDienThoai),
+        escapeCSV(item.ngaySinh),
+        escapeCSV(diaChi.soNhaDuong),
+        escapeCSV(diaChi.phuongXa),
+        escapeCSV(diaChi.quanHuyen),
+        escapeCSV(diaChi.tinhThanh),
+        escapeCSV(bangLai.soBangLai),
+        escapeCSV(bangLai.hangBangLai),
+        escapeCSV(bangLai.ngayHetHan),
+        escapeCSV(item.ngayDangKy),
+        escapeCSV(item.hangThanhVien)
+      ];
+      csvContent += row.join(',') + '\n';
+    });
+
+    // 5. Tạo và tải file (vẫn giữ BOM cho tiếng Việt)
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); // BOM cho UTF-8
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+
+    const date = new Date().toISOString().slice(0, 10);
+    link.setAttribute('download', `danh-sach-khach-hang-${date}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
