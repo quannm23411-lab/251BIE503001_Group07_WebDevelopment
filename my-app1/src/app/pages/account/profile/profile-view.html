@@ -27,7 +27,7 @@
         </div>
         <div class="account-user-meta">
           <h2>{{ user.fullname }}</h2>
-          <div class="account-tier-badge">EcoGold</div>
+          <div class="account-tier-badge">{{ user.tier }}</div>
         </div>
       </div>
 
@@ -49,35 +49,34 @@
       </div>
 
       <div class="account-info-row">
-  <div class="account-info-row-label">Mật khẩu:</div>
-  <div class="account-info-row-value account-info-row-value--pwd">
-    <div class="account-pwd-view-wrap">
-      <input
-        [type]="showPwd ? 'text' : 'password'"
-        [value]="userPassword"
-        readonly
-      />
-      <button
-        type="button"
-        class="account-pwd-toggle"
-        (click)="togglePwd()"
-        aria-label="Toggle password"
-      >
-        <i
-          class="bi"
-          [ngClass]="showPwd ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
-        ></i>
-      </button>
-    </div>
-  </div>
-</div>
-
+        <div class="account-info-row-label">Mật khẩu:</div>
+        <div class="account-info-row-value">
+          <div class="account-pwd-view-wrap">
+            <input
+              [type]="showPwd ? 'text' : 'password'"
+              [value]="userPassword"
+              readonly
+            />
+            <button
+              type="button"
+              class="account-pwd-toggle"
+              (click)="togglePwd()"
+              aria-label="Toggle password"
+            >
+              <i
+                class="bi"
+                [ngClass]="showPwd ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </div>
 
 
       <div class="account-info-row">
         <div class="account-info-row-label">Cấp bậc:</div>
         <div class="account-info-row-value">
-          <span class="account-tier-badge">EcoGold</span>
+          <span class="account-tier-badge">{{ user.tier }}</span>
         </div>
       </div>
 

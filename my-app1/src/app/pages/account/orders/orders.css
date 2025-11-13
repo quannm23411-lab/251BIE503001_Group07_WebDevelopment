@@ -1,1 +1,151 @@
 @import '../profile/profile.css';
+/* Tiêu đề LỊCH SỬ THUÊ XE + icon */
+.account-orders-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0 14px;
+}
+
+.account-orders-head-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.account-orders-head-title i {
+  font-size: 18px;
+  color: #333333;
+}
+
+.account-orders-head-title h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Ô search giống mockup */
+.account-search {
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid #d7dde5;
+  background: #f9fafb;
+}
+
+.account-search input {
+  border: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  min-width: 280px;
+  background: transparent;
+}
+
+.account-search input::placeholder {
+  color: #9ca3af;
+}
+
+.account-search input:focus {
+  outline: none;
+}
+
+.account-search button {
+  width: 34px;
+  border: none;
+  background: #2ac46b;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Card đơn thuê */
+.account-order-card {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr) auto auto;
+  gap: 14px;
+  align-items: center;
+  padding: 13px 16px;
+  border-radius: 4px;
+  border: 1px solid #e1e5ec;
+  background: #ffffff;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.account-order-card img {
+  width: 116px;
+  height: 82px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: #f3f3f3;
+}
+
+.account-order-meta h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.account-order-meta p {
+  margin: 2px 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Trạng thái: Đang thuê = đỏ, Hoàn thành = xám */
+.account-order-status {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff3b41;
+  justify-self: flex-end;
+  text-align: right;
+}
+
+.account-order-status.is-finished {
+  color: #4b5563;
+}
+
+/* Cột nút bên phải */
+.account-order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+/* Nút theo mockup */
+.btn-outline-red,
+.btn-outline-gray {
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #ffffff;
+  cursor: pointer;
+  min-width: 110px;
+  text-align: center;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Nút chính: đỏ viền đỏ, hover nền đỏ chữ trắng */
+.btn-outline-red {
+  border: 1px solid #ff3b41;
+  color: #ff3b41;
+}
+
+.btn-outline-red:hover {
+  background: #ff3b41;
+  color: #ffffff;
+}
+
+/* Nút xem đánh giá: xám nhạt như nút phụ trong mockup */
+.btn-outline-gray {
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+.btn-outline-gray:hover {
+  background: #f3f4f6;
+}

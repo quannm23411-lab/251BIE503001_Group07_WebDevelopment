@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+interface AccountProfile {
+  avatar: string;
+  fullname: string;
+  email?: string;
+  tier?: 'EcoGold' | 'EcoSilver' | 'EcoBasic';
+}
 
 @Component({
   selector: 'account-orders',
@@ -10,11 +17,57 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./orders.css']
 })
 export class AccountOrders {
-  user = { fullname: 'Hồng Phúc' };
+  user: AccountProfile = {
+    fullname: 'Khách EcoMove',
+    avatar: 'assets/images/default-avatar.png'
+  };
+
+  constructor(private router: Router) {
+    if (typeof localStorage !== 'undefined') {
+      const raw = localStorage.getItem('eco_profile');
+      if (raw) {
+        try {
+          const data = JSON.parse(raw) as AccountProfile;
+          this.user.fullname = data.fullname || this.user.fullname;
+          this.user.avatar = data.avatar || this.user.avatar;
+        } catch {
+          // dùng mặc định
+        }
+      }
+    }
+  }
 
   orders = [
-    { id: '2738HF766654F', name: 'Xe máy điện Feliz 2025', start: '01/11/2025', end: '03/11/2025', status: 'Đang thuê', img: '/assets/images/bikes/s1.jpg' },
-    { id: '2738HF766654E', name: 'Xe đạp điện ABC', start: '21/10/2025', end: '28/10/2025', status: 'Hoàn thành', img: '/assets/images/bikes/s2.jpg' },
-    { id: '2738HF766654D', name: 'Xe đạp gấp gọn ABC', start: '21/10/2025', end: '28/10/2025', status: 'Hoàn thành', img: '/assets/images/bikes/s3.jpg' }
+    {
+      id: '2738HF760654F',
+      name: 'Xe máy điện Feliz 2025',
+      img: 'assets/images/orders/feliz.png',
+      start: '01/11/2025',
+      end: '03/11/2025',
+      status: 'Đang thuê',
+      hasReviewed: false
+    },
+    {
+      id: '2738HF7F66484F',
+      name: 'Xe đạp điện ABC',
+      img: 'assets/images/orders/ebike.png',
+      start: '21/10/2025',
+      end: '28/10/2025',
+      status: 'Hoàn thành',
+      hasReviewed: false
+    },
+    {
+      id: '2738HF7F66484P',
+      name: 'Xe đạp gấp gọn ABC',
+      img: 'assets/images/orders/folding.png',
+      start: '21/10/2025',
+      end: '28/10/2025',
+      status: 'Hoàn thành',
+      hasReviewed: true
+    }
   ];
+
+  rentAgain(order: any): void {
+    this.router.navigate(['/thanh-toan', order.id]);
+  }
 }
