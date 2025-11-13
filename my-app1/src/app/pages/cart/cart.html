@@ -1,5 +1,12 @@
 <main class="cart-page container mt-5 pt-4">
-    <h1 class="cart-title">12 - Giỏ hàng</h1>
+<div class="breadcrumb-cart-wrapper">
+  <nav class="breadcrumb">
+    <a routerLink="/">Trang chủ</a>
+    <span>/</span>
+    <span class="current">Giỏ hàng</span>
+  </nav>
+</div>
+
 
     <section *ngIf="items().length > 0; else emptyCart" class="cart-layout">
         <!-- DANH SÁCH ITEM -->
