@@ -416,40 +416,45 @@ body {
     }
 }
 
-/* Tablet ngang ~ 992px */
+/* TABLET (≤ 992px) */
 @media (max-width: 992px) {
 
+    /* Ẩn lời chào */
     .nav__welcome {
         display: none;
     }
 
+    /* Header gọn hơn */
     .header__middle {
         padding: 8px 16px;
         column-gap: 12px;
     }
 
-    .header__controls {
-        gap: 10px;                
-    }
-
-    .header__search {
-        max-width: none;
-        flex: 1;
-    }
-
+    /* Giảm khoảng cách */
     .header__actions {
         gap: 8px;
     }
 
+    /* Nút đăng xuất thu nhỏ */
     .nav__logout-btn {
         padding: 4px 8px;
         font-size: 12px;
     }
 
+    /* Location vẫn hiển thị ở tablet */
+    .header__controls {
+        gap: 10px;
+    }
+
+    .header__search {
+        flex: 1;
+        max-width: none;
+    }
+
+    /* Dropdown */
     .rent-dropdown {
         width: 80vw;
         left: 50%;
-        right: auto;
         transform: translate(-50%, 10px);
         padding: 16px 12px;
     }
@@ -459,101 +464,66 @@ body {
         padding: 0 8px;
     }
 
-    /* Giữ lại translateX khi hover */
     .nav__rent:hover .rent-dropdown {
         transform: translate(-50%, 0);
     }
 }
 
-/* Tablet dọc & mobile lớn */
-@media (max-width: 768px) {
+
+
+/* MOBILE (≤ 600px) */
+@media (max-width: 600px) {
+
+    /* Bố cục mobile */
+    .header__middle {
+        padding: 6px 10px;
+        column-gap: 8px;
+    }
+
+    /* Ẩn location – chỉ giữ ô tìm kiếm */
     .btn-loc {
         display: none;
     }
 
-    .header__middle {
-        padding: 8px 12px;
-    }
-
     .header__controls {
-        gap: 0;               
+        gap: 0;
     }
 
     .header__search {
-        border-radius: 999px;
         flex: 1;
+        max-width: none;
+        border-radius: 999px;
         border-left: 1px solid #ddd;
     }
 
+    /* Thu nhỏ logo */
+    .header__logo img {
+        width: 110px;
+    }
+
+    /* Hành động bên phải */
+    .header__actions {
+        gap: 6px;
+    }
+
+    /* Icon giỏ hàng thu nhỏ */
+    .nav__cart i {
+        font-size: 24px;
+    }
+
+    /* Dropdown mobile dọc */
     .rent-dropdown {
-        width: 80vw;
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, 10px);
+        width: 85vw;
         display: block;
-        /* xếp dọc */
+        left: 50%;
+        transform: translate(-50%, 10px);
         max-height: 70vh;
         overflow-y: auto;
-        padding: 14px 12px;
+        padding: 12px;
     }
 
     .rent-dropdown__group {
         width: 100%;
         margin-bottom: 12px;
-    }
-
-    .rent-dropdown__group h4 {
-        margin-top: 4px;
-    }
-
-    .nav__rent:hover .rent-dropdown {
-        transform: translate(-50%, 0);
-    }
-}
-
-/* Mobile vừa */
-@media (max-width: 600px) {
-    .header__middle {
-        column-gap: 10px;
-    }
-
-    .header__actions {
-        gap: 6px;
-    }
-
-    .header__search {
-        max-width: none;
-    }
-}
-
-/* Mobile nhỏ */
-@media (max-width: 480px) {
-    .header__middle {
-        grid-template-columns: auto auto;
-        justify-content: space-between;
-        padding: 6px 8px;
-        column-gap: 8px;
-    }
-
-    .header__logo img {
-        width: 110px;
-    }
-
-    .header__controls {
-        display: none;
-    }
-
-    .header__actions {
-        gap: 8px;
-        justify-content: flex-end;
-    }
-
-    .nav__cart i {
-        font-size: 24px;
-    }
-
-    .nav__logout-btn {
-        padding: 4px 10px;
-        font-size: 12px;
     }
 }
