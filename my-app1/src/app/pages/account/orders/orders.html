@@ -30,7 +30,8 @@
         </div>
         <div class="account-user-meta">
           <h2>{{ user.fullname }}</h2>
-          <div class="account-tier-badge">EcoGold</div>
+          <div class="account-tier-badge">{{ user.tier || 'EcoBasic' }}</div>
+
         </div>
       </div>
       <!-- bên phải trống đúng như mockup -->

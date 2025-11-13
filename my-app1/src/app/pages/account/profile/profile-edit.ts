@@ -3,12 +3,14 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
+type Tier = 'EcoGold' | 'EcoSilver' | 'EcoBasic';
+
 interface AccountProfile {
   avatar: string;
   fullname: string;
   email: string;
   password: string;
-  tier?: 'EcoGold' | 'EcoSilver' | 'EcoBasic';
+  tier?: Tier;
 }
 
 @Component({
@@ -23,7 +25,11 @@ export class ProfileEdit {
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
 
+  // dùng chung với login service
   private storageKey = 'eco_profile';
+
+  // chỉ để hiển thị tier, không cho sửa ở form
+  tier: Tier = 'EcoBasic';
 
   form = this.fb.group({
     avatar: [''],
@@ -36,15 +42,24 @@ export class ProfileEdit {
 
   constructor() {
     const raw = this.readStorage();
+
     const data: AccountProfile =
       raw || {
-        avatar: '/assets/images/avatar/default.png',
+        avatar: '/assets/images/avatars/default.png',
         fullname: 'Khách EcoMove',
         email: '',
-        password: ''
+        password: '',
+        tier: 'EcoBasic'
       };
 
-    this.form.patchValue(data);
+    this.tier = data.tier || 'EcoBasic';
+
+    this.form.patchValue({
+      avatar: data.avatar,
+      fullname: data.fullname,
+      email: data.email,
+      password: data.password
+    });
   }
 
   onPickAvatar(input: HTMLInputElement) {
@@ -65,7 +80,18 @@ export class ProfileEdit {
       this.form.markAllAsTouched();
       return;
     }
-    this.writeStorage(this.form.getRawValue());
+
+    const val = this.form.getRawValue();
+
+    const profile: AccountProfile = {
+      avatar: val.avatar || '/assets/images/avatars/default.png',
+      fullname: val.fullname || 'Khách EcoMove',
+      email: val.email || '',
+      password: val.password || '',
+      tier: this.tier // giữ nguyên tier hiện tại
+    };
+
+    this.writeStorage(profile);
     this.router.navigateByUrl('/account/profile');
   }
 
@@ -83,7 +109,7 @@ export class ProfileEdit {
     }
   }
 
-  private writeStorage(val: any) {
+  private writeStorage(val: AccountProfile) {
     if (!isPlatformBrowser(this.platformId)) return;
     localStorage.setItem(this.storageKey, JSON.stringify(val));
   }
