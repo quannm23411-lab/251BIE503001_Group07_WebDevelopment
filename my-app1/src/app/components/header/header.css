@@ -419,29 +419,20 @@ body {
 /* TABLET (≤ 992px) */
 @media (max-width: 992px) {
 
-    /* Ẩn lời chào */
     .nav__welcome {
         display: none;
     }
-
-    /* Header gọn hơn */
     .header__middle {
         padding: 8px 16px;
         column-gap: 12px;
     }
-
-    /* Giảm khoảng cách */
     .header__actions {
         gap: 8px;
     }
-
-    /* Nút đăng xuất thu nhỏ */
     .nav__logout-btn {
         padding: 4px 8px;
         font-size: 12px;
     }
-
-    /* Location vẫn hiển thị ở tablet */
     .header__controls {
         gap: 10px;
     }
@@ -450,8 +441,6 @@ body {
         flex: 1;
         max-width: none;
     }
-
-    /* Dropdown */
     .rent-dropdown {
         width: 80vw;
         left: 50%;
@@ -480,7 +469,6 @@ body {
         column-gap: 8px;
     }
 
-    /* Ẩn location – chỉ giữ ô tìm kiếm */
     .btn-loc {
         display: none;
     }
@@ -496,17 +484,14 @@ body {
         border-left: 1px solid #ddd;
     }
 
-    /* Thu nhỏ logo */
     .header__logo img {
         width: 110px;
     }
 
-    /* Hành động bên phải */
     .header__actions {
         gap: 6px;
     }
 
-    /* Icon giỏ hàng thu nhỏ */
     .nav__cart i {
         font-size: 24px;
     }

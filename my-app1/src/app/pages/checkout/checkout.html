@@ -52,6 +52,61 @@
     <section *ngIf="hasItems && !isSuccess()" class="checkout-main container">
 
         <form class="checkout-flow" #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)" novalidate>
+            <!-- CARD: Thông tin khách hàng -->
+            <section class="checkout-card customer-card">
+                <h2 class="summary-title">Thông tin khách hàng</h2>
+
+                <div class="customer-form">
+
+                    <div class="form-row">
+                        <label>Họ và tên *</label>
+                        <input type="text" name="fullName" [(ngModel)]="form.fullName" required
+                            placeholder="Nhập họ tên" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>Số điện thoại *</label>
+                        <input type="tel" name="phone" [(ngModel)]="form.phone" required placeholder="VD: 0901234567" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>Email *</label>
+                        <input type="email" name="email" [(ngModel)]="form.email" required
+                            placeholder="example@gmail.com" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>CCCD / CMND *</label>
+                        <input type="text" name="nationalId" [(ngModel)]="form.nationalId" required
+                            placeholder="Nhập số CCCD/CMND" />
+                    </div>
+
+                    <div class="form-row-2col">
+    <div class="col">
+        <label>Thời gian nhận xe *</label>
+        <input type="datetime-local"
+               name="pickupTime"
+               [(ngModel)]="form.pickupTime"
+               required />
+    </div>
+
+    <div class="col">
+        <label>Thời gian trả xe *</label>
+        <input type="datetime-local"
+               name="returnTime"
+               [(ngModel)]="form.returnTime"
+               required />
+    </div>
+</div>
+
+                    <div class="form-row">
+                        <label>Ghi chú thêm</label>
+                        <textarea name="note" [(ngModel)]="form.note" rows="3"
+                            placeholder="Nhập ghi chú nếu có..."></textarea>
+                    </div>
+
+                </div>
+            </section>
             <!-- CARD 1: Sản phẩm + điểm nhận/trả -->
             <section class="checkout-card product-card" *ngFor="let item of cartItems()">
                 <div class="product-main">
@@ -116,7 +171,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- CARD 2: Mã giảm giá + phương thức thanh toán -->
             <section class="checkout-card payment-card">
                 <!-- Mã giảm giá -->
@@ -148,27 +202,26 @@
 
                     <div class="payment-methods">
                         <label class="payment-option">
-                            <input type="radio" name="paymentMethod" value="cod" [(ngModel)]="form.paymentMethod" />
+                            <input type="radio" name="paymentMethod" value="bank" [(ngModel)]="form.paymentMethod" />
                             <div class="payment-card-visual">
                                 <div class="payment-thumb"></div>
-                                <div class="payment-label">Phương thức thanh toán A</div>
-                            </div>
-                        </label>
-
-                        <label class="payment-option payment-option--active">
-                            <input type="radio" name="paymentMethod" value="ewallet" [(ngModel)]="form.paymentMethod" />
-                            <div class="payment-card-visual">
-                                <div class="payment-thumb"></div>
-                                <div class="payment-label">Ví điện tử Momo</div>
-                                <div class="payment-discount">-0Đ</div>
+                                <div class="payment-label">Chuyển khoản ngân hàng</div>
                             </div>
                         </label>
 
                         <label class="payment-option">
-                            <input type="radio" name="paymentMethod" value="bank" [(ngModel)]="form.paymentMethod" />
+                            <input type="radio" name="paymentMethod" value="momo" [(ngModel)]="form.paymentMethod" />
                             <div class="payment-card-visual">
                                 <div class="payment-thumb"></div>
-                                <div class="payment-label">Phương thức thanh toán B</div>
+                                <div class="payment-label">Momo</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="cash" [(ngModel)]="form.paymentMethod" />
+                            <div class="payment-card-visual">
+                                <div class="payment-thumb"></div>
+                                <div class="payment-label">Tiền mặt</div>
                             </div>
                         </label>
                     </div>
