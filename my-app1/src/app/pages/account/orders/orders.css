@@ -1,13 +1,1 @@
 @import '../profile/profile.css';
-
-.orders-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-.search{ display:flex; align-items:center; gap:6px; }
-.search input{ height:36px; border:1px solid #dfe3e6; border-radius:8px; padding:0 10px; width:280px; }
-.search button{ height:36px; border-radius:8px; padding:0 12px; border:1px solid #cfd6da; background:#fff; cursor:pointer; }
-
-.order-row{ display:grid; grid-template-columns:92px 1fr auto auto; gap:12px; align-items:center; border:1px solid #eaecef; border-radius:12px; padding:12px; margin:10px 0; }
-.order-row img{ width:92px; height:68px; object-fit:cover; border-radius:8px; background:#f5f6f7; }
-.order-row .status{ color:#6b7280; }
-.order-row .status.active{ color:#e11d48; font-weight:600; }
-.order-row .actions{ display:flex; gap:8px; }
-.order-row .actions button{ height:32px; border-radius:8px; padding:0 10px; border:1px solid #cfd6da; background:#fff; cursor:pointer; }
