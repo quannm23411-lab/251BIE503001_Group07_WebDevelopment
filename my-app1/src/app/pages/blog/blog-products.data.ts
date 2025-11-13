@@ -6,7 +6,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Theo quy định mới của Bộ GTVT, một số dòng xe máy điện có công suất lớn sẽ yêu cầu người điều khiển có bằng lái A1. Đây là bước đi nhằm nâng cao an toàn giao thông khi số lượng xe điện tăng nhanh.',
       date: '2025-11-12',
-      image: 'https://i.pinimg.com/736x/b5/ca/0f/b5ca0ff5d4f3088b59871e222e16a729.jpg',
+      image: '/assets/images/blog/blog-products/bang-lai-a1.jpg',
       category: 'Xu hướng',
       content: `
         <div class="bd-content">
@@ -72,7 +72,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Pin LFP (Lithium Iron Phosphate) đang trở thành xu hướng mới của ngành xe điện nhờ độ bền cao, chi phí thấp và an toàn vượt trội.',
       date: '2025-11-11',
-      image: 'https://i.pinimg.com/736x/a9/8a/d1/a98ad172d9a730395e20e901bfe181a8.jpg',
+      image: '/assets/images/blog/blog-products/pin-lfp.jpg',
       category: 'Công nghệ',
       content: `
         <div class="bd-content">
@@ -127,7 +127,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Xe điện thường có quãng đường di chuyển thực tế thấp hơn so với thông số nhà sản xuất. Dưới đây là những mẹo giúp bạn đạt hiệu suất tối đa.',
       date: '2025-10-30',
-      image: 'https://i.pinimg.com/736x/87/10/47/8710476e6f4ddbdbf19216d1e960144a.jpg',
+      image: '/assets/images/blog/blog-products/quang-duong-max.jpg',
       category: 'Kinh nghiệm',
       content: `
         <div class="bd-content">
@@ -181,7 +181,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Nhỏ gọn, tiết kiệm và thân thiện với môi trường, xe điện mini đang trở thành xu hướng di chuyển mới tại các thành phố lớn.',
       date: '2025-09-22',
-      image: 'https://i.pinimg.com/736x/3a/da/ae/3adaae6451ebd8f63e9af8e6b8233784.jpg',
+      image: '/assets/images/blog/blog-products/xe-dien-mini.jpg',
       category: 'Xu hướng',
       content: `
         <div class="bd-content">
@@ -227,7 +227,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Hệ thống sạc nhanh thế hệ mới giúp người dùng rút ngắn thời gian chờ, mở ra kỷ nguyên di chuyển điện tiện lợi hơn bao giờ hết.',
       date: '2025-09-05',
-      image: 'https://i.pinimg.com/736x/d6/fd/66/d6fd66c724b79072221d31be1d26ead6.jpg',
+      image: '/assets/images/blog/blog-products/cong-nghe-sac-nhanh.jpg',
       category: 'Công nghệ',
       content: `
         <div class="bd-content">
@@ -266,7 +266,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Hai doanh nghiệp Việt bắt tay hợp tác, hướng đến mục tiêu xây dựng hạ tầng xe điện toàn diện trên toàn quốc.',
       date: '2025-09-01',
-      image: 'https://i.pinimg.com/736x/93/a8/f5/93a8f5a617e9e707d44c8118153d43b0.jpg',
+      image: '/assets/images/blog/blog-products/tram-sac-doi-pin.jpg',
       category: 'Hợp tác',
       content: `
         <div class="bd-content">
@@ -304,7 +304,7 @@ export const BLOG_PRODUCTS = {
       excerpt:
         'Theo khảo sát của EcoMove, người dùng Việt Nam ngày càng ưa chuộng xe điện. Dưới đây là 5 mẫu xe được đánh giá cao nhất năm 2025.',
       date: '2025-08-15',
-      image: 'https://i.pinimg.com/736x/12/5a/a6/125aa60a2faa0e795c5fef81d9179e06.jpg',
+      image: '/assets/images/blog/blog-products/mau-xe-dien.jpg',
       category: 'Đánh giá',
       content: `
         <div class="bd-content">

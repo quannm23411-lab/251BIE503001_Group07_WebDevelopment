@@ -6,7 +6,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Tiếp tục mở rộng hệ thống, EcoMove khai trương chi nhánh mới tại trung tâm TP.HCM, mang đến nhiều tiện ích và dịch vụ cho người dùng khu vực phía Nam.',
       date: '2025-08-30',
-      image: 'https://i.pinimg.com/736x/83/c8/0c/83c80c1f07d56f9b7fe0209185ee51d8.jpg',
+      image: '/assets/images/blog/blog-news/tuoi-tre-xung-kich.jpg',
       category: 'Tin tức',
       content: `
         <div class="bd-content">
@@ -50,7 +50,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Sau đợt điều chỉnh giá nhiên liệu tháng 11, các công ty cho thuê xe điện ghi nhận lượng đặt xe tăng hơn 40% so với tháng trước.',
       date: '2025-11-10',
-      image: 'https://static.automotor.vn/images/upload/2023/08/05/chinh-sach-xe-dien-the-gioi-vneconomyautomotive4.png',
+      image: '/assets/images/blog/blog-news/gia-xang-tang.png',
       category: 'Thị trường',
       content: `
         <div class="bd-content">
@@ -84,7 +84,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Sở GTVT TP.HCM đang thí điểm làn đường ưu tiên cho xe điện và xe công nghệ trong khung giờ cao điểm để giảm ùn tắc và khí thải.',
       date: '2025-11-05',
-      image: 'https://i.pinimg.com/736x/26/41/b0/2641b0a68df02dd97fa1602356e88b0c.jpg',
+      image: '/assets/images/blog/blog-news/lan-xe-uu-tien.jpg',
       category: 'Chính sách',
       content: `
         <div class="bd-content">
@@ -117,7 +117,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Để đảm bảo an toàn và ngăn chặn tình trạng gian lận hợp đồng, lực lượng chức năng tiến hành kiểm tra các cơ sở cho thuê xe tự lái trên toàn thành phố.',
       date: '2025-11-02',
-      image: 'https://i.pinimg.com/1200x/d9/50/66/d950660ccb1313e2298dca5fcf4c07cd.jpg',
+      image: '/assets/images/blog/blog-news/kiem-tra-xe-thue.jpg',
       category: 'An toàn',
       content: `
         <div class="bd-content">
@@ -150,7 +150,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Theo khảo sát của EcoMove, 68% người trong độ tuổi 20–35 chọn thuê xe thay vì đặt tour dịp lễ cuối năm.',
       date: '2025-11-01',
-      image: 'https://i.pinimg.com/736x/52/8f/b6/528fb6a81769d6b84511c471ff63aadd.jpg',
+      image: '/assets/images/blog/blog-news/nguoi-tre-thue-xe.jpg',
       category: 'Xu hướng',
       content: `
         <div class="bd-content">
@@ -181,7 +181,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Theo báo cáo mới của Hiệp hội Vận tải Việt Nam, thị trường thuê xe tự lái và xe công nghệ đang phát triển mạnh mẽ, đạt quy mô hơn 1 tỷ USD vào cuối năm 2025.',
       date: '2025-10-25',
-      image: 'https://i.pinimg.com/736x/3a/d0/43/3ad043560616da3f523f15dfaf7100d9.jpg',
+      image: '/assets/images/blog/blog-news/thi-truong-thue-xe-viet.jpg',
       category: 'Thị trường',
       content: `
         <div class="bd-content">
@@ -210,7 +210,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Cục An ninh mạng cảnh báo về các ứng dụng giả mạo nền tảng thuê xe EcoMove, FastRide... nhằm đánh cắp thông tin cá nhân và tài khoản ngân hàng.',
       date: '2025-10-15',
-      image: 'https://image.plo.vn/w570/Uploaded/2025/vrwqqxjwp/2025_05_12/lua-dao-mua-xe-truc-tuyen-8238-7862.jpeg.webp',
+      image: '/assets/images/blog/blog-news/canh-bao-gia-mao.jpg',
       category: 'Cảnh báo',
       content: `
         <div class="bd-content">
@@ -243,7 +243,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Chính sách mới nhằm thúc đẩy chuyển đổi xanh trong ngành vận tải, khuyến khích doanh nghiệp đầu tư vào đội xe điện.',
       date: '2025-09-30',
-      image: 'http://i.pinimg.com/736x/d6/b4/fb/d6b4fb94dfb6e4f0fadcd103c7db421a.jpg',
+      image: '/assets/images/blog/blog-news/ho-tro-thue.jpg',
       category: 'Chính sách',
       content: `
         <div class="bd-content">
@@ -272,7 +272,7 @@ export const BLOG_NEWS = {
       excerpt:
         'Trạm sạc nhanh liên kết đầu tiên được đặt tại cao tốc Pháp Vân – Cầu Giẽ, cho phép sạc 80% pin chỉ trong 12 phút.',
       date: '2025-09-20',
-      image: 'https://i.pinimg.com/736x/52/8f/b6/528fb6a81769d6b84511c471ff63aadd.jpg',
+      image: '/assets/images/blog/blog-news/tram-sac-nhanh.jpg',
       category: 'Hạ tầng',
       content: `
         <div class="bd-content">

@@ -20,9 +20,9 @@ import { forkJoin } from 'rxjs';
 export class Homepage implements OnInit, OnDestroy {
 
   banners: BannerItem[] = [
-    { id: 'b1', src: 'assets/images/banner-1.jpg', alt: 'Khuyến mãi tháng này' },
-    { id: 'b2', src: 'assets/images/banner-2.jpg', alt: 'Thuê xe nhanh trong 30 phút' },
-    { id: 'b3', src: 'assets/images/banner-3.jpg', alt: 'Đi xa tiết kiệm' }
+    { id: 'b1', src: './assets/images/banner-1.jpg', alt: 'Gia nhập cộng đồng EcoMove' },
+    { id: 'b2', src: './assets/images/banner-2.jpg', alt: 'Đặt xe ngay tại EcoMove' },
+    { id: 'b3', src: './assets/images/banner-3.jpg', alt: 'Nhận ưu đãi độc quyền từ EcoMove' }
   ];
 
   topRentList: Product[] = [];
