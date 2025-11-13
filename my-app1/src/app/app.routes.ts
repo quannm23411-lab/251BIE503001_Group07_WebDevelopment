@@ -269,7 +269,7 @@ export const routes: Routes = [
       },
 
       // Sau này có about thì mở thêm
-      // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
+      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ],
   },
 

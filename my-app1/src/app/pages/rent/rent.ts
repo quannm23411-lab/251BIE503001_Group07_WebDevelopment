@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute, RouterLink  } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductLoadingService, ProductVM } from '../../services/product-loading.services';
 
 type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
@@ -9,14 +9,6 @@ const TYPE_MAP: Record<string, string[]> = {
     'Xe máy điện': ['Motorbike', 'Scooter'],
     'Xe đạp điện': ['E-Bike', 'Bicycle', 'Electric Bicycle'],
     'Xe đạp điện gấp gọn': [] // nhận diện qua tags 'compact' hoặc 'foldable'
-};
-
-const BRAND_MAP: Record<string, string> = {
-    B001: 'Vinfast',
-    B002: 'Yadea',
-    B003: 'Dat Bike',
-    B004: 'Gogoro',
-    B005: 'DK Bike'
 };
 
 @Component({
@@ -30,6 +22,9 @@ export class RentPage {
     private svc = inject(ProductLoadingService);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
+
+    /** cho template dùng trực tiếp helper của service (type label, image...) */
+    public productService = this.svc;
 
     /** Danh sách toàn bộ sản phẩm (ProductVM đã normalize) */
     all = signal<ProductVM[]>([]);
@@ -71,7 +66,7 @@ export class RentPage {
 
         let out = list.slice();
 
-        // Keyword search (tên / loại / tags / thương hiệu)
+        // Keyword search (tên / loại / tags / thương hiệu) – dùng field đã normalize của service
         if (q) {
             out = out.filter(p =>
                 [p.vehicleName, p.vehicleType, p.brandName, ...(p.tags || [])]
@@ -80,10 +75,12 @@ export class RentPage {
             );
         }
 
-        // Lọc theo loại xe
+        // Lọc theo loại xe (dùng TYPE_MAP + tags từ JSON)
         if (types.size) {
             out = out.filter(p => {
-                const foldTag = (p.tags || []).some(t => ['compact', 'foldable'].includes(String(t).toLowerCase()));
+                const foldTag = (p.tags || []).some(t =>
+                    ['compact', 'foldable'].includes(String(t).toLowerCase())
+                );
                 for (const label of types) {
                     if (label === 'Xe đạp điện gấp gọn' && foldTag) return true;
                     const accept = TYPE_MAP[label] || [];
@@ -93,12 +90,12 @@ export class RentPage {
             });
         }
 
-        // Lọc theo thương hiệu
+        // Lọc theo thương hiệu (brandName đã map từ service)
         if (brands.size) {
             out = out.filter(p => p.brandName && brands.has(p.brandName));
         }
 
-        // Giới hạn giá
+        // Giới hạn giá (pricePerDay là giá gốc, finalPricePerDay service đã tính)
         out = out.filter(p => p.pricePerDay <= priceCap);
 
         // Sort

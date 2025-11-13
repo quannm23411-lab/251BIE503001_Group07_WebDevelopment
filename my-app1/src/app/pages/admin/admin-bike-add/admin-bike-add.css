@@ -1,5 +1,5 @@
 /* === Import các style chung (Giả định) === */
-/* Các style này copy từ admin-bike.css */
+/* ... (toàn bộ style từ đầu đến .form-control) ... */
 .main {
     flex: 1;
     padding: 20px 30px;
@@ -126,6 +126,17 @@ textarea.form-control {
     resize: vertical;
 }
 
+/* =============================================
+  🔽 THÊM MỚI: Style cho đường kẻ ngang
+  =============================================
+*/
+.form-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+
 /* Grid 2 cột cho form */
 .form-grid-2 {
     display: grid;
@@ -133,7 +144,7 @@ textarea.form-control {
     gap: 15px;
 }
 
-/* Hình ảnh */
+/* ... (toàn bộ phần còn lại của CSS giữ nguyên) ... */
 .detail-image {
     width: 100%;
     border-radius: 8px;
@@ -182,7 +193,6 @@ textarea.form-control {
     justify-content: center;
     z-index: 1000; /* Luôn nằm trên cùng */
 }
-/* ... (toàn bộ style popup giữ nguyên) ... */
 .popup-container {
     background: white;
     padding: 25px 30px;
@@ -235,7 +245,7 @@ textarea.form-control {
     background: #6fa304; /* Màu đậm hơn */
 }
 
-/* === 🔽 THÊM MỚI: STYLE CHO VALIDATION === */
+/* === STYLE CHO VALIDATION === */
 .invalid-feedback {
     color: #a30000;
     font-size: 13px;

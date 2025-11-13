@@ -1,25 +1,23 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
-// 🔽 THÊM CÁC IMPORT NÀY
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-bike-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // ◀️ THAY ĐỔI: Dùng ReactiveFormsModule
+  imports: [CommonModule, ReactiveFormsModule], 
   templateUrl: './admin-bike-add.html',
   styleUrl: './admin-bike-add.css' 
 })
 export class AdminBikeAdd implements OnInit {
-  bikeForm!: FormGroup; // ◀️ THAY ĐỔI: Dùng FormGroup thay vì 'any'
+  bikeForm!: FormGroup; 
   isLoading: boolean = true;
   
   showConfirmPopup: boolean = false;
   showSuccessPopup: boolean = false;
   
-  // Dữ liệu cho các <select> (giữ nguyên)
   brands = [
     { id: 'B001', name: 'VinFast' },
     { id: 'B002', name: 'Yadea' },
@@ -35,9 +33,8 @@ export class AdminBikeAdd implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
-    private fb: FormBuilder // ◀️ THÊM MỚI: Inject FormBuilder
+    private fb: FormBuilder 
   ) {
-    // Khởi tạo form ở đây để tránh lỗi template
     this.bikeForm = this.fb.group({});
   }
 
@@ -45,9 +42,6 @@ export class AdminBikeAdd implements OnInit {
     this.loadAndInitializeForm();
   }
 
-  /**
-   * 🔽 THÊM MỚI: Tách logic load và init
-   */
   loadAndInitializeForm() {
     this.isLoading = true;
     this.http.get<any[]>('assets/data/products.json').subscribe({
@@ -59,15 +53,12 @@ export class AdminBikeAdd implements OnInit {
       },
       error: (err) => {
         console.error('Lỗi khi tải products.json', err);
-        this.initializeNewBike(`V${Math.floor(1000 + Math.random() * 9000)}`); // ID tạm
+        this.initializeNewBike(`V${Math.floor(1000 + Math.random() * 9000)}`); 
         this.isLoading = false;
       }
     });
   }
 
-  /**
-   * (Giữ nguyên) Hàm tạo ID xe mới
-   */
   generateNewBikeId(allBikes: any[]): string {
     const numericIds = allBikes
       .map(b => b.id)
@@ -83,7 +74,7 @@ export class AdminBikeAdd implements OnInit {
   }
 
   /**
-   * 🔽 THAY ĐỔI: Khởi tạo bằng FormBuilder và thêm Validators
+   * 🔽 THAY ĐỔI: Thêm 'rating' và 'details' (FormGroup lồng)
    */
   initializeNewBike(newId: string) {
     this.bikeForm = this.fb.group({
@@ -101,28 +92,39 @@ export class AdminBikeAdd implements OnInit {
         Validators.pattern(/^(assets\/images\/products\/)?[^\s]+\.(png|jpg|jpeg|webp)$/i)
       ]],
       description: [''],
+
+      // =============================================
+      // 🔽 THÊM MỚI: Nested FormGroup cho 'details'
+      // =============================================
+      details: this.fb.group({
+        title: ['', Validators.required],
+        paragraphs: [''], // Dùng textarea, phân tách bằng \n
+        features: ['']    // Dùng textarea, phân tách bằng \n
+      }),
       
       // Cột 2: Trạng thái
       availabilityStatus: [true, Validators.required],
       location: ['TP.HCM', Validators.required],
       
       // Cột 2: Giá
-      pricePerDay: [0, [Validators.required, Validators.min(10000)]], // Tối thiểu 10.000
+      pricePerDay: [0, [Validators.required, Validators.min(10000)]], 
       pricePerHour: [0, [Validators.required, Validators.min(0)]],
-      discount: [0, [Validators.required, Validators.min(0), Validators.max(100)]], // 0-100%
+      discount: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
       
+      // =============================================
+      // 🔽 THÊM MỚI: Trường 'rating'
+      // =============================================
+      rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
+
       // Cột 2: Thông số
       batteryCapacity: [' kWh'],
-      rangePerCharge: [0, [Validators.min(1)]], // Tối thiểu 1
+      rangePerCharge: [0, [Validators.min(1)]], 
       
       // Cột 2: Tags
       tags: [''],
     });
   }
 
-  /**
-   * 🔽 THÊM MỚI: Helper để truy cập controls trong HTML
-   */
   get f() {
     return this.bikeForm.controls;
   }
@@ -131,21 +133,13 @@ export class AdminBikeAdd implements OnInit {
     this.location.back();
   }
 
-  /**
-   * 🔽 THAY ĐỔI: Hàm "Lưu" giờ sẽ kiểm tra validation
-   */
   saveChanges() {
-    // 1. Đánh dấu tất cả là "touched" để hiện lỗi
     this.bikeForm.markAllAsTouched();
     
-    // 2. Kiểm tra form
     if (this.bikeForm.invalid) {
       console.warn('Form không hợp lệ. Vui lòng kiểm tra lại.');
-      // (Tùy chọn: Tự động cuộn đến trường lỗi đầu tiên)
       return;
     }
-
-    // 3. Nếu hợp lệ, tiếp tục mở popup
     this.showConfirmPopup = true;
   }
 
@@ -154,29 +148,46 @@ export class AdminBikeAdd implements OnInit {
   }
 
   /**
-   * 🔽 THAY ĐỔI: Lấy dữ liệu từ form khi xác nhận
+   * 🔽 THAY ĐỔI: Xử lý 'details' khi lưu
    */
   onConfirmSave() {
     this.showConfirmPopup = false;
     this.isLoading = true;
     this.cdr.detectChanges();
 
-    // Lấy giá trị từ form, bao gồm cả trường bị disabled (ID)
     const rawValue = this.bikeForm.getRawValue();
     
     // Xử lý tags
     const tagsArray = rawValue.tags.split(',')
       .map((tag: string) => tag.trim())
-      .filter((tag: string) => tag); // Lọc bỏ tag rỗng
+      .filter((tag: string) => tag); 
+      
+    // =============================================
+    // 🔽 THÊM MỚI: Xử lý 'details' từ string -> array
+    // =============================================
+    const paragraphsArray = rawValue.details.paragraphs.split('\n')
+      .map((p: string) => p.trim())
+      .filter((p: string) => p);
+
+    const featuresArray = rawValue.details.features.split('\n')
+      .map((f: string) => f.trim())
+      .filter((f: string) => f);
       
     const bikeDataToSave = {
       ...rawValue,
-      tags: tagsArray
+      tags: tagsArray,
+      // =============================================
+      // 🔽 THAY ĐỔI: Ghi đè 'details' bằng object đã xử lý
+      // =============================================
+      details: {
+        title: rawValue.details.title,
+        paragraphs: paragraphsArray,
+        features: featuresArray
+      }
     };
     
     console.log('Dữ liệu chuẩn bị lưu:', bikeDataToSave);
     
-    // Giả lập lưu
     setTimeout(() => {
       this.isLoading = false;
       this.showSuccessPopup = true;
@@ -184,12 +195,9 @@ export class AdminBikeAdd implements OnInit {
     }, 1000);
   }
 
-  /**
-   * 🔽 THAY ĐỔI: Gọi lại hàm loadAndInitializeForm để reset
-   */
   onCloseSuccessAndReset() {
     this.showSuccessPopup = false;
-    this.loadAndInitializeForm(); // Tải lại để lấy ID mới
+    this.loadAndInitializeForm(); 
   }
 
   onCloseSuccessAndGoBack() {

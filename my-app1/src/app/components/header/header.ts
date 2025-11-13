@@ -1,5 +1,13 @@
 import {
-  Component, HostListener, inject, ElementRef, ViewChild, OnInit, OnDestroy, Renderer2
+  Component,
+  HostListener,
+  inject,
+  ElementRef,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+  Renderer2,
+  computed
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -8,6 +16,9 @@ import { Auth } from '../../services/auth/auth';
 // Dùng hot-products
 import { HotProductService, Product } from '../../services/hot-products.services';
 import { Subscription } from 'rxjs';
+
+// Dùng CartService để hiện badge giỏ hàng
+import { CartService } from '../../services/cart.services';
 
 export interface TrendItem {
   id: string;
@@ -27,6 +38,7 @@ export class Header implements OnInit, OnDestroy {
   private auth = inject(Auth);
   private renderer = inject(Renderer2);
   private hot = inject(HotProductService);
+  private cart = inject(CartService);
 
   // shrink state
   isShrink = false;
@@ -43,6 +55,9 @@ export class Header implements OnInit, OnDestroy {
   hotSuggestions: TrendItem[] = [];
   private subs: Subscription[] = [];
   private cachedTop: TrendItem[] = [];
+
+  // số loại xe trong giỏ (items length)
+  cartItemCount = computed(() => this.cart.items().length);
 
   ngOnInit(): void {
     // nạp gợi ý top (hero/hot) cho lần đầu
@@ -66,8 +81,11 @@ export class Header implements OnInit, OnDestroy {
     this.isShrink = window.scrollY > 120;
     this.updateOffset();
   }
+
   @HostListener('window:resize')
-  onResize() { this.updateOffset(); }
+  onResize() {
+    this.updateOffset();
+  }
 
   private updateOffset() {
     const h = document.getElementById('mainHeader');
@@ -79,7 +97,9 @@ export class Header implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     const path = e.composedPath() as HTMLElement[];
-    const inside = path.some(el => (el as HTMLElement)?.classList?.contains('header__search'));
+    const inside = path.some(el =>
+      (el as HTMLElement)?.classList?.contains('header__search')
+    );
     if (!inside) this.suggestOpen = false;
   }
 
@@ -89,7 +109,9 @@ export class Header implements OnInit, OnDestroy {
   }
 
   // search handlers
-  openSuggest() { this.suggestOpen = true; }
+  openSuggest() {
+    this.suggestOpen = true;
+  }
 
   onQueryChange(v: string) {
     this.query = v;
@@ -114,18 +136,23 @@ export class Header implements OnInit, OnDestroy {
     ev.preventDefault();
     this.goSearch(this.query.trim());
   }
+
   onSearchKey(ev: KeyboardEvent) {
     if (ev.key === 'Enter') this.goSearch(this.query.trim());
   }
+
+  // CLICK VÀO GỢI Ý HOT SEARCH → ĐI THẲNG TỚI /rent/:id
   applySuggestion(s: TrendItem) {
     this.query = s.label;
-    this.searchInputRef?.nativeElement?.focus();
     this.suggestOpen = false;
-    this.goSearch(this.query);
+    this.router.navigate(['/rent', s.id]); // ví dụ /rent/V008
   }
+
+  // SEARCH THƯỜNG → TRANG RENT VỚI ?q=
   private goSearch(q: string) {
     if (!q) return;
-    this.router.navigate(['/search'], { queryParams: { q } });
+    this.suggestOpen = false;
+    this.router.navigate(['/rent'], { queryParams: { q } });
   }
 
   // map Product -> TrendItem cho phần gợi ý
@@ -134,7 +161,14 @@ export class Header implements OnInit, OnDestroy {
   }
 
   // --- giữ nguyên logic đăng nhập ---
-  get currentUser() { return this.auth.getCurrentUser(); } // { fullname, email, role } | null
-  isLoggedIn() { return this.auth.isLoggedIn(); }
-  logout() { this.auth.logout(); this.router.navigate(['/login']); }
+  get currentUser() {
+    return this.auth.getCurrentUser();
+  } // { fullname, email, role } | null
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }
