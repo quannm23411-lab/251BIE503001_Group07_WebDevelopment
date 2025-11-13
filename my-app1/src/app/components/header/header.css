@@ -435,6 +435,23 @@ body {
     padding: 4px 8px;
     font-size: 12px;
   }
+  .rent-dropdown {
+    width: 80vw;                 /* rộng 90% màn hình */
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 10px);
+    padding: 16px 12px;
+  }
+
+  .rent-dropdown__group {
+    width: 33.33%;
+    padding: 0 8px;
+  }
+
+  /* Giữ lại translateX khi hover */
+  .nav__rent:hover .rent-dropdown {
+    transform: translate(-50%, 0);
+  }
 }
 
 /* Tablet dọc & mobile lớn */
@@ -450,6 +467,29 @@ body {
   .header__search {
     max-width: none;
     flex: 1 1 auto;
+  }
+  .rent-dropdown {
+    width: 80vw;                /* full màn hình */
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 10px);
+    display: block;              /* xếp dọc */
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 14px 12px;
+  }
+
+  .rent-dropdown__group {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .rent-dropdown__group h4 {
+    margin-top: 4px;
+  }
+
+  .nav__rent:hover .rent-dropdown {
+    transform: translate(-50%, 0);
   }
 }
 
