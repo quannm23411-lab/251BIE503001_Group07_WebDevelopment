@@ -2,6 +2,11 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
+interface AccountProfile {
+  fullname: string;
+  avatar?: string;
+}
+
 @Component({
   selector: 'account-review',
   standalone: true,
@@ -11,7 +16,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class AccountReview {
   private route = inject(ActivatedRoute);
-  user = { fullname: 'Hồng Phúc' };
+
+  user: AccountProfile = { fullname: 'Khách EcoMove' };
 
   id = this.route.snapshot.paramMap.get('id') || '2738HF766654D';
   review = {
@@ -24,4 +30,19 @@ export class AccountReview {
     stars: 5,
     time: '01-10-2025 15:41'
   };
+
+  constructor() {
+    if (typeof localStorage !== 'undefined') {
+      const raw = localStorage.getItem('eco_profile');
+      if (raw) {
+        try {
+          const data = JSON.parse(raw) as AccountProfile;
+          this.user.fullname = data.fullname || this.user.fullname;
+          this.user.avatar = (data as any).avatar;
+        } catch {
+          // bỏ qua
+        }
+      }
+    }
+  }
 }

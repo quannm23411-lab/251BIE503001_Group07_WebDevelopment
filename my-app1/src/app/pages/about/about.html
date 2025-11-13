@@ -1,7 +1,4 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
 <section class="about__hero">
   <div class="container">
@@ -16,11 +13,7 @@
 
     <!-- 3 card số liệu -->
     <div class="about__stats">
-      <div
-        class="stat-card"
-        *ngFor="let item of data.stats; let i = index"
-        [class.stat-card--highlight]="i === 1"
-      >
+      <div class="stat-card" *ngFor="let item of data.stats; let i = index" [class.stat-card--highlight]="i === 1">
         <div class="stat-card__value">
           {{ item.value }}
         </div>
@@ -61,7 +54,7 @@
   <div class="container">
 
     <h2 class="about-section-title">
-      ĐỐI TÁC <span>ĐỒNG HÀNH</span>
+      <span> ĐỐI TÁC ĐỒNG HÀNH</span>
     </h2>
 
     <div class="partners-grid">
@@ -83,29 +76,103 @@
   </div>
 </section>
 <!-- PHẦN 4: ĐỘI NGŨ -->
- <section class="about__team">
+<section class="about__team">
   <div class="container">
 
     <h2 class="about-section-title">
-      ĐỘI NGŨ <span>ECOMOVE</span>
+      <span>ĐỘI NGŨ ECOMOVE</span>
     </h2>
 
     <div class="team-grid">
       <div class="team-member" *ngFor="let t of data.team">
 
-        <div class="team-member__avatar"
-             [ngStyle]="{'background-image': t.avatar ? 'url(' + t.avatar + ')' : 'none'}">
+        <div class="team-member__avatar">
+          <img *ngIf="t.avatar" [src]="t.avatar" [alt]="t.name" />
         </div>
 
         <h3 class="team-member__name">{{ t.name }}</h3>
 
         <div class="team-member__socials">
-          <a [href]="t.facebook"><i class="bi bi-facebook"></i></a>
-          <a [href]="t.linkedin"><i class="bi bi-linkedin"></i></a>
+          <a [href]="t.facebook" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a [href]="t.linkedin" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-linkedin"></i>
+          </a>
         </div>
-
       </div>
     </div>
+  </div>
+</section>
 
+<!-- PHẦN 5: THÔNG TIN LIÊN HỆ -->
+<section class="about__contact">
+  <div class="container">
+
+    <h2 class="about-section-title about-section-title--contact"> <span>THÔNG TIN LIÊN HỆ</span>
+    </h2>
+
+    <div class="contact-grid">
+      <div class="contact-item" *ngFor="let c of data.contactItems">
+
+        <div class="contact-item__icon">
+          <i [class]="c.icon" aria-hidden="true"></i>
+        </div>
+
+        <h3 class="contact-item__title">
+          {{ c.title }}
+        </h3>
+
+        <p class="contact-item__text" [innerHTML]="c.contentHtml"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHẦN 6: BLOG -->
+<section class="about__blog">
+  <div class="container">
+
+    <h2 class="about-section-title about-section-title--blog">
+      BLOG
+    </h2>
+
+    <div class="about-blog-row">
+      <!-- nút mũi tên trái -->
+      <button class="about-blog-arrow" type="button" (click)="showPrevBlog()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <!-- LIST 2 CARD BLOG -->
+      <div class="blog-grid">
+        <a class="blog-teaser-card" *ngFor="let item of visibleBlogOffers"
+          [routerLink]="['/blog/details', 'news', item.id]"
+          >
+          <!-- Ảnh -->
+          <div class="thumb" [style.background-image]="'url(' + item.image + ')'"></div>
+
+          <!-- Nội dung -->
+          <div class="blog-content">
+            <h3 class="blog-title">
+              {{ item.title }}
+            </h3>
+
+            <p class="blog-excerpt">
+              {{ item.excerpt }}
+            </p>
+
+            <div class="blog-meta">
+              <i class="bi bi-calendar"></i>
+              <span>{{ item.date | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- nút mũi tên phải -->
+      <button class="about-blog-arrow" type="button" (click)="showNextBlog()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
   </div>
 </section>

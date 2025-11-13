@@ -29,10 +29,7 @@
       </div>
 
       <div class="account-search">
-        <input
-          type="text"
-          placeholder="Tìm kiếm theo tên hàng, ID đơn hàng..."
-        />
+        <input type="text" placeholder="Tìm kiếm theo tên hàng, ID đơn hàng..." />
         <button type="button">
           <i class="bi bi-search"></i>
         </button>
@@ -65,9 +62,9 @@
     <!-- Box đánh giá -->
     <div class="account-review-box">
       <div class="account-review-header">
-        <img src="/assets/images/avatars/default.png" alt="Avatar" />
+        <img [src]="user.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
         <div>
-          <div class="account-review-name">Hồng Phúc</div>
+          <div class="account-review-name">{{ user.fullname }}</div>
           <div class="account-review-stars">
             <i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
@@ -82,11 +79,7 @@
         {{ review.text }}
       </div>
 
-      <img
-        src="/assets/images/reviews/review-sample.jpg"
-        alt="Ảnh đánh giá"
-        class="account-review-photo"
-      />
+      <img src="/assets/images/reviews/review-sample.jpg" alt="Ảnh đánh giá" class="account-review-photo" />
 
       <div class="account-review-time">
         {{ review.time }}

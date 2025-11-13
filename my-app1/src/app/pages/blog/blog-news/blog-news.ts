@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BLOG_NEWS } from '../blog-news.data.js';
+import { BLOG_NEWS } from '../../../../assets/data/blog-news.data';
 
 interface NewsItem {
   id: string;

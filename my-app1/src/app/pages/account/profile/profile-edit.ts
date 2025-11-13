@@ -23,14 +23,7 @@ export class ProfileEdit {
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
 
-  private storageKey = 'eco_profile_mock';
-  private initData: AccountProfile = {
-    avatar: '/assets/images/avatars/default.png',
-    fullname: 'Hồng Phúc',
-    email: 'phucvh.work@gmail.com',
-    password: '12345678',
-    tier: 'EcoGold'
-  };
+  private storageKey = 'eco_profile';
 
   form = this.fb.group({
     avatar: [''],
@@ -43,34 +36,55 @@ export class ProfileEdit {
 
   constructor() {
     const raw = this.readStorage();
-    const data = raw || this.initData;
+    const data: AccountProfile =
+      raw || {
+        avatar: '/assets/images/avatar/default.png',
+        fullname: 'Khách EcoMove',
+        email: '',
+        password: ''
+      };
+
     this.form.patchValue(data);
   }
 
-  onPickAvatar(input: HTMLInputElement){
-    const file = input.files?.[0]; if(!file) return;
+  onPickAvatar(input: HTMLInputElement) {
+    const file = input.files?.[0];
+    if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => this.form.patchValue({ avatar: reader.result as string });
+    reader.onload = () =>
+      this.form.patchValue({ avatar: reader.result as string });
     reader.readAsDataURL(file);
   }
 
-  togglePwd(){ this.showPwd.update(v => !v); }
+  togglePwd() {
+    this.showPwd.update(v => !v);
+  }
 
-  save(){
-    if(this.form.invalid){ this.form.markAllAsTouched(); return; }
+  save() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.writeStorage(this.form.getRawValue());
     this.router.navigateByUrl('/account/profile');
   }
 
-  cancel(){ this.router.navigateByUrl('/account/profile'); }
+  cancel() {
+    this.router.navigateByUrl('/account/profile');
+  }
 
   private readStorage(): AccountProfile | null {
-    if(!isPlatformBrowser(this.platformId)) return null;
+    if (!isPlatformBrowser(this.platformId)) return null;
     const raw = localStorage.getItem(this.storageKey);
-    try { return raw ? JSON.parse(raw) as AccountProfile : null; } catch { return null; }
+    try {
+      return raw ? (JSON.parse(raw) as AccountProfile) : null;
+    } catch {
+      return null;
+    }
   }
-  private writeStorage(val: any){
-    if(!isPlatformBrowser(this.platformId)) return;
+
+  private writeStorage(val: any) {
+    if (!isPlatformBrowser(this.platformId)) return;
     localStorage.setItem(this.storageKey, JSON.stringify(val));
   }
 }

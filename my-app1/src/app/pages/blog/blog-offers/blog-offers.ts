@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';                 // ✅ THÊM DÒNG NÀY
-import { BLOG_OFFERS } from '../blog-offers.data';
+import { BLOG_OFFERS } from '../../../../assets/data/blog-offers.data';
 
 interface OfferItem {
   id: string;

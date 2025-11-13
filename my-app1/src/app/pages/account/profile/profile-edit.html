@@ -11,7 +11,7 @@
   <div class="account-sidebar-wrap">
     <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
-      <div class="name">{{ form.value.fullname || 'Hồng Phúc' }}</div>
+      <div class="name">{{ form.value.fullname }}</div>
       <div class="menu">
         <a routerLink="/account/profile" class="active">Thông tin tài khoản</a>
         <a routerLink="/account/orders">Lịch sử thuê xe</a>
@@ -31,7 +31,7 @@
           />
         </div>
         <div class="account-user-meta">
-          <h2>{{ form.value.fullname || 'Hồng Phúc' }}</h2>
+          <h2>{{ form.value.fullname }}</h2>
           <div class="account-tier-badge">EcoGold</div>
         </div>
       </div>

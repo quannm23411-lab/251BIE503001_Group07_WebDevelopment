@@ -22,6 +22,22 @@
 
   <!-- Card trắng -->
   <div class="account-main-card">
+    <!-- Hàng avatar + tên + EcoGold giống mockup -->
+    <div class="account-main-head">
+      <div class="account-user-box">
+        <div class="account-avatar-wrap">
+          <img [src]="user.avatar" alt="Avatar" />
+        </div>
+        <div class="account-user-meta">
+          <h2>{{ user.fullname }}</h2>
+          <div class="account-tier-badge">EcoGold</div>
+        </div>
+      </div>
+      <!-- bên phải trống đúng như mockup -->
+      <div></div>
+    </div>
+
+    <!-- Hàng tiêu đề + ô tìm kiếm -->
     <div class="account-orders-head">
       <div class="account-orders-head-title">
         <i class="bi bi-clock-history"></i>
@@ -29,18 +45,19 @@
       </div>
 
       <div class="account-search">
-        <input
-          type="text"
-          placeholder="Tìm kiếm theo tên hàng, ID đơn hàng..."
-        />
+        <input type="text" placeholder="Tìm kiếm theo tên hàng, ID đơn hàng..." />
         <button type="button" aria-label="Search">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
 
+    <!-- Danh sách đơn thuê -->
     <div class="account-order-card" *ngFor="let o of orders">
+      <!-- Cột ảnh -->
       <img [src]="o.img" [alt]="o.name" />
+
+      <!-- Cột thông tin đơn -->
       <div class="account-order-meta">
         <h3>{{ o.name }}</h3>
         <p>Ngày nhận: {{ o.start }}</p>
@@ -48,32 +65,34 @@
         <p>ID đơn hàng: {{ o.id }}</p>
       </div>
 
-      <div
-        class="account-order-status"
-        [ngClass]="{ 'is-finished': o.status === 'Hoàn thành' }"
-      >
+      <!-- Cột trạng thái -->
+      <div class="account-order-status" [ngClass]="{ 'is-finished': o.status === 'Hoàn thành' }">
         {{ o.status }}
       </div>
 
+      <!-- Cột nút hành động -->
       <div class="account-order-actions">
-        <button
-          *ngIf="o.status === 'Hoàn thành'; else disabledReview"
-          class="btn-outline-red"
-          type="button"
-          [routerLink]="['/account/review', o.id]"
-        >
-          Đánh giá
-        </button>
+        <!-- Chỉ hiển thị nút khi đã Hoàn thành -->
+        <ng-container *ngIf="o.status === 'Hoàn thành'">
+          <!-- Chưa đánh giá thì cho phép Đánh giá -->
+          <ng-container *ngIf="!o.hasReviewed; else hasReviewBlock">
+            <button class="btn-outline-red" type="button" [routerLink]="['/account/review', o.id]">
+              Đánh giá
+            </button>
+          </ng-container>
 
-        <ng-template #disabledReview>
-          <button class="btn-outline-gray" type="button" disabled>
-            Xem đánh giá
+          <!-- Đã đánh giá thì chuyển thành Xem đánh giá -->
+          <ng-template #hasReviewBlock>
+            <button class="btn-outline-gray" type="button" [routerLink]="['/account/review', o.id]">
+              Xem đánh giá
+            </button>
+          </ng-template>
+
+          <!-- Nút Thuê lại -->
+          <button class="btn-outline-red" type="button" (click)="rentAgain(o)">
+            Thuê lại
           </button>
-        </ng-template>
-
-        <button class="btn-green" type="button">
-          Thuê lại
-        </button>
+        </ng-container>
       </div>
     </div>
   </div>

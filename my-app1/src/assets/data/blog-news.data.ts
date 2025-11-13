@@ -298,6 +298,64 @@ export const BLOG_NEWS = {
           </blockquote>
         </div>
       `
+    },
+    {
+      id: 't4',
+      title: 'Thị trường xe điện Việt Nam bùng nổ cuối năm, nhu cầu thuê xe tăng 45%',
+      excerpt:
+        'Cuối năm 2025 ghi nhận mức tăng trưởng mạnh của thị trường xe điện khi nhu cầu đi lại xanh và tiết kiệm chi phí trở thành xu hướng chính. Lĩnh vực cho thuê xe điện cũng tăng trưởng rõ rệt.',
+      date: '2025-11-07',
+      image: '/assets/images/blog/blog-news/thi-truong-xe-dien.png',
+      category: 'Thị trường',
+      content: `
+    <div class="bd-content">
+      <h2>Xe điện trở thành lựa chọn phổ biến của người dùng đô thị</h2>
+      <p>
+        Trong báo cáo mới nhất của Hiệp hội Giao thông Xanh Việt Nam, doanh số xe điện toàn thị trường 
+        quý IV/2025 tăng gần <strong>60%</strong> so với cùng kỳ năm ngoái. 
+        Riêng mảng <strong>thuê xe điện</strong> tăng trưởng mạnh với mức <strong>45%</strong>, 
+        chủ yếu đến từ nhóm khách trẻ và khách du lịch nội đô.
+      </p>
+
+      <h3>Ba yếu tố thúc đẩy thị trường</h3>
+      <ul>
+        <li><strong>Chi phí vận hành thấp:</strong> chỉ bằng 1/3 xe xăng, phù hợp người dùng di chuyển hằng ngày.</li>
+        <li><strong>Mạng lưới sạc mở rộng:</strong> hơn 1.800 điểm sạc nhanh được bổ sung trong năm 2025.</li>
+        <li><strong>Chính sách hỗ trợ:</strong> nhiều địa phương áp dụng ưu đãi thuế và phí cho xe điện.</li>
+      </ul>
+
+      <blockquote>
+        “Người dùng đang chuyển dần sang thuê hoặc sử dụng xe điện như một xu hướng bền vững, 
+        không còn chỉ là trải nghiệm thử nghiệm,” – Đại diện EcoMove chia sẻ.
+      </blockquote>
+
+      <h3>Doanh nghiệp cho thuê xe chuẩn bị gì?</h3>
+      <p>
+        Trước nhu cầu tăng mạnh dịp cuối năm, các đơn vị cung cấp dịch vụ đã chủ động 
+        tăng số lượng xe, bảo dưỡng đội xe định kỳ và nâng cấp hệ thống đặt xe trực tuyến.
+      </p>
+
+      <ul>
+        <li>Bổ sung thêm các dòng xe điện tầm trung và cao cấp.</li>
+        <li>Tăng cường kiểm tra pin, phanh và hệ thống an toàn trước khi xuất xe.</li>
+        <li>Thêm tùy chọn thuê linh hoạt: theo giờ, theo ca, theo tuần.</li>
+      </ul>
+
+      <h3>Dự báo xu hướng 2026</h3>
+      <p>
+        Các chuyên gia đánh giá thị trường xe điện sẽ tiếp tục duy trì tăng trưởng hai con số 
+        trong năm 2026 khi giá pin giảm và công nghệ sạc nhanh ngày càng phổ biến. 
+        Những nền tảng cho thuê xe như EcoMove được dự đoán sẽ hưởng lợi lớn từ xu hướng này.
+      </p>
+
+      <ul>
+        <li>Giá thuê xe điện dự kiến giảm 5–12%.</li>
+        <li>Dòng xe điện tự lái phổ thông sẽ chiếm 40% thị phần.</li>
+        <li>Các gói thuê dài hạn có thể trở thành lựa chọn phổ biến của dân văn phòng.</li>
+      </ul>
+    </div>
+  `
     }
+
   ]
 };

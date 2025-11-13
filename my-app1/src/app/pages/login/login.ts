@@ -15,8 +15,8 @@ import { Auth, AuthUser } from '../../services/auth/auth';
   // THÊM MỚI: Thêm RouterLink vào mảng imports
   // =============================================
   imports: [
-    CommonModule, 
-    ReactiveFormsModule, 
+    CommonModule,
+    ReactiveFormsModule,
     RouterLink // <-- Thêm vào đây
   ],
   templateUrl: './login.html',
@@ -51,53 +51,46 @@ export class Login implements OnInit {
   get password() { return this.loginForm.get('password')!; }
 
   onSubmit(): void {
-    this.error.set(null); 
+    this.error.set(null);
     this.loginForm.markAllAsTouched();
-    
+
     if (!this.loginForm.valid) {
       return;
     }
 
-    this.isLoading.set(true); 
+    this.isLoading.set(true);
     const { email, password } = this.loginForm.value;
 
     this.loginService.login(email, password).subscribe({
-      next: (user) => {
+      next: () => {
         this.isLoading.set(false);
-        
-        const authUser: AuthUser = {
-          id: user.id,
-          email: user.email,
-          fullname: user.fullname,
-          role: user.role
-        };
-        this.auth.login(authUser);
-
+        // LoginService đã set authUser + eco_profile rồi
         this.isModalVisible = true;
       },
       error: (err) => {
-        this.isLoading.set(false); 
+        this.isLoading.set(false);
         this.error.set(err.message || 'Email hoặc mật khẩu không chính xác');
       }
     });
   }
 
+
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
-  handleGoogleLogin() { 
+  handleGoogleLogin() {
     this.featureModalTitle.set('Tính năng đang phát triển');
     this.featureModalBody.set('Chức năng Đăng nhập bằng Google hiện chưa có sẵn. Vui lòng quay lại sau.');
     this.isFeatureModalVisible.set(true);
   }
-  
-  handleForgotPassword() { 
+
+  handleForgotPassword() {
     this.featureModalTitle.set('Tính năng đang phát triển');
     this.featureModalBody.set('Chức năng Quên mật khẩu hiện chưa có sẵn. Vui lòng quay lại sau.');
     this.isFeatureModalVisible.set(true);
   }
-  
+
   closeFeatureModal() {
     this.isFeatureModalVisible.set(false);
   }
@@ -105,7 +98,7 @@ export class Login implements OnInit {
   closeModalAndNavigate() {
     this.isModalVisible = false;
     // Cập nhật: dùng .currentUser() (vì bạn đã đổi tên hàm trong register.ts)
-    const user = this.auth.getCurrentUser(); 
+    const user = this.auth.getCurrentUser();
     if (user?.role === 'admin') this.router.navigate(['/admin']);
     else this.router.navigate(['/']);
   }

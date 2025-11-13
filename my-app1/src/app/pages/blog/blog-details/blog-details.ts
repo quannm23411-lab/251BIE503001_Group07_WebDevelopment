@@ -2,9 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { BLOG_OFFERS } from '../blog-offers.data';
-import { BLOG_PRODUCTS } from '../blog-products.data';
-import { BLOG_NEWS } from '../blog-news.data';
+import { BLOG_OFFERS } from '../../../../assets/data/blog-offers.data';
+import { BLOG_PRODUCTS } from '../../../../assets/data/blog-products.data';
+import { BLOG_NEWS } from '../../../../assets/data/blog-news.data';
 
 type BlogType = 'offers' | 'products' | 'news';
 
