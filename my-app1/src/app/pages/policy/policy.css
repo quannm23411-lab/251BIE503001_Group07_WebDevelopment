@@ -1,0 +1,21 @@
+.policy {
+  max-width: 900px;
+
+  h4 {
+    color: #2dbf83;
+  }
+
+  ul {
+    padding-left: 18px;
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+  }
+
+  .policy-section {
+    border-left: 4px solid #72D4A5;
+    padding-left: 16px;
+  }
+}
