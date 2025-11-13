@@ -1,152 +1,183 @@
+/* THAY ĐỔI: Giảm padding trên cùng (60px -> 40px) và dưới cùng (30px -> 25px) */
 .footer {
-    background-color: #000;
-    color: #fff;
-    padding: 60px 0 45px;
+    background-color: #1a1a1a;
+    color: #adb5bd; 
+    padding: 40px 0 25px;
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
-.footer h5,
-.footer h6 {
+/* THAY ĐỔI: Giảm margin dưới tiêu đề (1.5rem -> 1.25rem) */
+.footer__title {
+    color: #ffffff; 
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* Logo & Slogan (Giữ nguyên) */
+.footer__logo img {
+    max-width: 300px; 
+    height: auto;
+}
+.footer__slogan {
+    font-style: italic;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* THAY ĐỔI: Giảm padding dưới của link (8px -> 6px) */
+.footer__link {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.25s;
+    display: inline-block;
+    padding-bottom: 6px; 
+}
+.footer__link:hover {
+    color: #72D4A5; 
+    text-decoration: none;
+}
+
+/* Cột liên hệ (Giữ nguyên) */
+.footer__contact li {
+    display: flex;
+    align-items: flex-start; 
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.footer__contact i {
+    color: #72D4A5; 
+    font-size: 1.1rem;
+    margin-top: 3px;
+}
+
+/* Form đăng ký (Giữ nguyên) */
+.footer__subscribe-form {
+    position: relative;
+}
+.footer__subscribe-form input.form-control {
+    background-color: #333; 
+    border: 1px solid #444;
     color: #fff;
-    font-weight: 700;
-    margin-bottom: 12px;
+    padding: 12px 50px 12px 15px; 
+    border-radius: 50px; 
+    font-size: 0.9rem;
 }
-
-.footer p {
-    margin-bottom: 6px;
+.footer__subscribe-form input.form-control::placeholder {
+    color: #888;
 }
-
-/* LOGO */
-.footer__logo {
+.footer__subscribe-form input.form-control:focus {
+    background-color: #333;
+    border-color: #72D4A5;
+    color: #fff;
+    box-shadow: none;
+}
+.footer__subscribe-form button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    border: none;
+    background-color: #72D4A5;
+    color: #1a1a1a; 
+    border-radius: 50%; 
+    width: 40px;
+    height: 40px;
+    padding: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+.footer__subscribe-form button:hover {
+    background-color: #fff;
 }
 
-.footer__logo-img {
-    width: 50px;
-    height: auto;
+/* Thông báo đăng ký (Giữ nguyên) */
+.subscribe__msg {
+    min-height: 1.5em;
+    padding-top: 5px;
+    font-style: italic;
+}
+.subscribe__msg.text-success {
+    color: #72D4A5 !important;
+}
+.subscribe__msg.text-danger {
+    color: #ff6b6b !important;
+}
+
+
+/* Social Media Icons */
+/* THAY ĐỔI: Giảm margin dưới (1.5rem -> 1.25rem) */
+.footer__social {
+    margin-bottom: 1.25rem; 
+}
+.footer__social a {
+    color: #adb5bd; 
+    font-size: 1.3rem; 
+    transition: color 0.3s, transform 0.3s;
+}
+.footer__social a:hover {
+    color: #72D4A5;
+    transform: scale(1.1);
+}
+
+/* Đường kẻ & Phần Copyright */
+/* THAY ĐỔI: Giảm margin của đường kẻ (2.5rem -> 2rem) */
+.footer__divider {
+    border-top: 1px solid #464646;
+    margin: 0.5rem 0 1.5rem;
+}
+.footer__bottom {
+    color: #888;
+    justify-content: center !important; 
+    text-align: center;
 }
 
 .footer__cert {
-    width: 125px;
+    width: 150px;
     height: auto;
 }
 
-/* LINK */
-.footer__link {
-    color: #ccc;
-    text-decoration: none;
-    transition: color 0.25s;
+.footer p.small {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.4;
 }
 
-.footer__link:hover {
-    color: #72D4A5;
-    text-decoration: underline;
-}
 
-/* FORM */
-.footer form {
-    display: flex;
-    align-items: center;
-}
-
-.footer form input {
-    flex: 1;
-    padding: 10px 12px;
-    border: none;
-    border-radius: 0px;
-    font-size: 0.9rem;
-    margin-right: 8px;
-    color: #9A9898;
-}
-
-.footer form button {
-    background-color: #72D4A5;
-    border: none;
-    color: #fff;
-    font-weight: 600;
-    border-radius: 0px;
-    padding: 10px 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.footer form button:hover {
-    background-color: #478165;
-}
-
-.subscribe__msg {
-    min-height: 1em;
-}
-
-/* SOCIAL */
-.footer__social {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.footer__social a {
-    color: #fff;
-    font-size: 1.4rem;
-    transition: color 0.3s;
-}
-
-.footer__social a:hover {
-    color: #72D4A5;
-}
-
-/* RESPONSIVE FIXES */
-@media (max-width: 992px) {
+/* Responsive (Giữ nguyên) */
+@media (max-width: 991.98px) {
     .footer {
-        text-align: center;
-    }
-
-    .footer__col {
-        margin-bottom: 24px;
-    }
-
-    .footer form {
-        flex-direction: column;
-    }
-
-    .footer form input {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .footer__social {
-        justify-content: center;
-        margin-top: 12px;
-    }
-}
-
-@media (max-width: 576px) {
-    .footer {
-        padding: 40px 0 30px;
         text-align: left;
     }
-
-    .footer__logo h3 {
-        font-size: 1.25rem;
+    .footer__logo {
+        justify-content: flex-start;
     }
-
-    .footer__cert {
-        width: 110px;
+    .footer__social {
+        justify-content: flex-start;
     }
-
-    .footer h5 {
-        font-size: 1rem;
+    /* THÊM MỚI: Căn lề form đăng ký trên tablet */
+    .footer__subscribe-wrapper {
+        padding-right: 2rem; /* Tránh form quá dài */
     }
+}
 
-    .footer form button {
-        width: 100%;
+@media (max-width: 767.98px) {
+    .footer__bottom {
+        flex-direction: column; 
+        gap: 15px;
+        text-align: center;
     }
-
-    .footer__col {
-        margin-bottom: 30px;
+    .footer__copyright p {
+        font-size: 0.8rem;
+    }
+    /* THÊM MỚI: Xóa padding-right trên mobile */
+    .footer__subscribe-wrapper {
+        padding-right: 0; 
     }
 }

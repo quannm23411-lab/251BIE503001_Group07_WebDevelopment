@@ -1,85 +1,76 @@
-<footer class="footer text-white">
+<footer class="footer">
   <div class="container">
-    <div class="row g-4 align-items-start">
-
-      <!-- TRÁI: GIỚI THIỆU -->
-      <div class="col-lg-5 col-12">
-        <div class="footer__logo mb-3 d-flex align-items-center gap-2">
-          <img src="../../assets/images/logofooter.png" alt="EcoMOVE Logo" class="footer__logo-img" />
-          <h3 class="m-0 fw-bold">EcoMOVE</h3>
-        </div>
-
-        <p class="mb-2 fw-semibold">CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ DỊCH VỤ ECOMOVE</p>
-        <p class="small mb-1">MST/MSDN: 0110888888 do Sở KH&ĐT TP Hà Nội cấp lần 01 ngày 15/06/2025</p>
-
-        <div class="footer__address mt-2">
-          <h6 class="fw-bold mb-2">Địa chỉ liên hệ</h6>
-          <ul class="list-unstyled small">
-            <li>
-              <i class="bi bi-geo-alt-fill me-2"></i>
-              Trường Đại học Kinh tế - Luật (UEL), Khu phố 3, Phường Linh Xuân, TP Thủ Đức, TP. Hồ Chí Minh
-            </li>
-          </ul>
-        </div>
-
-        <img src="../../assets/images/gov.png" alt="Đã thông báo Bộ Công Thương" class="footer__cert mt-3" />
-        <p class="mt-3 small mb-0">© 2025 EcoMOVE. All rights reserved.</p>
+    <div class="row g-4 g-lg-5"> <div class="col-lg-4 col-md-12 col-12">
+        <a href="/" class="footer__logo mb-3">
+          <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
+        </a>
+        <p class="footer__slogan">Hành trình xanh từ năng lượng sạch.</p>
+          <img src="../../assets/images/gov.png" alt="Đã thông báo Bộ Công Thương" class="footer__cert" />
+          <p class="small mb-md-0 mt-3">MST: 0110888888 do Sở KH&ĐT TP Hà Nội cấp (15/06/2025)</p>
       </div>
 
-      <!-- PHẢI: FORM + 3 CỘT LIÊN KẾT -->
-      <div class="col-lg-7 col-12">
-
-        <!-- FORM ĐĂNG KÝ (TRÊN) -->
-        <div class="mb-4">
-          <h5 class="fw-bold mb-3">Đăng ký ngay để nhận tin ưu đãi dành riêng cho bạn!</h5>
-          <form class="d-flex flex-wrap gap-2" id="subscribeForm">
+      <div class="col-lg-4 col-md-8 col-12">
+        <div class="row"> <div class="col-md-6 col-sm-6 col-6">
+            <h6 class="footer__title">Về chúng tôi</h6>
+            <ul class="list-unstyled">
+              <li><a routerLink="/about" class="footer__link">Về EcoMOVE</a></li>
+              <li><a routerLink="/blog" class="footer__link">Blog</a></li>
+              <li><a href="https://www.linkedin.com/school/uel-vnuhcm/posts/?feedView=all" class="footer__link" target="_blank">Tuyển dụng</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-sm-6 col-6">
+            <h6 class="footer__title">Hỗ trợ</h6>
+            <ul class="list-unstyled">
+              <li><a routerLink="/policy" class="footer__link">Chính sách thuê</a></li>
+              <li><a routerLink="/policy" class="footer__link">Hoàn tiền & Hủy</a></li>
+              <li><a routerLink="/contact" class="footer__link">Liên hệ</a></li>
+            </ul>
+          </div>
+        </div> <div class="mt-4"> <h6 class="footer__title">Đăng ký nhận tin</h6>
+          <form class="footer__subscribe-form" id="subscribeForm" (submit)="onSubscribe($event)">
             <label for="emailInput" class="visually-hidden">Email</label>
-            <input type="email" id="emailInput" class="form-control flex-grow-1"
+            <input type="email" id="emailInput" class="form-control" 
                    placeholder="Nhập email của bạn..." required />
-            <button type="submit" class="btn btn-success px-4">ĐĂNG KÝ</button>
+            <button type="submit" class="btn btn-success" aria-label="Đăng ký">
+              <i class="bi bi-send-fill"></i>
+            </button>
           </form>
-          <p id="subscribeMsg" class="subscribe__msg small text-success mb-0"></p>
+          <p id="subscribeMsg" class="subscribe__msg small mb-0"></p>
+        </div>
         </div>
 
-        <!-- BA CỘT LIÊN KẾT (DƯỚI) -->
-        <div class="row g-4">
-          <div class="col-md-4 col-sm-6">
-            <h6 style="color:#72D4A5;" class="fw-bold mb-2">Về chúng tôi</h6>
-            <ul class="list-unstyled small mb-0">
-              <li><a href="/about" class="footer__link">Về EcoMOVE</a></li>
-              <li><a href="/blog/offers" class="footer__link">Blog</a></li>
-              <li><a href="https://www.linkedin.com/school/uel-vnuhcm/posts/?feedView=all" class="footer__link">Tuyển dụng</a></li>
-            </ul>
-          </div>
+      <div class="col-lg-4 col-md-4 col-12">
+        <h6 class="footer__title">Liên hệ</h6>
 
-          <div class="col-md-4 col-sm-6">
-            <h6 style="color:#72D4A5;" class="fw-bold mb-2">Hỗ trợ</h6>
-            <ul class="list-unstyled small mb-0">
-              <li><a href="/policy" class="footer__link">Chính sách thuê &amp; hoàn tiền</a></li>
-              <li><a href="contact" class="footer__link">Liên hệ</a></li>
-            </ul>
-          </div>
-
-          <!-- LIÊN HỆ + MXH -->
-          <div class="col-md-4 col-sm-12">
-            <h6 style="color:#72D4A5;" class="fw-bold mb-2">Liên hệ</h6>
-            <ul class="list-unstyled small mb-3">
-              <li><i class="bi bi-telephone-fill me-2"></i>1900 1234</li>
-              <li><i class="bi bi-phone-fill me-2"></i>0909 567 890</li>
-              <li><i class="bi bi-envelope-fill me-2"></i>ecomove.cskh@gmail.com</li>
-            </ul>
-
-            <!-- MXH dưới cột Liên hệ -->
-            <div class="footer__social d-flex gap-3">
-              <a href="https://www.facebook.com/khoahttt.uel" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
-              <a href="#" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
-              <a href="https://www.tiktok.com/@fis.uel" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a>
-              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
-            </div>
-          </div>
+        <div class="footer__social d-flex gap-3">
+            <a href="https://www.facebook.com/khoahttt.uel" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://is.uel.edu.vn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.tiktok.com/@fis.uel" aria-label="Tiktok"><i class="bi bi-tiktok"></i></a>
+            <a href="https://www.linkedin.com/company/fis.uel" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
         </div>
 
+        <ul class="list-unstyled footer__contact">
+          <li>
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Khu phố 3, P. Linh Xuân, TP Thủ Đức, TP.HCM</span>
+          </li>
+          <li>
+            <i class="bi bi-telephone-fill"></i>
+            <span>1900 1234</span>
+          </li>
+          <li>
+            <i class="bi bi-envelope-fill"></i>
+            <span>ecomove.cskh@gmail.com</span>
+          </li>
+        </ul>
+        </div>
+
+    </div> <hr class="footer__divider">
+
+    <div class="footer__bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="footer__copyright">
+        <p class="small mb-1">© 2025 EcoMOVE. All rights reserved.</p>
       </div>
     </div>
-  </div>
+  </div> 
 </footer>
