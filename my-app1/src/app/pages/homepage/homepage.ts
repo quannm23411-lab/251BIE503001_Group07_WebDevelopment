@@ -168,7 +168,7 @@ export class Homepage implements OnInit, OnDestroy {
 
       // shuffle nhẹ cho "ngẫu nhiên"
       const shuffled = all.slice().sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, 3); // lấy 3 review để hiển thị
+      const picked = shuffled.slice(0, 4); // lấy 3 review để hiển thị
 
       this.testimonials = picked.map(r => ({
         avatar: (r.images && r.images[0]) || 'assets/images/default-avatar.png',

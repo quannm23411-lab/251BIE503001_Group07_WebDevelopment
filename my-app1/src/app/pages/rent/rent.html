@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-<main class="main-content container-fluid">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
 <main class="main-content container-fluid mt-5 pt-4">
   <!-- FILTER BAR -->
   <section class="filter-section container">
@@ -49,11 +49,26 @@
 
       <div class="filter-row">
         <span class="filter-label">Thương hiệu:</span>
-        <label><input type="checkbox" (change)="toggleBrand('Vinfast', $event.target.checked)" /> Vinfast</label>
-        <label><input type="checkbox" (change)="toggleBrand('Yadea', $event.target.checked)" /> Yadea</label>
-        <label><input type="checkbox" (change)="toggleBrand('Dat Bike', $event.target.checked)" /> Dat Bike</label>
-        <label><input type="checkbox" (change)="toggleBrand('Dibao', $event.target.checked)" /> Dibao</label>
-        <label><input type="checkbox" (change)="toggleBrand('Pega', $event.target.checked)" /> Pega</label>
+        <label>
+          <input type="checkbox" (change)="toggleBrand('Vinfast', $event.target.checked)" />
+          Vinfast
+        </label>
+        <label>
+          <input type="checkbox" (change)="toggleBrand('Yadea', $event.target.checked)" />
+          Yadea
+        </label>
+        <label>
+          <input type="checkbox" (change)="toggleBrand('Dat Bike', $event.target.checked)" />
+          Dat Bike
+        </label>
+        <label>
+          <input type="checkbox" (change)="toggleBrand('Dibao', $event.target.checked)" />
+          Dibao
+        </label>
+        <label>
+          <input type="checkbox" (change)="toggleBrand('Pega', $event.target.checked)" />
+          Pega
+        </label>
       </div>
 
       <div class="filter-row align-items-center flex-wrap">
@@ -65,25 +80,28 @@
         <div class="sort ms-auto d-flex align-items-center gap-2 flex-wrap">
           <span class="filter-label">Sắp xếp theo:</span>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey()==='popular'"
-            [class.active]="sortKey()==='popular'" (click)="setSort('popular')">
+          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'popular'"
+            [class.active]="sortKey() === 'popular'" (click)="setSort('popular')">
             Phổ biến
             <i class="bi bi-star"></i>
           </button>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey()==='newest'"
-            [class.active]="sortKey()==='newest'" (click)="setSort('newest')">
-            Mới nhất<i class="bi bi-patch-check-fill"></i>
+          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'newest'"
+            [class.active]="sortKey() === 'newest'" (click)="setSort('newest')">
+            Mới nhất
+            <i class="bi bi-patch-check-fill"></i>
           </button>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey()==='price_asc'"
-            [class.active]="sortKey()==='price_asc'" (click)="setSort('price_asc')">
-            Giá Thấp - Cao<i class="bi bi-sort-down-alt"></i>
+          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'price_asc'"
+            [class.active]="sortKey() === 'price_asc'" (click)="setSort('price_asc')">
+            Giá Thấp - Cao
+            <i class="bi bi-sort-down-alt"></i>
           </button>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey()==='price_desc'"
-            [class.active]="sortKey()==='price_desc'" (click)="setSort('price_desc')">
-            Giá Cao - Thấp<i class="bi bi-sort-up-alt"></i>
+          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'price_desc'"
+            [class.active]="sortKey() === 'price_desc'" (click)="setSort('price_desc')">
+            Giá Cao - Thấp
+            <i class="bi bi-sort-up-alt"></i>
           </button>
         </div>
       </div>
@@ -99,51 +117,72 @@
             -{{ p.discount }}%
           </span>
 
-          <img class="product-card__img" [src]="p.image" [alt]="p.vehicleName" loading="lazy" />
+          <!-- Ảnh -->
+          <img class="product-card__img" [src]="productService.getImageUrl(p, 'card')" [alt]="p.vehicleName"
+            loading="lazy" />
 
+          <!-- Thanh xanh: rating + range + type -->
           <div class="product-card__features">
-            <span><i class="bi bi-scooter"></i>Xe máy điện</span>
-            <span><i class="bi bi-plus"></i>Hỗ trợ GPS</span>
-            <span><i class="bi bi-battery-charging"></i>200 km/lần sạc</span>
-            <span><i class="bi bi-speedometer2"></i>Tối đa 90km/h</span>
+            <div class="product-card__features-top">
+              <span class="product-card__rating">
+                <i class="bi bi-star-fill"></i>
+                {{ p.rating | number : '1.1-1' }}/5
+              </span>
+              <span class="product-card__range">
+                <i class="bi bi-battery-charging"></i>
+                {{ p.rangePerCharge }} km/lần sạc
+              </span>
+            </div>
+
+            <div class="product-card__features-bottom">
+              <span class="product-card__type">
+                {{ productService.getVehicleTypeLabel(p.vehicleType) }}
+              </span>
+            </div>
           </div>
 
           <div class="product-card__body">
-            <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+            <h3 class="product-card__name">
+              {{ p.vehicleName }}
+            </h3>
             <p class="product-card__price">
-              Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+              Giá thuê chỉ từ
+              <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
-            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+
+            <!-- Nút trạng thái: giống “Đặt xe ngay”, hết xe thì xám -->
+            <button type="button" class="product-card__availability"
+              [class.product-card__availability--active]="p.availabilityStatus"
+              [class.product-card__availability--disabled]="!p.availabilityStatus">
               {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-            </small>
+            </button>
           </div>
         </a>
       </ng-container>
+
       <ng-template #noTop>
         <p class="text-muted">Chưa có xe phù hợp.</p>
       </ng-template>
-      </div>
+    </div>
 
-      <!-- Pagination -->
-<!-- Pagination -->
-<div class="pager d-flex justify-content-center gap-2 mt-3" *ngIf="totalPages() > 1">
-  <!-- Nút trước -->
-  <button class="pager-btn" (click)="goto(page()-1)" [disabled]="page()===1">
-    <i class="bi bi-chevron-left"></i>
-  </button>
+    <!-- Pagination -->
+    <div class="pager d-flex justify-content-center gap-2 mt-3" *ngIf="totalPages() > 1">
+      <!-- Nút trước -->
+      <button class="pager-btn" (click)="goto(page() - 1)" [disabled]="page() === 1">
+        <i class="bi bi-chevron-left"></i>
+      </button>
 
-  <!-- Danh sách trang -->
-  <ng-container *ngFor="let n of [].constructor(totalPages()); let i = index">
-    <button class="pager-btn" [class.active]="page()===(i+1)" (click)="goto(i+1)">
-      {{ i+1 }}
-    </button>
-  </ng-container>
+      <!-- Danh sách trang -->
+      <ng-container *ngFor="let n of [].constructor(totalPages()); let i = index">
+        <button class="pager-btn" [class.active]="page() === i + 1" (click)="goto(i + 1)">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
 
-  <!-- Nút sau -->
-  <button class="pager-btn" (click)="goto(page()+1)" [disabled]="page()===totalPages()">
-    <i class="bi bi-chevron-right"></i>
-  </button>
-</div>
-
+      <!-- Nút sau -->
+      <button class="pager-btn" (click)="goto(page() + 1)" [disabled]="page() === totalPages()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
   </section>
 </main>

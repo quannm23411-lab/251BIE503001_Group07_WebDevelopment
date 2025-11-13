@@ -133,6 +133,13 @@ export const routes: Routes = [
             m => m.AdminPromotionAdd
           ),
       },
+      // {
+      //   path: 'review',
+      //   loadComponent: () =>
+      //     import('./pages/admin/admin-product-review/admin-product-review').then(
+      //       m => m.AdminProductReview
+      //     ),
+      // },
       {
         path: 'homepage',
         loadComponent: () =>
@@ -223,11 +230,6 @@ export const routes: Routes = [
         ],
       },
 
-<<<<<<< HEAD
-      // Khi nào có thì mở
-      // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
-=======
->>>>>>> cac3401b25d905530a2633d8258ece813cdef2a1
       // BLOG
       {
         path: 'blog',
@@ -272,15 +274,10 @@ export const routes: Routes = [
           },
         ],
       },
-<<<<<<< HEAD
-      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
-    ]
-=======
 
       // Sau này có about thì mở thêm
-      // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
+      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ],
->>>>>>> cac3401b25d905530a2633d8258ece813cdef2a1
   },
 
   { path: '**', redirectTo: '' },
