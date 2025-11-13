@@ -26,6 +26,20 @@ export interface AboutTeamMember {
   linkedin?: string;
 }
 
+/* NEW: thông tin liên hệ */
+export interface AboutContactItem {
+  icon: string;        // class icon bootstrap (vd: 'bi bi-telephone-outbound')
+  title: string;       // HOTLINE / MAIL / MẠNG XÃ HỘI
+  contentHtml: string; // nội dung hiển thị, có thể dùng <br> để xuống dòng
+}
+
+/* NEW: teaser blog hiển thị trên trang About */
+export interface AboutBlogTeaser {
+  title: string;
+  date: string;        // chuỗi ngày, có thể dùng format pipe nếu muốn
+  thumbnail?: string;
+}
+
 export interface AboutUsDataModel {
   heroTitle: string;
   heroLead: string;
@@ -33,9 +47,13 @@ export interface AboutUsDataModel {
   stats: AboutStat[];
   values: AboutValue[];
 
-  // NEW: thêm 2 field này
+  // Đối tác & đội ngũ
   partners: AboutPartner[];
   team: AboutTeamMember[];
+
+  // NEW: contact + blog
+  contactItems: AboutContactItem[];
+  blogs: AboutBlogTeaser[];
 }
 
 export const ABOUT_US_DATA: AboutUsDataModel = {
@@ -58,12 +76,12 @@ export const ABOUT_US_DATA: AboutUsDataModel = {
       text: 'Kiến tạo trải nghiệm di chuyển Xanh, Tiện lợi và Bền vững nhất cho mọi cư dân đô thị.'
     },
     {
-      icon: 'bi bi-patch-check-fill',
+      icon: 'bi bi-patch-check',
       title: 'CAM KẾT',
       text: 'Cung cấp đội xe điện đời mới, pin khỏe; dịch vụ thuê xe linh hoạt; giao nhận nhanh chóng và hỗ trợ kỹ thuật 24/7.'
     },
     {
-      icon: 'bi bi-heart-fill',
+      icon: 'bi bi-heart',
       title: 'GIÁ TRỊ',
       text: 'Bền vững – Tiện lợi – An toàn.'
     }
@@ -95,10 +113,60 @@ export const ABOUT_US_DATA: AboutUsDataModel = {
 
   // NEW: dữ liệu phần ĐỘI NGŨ
   team: [
-    { name: 'Minh Quân', avatar: '', facebook: '#', linkedin: '#' },
-    { name: 'Duy Nhất', avatar: '', facebook: '#', linkedin: '#' },
-    { name: 'Khánh Xuân', avatar: '', facebook: '#', linkedin: '#' },
-    { name: 'Ánh Linh', avatar: '', facebook: '#', linkedin: '#' },
-    { name: 'Hồng Phúc', avatar: '', facebook: '#', linkedin: '#' }
-  ]
+    {
+      name: 'Minh Quân',
+      avatar: 'assets/images/about_team/',
+      facebook: 'https://www.facebook.com/BpSMon',
+      linkedin: 'https://www.linkedin.com/in/minhquan1801/'
+    },
+    {
+      name: 'Duy Nhất',
+      avatar: 'assets/images/about_team/',
+      facebook: '#',
+      linkedin: '#'
+    },
+    {
+      name: 'Ánh Linh',
+      avatar: 'assets/images/about_team/anhlinh.jpg',
+      facebook: 'https://www.facebook.com/anh.linh.398071',
+      linkedin: 'https://www.linkedin.com/in/linh-phan-thi-anh-10168a383/'
+    },
+    {
+      name: 'Khánh Xuân',
+      avatar: 'assets/images/about_team/khanhxuan.jpg',
+      facebook: 'https://www.facebook.com/khanhxuan.nguyen.7739/',
+      linkedin: 'www.linkedin.com/in/khanh-xuan-nguyen-a3828b299'
+    },
+    {
+      name: 'Hồng Phúc',
+      avatar: 'assets/images/about_team/hongphuc.png',
+      facebook: 'https://www.facebook.com/vhphuc101/',
+      linkedin: 'https://www.linkedin.com/in/vohongphuc101/'
+    }
+  ],
+
+    // NEW: dữ liệu phần THÔNG TIN LIÊN HỆ
+  contactItems: [
+    {
+      icon: 'bi bi-telephone-outbound',
+      title: 'HOTLINE',
+      contentHtml: '1900 0809<br/>0905 389 287'
+    },
+    {
+      icon: 'bi bi-envelope-fill',
+      title: 'MAIL',
+      contentHtml: 'ecomove.cskh@gmail.com'
+    },
+    {
+      icon: 'bi bi-globe2',
+      title: 'MẠNG XÃ HỘI',
+      contentHtml:
+        'FB: Thuê xe điện EcoMove<br/>' +
+        'Tiktok: EcoMove<br/>' +
+        'IG: @ecomove<br/>' +
+        'LinkedIn: EcoMove'
+    }
+  ],
+// Dữ liệu BLOG
+  blogs: []
 };

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BLOG_PRODUCTS } from '../blog-products.data.js';
+import { BLOG_PRODUCTS } from '../../../../assets/data/blog-products.data';
 
 interface ProductItem {
   id: string;

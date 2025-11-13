@@ -140,16 +140,27 @@
     color: #ffffff;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
+
     .about__stats {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
         padding-bottom: 40px;
     }
 
+    .stat-card {
+        padding: 24px 14px;
+        border-radius: 16px;
+    }
+
+    .stat-card::before {
+        padding: 1px;
+        border-radius: 16px;
+    }
+
     .stat-card__value {
-        font-size: 28px;
+        font-size: 40px;
+        margin-bottom: 6px;
     }
 
     .stat-card__label {
@@ -174,7 +185,6 @@
 .value__icon i {
     font-size: 50px;
     margin-bottom: 16px;
-
     background: linear-gradient(90deg, #34635A 0%, #54b385 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -196,19 +206,43 @@
     color: #2f3e42;
     max-width: 260px;
     margin: 0 auto;
+    font-weight: 600;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
     .values-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .value__icon i {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .value__title {
+        font-size: 16px;
+        margin-bottom: 8px;
+        letter-spacing: 0.8px;
+    }
+
+    .value__text {
+        font-size: 12px;
+        max-width: 220px;
+        line-height: 1.5;
     }
 }
 
 /* PHẦN 3: ĐỐI TÁC ĐỒNG HÀNH */
 .about__partners {
-    background: linear-gradient(180deg, #54b385 0%,#e8f7f0 60%, #e8f7f0 80%, #ffffff 100%);
+    background: linear-gradient(180deg,
+            #ffffff 0%,
+            #c8e9dc 45%,
+            #c8e9dc 50%,
+            #c8e9dc 60%,
+            #ffffff 100%);
+
     padding: 40px 16px 25px;
     color: #1e2a2f;
 }
@@ -218,17 +252,17 @@
 }
 
 .about-section-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 1.6px;
-  margin-top: -15px;
-  margin-bottom: 30px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    margin-top: -15px;
+    margin-bottom: 30px;
 
 }
 
 .about-section-title span {
-    color: #2b3b41;
+    color: #348b61;
 }
 
 .partners-grid {
@@ -260,23 +294,25 @@
 }
 
 .partner__logos img {
-  width: 66px;                 /* nhỏ hơn nhẹ cho cân */
-  height: 66px;
-  border-radius: 50%;
-  object-fit: contain;
+    width: 66px;
+    /* nhỏ hơn nhẹ cho cân */
+    height: 66px;
+    border-radius: 50%;
+    object-fit: contain;
 
-  background: #ffffff;
+    background: #ffffff;
 
-  padding: 2px;                
-  border: 0.8px solid #d9d9d9; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+    padding: 2px;
+    border: 0.8px solid #d9d9d9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .partner__logos img:hover {
-  transform: scale(1.06); 
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    transform: scale(1.06);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
+
 .partner__text {
     max-width: 320px;
     margin: 0 auto;
@@ -291,7 +327,7 @@
 
 .about__team {
     background: #ffffff;
-    padding: 10px 16px 70px;
+    padding: 30px 16px 25px;
 }
 
 .about__team .container {
@@ -312,11 +348,19 @@
 }
 
 .team-member__avatar {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: #dcdcdc;
+    overflow: hidden;
     margin: 0 auto 10px;
+    background-color: #e5e5e5;
+}
+
+.team-member__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .team-member__name {
@@ -357,18 +401,307 @@
 /* Responsive cho partner + team */
 @media (max-width: 992px) {
     .partners-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 40px;
     }
 
+    .partner__logos img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Mobile – 1 cột, mỗi nhóm riêng biệt */
+@media (max-width: 750px) {
+    .partners-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .partner__logos {
+        justify-content: center;
+    }
+
+    .partner__logos img {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 6px;
+        /* tạo khoảng cách khi xuống dòng */
+    }
+}
+
+@media (max-width: 70px) {
     .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+    }
+
+    .team-member__avatar {
+        width: 88px;
+        height: 88px;
+    }
+
+    .team-member__name {
+        font-size: 12px;
+    }
+}
+
+/* PHẦN 5: THÔNG TIN LIÊN HỆ */
+
+.about__contact {
+    background: linear-gradient(180deg,
+            #ffffff 0%,
+            #c8e9dc 45%,
+            rgb(191, 231, 215) 50%,
+            #c8e9dc 60%,
+            #ffffff 100%);
+    padding: 50px 16px 20px;
+    color: #2b3b41;
+}
+
+.about__contact .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Tiêu đề trắng ở giữa */
+.about-section-title--contact {
+    color: #2b3b41;
+    margin-top: -25px;
+    margin-bottom: 40px;
+}
+
+/* 3 cột HOTLINE / MAIL / MẠNG XÃ HỘI */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: center;
+}
+
+.contact-item__icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid #34635A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px;
+    font-size: 34px;
+    background: linear-gradient(90deg, #34635A 0%, #54b385 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-item__title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.contact-item__text {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+    margin: 0;
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+
+/* Responsive */
+@media (max-width: 700px) {
+    .contact-grid {
         grid-template-columns: repeat(3, 1fr);
-        row-gap: 26px;
+        gap: 16px;
+    }
+
+    .contact-item__icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        border-width: 2px;
+        margin-bottom: 6px;
+    }
+
+    .contact-item__title {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .contact-item__text {
+        font-size: 12px;
+        max-width: 200px;
+    }
+}
+
+/* =========================
+   PHẦN 6: BLOG (ABOUT PAGE)
+   ========================= */
+
+.about__blog {
+    background: #ffffff;
+    padding: 10px 16px 40px;
+}
+
+.about__blog .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.about-section-title--blog {
+    margin: 0 0 22px;
+    font-size: 28px;
+    color: #3b8c63;
+
+}
+
+/* Hàng chứa mũi tên + grid */
+.about-blog-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Nút mũi tên 2 bên */
+.about-blog-arrow {
+    width: 32px;
+    height: 100px;
+    border-radius: 100px;
+    border: none;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-blog-arrow i {
+    font-size: 24px;
+    color: #3b8c63;
+}
+
+.about-blog-arrow:hover {
+    background: #e7e7e7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* GRID 4 CARD BLOG */
+.blog-grid {
+    flex: 1;
+    display: flex;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    overflow: hiden;
+}
+
+/* CARD BLOG */
+.blog-teaser-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+}
+
+.blog-teaser-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+}
+
+.blog-title:hover {
+    color: #34635A;
+    text-decoration: underline;
+}
+
+/* Thumbnail */
+.blog-teaser-card .thumb {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #eee;
+}
+
+
+
+/* Nội dung */
+.blog-content {
+    padding: 14px 16px 16px;
+    justify-content: justify;
+
+}
+
+.blog-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.4em;
+}
+
+.blog-excerpt {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #818181;
+    margin: 0 0 10px;
+}
+
+.blog-meta {
+    font-size: 13px;
+    color: #4d4c4c;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.blog-meta i {
+    color: #4d4c4c;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .blog-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .about-blog-row {
+        gap: 12px;
+    }
+
+    .about-blog-arrow {
+        height: 80px;
+    }
+
+    .blog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 600px) {
-    .team-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .about-blog-row {
+        gap: 8px;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-blog-arrow {
+        height: 60px;
     }
 }
