@@ -1,7 +1,76 @@
 .cart-page {
     margin-bottom: 60px;
 }
+   BREADCRUMB – CART PAGE
+============================= */
 
+/* Wrapper để control margin theo layout */
+.breadcrumb-cart-wrapper {
+  width: 100%;
+  padding: 10px 5%;    /* giống rent: căn lề 5% */
+  box-sizing: border-box;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #121212;
+}
+
+/* Link */
+.breadcrumb a {
+  text-decoration: none;
+  color: #121212;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #00a86b;
+}
+
+/* Dấu "/" */
+.breadcrumb span {
+  color: #72D4A5;
+}
+
+/* Item cuối */
+.breadcrumb .current {
+  color: #72D4A5;
+  font-weight: 700;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+@media (max-width: 992px) {
+  .breadcrumb-cart-wrapper {
+    padding: 10px 4%;
+  }
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-cart-wrapper {
+    padding: 10px 3%;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb-cart-wrapper {
+    padding: 10px 12px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+  }
+}
 /* Title */
 
 .cart-title {
@@ -107,20 +176,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 90px;
+    min-width: 100px;
     padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 0.8rem;
+    border-radius: 10px;
+    font-size: 16px;
     font-weight: 600;
 }
 
 .status-badge--available {
-    background: #ecfdf3;
-    color: #16a34a;
+    background: #45B880;
+    color: #fff;
 }
 
 .status-badge--out {
-    background: #111827;
+    background: #2B3B41;
     color: #ffffff;
 }
 
@@ -210,12 +279,14 @@
 
 .link-remove {
     align-self: flex-end;
+    min-width: 90px;
+    border-radius: 10px;
     margin-top: 2px;
     padding: 0;
-    border: none;
+    border: solid 1px #9A9898;
     background: none;
-    font-size: 0.85rem;
-    color: #ef4444;
+    font-size: 16px;
+    color: #9A9898;
     cursor: pointer;
 }
 

@@ -2,7 +2,7 @@
 .pd-wrap {
   max-width: 1200px;
   margin: 32px auto 48px;
-  padding: 0 16px;
+  padding: 30px;
 }
 
 /* Breadcrumb */
@@ -35,10 +35,6 @@
 
 /* GRID CHÍNH */
 .pd-grid {
-    grid-column: 1 / -1;      /* span cả 2 cột */
-  max-width: 900px;         /* như bạn đang dùng */
-  margin-left: auto;
-  margin-right: auto;
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 40px;
@@ -355,16 +351,19 @@
   color: #ff6600;
 }
 
-.btn-ghost:hover,
+.btn-ghost:hover{
+  color: #fff;
+  background-color:#121212 ;
+}
 .btn-cart:hover {
-  opacity: 0.85;
+  color:  #fff;
+  background-color: #ff6600;
 }
 
 /* PHẦN MÔ TẢ + REVIEW CHUNG */
 .pd-description {
   margin-top: 50px;
   text-align: center;
-  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -393,10 +392,13 @@
 }
 
 .desc-content {
+margin: 30px;
   background: #fff;
   border-radius: 10px;
   padding: 20px 26px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.05),
+    0 0 20px rgba(0, 0, 0, 0.08);
   text-align: left;
   line-height: 1.6;
   font-size: 15px;
@@ -740,6 +742,9 @@
 
 /* Tablet ngang < 960px: 2 khối chồng nhau */
 @media (max-width: 960px) {
+  .breadcrumb{
+    padding-top: 20px;
+  }
   .pd-grid {
     grid-template-columns: 1fr;
     gap: 24px;

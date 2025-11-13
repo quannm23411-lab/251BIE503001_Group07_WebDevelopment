@@ -122,6 +122,22 @@ export class ProductLoadingService {
         }
     }
 
+    /** Text hiển thị dòng type trong card */
+    getVehicleTypeLabel(vehicleType: string): string {
+        switch (vehicleType) {
+            case 'Motorbike':
+                return 'Xe máy điện';
+            case 'Scooter':
+                return 'Scooter điện';
+            case 'E-Bike':
+                return 'Xe đạp điện';
+            case 'Bicycle':
+                return 'Xe đạp';
+            default:
+                return 'Dòng xe khác';
+        }
+    }
+
     /** ====== Private ====== */
 
     private loadVM(): Observable<ProductVM[]> {
@@ -157,11 +173,14 @@ function normalizeItem(p: Product): ProductVM {
     const finalPricePerDay = Math.round(base * (1 - discount / 100));
 
     return {
-        ...p, // giữ details, tags... y nguyên
+        ...p,
         id: String(p.id),
         vehicleName: p.vehicleName || 'Sản phẩm',
         image: p.image || IMG_PLACEHOLDER,
         brandName: BRAND_MAP[p.brandId] || undefined,
+        // đảm bảo lấy đúng từ JSON, có fallback
+        rangePerCharge: Number(p.rangePerCharge) || 0,
+        rating: clampRating(p.rating),
         finalPricePerDay
     };
 }
@@ -169,4 +188,9 @@ function normalizeItem(p: Product): ProductVM {
 function clampPercent(n: number): number {
     const v = Number.isFinite(n) ? n : 0;
     return Math.max(0, Math.min(100, v));
+}
+
+function clampRating(n: number): number {
+    const v = Number.isFinite(n) ? n : 0;
+    return Math.max(0, Math.min(5, v));
 }

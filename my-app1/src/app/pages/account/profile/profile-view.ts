@@ -18,6 +18,16 @@ export class ProfileView {
     email: 'phucvh.work@gmail.com',
     tier: 'EcoGold'
   };
+  
+    showPwd = false;
+  // có thể lấy từ user nếu bạn lưu mật khẩu
+  userPassword = '12345678';
+
+  togglePwd() {
+    this.showPwd = !this.showPwd;
+  }
+
+
 
   edit() { this.router.navigateByUrl('/account/profile/edit'); }
 }

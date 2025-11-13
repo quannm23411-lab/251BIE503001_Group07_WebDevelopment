@@ -1,50 +1,92 @@
-<!-- nền ảnh cố định -->
 <div class="account-bg"></div>
 
-<!-- breadcrumb đơn giản -->
-<div class="crumb">
+<div class="account-breadcrumb">
   <a routerLink="/">Trang chủ</a> / <span>Tài khoản</span> / <b>Thông tin tài khoản</b>
 </div>
 
-<div class="account-wrap">
-  <!-- sidebar sticky -->
-  <aside class="account-aside">
-    <div class="card user-mini">
+<div class="account-layout">
+  <!-- Sidebar -->
+  <div class="account-sidebar-wrap">
+    <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
       <div class="name">{{ user.fullname }}</div>
-      <nav class="menu">
+      <div class="menu">
         <a routerLink="/account/profile" class="active">Thông tin tài khoản</a>
         <a routerLink="/account/orders">Lịch sử thuê xe</a>
-        <a routerLink="/logout">Đăng xuất</a>
-      </nav>
+        <a routerLink="/logout" class="logout">Đăng xuất</a>
+      </div>
     </div>
-  </aside>
+  </div>
 
-  <!-- khối trắng cuộn nội bộ -->
-  <main class="account-main">
-    <div class="card scroll">
-      <div class="head">
-        <div class="user">
-          <img [src]="user.avatar" class="avatar" alt="avatar">
-          <div class="meta">
-            <h2>{{ user.fullname }}</h2>
-            <span class="badge gold">{{ user.tier }}</span>
-          </div>
+  <!-- Card trắng -->
+  <div class="account-main-card">
+    <div class="account-main-head">
+      <div class="account-user-box">
+        <div class="account-avatar-wrap">
+          <img [src]="user.avatar" alt="Avatar" />
         </div>
-        <button class="btn primary" (click)="edit()">✏️ Chỉnh sửa</button>
+        <div class="account-user-meta">
+          <h2>{{ user.fullname }}</h2>
+          <div class="account-tier-badge">EcoGold</div>
+        </div>
       </div>
 
-      <div class="info">
-        <p><b>Họ và tên</b> <span>{{ user.fullname }}</span></p>
-        <p><b>Email</b> <span>{{ user.email }}</span></p>
-        <p><b>Mật khẩu</b> <span>********</span></p>
-        <p><b>Cấp bậc</b> <span class="badge gold">{{ user.tier }}</span></p>
-
-        <label class="newsletter">
-          <input type="checkbox" checked>
-          Tôi muốn nhận thông báo về ưu đãi qua email
-        </label>
-      </div>
+      <button class="btn-outline-dark" type="button" (click)="edit()">
+        <i class="bi bi-pencil-square"></i>
+        CHỈNH SỬA
+      </button>
     </div>
-  </main>
+
+    <div class="account-info">
+      <div class="account-info-row">
+        <div class="account-info-row-label">Họ và tên:</div>
+        <div class="account-info-row-value">{{ user.fullname }}</div>
+      </div>
+
+      <div class="account-info-row">
+        <div class="account-info-row-label">Email:</div>
+        <div class="account-info-row-value">{{ user.email }}</div>
+      </div>
+
+      <div class="account-info-row">
+  <div class="account-info-row-label">Mật khẩu:</div>
+  <div class="account-info-row-value account-info-row-value--pwd">
+    <div class="account-pwd-view-wrap">
+      <input
+        [type]="showPwd ? 'text' : 'password'"
+        [value]="userPassword"
+        readonly
+      />
+      <button
+        type="button"
+        class="account-pwd-toggle"
+        (click)="togglePwd()"
+        aria-label="Toggle password"
+      >
+        <i
+          class="bi"
+          [ngClass]="showPwd ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
+        ></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+      <div class="account-info-row">
+        <div class="account-info-row-label">Cấp bậc:</div>
+        <div class="account-info-row-value">
+          <span class="account-tier-badge">EcoGold</span>
+        </div>
+      </div>
+
+      <label class="account-checkbox">
+        <input type="checkbox" checked />
+        <span>
+          Tôi muốn nhận thông báo về các chương trình ưu đãi, mẫu xe điện mới và tin tức thú vị qua email.
+        </span>
+      </label>
+    </div>
+  </div>
 </div>

@@ -6,7 +6,7 @@
 }
 
 .blog-crumbbar {
-    background: #72D4A5;
+    background: #ffffff;
     box-shadow: 0 1px px rgba(0, 0, 0, .08);
     margin-top: 50px;
     /* padding-top: 50px; */
@@ -73,12 +73,12 @@
     font-weight: 600;
 }
 .crumb .sep1 {
-    color: #ffffff;
+    color: #72D4A5;
     font-weight: 600;
 }
 
 .crumb .current {
-    color: #ffffff;
+    color: #72D4A5;
     font-weight: 700;
 }
 
