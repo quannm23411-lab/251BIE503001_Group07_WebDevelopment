@@ -82,6 +82,13 @@ export class AdminBikeDetail implements OnInit {
     this.location.back();
   }
 
+  onTagsChange(value: string) {
+    if (value) {
+      this.bike.tags = value.split(',').map(t => t.trim());
+    } else {
+      this.bike.tags = [];
+    }
+  }
   /**
    * 🔽 THAY ĐỔI: Hàm saveChanges() giờ chỉ mở popup xác nhận
    */
