@@ -133,6 +133,13 @@ export const routes: Routes = [
             m => m.AdminPromotionAdd
           ),
       },
+      {
+        path: 'homepage',
+        loadComponent: () =>
+          import('./pages/homepage/homepage').then(
+            m => m.Homepage
+          ),
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
