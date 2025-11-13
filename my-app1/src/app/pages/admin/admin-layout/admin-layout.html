@@ -21,9 +21,8 @@
                 <li routerLink="/admin/order" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-bookmark"></i>Đơn thuê xe</li>
                 <li routerLink="/admin/customer" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-globe"></i>Khách hàng</li>
                 <li routerLink="/admin/promotion" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-globe"></i>Khuyến mãi</li>
-                <li><i class="fas fa-bullhorn"></i>Marketing & Popup</li>
-                <li><i class="fas fa-edit"></i>Giao diện website</li>
-                <li><i class="fas fa-user"></i>Tài khoản Admin</li>
+                <li routerLink="/homepage" routerLinkActive="active" (click)="toggleMobileMenu()"><i class="fas fa-edit"></i>Giao diện website</li>
+                <li ><i class="fas fa-user"></i>Tài khoản Admin</li>
                 <li><i class="fas fa-cog"></i>Hệ thống & Nhật ký</li>
                 
                 <div class="admin-user-info" *ngIf="currentUser">
