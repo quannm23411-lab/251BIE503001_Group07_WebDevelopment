@@ -1,313 +1,289 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
 <div class="pd-wrap" *ngIf="product() as p">
-    <!-- breadcrumb -->
-<nav class="breadcrumb">
-  <a routerLink="/">Trang chủ</a>
-  <span>/</span>
-  <a routerLink="/rent">{{ p.vehicleType || 'Xe điện' }}</a>
-  <span>/</span>
-  <span class="current">{{ p.vehicleType }} {{ p.vehicleName }}</span>
-</nav>
+  <!-- breadcrumb -->
+  <nav class="breadcrumb">
+    <a routerLink="/">Trang chủ</a>
+    <span>/</span>
+    <a routerLink="/rent">{{ p.vehicleType || 'Xe điện' }}</a>
+    <span>/</span>
+    <span class="current">{{ p.vehicleType }} {{ p.vehicleName }}</span>
+  </nav>
 
-    <section class="pd-grid">
-        <!-- MEDIA -->
-<div class="pd-media">
-  <div class="pd-cover" *ngIf="gallery().length; else noImg">
-    <img [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
-  </div>
+  <!-- KHỐI CHÍNH: MEDIA + INFO -->
+  <section class="pd-grid">
+    <!-- MEDIA -->
+    <div class="pd-media">
+      <div class="pd-cover-frame">
+        <button class="pd-arrow left">
+          <i class="bi bi-chevron-left"></i>
+        </button>
 
-  <ng-template #noImg>
-    <div class="noimg">Không có ảnh</div>
-  </ng-template>
+        <div class="pd-cover" *ngIf="gallery().length; else noImg">
+          <img [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
+        </div>
 
-  <!-- Luôn hiển thị dãy ảnh nhỏ nếu có dữ liệu -->
-  <div class="pd-thumbs" *ngIf="gallery().length">
-    <button *ngFor="let img of gallery(); let i = index"
-            (click)="setActive(i)"
-            [class.active]="i === activeIndex()">
-      <img [src]="img" [alt]="product()?.vehicleName || ('Ảnh ' + (i+1))" />
-    </button>
-  </div>
-</div>
+        <ng-template #noImg>
+          <div class="noimg">Không có ảnh</div>
+        </ng-template>
 
-        <!-- INFO -->
-        <div class="pd-info">
-            <h1 class="pd-title">{{ p.vehicleName }}</h1>
+        <button class="pd-arrow right">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
 
-            <div class="pd-meta">
-                <span class="brand">{{ p.brandName || '—' }}</span>
-                <span class="dot">•</span>
-                <span class="type">{{ p.vehicleType || 'Xe điện' }}</span>
-                <span class="dot">•</span>
-                <span class="status" [class.ok]="p.availabilityStatus" [class.bad]="!p.availabilityStatus">
-                    {{ statusLabel() }}
+      <!-- Thumbnails -->
+      <div class="pd-thumbs" *ngIf="gallery().length">
+        <button *ngFor="let img of gallery(); let i = index" (click)="setActive(i)"
+          [class.active]="i === activeIndex()">
+          <img [src]="img" [alt]="product()?.vehicleName || ('Ảnh ' + (i + 1))" />
+        </button>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="pd-info">
+      <h1 class="pd-title">{{ p.vehicleName }}</h1>
+
+      <div class="pd-meta">
+        <span class="brand">{{ p.brandName || '—' }}</span>
+        <span class="dot">•</span>
+        <span class="type">{{ p.vehicleType || 'Xe điện' }}</span>
+        <span class="dot">•</span>
+        <span class="status" [class.ok]="p.availabilityStatus" [class.bad]="!p.availabilityStatus">
+          {{ statusLabel() }}
+        </span>
+      </div>
+
+      <div class="pd-pricing">
+        <div class="now">{{ vnd(p.finalPricePerDay) }}/Ngày</div>
+        <div class="old" *ngIf="p.pricePerDay && p.pricePerDay !== p.finalPricePerDay">
+          {{ vnd(p.pricePerDay) }}
+        </div>
+        <div class="discount" *ngIf="p.discount">-{{ p.discount }}%</div>
+      </div>
+
+      <!-- BOX THÔNG TIN NHANH -->
+      <div class="features">
+        <span>
+          <i class="bi bi-battery-charging"></i>
+          {{ p.rangePerCharge }} km/lần sạc
+        </span>
+        <span>
+          <i class="bi bi-speedometer"></i>
+          Pin {{ p.batteryCapacity }}
+        </span>
+        <span>
+          <i class="bi bi-geo-alt"></i>
+          Thích hợp đi nội thành
+        </span>
+        <span>
+          <i class="bi bi-plus"></i>
+          Hỗ trợ GPS (tùy gói)
+        </span>
+        <span>
+          <i class="bi bi-shield-check"></i>
+          2 nón bảo hiểm
+        </span>
+        <span>
+          <i class="bi bi-headset"></i>
+          Hỗ trợ 24/7
+        </span>
+      </div>
+
+      <!-- NGÀY THUÊ -->
+      <div class="pd-dates">
+        <div class="date-item">
+          <label>Ngày thuê</label>
+          <input type="date" [(ngModel)]="rentStart" />
+        </div>
+        <div class="date-item">
+          <label>Ngày trả</label>
+          <input type="date" [(ngModel)]="rentEnd" />
+        </div>
+      </div>
+
+      <!-- CHỌN MÀU -->
+      <div class="pd-colors">
+        <span>Màu sắc:</span>
+        <button class="c white" aria-label="trắng"></button>
+        <button class="c red" aria-label="đỏ"></button>
+        <button class="c black" aria-label="đen"></button>
+        <button class="c pink" aria-label="hồng"></button>
+        <button class="c blue" aria-label="xanh"></button>
+      </div>
+
+      <!-- NÚT HÀNH ĐỘNG -->
+      <div class="pd-actions">
+        <div class="top">
+          <button class="btn-primary big" (click)="bookNow()">
+            ĐẶT XE NGAY
+          </button>
+        </div>
+        <div class="bottom">
+          <button class="btn-ghost" (click)="preOrder()">
+            ĐẶT TRƯỚC
+          </button>
+          <button class="btn-cart" (click)="addToCart()">
+            THÊM VÀO GIỎ
+          </button>
+        </div>
+      </div>
+
+      <!-- MÔ TẢ -->
+      <section class="pd-description">
+        <h3 class="desc-title">MÔ TẢ</h3>
+
+        <div class="desc-box" [class.expanded]="showFullDescription" *ngIf="detail() as d">
+          <div class="desc-content">
+            <p><strong>{{ d.title }}</strong></p>
+
+            <p *ngFor="let para of d.paragraphs ?? []">
+              {{ para }}
+            </p>
+
+            <p *ngIf="(d.features ?? []).length">
+              <strong>Điểm nổi bật dành cho khách thuê xe:</strong>
+            </p>
+
+            <ul *ngIf="(d.features ?? []).length">
+              <li *ngFor="let f of d.features ?? []">
+                {{ f }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="toggle-wrapper">
+          <button class="toggle-btn" (click)="toggleDescription()">
+            <i class="bi" [ngClass]="
+            showFullDescription
+              ? 'bi-chevron-double-up'
+              : 'bi-chevron-double-down'
+          "></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ĐÁNH GIÁ -->
+      <section class="pd-description reviews-section">
+        <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
+
+        <div class="rating-score">
+          <div class="score">{{ avgRating() | number: '1.1-1' }}/5</div>
+          <div class="stars">
+            <i class="bi" *ngFor="let s of stars" [ngClass]="s <= avgRatingRounded() ? 'bi-star-fill' : 'bi-star'"></i>
+          </div>
+          <p class="review-count">
+            {{ reviewCount() }} lượt đánh giá
+          </p>
+        </div>
+
+        <div class="desc-box" [class.expanded]="showFullReviews">
+          <div class="desc-content reviews-box">
+            <div class="review-card" *ngFor="let r of reviews() ?? []">
+              <div class="review-header">
+                <img src="assets/images/avatar-default.png" alt="avatar" class="review-avatar" />
+                <div class="review-info">
+                  <h4 class="review-name">{{ r.customerName }}</h4>
+                  <div class="review-stars">
+                    <i class="bi" *ngFor="let s of stars" [ngClass]="s <= r.rating ? 'bi-star-fill' : 'bi-star'"></i>
+                  </div>
+                  <span class="review-date">
+                    Đánh giá ngày {{ r.reviewDate | date: 'dd/MM/yyyy' }}
+                  </span>
+                </div>
+              </div>
+
+              <p class="review-title" *ngIf="r.title">
+                <strong>{{ r.title }}</strong>
+              </p>
+              <p class="review-text">
+                {{ r.content }}
+              </p>
+
+              <div class="review-images" *ngIf="(r.images ?? []).length">
+                <img *ngFor="let img of r.images ?? []" [src]="img" alt="ảnh đánh giá" />
+              </div>
+            </div>
+
+            <div *ngIf="(reviews() ?? []).length === 0" class="no-review">
+              Chưa có đánh giá cho xe này.
+            </div>
+          </div>
+        </div>
+
+        <div class="toggle-wrapper">
+          <button class="toggle-btn" (click)="toggleReviews()">
+            <i class="bi" [ngClass]="
+            showFullReviews
+              ? 'bi-chevron-double-up'
+              : 'bi-chevron-double-down'
+          "></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- RELATED -->
+      <section class="pd-description related-slider">
+        <h3 class="desc-title">BẠN CŨNG CÓ THỂ THÍCH</h3>
+
+        <div class="slider-container">
+          <button class="arrow left" (click)="scrollLeft()">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <div class="product-slider" #slider>
+            <a class="product-card" *ngFor="let r of related()" (click)="goTo(r)">
+              <div class="image">
+                <img [src]="r.image || 'assets/images/placeholder.png'" [alt]="r.vehicleName" />
+                <div class="discount" *ngIf="r.discount">-{{ r.discount }}%</div>
+              </div>
+
+              <div class="product-card__features">
+                <span>
+                  <i class="bi bi-battery-charging"></i>
+                  {{ r.rangePerCharge }} km/lần sạc
                 </span>
-            </div>
+                <span>
+                  <i class="bi bi-speedometer2"></i>
+                  {{
+                  r.vehicleType === 'Motorbike'
+                  ? 'Động cơ mạnh mẽ'
+                  : 'Vận hành êm ái'
+                  }}
+                </span>
+                <span>
+                  <i class="bi bi-lightning"></i>
+                  Pin {{ r.batteryCapacity }}
+                </span>
+                <span>
+                  <i class="bi bi-shield-check"></i>
+                  Bao gồm 2 nón bảo hiểm
+                </span>
+              </div>
 
-            <div class="pd-pricing">
-                <div class="now">{{ vnd(p.finalPricePerDay) }}/ngày</div>
-                <div class="old" *ngIf="p.pricePerDay && p.pricePerDay !== p.finalPricePerDay">
-                    {{ vnd(p.pricePerDay) }}
+              <div class="details">
+                <div class="name">{{ r.vehicleName }}</div>
+                <div class="meta">
+                  <span>{{ r.brandName || '—' }}</span>
+                  <span class="dot">•</span>
+                  <span>{{ r.vehicleType || 'Xe điện' }}</span>
                 </div>
-                <div class="discount" *ngIf="p.discount">-{{ p.discount }}%</div>
-            </div>
 
-            <div class="features">
-            <span><i class="bi bi-battery-charging"></i> 200 km/lần sạc</span>
-            <span><i class="bi bi-speedometer"></i> Sạc 3–4 tiếng</span>
-            <span><i class="bi bi-speedometer"></i> Tối đa 90km/h</span>
-            <span><i class="bi bi-plus"></i> Hỗ trợ GPS</span>
-            <span><i class="bi bi-plus"></i> 2 nón bảo hiểm</span>
-            <span><i class="bi bi-plus"></i> Cứu hộ 24/7</span>
-            </div>
-
-            <div class="pd-dates">
-                <label>Ngày thuê:</label>
-                <input type="date" [(ngModel)]="rentStart" />
-                <label>Ngày trả:</label>
-                <input type="date" [(ngModel)]="rentEnd" />
+                <div class="price">
+                  <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
+                  <span class="old" *ngIf="
+                  r.pricePerDay && r.pricePerDay !== r.finalPricePerDay
+                ">{{ vnd(r.pricePerDay) }}</span>
                 </div>
-
-                <div class="pd-colors">
-                <span>Màu sắc:</span>
-                <button class="c white" aria-label="trắng"></button>
-                <button class="c red" aria-label="đỏ"></button>
-                <button class="c black" aria-label="đen"></button>
-                <button class="c pink" aria-label="hồng"></button>
-                <button class="c blue" aria-label="xanh"></button>
-                </div>
-<div class="pd-actions">
-  <div class="top">
-    <button class="btn-primary big">ĐẶT XE NGAY</button>
-  </div>
-  <div class="bottom">
-    <button class="btn-ghost">ĐẶT TRƯỚC</button>
-    <button class="btn-cart">THÊM VÀO GIỎ</button>
-  </div>
-</div>
-    </div>
-    
-    </section>
-
-    <!-- Description -->
-<section class="pd-description">
-  <h3 class="desc-title">MÔ TẢ</h3>
-
-  <div class="desc-box" [class.expanded]="showFullDescription">
-    <div class="desc-content">
-      <p><strong>VinFast Feliz 2025: Di Chuyển Êm Ái, Quãng Đường Vượt Trội</strong></p>
-
-      <p>
-        Feliz S không chỉ là một chiếc xe máy điện, mà còn là giải pháp di chuyển thông minh và kinh tế nhất cho đô thị.
-        Với thiết kế thanh lịch, màu sắc trẻ trung và công nghệ pin LFP hiện đại, Feliz S mang đến trải nghiệm lái xe êm ái,
-        bền bỉ, giúp bạn tự tin khám phá mọi ngóc ngách thành phố.
-      </p>
-
-      <p><strong>Điểm Nổi Bật Dành Cho Khách Thuê Xe:</strong></p>
-        <ul>
-        <li>
-            <strong>Pin LFP Siêu Bền:</strong> Quãng đường di chuyển ấn tượng lên đến 200km/lần sạc 
-            (theo điều kiện tiêu chuẩn), giúp bạn tự tin di chuyển cả tuần mà không cần lo sạc lại. 
-            Pin LFP (Lithium Ferro Phosphate) nổi bật với tuổi thọ cao, khả năng chịu nhiệt tốt và 
-            độ an toàn vượt trội so với pin lithium-ion thông thường.  
-            Ngoài ra, pin có thể sạc nhanh trong vòng 3–4 tiếng, giữ dung lượng ổn định sau hàng nghìn chu kỳ sạc,
-            mang lại hiệu suất bền bỉ trong nhiều năm sử dụng.
-        </li>
-
-        <li>
-            <strong>Động Cơ Mạnh Mẽ:</strong> Feliz S được trang bị động cơ điện thế hệ mới với công suất tối đa 2200W, 
-            cho phép xe đạt tốc độ lên đến 90km/h, tăng tốc nhanh và vận hành êm ái trong mọi điều kiện đường phố.
-        </li>
-
-        <li>
-            <strong>Công Nghệ Thông Minh:</strong> Hệ thống định vị GPS, kết nối ứng dụng trên điện thoại, 
-            và cảnh báo an toàn theo thời gian thực giúp bạn dễ dàng quản lý, theo dõi xe mọi lúc mọi nơi.
-        </li>
-
-        <li>
-            <strong>Thiết Kế Hiện Đại:</strong> Đường nét thanh thoát, màu sắc trẻ trung cùng đèn LED toàn phần 
-            mang lại vẻ sang trọng, tinh tế nhưng vẫn giữ được sự năng động cho người dùng đô thị.
-        </li>
-
-        <li>
-            <strong>An Toàn & Tiện Ích:</strong> Trang bị phanh đĩa trước – sau, lốp không săm, 
-            và hai mũ bảo hiểm cao cấp đi kèm. Dịch vụ cứu hộ 24/7 luôn sẵn sàng hỗ trợ trong suốt hành trình.
-        </li>
-        </ul>
-    </div>
-  </div>
-
-<div class="toggle-wrapper">
-  <button class="toggle-btn" (click)="toggleDescription()">
-    <i class="bi" [ngClass]="showFullDescription ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
-  </button>
-</div>
-
-</section>
-
-
-
-    <!-- Reviews: demo đơn giản -->
-<!-- Reviews Section -->
-<section class="pd-description">
-  <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
-
-  <div class="rating-score">
-    <div class="score">4.9/5</div>
-    <div class="stars">
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-    </div>
-    <p class="review-count">5 lượt đánh giá</p>
-  </div>
-
-  <!-- 👇 Thêm toggle box như phần mô tả -->
-  <div class="desc-box" [class.expanded]="showFullReviews">
-    <div class="desc-content" style="background-color: #D9D9D9;">
-      <!-- REVIEW 1 -->
-      <div class="review-card">
-        <div class="review-header">
-          <img
-            src="https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg"
-            alt="avatar"
-            class="review-avatar"
-          />
-          <div class="review-info">
-            <h4 class="review-name">Hồng Phúc</h4>
-            <div class="review-stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star"></i>
-            </div>
-            <span class="review-date">Đánh giá ngày 10/11/2025</span>
-          </div>
-        </div>
-
-        <p class="review-text">
-          Dịch vụ nhanh, xe đúng mô tả. Nhân viên hỗ trợ nhiệt tình, hướng dẫn sử dụng xe kỹ càng. 
-          Xe chạy êm, sạch và đầy pin khi nhận.
-        </p>
-
-        <div class="review-images">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWKWb6bezP-697v1B2Ye2zZZeAQpCWe_Eh_g&s"
-            alt="ảnh đánh giá 1"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDYbK3b0Ku_LaRawNyUlwcZgz3awqvoq1hSw&s"
-            alt="ảnh đánh giá 2"
-          />
-        </div>
-      </div>
-
-      <!-- REVIEW 2 -->
-      <div class="review-card">
-        <div class="review-header">
-          <img
-            src="https://jbagy.me/wp-content/uploads/2025/03/hinh-anh-cute-avatar-vo-tri-3.jpg"
-            alt="avatar"
-            class="review-avatar"
-          />
-          <div class="review-info">
-            <h4 class="review-name">Khánh Xuân</h4>
-            <div class="review-stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-            <span class="review-date">Đánh giá ngày 08/11/2025</span>
-          </div>
-        </div>
-
-        <p class="review-text">
-          Xe giao đúng giờ, chạy ổn định, phanh tốt và pin dùng được lâu. 
-          Mình thuê 2 ngày đi công việc rất hài lòng, sẽ tiếp tục ủng hộ.
-        </p>
-
-        <div class="review-images">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJLg9Yxt8fRtld4-ldXSxaK_wf55Np3XKF6g&s"
-            alt="ảnh đánh giá 1"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 👇 Nút toggle -->
-  <div class="toggle-wrapper">
-    <button class="toggle-btn" (click)="toggleReviews()">
-      <i class="bi" [ngClass]="showFullReviews ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
-    </button>
-  </div>
-</section>
-
-
-    <!-- Related -->
-<section class="pd-description related-slider">
-  <h3 class="desc-title">BẠN CŨNG CÓ THỂ THÍCH</h3>
-
-  <div class="slider-container">
-    <!-- Nút mũi tên trái -->
-    <button class="arrow left" (click)="scrollLeft()">
-      <i class="bi bi-chevron-left"></i>
-    </button>
-
-    <!-- Vùng hiển thị sản phẩm -->
-    <div class="product-slider" #slider>
-      <a
-        class="product-card"
-        *ngFor="let r of related()"
-        (click)="goTo(r)"
-      >
-        <div class="image">
-          <img
-            [src]="r.image || 'assets/images/placeholder.png'"
-            [alt]="r.vehicleName"
-          />
-          <div class="discount" *ngIf="r.discount">-{{ r.discount }}%</div>
-        </div>
-
-        <div class="product-card__features">
-          <span><i class="bi bi-battery-charging"></i> 200 km/lần sạc</span>
-          <span><i class="bi bi-speedometer2"></i> Tốc độ tối đa 90 km/h</span>
-          <span><i class="bi bi-lightning"></i> Sạc nhanh 3–4 tiếng</span>
-          <span><i class="bi bi-shield-check"></i> 2 nón bảo hiểm</span>
-        </div>
-
-        <div class="details">
-          <div class="name">{{ r.vehicleName }}</div>
-          <div class="meta">
-            <span>{{ r.brandName || '—' }}</span>
-            <span class="dot">•</span>
-            <span>{{ r.vehicleType || 'Xe điện' }}</span>
+              </div>
+            </a>
           </div>
 
-          <div class="price">
-            <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
-            <span
-              class="old"
-              *ngIf="r.pricePerDay && r.pricePerDay !== r.finalPricePerDay"
-              >{{ vnd(r.pricePerDay) }}</span
-            >
-          </div>
+          <button class="arrow right" (click)="scrollRight()">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
-      </a>
+      </section>
     </div>
-
-    <!-- Nút mũi tên phải -->
-    <button class="arrow right" (click)="scrollRight()">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</section>
-
-
-</div>

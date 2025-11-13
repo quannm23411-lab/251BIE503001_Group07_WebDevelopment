@@ -3,6 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 
+/** Chi tiết mô tả trong products.json */
+export interface ProductDetails {
+    title: string;
+    paragraphs: string[];
+    features: string[];
+}
+
 /** Schema đúng với assets/data/products.json */
 export interface Product {
     id: string;
@@ -22,6 +29,9 @@ export interface Product {
     tags?: string[];
     image: string;
     description: string;
+
+    /** Mô tả chi tiết cho trang product-detail */
+    details?: ProductDetails;
 }
 
 /** View model đã chuẩn hóa thêm vài field hữu ích */
@@ -78,9 +88,12 @@ export class ProductLoadingService {
     byCity(city: string): Observable<ProductVM[]> {
         const c = (city ?? '').trim();
         if (!c) return this.vm$;
-        const norm = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+        const norm = (s: string) =>
+            s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
         const nc = norm(c);
-        return this.vm$.pipe(map(list => list.filter(p => norm(p.location ?? '') === nc)));
+        return this.vm$.pipe(
+            map(list => list.filter(p => norm(p.location ?? '') === nc))
+        );
     }
 
     getById(id: string): Observable<ProductVM | undefined> {
@@ -100,9 +113,12 @@ export class ProductLoadingService {
 
     getImageSize(kind: ImageKind = 'card') {
         switch (kind) {
-            case 'detail': return { w: 960, h: 640 };
-            case 'thumb': return { w: 120, h: 80 };
-            default: return { w: 480, h: 320 };
+            case 'detail':
+                return { w: 960, h: 640 };
+            case 'thumb':
+                return { w: 120, h: 80 };
+            default:
+                return { w: 480, h: 320 };
         }
     }
 
@@ -116,7 +132,11 @@ export class ProductLoadingService {
         return this.http.get<Product[]>('assets/data/products.json').pipe(
             map(normalizeList),
             map(list => {
-                try { this.ts.set(ProductLoadingService.STATE_KEY, list); } catch { }
+                try {
+                    this.ts.set(ProductLoadingService.STATE_KEY, list);
+                } catch {
+                    // ignore TransferState error
+                }
                 return list;
             }),
             catchError(() => of([] as ProductVM[])),
@@ -137,7 +157,7 @@ function normalizeItem(p: Product): ProductVM {
     const finalPricePerDay = Math.round(base * (1 - discount / 100));
 
     return {
-        ...p,
+        ...p, // giữ details, tags... y nguyên
         id: String(p.id),
         vehicleName: p.vehicleName || 'Sản phẩm',
         image: p.image || IMG_PLACEHOLDER,

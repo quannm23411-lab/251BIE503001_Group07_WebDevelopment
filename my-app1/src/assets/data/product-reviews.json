@@ -1,0 +1,463 @@
+[
+    {
+        "reviewId": "R001",
+        "vehicleId": "V001",
+        "customerId": "KH001",
+        "customerName": "Nguyễn Minh Quân",
+        "rating": 5,
+        "reviewDate": "2025-11-10",
+        "title": "Xe êm, đúng mô tả",
+        "content": "Thuê Evo 200 Lite chạy nội thành rất ổn, xe êm và pin dùng cả ngày không hết. Nhân viên bàn giao nhanh, hướng dẫn kỹ.",
+        "images": [
+            "assets/images/reviews/V001-1.jpg",
+            "assets/images/reviews/V001-2.jpg"
+        ]
+    },
+    {
+        "reviewId": "R002",
+        "vehicleId": "V001",
+        "customerId": "KH005",
+        "customerName": "Nguyễn Khánh Xuân",
+        "rating": 4,
+        "reviewDate": "2025-11-08",
+        "title": "Hợp đi làm hằng ngày",
+        "content": "Đi lại trong thành phố rất tiện, xe nhẹ, dễ dắt. Chỉ là cốp hơi nhỏ, còn lại ổn.",
+        "images": [
+            "assets/images/reviews/V001-3.jpg"
+        ]
+    },
+    {
+        "reviewId": "R003",
+        "vehicleId": "V001",
+        "customerId": "KH006",
+        "customerName": "Đặng Thị Lan",
+        "rating": 5,
+        "reviewDate": "2025-10-25",
+        "title": "Tiết kiệm, ít tốn pin",
+        "content": "Đi công việc cả ngày vẫn chưa hết pin, chi phí thuê rẻ hơn hẳn chạy xe xăng.",
+        "images": []
+    },
+    {
+        "reviewId": "R004",
+        "vehicleId": "V001",
+        "customerId": "KH010",
+        "customerName": "Ngô Thanh Thảo",
+        "rating": 5,
+        "reviewDate": "2025-09-30",
+        "title": "Đáng tiền",
+        "content": "Xe chạy ổn định, phanh tốt, app đặt xe cũng dễ dùng. Sẽ thuê lại khi có dịp.",
+        "images": []
+    },
+    {
+        "reviewId": "R005",
+        "vehicleId": "V002",
+        "customerId": "KH002",
+        "customerName": "Lê Thị Duy Nhất",
+        "rating": 4,
+        "reviewDate": "2025-10-12",
+        "title": "Nhỏ gọn, dễ chạy",
+        "content": "G5 Pro nhỏ gọn, đi trong hẻm rất tiện. Thiết kế đẹp, hơi rung nhẹ khi tăng tốc mạnh.",
+        "images": [
+            "assets/images/reviews/V002-1.jpg"
+        ]
+    },
+    {
+        "reviewId": "R006",
+        "vehicleId": "V002",
+        "customerId": "KH008",
+        "customerName": "Bùi Thị Mai",
+        "rating": 5,
+        "reviewDate": "2025-08-03",
+        "title": "Phù hợp sinh viên",
+        "content": "Giá thuê hợp lý, xe bốc hơn mình nghĩ. Đi chơi cuối tuần 2 ngày không gặp vấn đề gì.",
+        "images": []
+    },
+    {
+        "reviewId": "R007",
+        "vehicleId": "V003",
+        "customerId": "KH003",
+        "customerName": "Võ Hồng Phúc",
+        "rating": 5,
+        "reviewDate": "2025-11-02",
+        "title": "Máy mạnh, chạy rất phê",
+        "content": "Weaver++ tăng tốc quá đã, đi cao tốc cảm giác rất chắc xe. Hơi tiếc là tiền cọc hơi cao chút.",
+        "images": [
+            "assets/images/reviews/V003-1.jpg",
+            "assets/images/reviews/V003-2.jpg"
+        ]
+    },
+    {
+        "reviewId": "R008",
+        "vehicleId": "V003",
+        "customerId": "KH007",
+        "customerName": "Vũ Anh Tuấn",
+        "rating": 5,
+        "reviewDate": "2025-10-18",
+        "title": "Đi phượt quá ổn",
+        "content": "Thuê 2 ngày đi Đà Lạt, đổ đèo vẫn ổn, phanh tốt. Pin sạc nhanh đúng như mô tả.",
+        "images": []
+    },
+    {
+        "reviewId": "R009",
+        "vehicleId": "V003",
+        "customerId": "KH006",
+        "customerName": "Đặng Thị Lan",
+        "rating": 4,
+        "reviewDate": "2025-09-05",
+        "title": "Xe xịn nhưng hơi nặng",
+        "content": "Chất lượng đúng tầm xe cao cấp, chỉ là hơi nặng, dắt xe hơi mệt với nữ.",
+        "images": []
+    },
+    {
+        "reviewId": "R010",
+        "vehicleId": "V003",
+        "customerId": "KH001",
+        "customerName": "Nguyễn Minh Quân",
+        "rating": 5,
+        "reviewDate": "2025-08-20",
+        "title": "Đáng thử nếu thích hiệu năng",
+        "content": "Ai mê xe mạnh nên thuê thử, chạy sướng hơn rất nhiều so với mấy mẫu phổ thông.",
+        "images": []
+    },
+    {
+        "reviewId": "R011",
+        "vehicleId": "V004",
+        "customerId": "KH005",
+        "customerName": "Nguyễn Khánh Xuân",
+        "rating": 4,
+        "reviewDate": "2025-11-03",
+        "title": "Tiện đổi pin",
+        "content": "VIVA Mix đổi pin ở trạm rất nhanh, không phải chờ sạc. Xe hơi thấp, phù hợp người tầm 1m6 trở xuống.",
+        "images": [
+            "assets/images/reviews/V004-1.jpg"
+        ]
+    },
+    {
+        "reviewId": "R012",
+        "vehicleId": "V004",
+        "customerId": "KH004",
+        "customerName": "Phan Thị Ánh Linh",
+        "rating": 4,
+        "reviewDate": "2025-09-27",
+        "title": "Nhẹ, dễ lái",
+        "content": "Xe nhẹ, vặn ga mượt, chạy trong phố Hà Nội khá thoải mái. Nếu pin đi được xa hơn chút nữa thì hoàn hảo.",
+        "images": []
+    },
+    {
+        "reviewId": "R013",
+        "vehicleId": "V005",
+        "customerId": "KH002",
+        "customerName": "Lê Thị Duy Nhất",
+        "rating": 5,
+        "reviewDate": "2025-10-01",
+        "title": "Feliz S chạy rất đầm",
+        "content": "Đi làm mỗi ngày bằng Feliz S cảm giác an toàn, phanh tốt, đèn sáng. Mình khá ưng.",
+        "images": []
+    },
+    {
+        "reviewId": "R014",
+        "vehicleId": "V005",
+        "customerId": "KH009",
+        "customerName": "Đỗ Gia Bảo",
+        "rating": 4,
+        "reviewDate": "2025-08-11",
+        "title": "Phù hợp gia đình",
+        "content": "Mình thuê cho ba mẹ đi lại trong quận, xe thấp, dễ lên xuống, ít tiếng ồn.",
+        "images": []
+    },
+    {
+        "reviewId": "R015",
+        "vehicleId": "V006",
+        "customerId": "KH008",
+        "customerName": "Bùi Thị Mai",
+        "rating": 4,
+        "reviewDate": "2025-09-09",
+        "title": "Giá rẻ, đủ dùng",
+        "content": "DK X5 giá thuê rẻ, chạy trong trung tâm là ổn. Không nên kỳ vọng tăng tốc quá mạnh.",
+        "images": []
+    },
+    {
+        "reviewId": "R016",
+        "vehicleId": "V006",
+        "customerId": "KH003",
+        "customerName": "Võ Hồng Phúc",
+        "rating": 3,
+        "reviewDate": "2025-07-30",
+        "title": "Ổn trong tầm giá",
+        "content": "Xe chạy được, nhưng nếu đi xa thì nên chọn mẫu pin lớn hơn.",
+        "images": []
+    },
+    {
+        "reviewId": "R017",
+        "vehicleId": "V007",
+        "customerId": "KH004",
+        "customerName": "Phan Thị Ánh Linh",
+        "rating": 5,
+        "reviewDate": "2025-11-04",
+        "title": "Klara S rất hợp với nữ",
+        "content": "Thiết kế đẹp, đi làm hay đi chơi đều hợp. Cốp rộng, để được nhiều đồ.",
+        "images": [
+            "assets/images/reviews/V007-1.jpg"
+        ]
+    },
+    {
+        "reviewId": "R018",
+        "vehicleId": "V007",
+        "customerId": "KH010",
+        "customerName": "Ngô Thanh Thảo",
+        "rating": 5,
+        "reviewDate": "2025-10-16",
+        "title": "Kết nối app tiện",
+        "content": "App VinFast Smart EV khá tiện, dễ xem pin và vị trí xe. Thuê online nhận xe nhanh.",
+        "images": []
+    },
+    {
+        "reviewId": "R019",
+        "vehicleId": "V007",
+        "customerId": "KH006",
+        "customerName": "Đặng Thị Lan",
+        "rating": 4,
+        "reviewDate": "2025-09-02",
+        "title": "Xe êm, hơi nặng",
+        "content": "Đi mượt, nhưng quay đầu trong hẻm nhỏ hơi cực do xe nặng.",
+        "images": []
+    },
+    {
+        "reviewId": "R020",
+        "vehicleId": "V007",
+        "customerId": "KH001",
+        "customerName": "Nguyễn Minh Quân",
+        "rating": 5,
+        "reviewDate": "2025-08-10",
+        "title": "Đáng thử",
+        "content": "Nếu cần xe vừa sang vừa thông minh thì Klara S là lựa chọn ổn.",
+        "images": []
+    },
+    {
+        "reviewId": "R021",
+        "vehicleId": "V008",
+        "customerId": "KH007",
+        "customerName": "Vũ Anh Tuấn",
+        "rating": 5,
+        "reviewDate": "2025-10-20",
+        "title": "SuperSport tăng tốc khét",
+        "content": "Tăng tốc 0–50km/h rất nhanh, cảm giác kéo ga cực đã. Ai thích thể thao nên thử.",
+        "images": [
+            "assets/images/reviews/V008-1.jpg"
+        ]
+    },
+    {
+        "reviewId": "R022",
+        "vehicleId": "V008",
+        "customerId": "KH009",
+        "customerName": "Đỗ Gia Bảo",
+        "rating": 4,
+        "reviewDate": "2025-09-21",
+        "title": "Ổn cho cuối tuần",
+        "content": "Thuê 1 ngày chạy chơi, xe mạnh nhưng vẫn kiểm soát tốt. Hơi tốn hơn các mẫu khác nhưng xứng đáng.",
+        "images": []
+    },
+    {
+        "reviewId": "R023",
+        "vehicleId": "V009",
+        "customerId": "KH005",
+        "customerName": "Nguyễn Khánh Xuân",
+        "rating": 4,
+        "reviewDate": "2025-08-29",
+        "title": "Hợp học sinh, sinh viên",
+        "content": "Xmen Neo kiểu dáng đẹp, chạy ổn. Mình thuê đi học thêm, không gặp lỗi gì.",
+        "images": []
+    },
+    {
+        "reviewId": "R024",
+        "vehicleId": "V009",
+        "customerId": "KH002",
+        "customerName": "Lê Thị Duy Nhất",
+        "rating": 5,
+        "reviewDate": "2025-07-15",
+        "title": "Đèn sáng, phanh tốt",
+        "content": "Đi buổi tối an tâm vì đèn rất sáng, phanh đĩa khá ăn.",
+        "images": []
+    },
+    {
+        "reviewId": "R025",
+        "vehicleId": "V010",
+        "customerId": "KH003",
+        "customerName": "Võ Hồng Phúc",
+        "rating": 5,
+        "reviewDate": "2025-11-06",
+        "title": "Weaver 200 chạy cực đã",
+        "content": "Quãng đường 200km là có thật, đi tour 1 ngày không cần sạc. Máy bốc, ga rất dính tay.",
+        "images": [
+            "assets/images/reviews/V010-1.jpg",
+            "assets/images/reviews/V010-2.jpg"
+        ]
+    },
+    {
+        "reviewId": "R026",
+        "vehicleId": "V010",
+        "customerId": "KH001",
+        "customerName": "Nguyễn Minh Quân",
+        "rating": 5,
+        "reviewDate": "2025-10-28",
+        "title": "Xe Việt nhưng rất chất",
+        "content": "Tự hào xe Việt, chạy không thua gì hàng ngoại. Cảm giác lái rất chắc.",
+        "images": []
+    },
+    {
+        "reviewId": "R027",
+        "vehicleId": "V010",
+        "customerId": "KH006",
+        "customerName": "Đặng Thị Lan",
+        "rating": 4,
+        "reviewDate": "2025-09-19",
+        "title": "Phù hợp đi xa",
+        "content": "Nếu thuê đi tỉnh thì nên chọn Weaver 200, đỡ lo hết pin giữa đường.",
+        "images": []
+    },
+    {
+        "reviewId": "R028",
+        "vehicleId": "V010",
+        "customerId": "KH008",
+        "customerName": "Bùi Thị Mai",
+        "rating": 5,
+        "reviewDate": "2025-08-07",
+        "title": "Rất hài lòng",
+        "content": "Dù giá cao hơn chút nhưng trải nghiệm xứng đáng. Xe mới, sạch, không mùi.",
+        "images": []
+    },
+    {
+        "reviewId": "R029",
+        "vehicleId": "V011",
+        "customerId": "KH004",
+        "customerName": "Phan Thị Ánh Linh",
+        "rating": 4,
+        "reviewDate": "2025-09-08",
+        "title": "Roma SX dễ thương",
+        "content": "Kiểu dáng cổ điển, hợp đi dạo phố. Máy không quá mạnh nhưng đủ dùng.",
+        "images": []
+    },
+    {
+        "reviewId": "R030",
+        "vehicleId": "V011",
+        "customerId": "KH010",
+        "customerName": "Ngô Thanh Thảo",
+        "rating": 4,
+        "reviewDate": "2025-07-19",
+        "title": "Giá mềm",
+        "content": "Giá thuê rẻ, phù hợp cuối tuần đi chơi nhẹ nhàng.",
+        "images": []
+    },
+    {
+        "reviewId": "R031",
+        "vehicleId": "V012",
+        "customerId": "KH009",
+        "customerName": "Đỗ Gia Bảo",
+        "rating": 4,
+        "reviewDate": "2025-08-01",
+        "title": "Ludo nhỏ nhưng khỏe",
+        "content": "Nhìn nhỏ nhưng chở hai người vẫn ổn. Đi hẻm rất tiện.",
+        "images": []
+    },
+    {
+        "reviewId": "R032",
+        "vehicleId": "V012",
+        "customerId": "KH005",
+        "customerName": "Nguyễn Khánh Xuân",
+        "rating": 5,
+        "reviewDate": "2025-07-05",
+        "title": "Rất hợp sinh viên",
+        "content": "Giá thuê rẻ nhất trong nhóm, đi học đi chơi đều ok.",
+        "images": []
+    },
+    {
+        "reviewId": "R033",
+        "vehicleId": "V013",
+        "customerId": "KH008",
+        "customerName": "Bùi Thị Mai",
+        "rating": 5,
+        "reviewDate": "2025-09-25",
+        "title": "Delight đúng nghĩa",
+        "content": "Xe dành cho nữ, yên thấp, chạy rất êm. Đổi pin nhanh cũng tiện.",
+        "images": []
+    },
+    {
+        "reviewId": "R034",
+        "vehicleId": "V013",
+        "customerId": "KH002",
+        "customerName": "Lê Thị Duy Nhất",
+        "rating": 4,
+        "reviewDate": "2025-08-22",
+        "title": "Thiết kế đẹp",
+        "content": "Màu xe đẹp, chụp hình sống ảo quá ổn. Trọng lượng hơi nhẹ nên đi gió mạnh phải cẩn thận.",
+        "images": []
+    },
+    {
+        "reviewId": "R035",
+        "vehicleId": "V014",
+        "customerId": "KH007",
+        "customerName": "Vũ Anh Tuấn",
+        "rating": 4,
+        "reviewDate": "2025-09-03",
+        "title": "ULike đúng là dễ chạy",
+        "content": "Xe nhẹ, vợ mình lái cũng thấy tự tin. Pin tháo rời sạc trong homestay rất tiện.",
+        "images": []
+    },
+    {
+        "reviewId": "R036",
+        "vehicleId": "V014",
+        "customerId": "KH003",
+        "customerName": "Võ Hồng Phúc",
+        "rating": 4,
+        "reviewDate": "2025-07-28",
+        "title": "Ổn cho khách du lịch",
+        "content": "Thuê vài tiếng chạy quanh khu du lịch, xe không bị hụt ga, phanh ổn.",
+        "images": []
+    },
+    {
+        "reviewId": "R037",
+        "vehicleId": "V015",
+        "customerId": "KH001",
+        "customerName": "Nguyễn Minh Quân",
+        "rating": 5,
+        "reviewDate": "2025-10-30",
+        "title": "Infinity quá khủng",
+        "content": "Xe chạy 300km là có cơ sở, đi phượt dài ngày quá tiện. Tăng tốc mạnh, nên có kinh nghiệm lái trước.",
+        "images": [
+            "assets/images/reviews/V015-1.jpg"
+        ]
+    },
+    {
+        "reviewId": "R038",
+        "vehicleId": "V015",
+        "customerId": "KH006",
+        "customerName": "Đặng Thị Lan",
+        "rating": 5,
+        "reviewDate": "2025-09-12",
+        "title": "Xe cao cấp đúng nghĩa",
+        "content": "Từ ngoại hình đến cảm giác lái đều xứng đáng với mức giá thuê.",
+        "images": []
+    },
+    {
+        "reviewId": "R039",
+        "vehicleId": "V016",
+        "customerId": "KH009",
+        "customerName": "Đỗ Gia Bảo",
+        "rating": 4,
+        "reviewDate": "2025-08-18",
+        "title": "Gogo Cross rất ngầu",
+        "content": "Phong cách offroad nhìn ngoài đời đẹp hơn trong hình. Đi đường xấu vẫn ổn.",
+        "images": []
+    },
+    {
+        "reviewId": "R040",
+        "vehicleId": "V016",
+        "customerId": "KH005",
+        "customerName": "Nguyễn Khánh Xuân",
+        "rating": 4,
+        "reviewDate": "2025-07-22",
+        "title": "Hợp người thích phiêu lưu",
+        "content": "Yên hơi cao nhưng cảm giác lái vui, phù hợp đi chơi cuối tuần.",
+        "images": []
+    }
+]
