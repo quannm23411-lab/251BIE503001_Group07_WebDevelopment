@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
+type Tier = 'EcoGold' | 'EcoSilver' | 'EcoBasic';
+
 interface AccountProfile {
-  avatar: string;
   fullname: string;
-  email?: string;
-  tier?: 'EcoGold' | 'EcoSilver' | 'EcoBasic';
+  avatar: string;
+  tier?: Tier;
 }
 
 @Component({
@@ -19,21 +20,23 @@ interface AccountProfile {
 export class AccountOrders {
   user: AccountProfile = {
     fullname: 'Khách EcoMove',
-    avatar: 'assets/images/default-avatar.png'
+    avatar: 'assets/images/default-avatar.png',
+    tier: 'EcoBasic'
   };
 
   constructor(private router: Router) {
-    if (typeof localStorage !== 'undefined') {
-      const raw = localStorage.getItem('eco_profile');
-      if (raw) {
-        try {
-          const data = JSON.parse(raw) as AccountProfile;
-          this.user.fullname = data.fullname || this.user.fullname;
-          this.user.avatar = data.avatar || this.user.avatar;
-        } catch {
-          // dùng mặc định
-        }
-      }
+    if (typeof localStorage === 'undefined') return;
+
+    const raw = localStorage.getItem('eco_profile');
+    if (!raw) return;
+
+    try {
+      const data = JSON.parse(raw) as any;
+      this.user.fullname = data.fullname || this.user.fullname;
+      this.user.avatar = data.avatar || this.user.avatar;
+      this.user.tier = data.tier || this.user.tier;
+    } catch {
+      // nếu lỗi thì giữ mặc định
     }
   }
 
@@ -41,7 +44,7 @@ export class AccountOrders {
     {
       id: '2738HF760654F',
       name: 'Xe máy điện Feliz 2025',
-      img: 'assets/images/orders/feliz.png',
+      img: '../../assets/images/products/vinfast-felizs.jpg',
       start: '01/11/2025',
       end: '03/11/2025',
       status: 'Đang thuê',
@@ -49,8 +52,8 @@ export class AccountOrders {
     },
     {
       id: '2738HF7F66484F',
-      name: 'Xe đạp điện ABC',
-      img: 'assets/images/orders/ebike.png',
+      name: 'DK Bike X5',
+      img: '../../assets/images/products/dkbike-x5.jpg',
       start: '21/10/2025',
       end: '28/10/2025',
       status: 'Hoàn thành',
@@ -58,8 +61,8 @@ export class AccountOrders {
     },
     {
       id: '2738HF7F66484P',
-      name: 'Xe đạp gấp gọn ABC',
-      img: 'assets/images/orders/folding.png',
+      name: 'Yadea Ulike',
+      img: 'assets/images/products/yadea-ulike.jpg',
       start: '21/10/2025',
       end: '28/10/2025',
       status: 'Hoàn thành',

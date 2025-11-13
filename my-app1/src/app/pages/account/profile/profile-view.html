@@ -27,7 +27,7 @@
         </div>
         <div class="account-user-meta">
           <h2>{{ user.fullname }}</h2>
-          <div class="account-tier-badge">{{ user.tier }}</div>
+          <div class="account-tier-badge">{{ user.tier || 'EcoBasic' }}</div>
         </div>
       </div>
 
@@ -76,7 +76,7 @@
       <div class="account-info-row">
         <div class="account-info-row-label">Cấp bậc:</div>
         <div class="account-info-row-value">
-          <span class="account-tier-badge">{{ user.tier }}</span>
+          <span class="account-tier-badge">{{ user.tier || 'EcoBasic' }}</span>
         </div>
       </div>
 
