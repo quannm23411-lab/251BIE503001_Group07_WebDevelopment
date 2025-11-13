@@ -284,6 +284,16 @@ export const routes: Routes = [
           import('./pages/policy/policy').then(m => m.Policy),
       },
       {
+        path: 'policy-privacy',
+        loadComponent: () =>
+          import('./pages/policy-privacy/policy-privacy').then(m => m.PolicyPrivacy),
+      },
+      {
+        path: 'policy-cookie',
+        loadComponent: () =>
+          import('./pages/policy-cookie/policy-cookie').then(m => m.PolicyCookie),
+      },
+      {
         path: 'guide',
         loadComponent: () =>
           import('./pages/guide/guide').then(m => m.Guide),
