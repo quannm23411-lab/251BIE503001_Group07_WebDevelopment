@@ -133,13 +133,6 @@ export const routes: Routes = [
             m => m.AdminPromotionAdd
           ),
       },
-      // {
-      //   path: 'review',
-      //   loadComponent: () =>
-      //     import('./pages/admin/admin-product-review/admin-product-review').then(
-      //       m => m.AdminProductReview
-      //     ),
-      // },
       {
         path: 'homepage',
         loadComponent: () =>
