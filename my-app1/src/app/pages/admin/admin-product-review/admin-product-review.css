@@ -1,0 +1,350 @@
+/* === Import các style chung === */
+/* ... (các style từ .main đến .table-wrapper tr:hover giữ nguyên) ... */
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+.main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    margin-bottom: 20px;
+}
+.header-title h1 {
+  text-transform: uppercase;                 
+  font-weight: 700;                           
+  background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;  
+}
+.header-title span {
+    font-size: 14px;
+    color: #888;
+}
+.actions button { border: none; border-radius: 6px; padding: 10px 14px; cursor: pointer; margin-left: 10px; }
+.btn-export { background: #6fa304; color: white; }
+
+.table-state-cell {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+.filter-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif;
+}
+.table-wrapper {
+    overflow-x: auto;
+    padding: 0;
+}
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-wrapper th, 
+.table-wrapper td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+.table-wrapper th {
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #567C02;
+    white-space: nowrap;
+}
+
+.table-wrapper th.sort-active {
+    color: #333;
+}
+.table-wrapper tr:last-child td {
+    border-bottom: none;
+}
+.table-wrapper tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* =============================================
+  🔽 THÊM MỚI: Style cho Sắp xếp (Copy từ admin-bike.css)
+  =============================================
+*/
+th.sortable {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    position: relative; 
+    padding-right: 30px; /* Thêm padding cho icon */
+}
+
+th.sortable .th-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+th.sortable:hover {
+    background-color: #fcfcfc;
+}
+
+th.sort-active {
+    color: #333; /* Màu chữ đậm hơn khi active */
+}
+
+th.sortable i {
+    font-size: 0.8em;
+    color: #ccc; /* Màu icon mặc định */
+    transition: color 0.2s ease;
+    position: absolute;
+    right: 12px; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+th.sort-active i {
+    color: #567C02; /* Màu icon active */
+}
+
+/* Ẩn icon 'fa-sort' mặc định khi đang active */
+th.sort-active i.fa-sort {
+    display: none;
+}
+
+/* Hiển thị icon up/down khi active */
+th.sortable i.fa-sort-up,
+th.sortable i.fa-sort-down {
+    color: #567C02;
+    opacity: 1;
+}
+
+/* === (Phần còn lại giữ nguyên) === */
+.rating-stars {
+    color: #f39c12; 
+    white-space: nowrap;
+}
+/* ... (tất cả style còn lại của .rating-stars, .review-title, .status-badge, .btn-action, .popup-overlay, ... giữ nguyên y hệt) ... */
+.rating-stars.large {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.review-title {
+    color: #333;
+    font-weight: 600;
+}
+.review-content {
+    color: #777;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.vehicle-link {
+    color: #567C02;
+    text-decoration: none;
+    font-weight: 500;
+}
+.vehicle-link:hover {
+    text-decoration: underline;
+}
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.status-approved {
+    background: #e7f5e9;
+    color: #34a853;
+    border: 1px solid #b7e1c1;
+}
+.status-pending {
+    background: #fef7e0;
+    color: #f39c12;
+    border: 1px solid #fde3a2;
+}
+.status-rejected {
+    background: #fce8e6;
+    color: #ea4335;
+    border: 1px solid #f7c5c0;
+}
+.actions-cell {
+    white-space: nowrap;
+}
+.btn-action {
+    background: none;
+    border: 1px solid #ccc;
+    color: #555;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: all 0.2s;
+}
+.btn-action:hover {
+    background: #f0f0f0;
+}
+.btn-action.btn-view:hover { color: #007bff; border-color: #007bff; }
+.btn-action.btn-approve:hover { color: #34a853; border-color: #34a853; }
+.btn-action.btn-reject:hover { color: #f39c12; border-color: #f39c12; }
+.btn-action.btn-delete:hover { color: #ea4335; border-color: #ea4335; }
+.popup-overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+.popup-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px; 
+    text-align: center;
+}
+.popup-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+.popup-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.popup-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.btn-popup-cancel {
+    background: #f0f0f0;
+    color: #555;
+}
+.btn-popup-cancel:hover {
+    background: #e0e0e0;
+}
+.btn-popup-confirm {
+    background: #567C02;
+    color: white;
+}
+.btn-popup-confirm:hover {
+    background: #6fa304; 
+}
+.btn-delete-confirm {
+    background: #ea4335;
+}
+.btn-delete-confirm:hover {
+    background: #c9302c;
+}
+.review-detail-modal {
+    max-width: 600px;
+    text-align: left;
+}
+.review-detail-header {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.review-detail-header strong {
+    font-size: 20px;
+    color: #333;
+    display: block;
+}
+.review-detail-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+}
+.review-detail-content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    white-space: pre-wrap; 
+}
+.review-images {
+    margin-top: 20px;
+}
+.review-images strong {
+    display: block;
+    margin-bottom: 10px;
+}
+.review-images .image-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.review-images img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+.review-images img:hover {
+    transform: scale(1.05);
+}
+.review-detail-modal .popup-actions {
+    justify-content: flex-end; 
+    margin-top: 20px;
+}
+/* =============================================
+  🔽 THÊM MỚI: MEDIA QUERY CHO RESPONSIVE
+  =============================================
+*/
+

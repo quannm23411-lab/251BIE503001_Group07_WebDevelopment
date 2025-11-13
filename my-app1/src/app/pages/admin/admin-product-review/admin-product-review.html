@@ -1,0 +1,215 @@
+<div class="main">
+    <div *ngIf="isLoading" class="table-state-cell">
+        Đang tải danh sách đánh giá...
+    </div>
+
+    <div *ngIf="!isLoading">
+        <header class="main__header">
+            <div class="header-title">
+                <h1>Quản lý Đánh giá</h1>
+                <span>{{ allReviews.length }} đánh giá trong hệ thống</span>
+            </div>
+            <div class="actions">
+                <button class="btn-export" (click)="exportToCSV()"><i class="fa-solid fa-download"></i> Xuất danh sách</button>
+            </div>      
+        </header>
+
+        <section class="filter-bar card">
+            <div class="filter-group">
+                <label for="filterSearch">Tìm kiếm</label>
+                <input type="text" id="filterSearch" 
+                       placeholder="Theo tên khách, nội dung..."
+                       [(ngModel)]="filterSearchTerm"
+                       (input)="applyFilters()">
+            </div>
+            <div class="filter-group">
+                <label for="filterVehicle">Lọc theo xe</label>
+                <select id="filterVehicle" 
+                        [(ngModel)]="filterVehicleId" 
+                        (change)="applyFilters()">
+                    <option value="all">Tất cả xe</option>
+                    <option *ngFor="let product of vehicleOptions" [value]="product.id">
+                        {{ product.vehicleName }}
+                    </option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterStatus">Lọc trạng thái</label>
+                <select id="filterStatus" 
+                        [(ngModel)]="filterStatus" 
+                        (change)="applyFilters()">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="approved">Đã duyệt</option>
+                    <option value="pending">Chờ duyệt</option>
+                    <option value="rejected">Đã từ chối</option>
+                </select>
+            </div>
+        </section>
+
+
+        <div class="table-wrapper card">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-rating sortable" (click)="onSort('rating')" [class.sort-active]="sortColumn === 'rating'">
+                            <div class="th-content">
+                                <span>Đánh giá</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'rating' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'rating' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-review sortable" (click)="onSort('title')" [class.sort-active]="sortColumn === 'title'">
+                            <div class="th-content">
+                                <span>Tiêu đề / Nội dung</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'title' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'title' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-customer sortable" (click)="onSort('customerName')" [class.sort-active]="sortColumn === 'customerName'">
+                            <div class="th-content">
+                                <span>Khách hàng</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'customerName' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'customerName' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-vehicle sortable" (click)="onSort('vehicleName')" [class.sort-active]="sortColumn === 'vehicleName'">
+                            <div class="th-content">
+                                <span>Sản phẩm</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'vehicleName' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'vehicleName' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-date sortable" (click)="onSort('reviewDate')" [class.sort-active]="sortColumn === 'reviewDate'">
+                            <div class="th-content">
+                                <span>Ngày</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'reviewDate' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'reviewDate' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-status sortable" (click)="onSort('status')" [class.sort-active]="sortColumn === 'status'">
+                            <div class="th-content">
+                                <span>Trạng thái</span>
+                                <i class="fas fa-sort" 
+                                   [class.fa-sort-up]="sortColumn === 'status' && sortDirection === 'asc'"
+                                   [class.fa-sort-down]="sortColumn === 'status' && sortDirection === 'desc'">
+                                </i>
+                            </div>
+                        </th>
+                        <th class="col-actions">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="filteredReviews.length === 0">
+                        <td colspan="7" class="table-state-cell">
+                            Không tìm thấy đánh giá nào khớp.
+                        </td>
+                    </tr>
+                    <tr *ngFor="let review of filteredReviews">
+                        <td>
+                            <div class="rating-stars">
+                                <i *ngFor="let filled of getStars(review.rating)" 
+                                   [class.fas]="filled" 
+                                   [class.far]="!filled" 
+                                   class="fa-star"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong class="review-title">{{ review.title }}</strong>
+                            <p class="review-content">{{ review.content }}</p>
+                        </td>
+                        <td>{{ review.customerName }}</td>
+                        <td>
+                            <a [routerLink]="['/admin/bike-detail', review.vehicleId]" class="vehicle-link">
+                                {{ review.vehicleName }}
+                            </a>
+                        </td>
+                        <td>{{ review.reviewDate | date: 'dd/MM/yyyy' }}</td>
+                        <td>
+                            <span class="status-badge" [ngClass]="'status-' + review.status">
+                                {{ review.status === 'approved' ? 'Đã duyệt' : (review.status === 'pending' ? 'Chờ duyệt' : 'Từ chối') }}
+                            </span>
+                        </td>
+                        <td class="actions-cell">
+                            <button title="Xem chi tiết" (click)="viewReviewDetail(review)" class="btn-action btn-view">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button title="Duyệt" *ngIf="review.status !== 'approved'" 
+                                    (click)="changeReviewStatus(review, 'approved')" 
+                                    class="btn-action btn-approve">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button title="Từ chối" *ngIf="review.status !== 'rejected'" 
+                                    (click)="changeReviewStatus(review, 'rejected')" 
+                                    class="btn-action btn-reject">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button title="Xóa" (click)="askToDelete(review)" class="btn-action btn-delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" *ngIf="selectedReview" (click)="closeModal()">
+    <div class="popup-container review-detail-modal" (click)="$event.stopPropagation()">
+        <h2>Chi tiết Đánh giá</h2>
+        
+        <div class="review-detail-header">
+            <div class="rating-stars large">
+                <i *ngFor="let filled of getStars(selectedReview.rating)" 
+                   [class.fas]="filled" 
+                   [class.far]="!filled" 
+                   class="fa-star"></i>
+            </div>
+            <strong>{{ selectedReview.title }}</strong>
+        </div>
+        
+        <div class="review-detail-meta">
+            <span><strong>Khách hàng:</strong> {{ selectedReview.customerName }}</span>
+            <span><strong>Xe:</strong> {{ selectedReview.vehicleName }}</span>
+            <span><strong>Ngày:</strong> {{ selectedReview.reviewDate | date: 'dd/MM/yyyy' }}</span>
+        </div>
+
+        <p class="review-detail-content">
+            {{ selectedReview.content }}
+        </p>
+
+        <div class="review-images" *ngIf="selectedReview.images.length > 0">
+            <strong>Hình ảnh đính kèm:</strong>
+            <div class="image-list">
+                <a *ngFor="let img of selectedReview.images" [href]="img" target="_blank">
+                    <img [src]="img" alt="Ảnh review">
+                </a>
+            </div>
+        </div>
+
+        <div class="popup-actions">
+            <button (click)="closeModal()" class="btn-popup-confirm">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" *ngIf="showConfirmDeletePopup">
+    <div class="popup-container">
+        <h2>Xác nhận Xóa</h2>
+        <p>Bạn có chắc chắn muốn xóa đánh giá này? Hành động này không thể hoàn tác.</p>
+        <div class="popup-actions">
+            <button (click)="onCancelDelete()" class="btn-popup-cancel">Hủy</button>
+            <button (click)="onConfirmDelete()" class="btn-popup-confirm btn-delete-confirm">Xóa</button>
+        </div>
+    </div>
+</div>

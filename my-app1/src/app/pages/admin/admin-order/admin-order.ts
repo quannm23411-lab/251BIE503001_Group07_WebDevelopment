@@ -223,4 +223,113 @@ export class AdminOrder implements OnInit {
       });
     }
   }
+exportToCSV() {
+    // 1. Lấy dữ liệu (lấy từ dữ liệu gốc đã lọc)
+    const rentalsToExport = this.filteredRentals;
+
+    if (rentalsToExport.length === 0) {
+      alert('Không có dữ liệu để xuất.');
+      return;
+    }
+
+    // 2. Định nghĩa tiêu đề cột (đã trải phẳng)
+    const headers = [
+      // Thông tin đơn hàng
+      'maDonThue', 'maKhachHang', 'thoiGianDatHang', 'tienDatCoc', 'trangThaiCoc', 'tinhTrangDon',
+      // Thông tin thanh toán
+      'thanhToan_tongGiaTriGoc', 'thanhToan_maGiamGia', 'thanhToan_tienGiam', 
+      'thanhToan_chiPhiSauGiam', 'thanhToan_tinhTrangThanhToan',
+      // Chi tiết xe thuê (sẽ lặp)
+      'chiTiet_idXe', 'chiTiet_soLuong', 'chiTiet_donGia', 'chiTiet_soNgayThue',
+      'chiTiet_tongGiaTri', 'chiTiet_thoiGianNhanXe', 'chiTiet_thoiGianTraXe',
+      'chiTiet_diaDiemNhanXe', 'chiTiet_diaDiemTraXe', 'chiTiet_thoiGianTraXeThucTe',
+      'chiTiet_tinhTrangXe'
+    ];
+    
+    // 3. Chuẩn bị nội dung CSV
+    let csvContent = headers.join(',') + '\n'; // Dòng tiêu đề
+
+    // Hàm xử lý giá trị (để tránh lỗi nếu tên có dấu phẩy)
+    const escapeCSV = (val: any) => {
+      if (val === null || val === undefined) {
+        return ''; // Trả về chuỗi rỗng cho giá trị null/undefined
+      }
+      let str = String(val);
+      // Xử lý giá trị ngày tháng để dễ đọc hơn
+      if (str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)) {
+         str = new Date(str).toLocaleString('vi-VN');
+      }
+      // Bọc trong dấu ngoặc kép nếu chứa dấu phẩy hoặc dấu xuống dòng
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        str = `"${str.replace(/"/g, '""')}"`; // Gấp đôi dấu ngoặc kép bên trong
+      }
+      return str;
+    };
+
+    // 4. Thêm các dòng dữ liệu (lặp qua từng xe trong đơn)
+    rentalsToExport.forEach(rental => {
+      const order = rental.rawRentalData; // Lấy dữ liệu JSON gốc
+      const payment = order.thanhToan || {}; // Lấy object thanhToan
+
+      // Lặp qua từng xe trong chiTietDonThue
+      if (order.chiTietDonThue && order.chiTietDonThue.length > 0) {
+        order.chiTietDonThue.forEach((item: any) => {
+          const row = [
+            // Thông tin đơn hàng (lặp lại)
+            escapeCSV(order.maDonThue),
+            escapeCSV(order.maKhachHang),
+            escapeCSV(order.thoiGianDatHang),
+            escapeCSV(order.tienDatCoc),
+            escapeCSV(order.trangThaiCoc),
+            escapeCSV(order.tinhTrangDon),
+            // Thông tin thanh toán (lặp lại)
+            escapeCSV(payment.tongGiaTriGoc),
+            escapeCSV(payment.maGiamGia),
+            escapeCSV(payment.tienGiam),
+            escapeCSV(payment.chiPhiSauGiam),
+            escapeCSV(payment.tinhTrangThanhToan),
+            // Chi tiết xe (thay đổi)
+            escapeCSV(item.idXe),
+            escapeCSV(item.soLuong),
+            escapeCSV(item.donGia),
+            escapeCSV(item.soNgayThue),
+            escapeCSV(item.tongGiaTri),
+            escapeCSV(item.thoiGianNhanXe),
+            escapeCSV(item.thoiGianTraXe),
+            escapeCSV(item.diaDiemNhanXe),
+            escapeCSV(item.diaDiemTraXe),
+            escapeCSV(item.thoiGianTraXeThucTe),
+            escapeCSV(item.tinhTrangXe)
+          ];
+          csvContent += row.join(',') + '\n';
+        });
+      } else {
+        // Xử lý nếu đơn hàng không có chi tiết xe (hiếm gặp)
+        const row = [
+          escapeCSV(order.maDonThue), escapeCSV(order.maKhachHang), escapeCSV(order.thoiGianDatHang),
+          escapeCSV(order.tienDatCoc), escapeCSV(order.trangThaiCoc), escapeCSV(order.tinhTrangDon),
+          escapeCSV(payment.tongGiaTriGoc), escapeCSV(payment.maGiamGia), escapeCSV(payment.tienGiam),
+          escapeCSV(payment.chiPhiSauGiam), escapeCSV(payment.tinhTrangThanhToan),
+          // Các cột chi tiết xe để trống
+          '', '', '', '', '', '', '', '', '', '', '' 
+        ];
+        csvContent += row.join(',') + '\n';
+      }
+    });
+
+    // 5. Tạo và tải file (vẫn giữ BOM cho tiếng Việt)
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); // BOM cho UTF-8
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+
+    const date = new Date().toISOString().slice(0, 10);
+    link.setAttribute('download', `danh-sach-don-thue-${date}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
