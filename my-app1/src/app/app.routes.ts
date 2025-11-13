@@ -70,7 +70,6 @@ export const routes: Routes = [
       },
 
       // Khi nào có thì mở
-      // { path: 'blog',  loadComponent: () => import('./pages/blog/blog').then(m => m.Blog) },
       // { path: 'offers', loadComponent: () => import('./pages/blog/blog-offers/blog-offers').then(m => m.BlogOffersComponent) }
       // BLOG
       {
@@ -100,7 +99,7 @@ export const routes: Routes = [
 
         ],
       },
-      // { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
+      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
     ]
   },
 
