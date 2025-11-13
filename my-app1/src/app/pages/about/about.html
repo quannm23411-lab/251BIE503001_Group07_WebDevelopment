@@ -24,7 +24,7 @@
     </div>
   </div>
 </section>
-<!-- SỨ MỆNH -->
+<!--PHẦN 2: SỨ MỆNH -->
 <section class="about__values">
   <div class="container">
     <div class="about__values-panel">
@@ -106,24 +106,46 @@
 </section>
 
 <!-- PHẦN 5: THÔNG TIN LIÊN HỆ -->
+
 <section class="about__contact">
   <div class="container">
-
-    <h2 class="about-section-title about-section-title--contact"> <span>THÔNG TIN LIÊN HỆ</span>
+    <h2 class="about-section-title about-section-title--contact">
+      THÔNG TIN LIÊN HỆ
     </h2>
 
     <div class="contact-grid">
-      <div class="contact-item" *ngFor="let c of data.contactItems">
-
+      <div class="contact-item" *ngFor="let item of data.contactItems"
+>
         <div class="contact-item__icon">
-          <i [class]="c.icon" aria-hidden="true"></i>
+          <i [class]="item.icon"></i>
         </div>
 
         <h3 class="contact-item__title">
-          {{ c.title }}
+          {{ item.title }}
         </h3>
 
-        <p class="contact-item__text" [innerHTML]="c.contentHtml"></p>
+        <p
+          *ngIf="item.contentHtml"
+          class="contact-item__text"
+          [innerHTML]="item.contentHtml">
+        </p>
+
+        <!-- Trường hợp có socials (MẠNG XÃ HỘI: 4 logo) -->
+        <div
+          *ngIf="item.socials"
+          class="contact-item__socials">
+          <a
+            *ngFor="let social of item.socials"
+            class="social-logo-link"
+            [href]="social.href"
+            target="_blank"
+            rel="noopener noreferrer">
+            <img
+              [src]="social.imgSrc"
+              [alt]="social.name"
+              class="social-logo-img">
+          </a>
+        </div>
       </div>
     </div>
   </div>

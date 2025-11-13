@@ -26,11 +26,19 @@ export interface AboutTeamMember {
   linkedin?: string;
 }
 
+/* NEW: social link cho phần MẠNG XÃ HỘI */
+export interface AboutSocialLink {
+  name: string;
+  imgSrc: string;  // đường dẫn ảnh logo
+  href: string;    // link khi click
+}
+
 /* NEW: thông tin liên hệ */
 export interface AboutContactItem {
-  icon: string;        // class icon bootstrap (vd: 'bi bi-telephone-outbound')
-  title: string;       // HOTLINE / MAIL / MẠNG XÃ HỘI
-  contentHtml: string; // nội dung hiển thị, có thể dùng <br> để xuống dòng
+  icon: string;           // class icon bootstrap (vd: 'bi bi-telephone-outbound')
+  title: string;          // HOTLINE / MAIL / MẠNG XÃ HỘI
+  contentHtml?: string;   // có thể có (HOTLINE, MAIL)
+  socials?: AboutSocialLink[]; // có thể có (MẠNG XÃ HỘI)
 }
 
 /* NEW: teaser blog hiển thị trên trang About */
@@ -115,15 +123,15 @@ export const ABOUT_US_DATA: AboutUsDataModel = {
   team: [
     {
       name: 'Minh Quân',
-      avatar: 'assets/images/about_team/',
+      avatar: 'assets/images/about_team/minhquan.png',
       facebook: 'https://www.facebook.com/BpSMon',
       linkedin: 'https://www.linkedin.com/in/minhquan1801/'
     },
     {
       name: 'Duy Nhất',
-      avatar: 'assets/images/about_team/',
-      facebook: '#',
-      linkedin: '#'
+      avatar: 'assets/images/about_team/duynhat.png',
+      facebook: 'https://www.facebook.com/Lethiduynhat2504',
+      linkedin: 'https://www.linkedin.com/in/lethiduynhat/'
     },
     {
       name: 'Ánh Linh',
@@ -145,7 +153,7 @@ export const ABOUT_US_DATA: AboutUsDataModel = {
     }
   ],
 
-    // NEW: dữ liệu phần THÔNG TIN LIÊN HỆ
+  // NEW: dữ liệu phần THÔNG TIN LIÊN HỆ
   contactItems: [
     {
       icon: 'bi bi-telephone-outbound',
@@ -160,13 +168,31 @@ export const ABOUT_US_DATA: AboutUsDataModel = {
     {
       icon: 'bi bi-globe2',
       title: 'MẠNG XÃ HỘI',
-      contentHtml:
-        'FB: Thuê xe điện EcoMove<br/>' +
-        'Tiktok: EcoMove<br/>' +
-        'IG: @ecomove<br/>' +
-        'LinkedIn: EcoMove'
+      socials: [
+        {
+          name: 'Facebook',
+          imgSrc: 'assets/images/logo_social/logofacebook.png',   
+          href: 'https://www.facebook.com/khoahttt.uel'              
+        },
+        {
+          name: 'TikTok',
+          imgSrc: 'assets/images/logo_social/logotiktok.png',
+          href: 'https://www.facebook.com/khoahttt.uel'
+        },
+        {
+          name: 'Instagram',
+          imgSrc: 'assets/images/logo_social/logoinstagram.png',
+          href: 'https://www.facebook.com/khoahttt.uel'
+        },
+        {
+          name: 'LinkedIn',
+          imgSrc: 'assets/images/logo_social/logolinkedin.png',
+          href: 'https://www.facebook.com/khoahttt.uel'
+        }
+      ]
     }
   ],
-// Dữ liệu BLOG
+
+  // Dữ liệu BLOG
   blogs: []
 };

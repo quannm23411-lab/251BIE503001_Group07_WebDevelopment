@@ -53,7 +53,7 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .about__hero {
-        padding: 40px 16px 50px;
+        padding: 40px 16px 0px;
     }
 
     .about__logo img {
@@ -139,7 +139,6 @@
 .stat-card:hover .stat-card__label {
     color: #ffffff;
 }
-
 @media (max-width: 900px) {
 
     .about__stats {
@@ -160,6 +159,34 @@
 
     .stat-card__value {
         font-size: 40px;
+        margin-bottom: 6px;
+    }
+
+    .stat-card__label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .about__stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        padding-bottom: 40px;
+    }
+
+    .stat-card {
+        padding: 24px 14px;
+        border-radius: 16px;
+    }
+
+    .stat-card::before {
+        padding: 1px;
+        border-radius: 16px;
+    }
+
+    .stat-card__value {
+        font-size: 20px;
         margin-bottom: 6px;
     }
 
@@ -321,13 +348,87 @@
     color: #314145;
 }
 
+@media (max-width: 700px) {
+    .about__partners,
+    .partners-section {
+        padding: 24px 16px;
+    }
+
+    .about__partners h2,
+    .partners-section h2 {
+        text-align: center;
+        font-size: 20px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+    }
+
+    .partners-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        justify-items: center;
+    }
+
+    .partners-grid h3 {
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.3;
+    }
+
+    .partner__logos img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .contact-item {
+        overflow: hidden;
+    }
+
+    .contact-item__socials {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .social-logo-link {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 390px) {
+    .about__partners,
+    .partners-section {
+        padding: 20px 12px;
+    }
+
+    .about__partners h2,
+    .partners-section h2 {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .partners-grid h3 {
+        font-size: 15px;
+    }
+
+    .partner__logos img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .social-logo-link {
+        width: 32px;
+        height: 32px;
+    }
+}
+
 /* ===========================
    PHẦN 4: ĐỘI NGŨ ECOMOVE
    =========================== */
 
 .about__team {
     background: #ffffff;
-    padding: 30px 16px 25px;
+    padding: 30px 16px 15px;
 }
 
 .about__team .container {
@@ -338,7 +439,7 @@
 .team-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 32px;
+    gap: 15px;
     justify-items: center;
     margin-top: 24px;
 }
@@ -397,54 +498,126 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
 }
+/* Desktop – 5 cột */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    justify-items: center;
+    margin-top: 24px;
+}
 
-/* Responsive cho partner + team */
+.team-member {
+    text-align: center;
+}
+
+.team-member__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e5e5e5;
+    margin-bottom: 10px;
+}
+
+.team-member__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-member__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e2a2f;
+    margin-bottom: 8px;
+}
+
+.team-member__socials {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.team-member__socials a {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1e2a2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-member__socials a i {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+
+/* Tablet – 3 cột */
 @media (max-width: 992px) {
-    .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-    }
-
-    .partner__logos img {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-/* Mobile – 1 cột, mỗi nhóm riêng biệt */
-@media (max-width: 750px) {
-    .partners-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    .partner__logos {
-        justify-content: center;
-    }
-
-    .partner__logos img {
-        width: 54px;
-        height: 54px;
-        margin-bottom: 6px;
-        /* tạo khoảng cách khi xuống dòng */
-    }
-}
-
-@media (max-width: 70px) {
     .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 20px;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 20px;
     }
 
     .team-member__avatar {
-        width: 88px;
-        height: 88px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .team-member__name {
+        font-size: 13px;
+    }
+
+    .team-member__socials a {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+
+/* Mobile 430px – vẫn 3 cột (3 người trên, 2 người dưới) */
+@media (max-width: 430px) {
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 14px;
+    }
+
+    .team-member__avatar {
+        width: 74px;
+        height: 74px;
     }
 
     .team-member__name {
         font-size: 12px;
     }
+
+    .team-member__socials a {
+        width: 22px;
+        height: 22px;
+    }
+
+    .team-member__socials a i {
+        font-size: 12px;
+    }
 }
+
+
+/* Mobile nhỏ – 2 cột */
+@media (max-width: 340px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+
+    .team-member__avatar {
+        width: 70px;
+        height: 70px;
+    }
+}
+
 
 /* PHẦN 5: THÔNG TIN LIÊN HỆ */
 
@@ -483,13 +656,13 @@
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 3px solid #34635A;
+    border: 3px solid #34635a;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto 10px;
     font-size: 34px;
-    background: linear-gradient(90deg, #34635A 0%, #54b385 100%);
+    background: linear-gradient(90deg, #34635a 0%, #54b385 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -510,6 +683,43 @@
     margin: 0 auto;
 }
 
+/* --- NEW: style cho phần 4 logo mạng xã hội --- */
+
+.contact-item__socials {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Thẻ a bọc logo */
+.social-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 0.25px solid #34635a;
+  overflow: hidden;          
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-logo-img {
+  width: 100%;                
+  height: 100%;               
+  object-fit: cover;          
+  display: block;
+}
+
+/* Hover cho logo */
+.social-logo-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
 
 /* Responsive */
 @media (max-width: 700px) {
@@ -532,8 +742,14 @@
     }
 
     .contact-item__text {
-        font-size: 12px;
+        font-size: 7px;
         max-width: 200px;
+    }
+
+    .social-logo-link {
+        width: 20px;
+        height: 20px;
+        border-width: 1.5px;
     }
 }
 
@@ -645,7 +861,7 @@
 }
 
 .blog-title {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
     color: #333;
     margin-bottom: 8px;
@@ -653,14 +869,14 @@
 }
 
 .blog-excerpt {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5;
     color: #818181;
     margin: 0 0 10px;
 }
 
 .blog-meta {
-    font-size: 13px;
+    font-size: 18px;
     color: #4d4c4c;
     display: flex;
     align-items: center;
