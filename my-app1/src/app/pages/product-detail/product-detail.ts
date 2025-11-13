@@ -147,7 +147,9 @@ export class ProductDetail {
     });
 
     if (options?.redirectToCart) {
-      this.router.navigate(['/cart']);
+      this.router.navigate(['/cart'], {
+        state: { autoSelectId: String(p.id) }
+      });
     }
   }
 

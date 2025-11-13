@@ -13,6 +13,8 @@ export interface ProductReview {
     title: string;
     content: string;
     images?: string[];
+    status: string;
+
 }
 
 @Injectable({ providedIn: 'root' })

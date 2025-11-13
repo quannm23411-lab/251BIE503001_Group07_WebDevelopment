@@ -162,8 +162,7 @@ export class Homepage implements OnInit, OnDestroy {
     forkJoin(
       ids.map(id => this.reviews.getByVehicleId(String(id)))
     ).subscribe((lists: ProductReview[][]) => {
-      const all: ProductReview[] = lists.flat().filter(Boolean);
-
+      const all: ProductReview[] = lists.flat().filter(Boolean).filter(r => r.status === 'approved');
       if (!all.length) return;
 
       // shuffle nhẹ cho "ngẫu nhiên"

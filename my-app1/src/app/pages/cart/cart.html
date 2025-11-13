@@ -1,5 +1,5 @@
 <main class="cart-page container mt-5 pt-4">
-
+    <!-- BREADCRUMB -->
     <div class="breadcrumb-cart-wrapper">
         <nav class="breadcrumb">
             <a routerLink="/">Trang chủ</a>
@@ -8,6 +8,7 @@
         </nav>
     </div>
 
+    <!-- NẾU CÓ ITEM -->
     <section *ngIf="items().length > 0; else emptyCart" class="cart-layout">
 
         <!-- DANH SÁCH ITEM -->
@@ -15,7 +16,8 @@
             <div class="cart-item" *ngFor="let item of items(); trackBy: trackById">
 
                 <div class="cart-item__select">
-                    <input type="checkbox" class="cart-checkbox" />
+                    <input type="checkbox" class="cart-checkbox" [checked]="isItemSelected(item)"
+                        (change)="toggleItem(item, $any($event.target).checked)" />
                 </div>
 
                 <div class="cart-item__image">
@@ -40,9 +42,12 @@
 
                         <div class="cart-item__status">
                             <span *ngIf="item.availabilityStatus !== false"
-                                class="status-badge status-badge--available">Có sẵn</span>
-                            <span *ngIf="item.availabilityStatus === false" class="status-badge status-badge--out">Hết
-                                hàng</span>
+                                class="status-badge status-badge--available">
+                                Có sẵn
+                            </span>
+                            <span *ngIf="item.availabilityStatus === false" class="status-badge status-badge--out">
+                                Hết hàng
+                            </span>
                         </div>
                     </div>
 
@@ -108,7 +113,8 @@
 
             <div class="cart-footer-left">
                 <label class="select-all">
-                    <input type="checkbox" class="cart-checkbox" />
+                    <input type="checkbox" class="cart-checkbox" [checked]="isAllSelected()"
+                        [indeterminate]="isIndeterminate()" (change)="toggleSelectAll($any($event.target).checked)" />
                     <span>Tất cả</span>
                 </label>
             </div>
@@ -117,12 +123,13 @@
                 <div class="cart-footer-total">
                     <span class="label">Tổng cộng</span>
                     <span class="cart-footer-price">
-                        {{ totalAmount() | number: '1.0-0' }} đ
+                        {{ selectedTotalAmount() | number: '1.0-0' }} đ
                     </span>
                 </div>
 
-                <button type="button" class="cart-footer-btn" [routerLink]="['/checkout']">
-                    Thanh toán ({{ totalQuantity() }})
+                <button type="button" class="cart-footer-btn" [routerLink]="['/checkout']"
+                    [disabled]="selectedTotalQuantity() === 0">
+                    Thanh toán ({{ selectedTotalQuantity() }})
                 </button>
             </div>
 
@@ -138,5 +145,4 @@
             <a routerLink="/rent" class="btn-primary-link">Bắt đầu thuê xe</a>
         </section>
     </ng-template>
-
 </main>
