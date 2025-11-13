@@ -8,12 +8,12 @@ import { CartService, CartItem } from '../../services/cart.services';
     standalone: true,
     imports: [CommonModule, RouterLink],
     templateUrl: './cart.html',
-    styleUrls: ['./cart.css']
+    styleUrls: ['./cart.css'],
 })
 export class CartPage {
     private cart = inject(CartService);
 
-    // signals/computed từ CartService
+    // Signals từ CartService
     readonly items = this.cart.items;
     readonly totalQuantity = this.cart.totalQuantity;
     readonly totalAmount = this.cart.totalAmount;
@@ -31,13 +31,13 @@ export class CartPage {
         const startStr = start.toLocaleDateString('vi-VN', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric'
+            year: 'numeric',
         });
 
         const endStr = end.toLocaleDateString('vi-VN', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric'
+            year: 'numeric',
         });
 
         return `Ngày nhận: ${startStr} • Ngày trả: ${endStr}`;

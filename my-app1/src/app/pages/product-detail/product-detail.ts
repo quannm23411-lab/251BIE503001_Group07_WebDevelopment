@@ -121,6 +121,8 @@ export class ProductDetail {
     this.product()?.availabilityStatus ? 'ok' : 'bad'
   );
 
+  isOutOfStock = computed(() => !this.product()?.availabilityStatus);
+
   vnd(n?: number) {
     if (n == null) return '';
     return n.toLocaleString('vi-VN') + '₫';
@@ -129,7 +131,7 @@ export class ProductDetail {
   // ====== CART ACTIONS ======
   private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
     const p = this.product();
-    if (!p) return;
+    if (!p || !p.availabilityStatus) return; // hết hàng thì cút luôn
 
     this.cart.addOrUpdateFromProduct({
       productId: String(p.id),
@@ -151,11 +153,12 @@ export class ProductDetail {
 
   bookNow() {
     // ĐẶT XE NGAY: thêm vào giỏ + nhảy sang /cart
+    if (this.isOutOfStock()) return;
     this.addCurrentProductToCart({ redirectToCart: true });
   }
 
   addToCart() {
-    // THÊM VÀO GIỎ: chỉ thêm, không chuyển trang
+    if (this.isOutOfStock()) return;
     this.addCurrentProductToCart();
   }
 
@@ -163,6 +166,7 @@ export class ProductDetail {
     // ĐẶT TRƯỚC: tạm thời giống THÊM VÀO GIỎ
     this.addCurrentProductToCart();
   }
+
 
   goTo(p: ProductVM) {
     this.router.navigate(['/rent', p.id]).then(() => {
