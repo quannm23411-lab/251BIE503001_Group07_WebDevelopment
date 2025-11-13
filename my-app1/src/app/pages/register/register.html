@@ -40,7 +40,7 @@
               formControlName="password" (focus)="isPasswordHintVisible = true" (blur)="isPasswordHintVisible = false"
               [ngClass]="{ 'input-error': password.invalid && (password.dirty || password.touched) }" />
             <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')">
-              <span>{{ passwordFieldType === 'password' ? 'Hiện' : 'Ẩn' }}</span>
+              <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
             </button>
           </div>
 
@@ -61,9 +61,9 @@
             <input [type]="confirmPasswordFieldType" id="confirm-password" class="form-input"
               placeholder="Nhập lại mật khẩu của bạn" formControlName="confirmPassword"
               [ngClass]="{ 'input-error': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) }" />
-            <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
-              <span>{{ confirmPasswordFieldType === 'password' ? 'Hiện' : 'Ẩn' }}</span>
-            </button>
+              <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
+                <i [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+              </button>
           </div>
 
           <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"

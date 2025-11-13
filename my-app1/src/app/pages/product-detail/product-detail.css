@@ -1,6 +1,7 @@
+/* WRAPPER CHÍNH */
 .pd-wrap {
   max-width: 1200px;
-  margin: 40px auto 0;
+  margin: 32px auto 48px;
   padding: 0 16px;
 }
 
@@ -13,6 +14,7 @@
   font-weight: 500;
   color: #555;
   padding: 4px 0 12px;
+  flex-wrap: wrap;
 }
 
 .breadcrumb a {
@@ -33,6 +35,10 @@
 
 /* GRID CHÍNH */
 .pd-grid {
+    grid-column: 1 / -1;      /* span cả 2 cột */
+  max-width: 900px;         /* như bạn đang dùng */
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 40px;
@@ -58,6 +64,7 @@
   background: #fff;
   width: 100%;
   aspect-ratio: 1 / 1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .pd-cover img {
@@ -147,13 +154,16 @@
   border-radius: 8px;
 }
 
-/* INFO */
+/* INFO (KHỐI TRẮNG BÊN PHẢI) */
 .pd-info {
-  background: #f7f7f7;
-  border-radius: 12px;
   padding: 18px 20px 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
 }
 
+/* TITLE + META */
 .pd-title {
   font-size: 30px;
   margin: 0 0 6px;
@@ -171,6 +181,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .pd-meta .dot {
@@ -239,6 +250,7 @@
   display: flex;
   gap: 14px;
   margin: 10px 0;
+  flex-wrap: wrap;
 }
 
 .date-item {
@@ -270,6 +282,7 @@
   align-items: center;
   gap: 8px;
   margin: 10px 0 18px;
+  flex-wrap: wrap;
 }
 
 .c {
@@ -280,25 +293,11 @@
   cursor: pointer;
 }
 
-.white {
-  background: #fff;
-}
-
-.red {
-  background: #da1823;
-}
-
-.black {
-  background: #121212;
-}
-
-.pink {
-  background: #ffbbbb;
-}
-
-.blue {
-  background: #1976d2;
-}
+.white { background: #fff; }
+.red   { background: #da1823; }
+.black { background: #121212; }
+.pink  { background: #ffbbbb; }
+.blue  { background: #1976d2; }
 
 /* NÚT HÀNH ĐỘNG */
 .pd-actions {
@@ -341,6 +340,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: 0.25s;
+  height: 56px;
 }
 
 .btn-ghost {
@@ -364,6 +364,9 @@
 .pd-description {
   margin-top: 50px;
   text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .desc-title {
@@ -487,11 +490,8 @@
   border-radius: 5px;
   background-color: #fff;
   border-top: 1px dashed #eee;
-  padding-top: 10px;
+  padding: 10px 20px 10px 40px;
   margin-top: 10px;
-  padding-left: 40px;
-  padding-right: 20px;
-  padding-bottom: 10px;
 }
 
 .review-header {
@@ -548,6 +548,7 @@
   display: flex;
   gap: 8px;
   margin-top: 6px;
+  flex-wrap: wrap;
 }
 
 .review-images img {
@@ -735,10 +736,13 @@
   font-size: 14px;
 }
 
-/* Responsive */
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablet ngang < 960px: 2 khối chồng nhau */
 @media (max-width: 960px) {
   .pd-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .pd-info {
@@ -748,18 +752,116 @@
   .pd-media {
     order: 1;
   }
-}
 
-@media (max-width: 768px) {
-  .product-card {
-    flex: 0 0 70%;
+  .pd-title {
+    font-size: 26px;
   }
 
-  .product-card .image {
-    height: 150px;
+  .pd-pricing .now {
+    font-size: 28px;
+  }
+
+  .product-card {
+    flex: 0 0 45%;
+  }
+}
+
+/* Tablet dọc & mobile lớn < 768px */
+@media (max-width: 768px) {
+  .pd-wrap {
+    padding: 0 12px;
+    margin-top: 24px;
   }
 
   .pd-info {
-    padding: 14px;
+    padding: 16px;
+  }
+
+  .pd-title {
+    font-size: 24px;
+  }
+
+  .pd-pricing {
+    font-size: 18px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-actions .bottom {
+    flex-direction: column;
+  }
+
+  .btn-ghost,
+  .btn-cart {
+    font-size: 16px;
+    height: 52px;
+  }
+
+  .pd-arrow {
+    width: 28px;
+    height: 64px;
+  }
+
+  .product-card {
+    flex: 0 0 60%;
+  }
+
+  .product-card .image {
+    height: 160px;
+  }
+
+  .review-card {
+    padding: 10px 16px;
+  }
+}
+
+/* Mobile nhỏ < 480px */
+@media (max-width: 480px) {
+  .pd-wrap {
+    padding: 0 8px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+  .pd-title {
+    font-size: 20px;
+  }
+
+  .pd-pricing {
+    margin: 10px 0;
+  }
+
+  .pd-pricing .now {
+    font-size: 24px;
+  }
+
+  .pd-thumbs {
+    grid-auto-columns: 60px;
+  }
+
+  .pd-thumbs button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-primary.big {
+    height: 56px;
+    font-size: 18px;
+  }
+
+  .rating-score .score {
+    font-size: 26px;
+  }
+
+  .product-card {
+    flex: 0 0 80%;
+  }
+
+  .product-card .image {
+    height: 140px;
   }
 }

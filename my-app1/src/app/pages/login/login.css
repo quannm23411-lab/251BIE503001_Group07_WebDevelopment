@@ -10,17 +10,18 @@ body {
   font-family: 'Inter', sans-serif;
   background: white;
   min-height: 100vh;
+  overflow: hidden; /* <-- THÊM DÒNG NÀY */
 }
 
 .container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh; /* <-- THAY ĐỔI Ở ĐÂY */
   width: 100%;
 }
 
 .left-panel {
   width: 50%;
-  height: 100vh;
+  height: 100%;
   /* ============================================= */
   /* ĐÃ THAY ĐỔI: Thay màu đỏ bằng ảnh nền */
   /* background: url('../../../assets/images/products/datbike-weaver200.jpg') no-repeat center center;
@@ -32,7 +33,7 @@ body {
 }
 
 /* THÊM MỚI: Lớp phủ mờ cho ảnh nền */
-.left-panel::before {
+/* .left-panel::before {
   content: '';
   position: absolute;
   top: 0;
@@ -40,7 +41,7 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.15);
-}
+} */
 
 
 .right-panel {
@@ -50,6 +51,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem 4rem;
+  height: 100%; /* <-- THÊM DÒNG NÀY */
 }
 
 .header {
@@ -86,7 +88,6 @@ body {
 
 .form-title {
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   /* CŨ: 2rem */
   background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   -webkit-background-clip: text;
@@ -136,7 +137,7 @@ body {
 
 .form-input:focus {
   outline: none;
-  border-color: #596f00;
+  border-color: #2B3B41;
 }
 
 .password-wrapper {
@@ -149,22 +150,23 @@ body {
 
 .toggle-password {
   position: absolute;
-  right: 1rem;
+  right: 1rem; /* <-- Thay đổi */
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  transition: color 0.2s;
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #2B3B41;
+  /* Xóa font-size và font-weight */
+  color: #2B3B41; /* <-- Thay đổi (giống login) */
+  padding: 0;
+  width: auto;
 }
 
-.toggle-password:hover {
+/* .toggle-password:hover {
   text-decoration: underline;
-}
+} */
 
 .form-options {
   display: flex;
@@ -212,7 +214,6 @@ body {
 .submit-btn {
   width: 100%;
   height: 52px;
-  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
   /* CŨ: 66px */
   background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   border: none;
@@ -373,9 +374,10 @@ body {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .container {
     flex-direction: column;
+    align-items: center;
   }
 
   .left-panel { 
@@ -383,7 +385,7 @@ body {
     height: 100px;
     /* ============================================= */
     /* ĐÃ THAY ĐỔI: Dùng gradient cho mobile */
-    background-image: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+    background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
     /* ============================================= */
   }
   
@@ -483,7 +485,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 24px;
-  color: #596f00;
+  color: #2B3B41;
   margin-bottom: 0.5rem;
 }
 
