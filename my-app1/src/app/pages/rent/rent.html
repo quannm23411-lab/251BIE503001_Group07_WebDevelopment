@@ -1,27 +1,59 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
 <main class="main-content container-fluid mt-5 pt-4">
+  <!-- BREADCRUMB -->
+  <nav class="container mb-3 breadcrumb-bar">
+    <span class="breadcrumb-item">
+      <a routerLink="/">Trang chủ</a>
+    </span>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Đặt xe</span>
+  </nav>
+
   <!-- FILTER BAR -->
   <section class="filter-section container">
-    <div class="filter-header d-flex align-items-center justify-content-start gap-3 mb-3 flex-wrap">
-      <button class="btn btn-green dropdown-toggle">Thuê theo ngày</button>
+    <div class="filter-header d-flex align-items-center justify-content-start gap-3 mb-3 flex-wrap py-3">
+      <!-- Chế độ thuê: ngày / tuần / tháng -->
+      <div class="rent-mode-dropdown position-relative">
+        <button type="button" class="btn btn-green dropdown-toggle" (click)="toggleRentModeMenu()">
+          {{ rentModeLabel() }}
+          <i class="bi bi-chevron-down ms-1"></i>
+        </button>
+
+        <div class="dropdown-menu shadow-sm mt-1" [class.show]="showRentModeMenu()">
+          <button type="button" class="dropdown-item" [class.active]="rentMode() === 'day'"
+            (click)="setRentMode('day')">
+            Thuê theo ngày
+          </button>
+          <button type="button" class="dropdown-item" [class.active]="rentMode() === 'week'"
+            (click)="setRentMode('week')">
+            Thuê theo tuần
+          </button>
+          <button type="button" class="dropdown-item" [class.active]="rentMode() === 'month'"
+            (click)="setRentMode('month')">
+            Thuê theo tháng
+          </button>
+        </div>
+      </div>
 
       <div class="date-picker">
         <label for="start-date">Ngày thuê</label>
-        <input id="start-date" type="date" value="2025-11-08" />
+        <input id="start-date" type="date" [min]="todayStr" [value]="startDate()"
+          (change)="onStartDateChange($any($event.target).value)" />
       </div>
 
       <div class="date-picker">
         <label for="end-date">Ngày trả</label>
-        <input id="end-date" type="date" value="2025-11-12" />
+        <input id="end-date" type="date" [min]="startDate() || todayStr" [value]="endDate()"
+          (change)="onEndDateChange($any($event.target).value)" />
       </div>
 
       <div class="location">
         <label for="city">Tỉnh/Thành phố</label>
-        <select id="city">
-          <option selected>TP.Hồ Chí Minh</option>
-          <option>Hà Nội</option>
-          <option>Đà Nẵng</option>
+        <select id="city" (change)="onCityChange($any($event.target).value)">
+          <option value="TP.Hồ Chí Minh" selected>TP.Hồ Chí Minh</option>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
         </select>
       </div>
     </div>
@@ -42,7 +74,9 @@
           Xe đạp điện
         </label>
         <label>
-          <input type="checkbox" (change)="toggleType('Xe đạp điện gấp gọn', $event.target.checked)" />
+          <input type="checkbox" (change)="
+              toggleType('Xe đạp điện gấp gọn', $event.target.checked)
+            " />
           Xe đạp điện gấp gọn
         </label>
       </div>
@@ -61,23 +95,26 @@
           <input type="checkbox" (change)="toggleBrand('Dat Bike', $event.target.checked)" />
           Dat Bike
         </label>
-        <label>
-          <input type="checkbox" (change)="toggleBrand('Dibao', $event.target.checked)" />
-          Dibao
-        </label>
-        <label>
-          <input type="checkbox" (change)="toggleBrand('Pega', $event.target.checked)" />
-          Pega
-        </label>
       </div>
 
       <div class="filter-row align-items-center flex-wrap">
         <span class="filter-label">Giá:</span>
-        <input type="range" min="0" max="500000" step="10000" [value]="maxPrice()" class="price-range"
-          (input)="onPrice($any($event.target).value)" />
-        <span class="price-value">{{ formatVND(maxPrice()) }}</span>
 
-        <div class="sort ms-auto d-flex align-items-center gap-2 flex-wrap">
+        <span class="price-bound">0 đ</span>
+
+        <div class="price-range-wrapper">
+          <input type="range" min="0" max="500000" step="10000" [value]="minPrice()" class="price-range"
+            (input)="onMinPriceChange($any($event.target).value)" />
+          <input type="range" min="0" max="500000" step="10000" [value]="maxPrice()" class="price-range"
+            (input)="onMaxPriceChange($any($event.target).value)" />
+        </div>
+
+        <span class="price-value">
+          {{ formatVND(minPrice()) }} - {{ formatVND(maxPrice()) }}
+        </span>
+        <span class="price-bound">500.000 đ</span>
+
+        <div class="sort ms-auto d-flex align-items-center gap-2 flex-wrap position-relative">
           <span class="filter-label">Sắp xếp theo:</span>
 
           <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'popular'"
@@ -92,17 +129,26 @@
             <i class="bi bi-patch-check-fill"></i>
           </button>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'price_asc'"
-            [class.active]="sortKey() === 'price_asc'" (click)="setSort('price_asc')">
-            Giá Thấp - Cao
-            <i class="bi bi-sort-down-alt"></i>
-          </button>
+          <!-- Dropdown Giá -->
+          <div class="sort-price-dropdown">
+            <button type="button" class="btn btn-outline btn-green-outline dropdown-toggle" (click)="togglePriceMenu()"
+              [class.active]="sortKey() === 'price_asc' || sortKey() === 'price_desc'">
+              {{ priceSortLabel() }}
+              <i class="bi bi-chevron-down"></i>
+            </button>
 
-          <button class="btn btn-outline" [class.btn-green-outline]="sortKey() === 'price_desc'"
-            [class.active]="sortKey() === 'price_desc'" (click)="setSort('price_desc')">
-            Giá Cao - Thấp
-            <i class="bi bi-sort-up-alt"></i>
-          </button>
+
+            <div class="dropdown-menu shadow-sm mt-1" [class.show]="showPriceMenu()">
+              <button type="button" class="dropdown-item" [class.active]="sortKey() === 'price_asc'"
+                (click)="setSort('price_asc'); closePriceMenu()">
+                Giá thấp - cao
+              </button>
+              <button type="button" class="dropdown-item" [class.active]="sortKey() === 'price_desc'"
+                (click)="setSort('price_desc'); closePriceMenu()">
+                Giá cao - thấp
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -112,6 +158,7 @@
   <section class="top-rent container py-5">
     <div class="product-grid">
       <ng-container *ngIf="topRentList().length > 0; else noTop">
+        <!-- 3 hàng x 4 xe / trang (pageSize = 12) -->
         <a class="product-card position-relative" *ngFor="let p of topRentList()" [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
@@ -150,10 +197,12 @@
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
 
-            <!-- Nút trạng thái: giống “Đặt xe ngay”, hết xe thì xám -->
+            <!-- Nút trạng thái -->
             <button type="button" class="product-card__availability"
               [class.product-card__availability--active]="p.availabilityStatus"
-              [class.product-card__availability--disabled]="!p.availabilityStatus">
+              [class.product-card__availability--disabled]="
+                !p.availabilityStatus
+              ">
               {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
             </button>
           </div>
@@ -167,19 +216,16 @@
 
     <!-- Pagination -->
     <div class="pager d-flex justify-content-center gap-2 mt-3" *ngIf="totalPages() > 1">
-      <!-- Nút trước -->
       <button class="pager-btn" (click)="goto(page() - 1)" [disabled]="page() === 1">
         <i class="bi bi-chevron-left"></i>
       </button>
 
-      <!-- Danh sách trang -->
       <ng-container *ngFor="let n of [].constructor(totalPages()); let i = index">
         <button class="pager-btn" [class.active]="page() === i + 1" (click)="goto(i + 1)">
           {{ i + 1 }}
         </button>
       </ng-container>
 
-      <!-- Nút sau -->
       <button class="pager-btn" (click)="goto(page() + 1)" [disabled]="page() === totalPages()">
         <i class="bi bi-chevron-right"></i>
       </button>
