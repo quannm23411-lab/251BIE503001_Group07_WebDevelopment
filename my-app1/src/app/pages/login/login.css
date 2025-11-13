@@ -27,7 +27,7 @@ body {
   background-size: cover; */
   position: relative;
   /* ============================================= */
-  background: url('/my-app1/src/assets/images/background-log-in.jpg') center/cover no-repeat;
+  background: url('../../../assets/images/background-log-in.jpg') center/cover no-repeat;
   /* background: #d75656; */
 }
 

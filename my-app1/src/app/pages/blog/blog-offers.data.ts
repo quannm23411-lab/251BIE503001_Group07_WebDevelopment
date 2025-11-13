@@ -14,7 +14,7 @@ export const BLOG_OFFERS = {
       title: 'Giới thiệu bạn bè, nhận ngay 50.000VND vào tài khoản thuê xe.',
       excerpt: 'Nhân đôi niềm vui, nhận đôi ưu đãi! Bạn đã sẵn sàng lan tỏa lối sống xanh và nhận ngay 50.000VND cho mỗi người bạn giới thiệu thành công?',
       date: '2025-11-11',
-      image: 'https://motogo.vn/wp-content/uploads/2021/05/thue-xe-may-san-bay-nha-trang-2.jpg',
+      image: '/assets/images/blog/blog-offers/gioi-thieu-50k.jpg',
       category: 'Ưu đãi',
       content: `
         <div class="bd-content">
@@ -56,7 +56,7 @@ export const BLOG_OFFERS = {
       title: 'Giảm 20% cho lần thuê đầu tiên: Mã [ECOM20] chỉ có trong tháng này!',
       excerpt: 'Đặt xe nhanh, chạy êm – nhận ưu đãi liền tay.',
       date: '2025-10-30',
-      image: 'https://i.pinimg.com/736x/3e/94/09/3e940937b2aa01bce8cb2700cccf122b.jpg',
+      image: '/assets/images/blog/blog-offers/giam-20.jpg',
       category: 'Ưu đãi',
       content: `
         <div class="bd-content">
@@ -91,14 +91,14 @@ export const BLOG_OFFERS = {
     },
     {
       id: '3',
-      title: 'Thuê xe 3 ngày, tính tiền 2 ngày: Chào mừng Quốc Khánh 2/9.',
+      title: 'Thuê xe 3 ngày, tính tiền 2 ngày: Chào mừng ngày Phụ nữ Việt Nam 20/10.',
       excerpt: 'Ưu đãi áp dụng cho tất cả dòng xe điện đô thị.',
-      date: '2025-08-30',
-      image: 'https://i.pinimg.com/736x/6b/fb/5d/6bfb5d6e9dd161bee90191aa8dedf302.jpg',
+      date: '2025-10-18',
+      image: '/assets/images/blog/blog-offers/chao-mung-2010.jpg',
       category: 'Ưu đãi',
       content: `
         <div class="bd-content">
-          <h2>Chào mừng Quốc khánh – Ưu đãi 3 ngày tính tiền 2 ngày</h2>
+          <h2>Chào mừng 20/10 – Ưu đãi 3 ngày tính tiền 2 ngày</h2>
           <p>Từ <strong>30/8 đến 5/9</strong>, đặt xe bất kỳ dòng <em>Eco EV</em> hoặc <em>City EV</em> trong 3 ngày, bạn chỉ thanh toán 2 ngày. Ngày miễn phí sẽ được hệ thống tự động khấu trừ vào hóa đơn tại bước thanh toán.</p>
 
           <h3>Phạm vi &amp; đối tượng</h3>
@@ -130,8 +130,8 @@ export const BLOG_OFFERS = {
       title: 'Miễn phí giao xe tận nơi trong bán kính 5km',
       excerpt: 'Đặt xe online – nhận xe tại nhà, tiện lợi và tiết kiệm.',
       date: '2025-11-04',
-      image: 'https://i.pinimg.com/736x/7c/73/57/7c7357312de2baee0795f0ca0aa2bf77.jpg',
-      category: 'Tin tức',
+      image: '/assets/images/blog/blog-offers/giao-tai-nha.jpg',
+      category: 'Ưu đãi',
       content: `
         <div class="bd-content">
           <h2>Dịch vụ giao xe miễn phí bán kính 5km</h2>
@@ -166,8 +166,8 @@ export const BLOG_OFFERS = {
       title: 'Bảo dưỡng giữa kỳ cho toàn bộ đội xe',
       excerpt: 'EcoMove kiểm tra định kỳ đảm bảo an toàn tối đa cho chuyến đi.',
       date: '2025-09-18',
-      image: 'https://storage.googleapis.com/blogvxr-uploads/2025/10/18279fa2-thue-xe-may-tuy-hoa-phu-yen-8216924.jpg',
-      category: 'Tin tức',
+      image: '/assets/images/blog/blog-offers/bao-duong.jpg',
+      category: 'Ưu đãi',
       content: `
         <div class="bd-content">
           <h2>Bảo dưỡng giữa kỳ – An toàn hành trình của bạn là ưu tiên số 1</h2>
@@ -200,7 +200,7 @@ export const BLOG_OFFERS = {
       title: 'Nạp tiền ví EcoMove tặng thêm 10%',
       excerpt: 'Áp dụng cho các gói từ 300.000VND, không giới hạn số lần trong 3 ngày.',
       date: '2025-11-02',
-      image: 'https://mgdongsaigon.com.vn/wp-content/uploads/2023/06/dreamstime_xxl_139966991-scaled-1.jpg',
+      image: '/assets/images/blog/blog-offers/nap-vi-ecomove.jpg',
       category: 'Ưu đãi',
       content: `
         <div class="bd-content">
