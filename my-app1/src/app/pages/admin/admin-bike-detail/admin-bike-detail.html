@@ -72,6 +72,37 @@
                         <input type="text" id="imageUrl" [(ngModel)]="bike.image" class="form-control">
                     </div>
                 </section>
+                
+                <section class="card">
+                    <h2>Chi tiết Mô tả & Tính năng</h2>
+
+                    <div class="form-group">
+                        <label for="description">Mô tả ngắn (Tóm tắt)</label>
+                        <textarea id="description" [(ngModel)]="bike.description" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detailTitle">Tiêu đề chi tiết</label>
+                        <input type="text" id="detailTitle" [(ngModel)]="bike.details.title" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detailParagraphs">Các đoạn mô tả (Mỗi đoạn 1 dòng)</label>
+                        <textarea id="detailParagraphs" 
+                                  [ngModel]="bike.details.paragraphs.join('\n')"
+                                  (ngModelChange)="bike.details.paragraphs = $event.split('\n')"
+                                  class="form-control" rows="6"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detailFeatures">Tính năng nổi bật (Mỗi tính năng 1 dòng)</label>
+                        <textarea id="detailFeatures" 
+                                  [ngModel]="bike.details.features.join('\n')"
+                                  (ngModelChange)="bike.details.features = $event.split('\n')"
+                                  class="form-control" rows="6"></textarea>
+                    </div>
+                </section>
+
             </div>
 
             <div class="detail-col-side">
@@ -82,6 +113,8 @@
                         <select id="status" [(ngModel)]="bike.availabilityStatus" class="form-control">
                             <option [ngValue]="true">Sẵn sàng</option>
                             <option [ngValue]="false">Đang cho thuê</option>
+                            <option [ngValue]="false">Bảo trì</option>
+                            <option [ngValue]="false">Ngừng kinh doanh</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -90,6 +123,16 @@
                              <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags (phân cách bằng dấu phẩy)</label>
+                        <input type="text" id="tags" 
+                            [ngModel]="bike.tags.join(', ')" 
+                            (ngModelChange)="onTagsChange($event)" 
+                            class="form-control"
+                            placeholder="VD: eco, popular, city">
+                    </div>
+
                 </section>
 
                 <section class="card">
@@ -105,11 +148,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="discount">Giảm giá (%)</label>
-                        <input type="number" id="discount" [(ngModel)]="bike.discount" class="form-control">
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="discount">Giảm giá (%)</label>
+                            <input type="number" id="discount" [(ngModel)]="bike.discount" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Đánh giá (sao)</label>
+                            <input type="number" id="rating" [(ngModel)]="bike.rating" class="form-control" step="0.1">
+                        </div>
                     </div>
-
+                    
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="battery">Dung lượng pin (kWh)</label>
@@ -122,18 +171,12 @@
                     </div>
                 </section>
 
-                <section class="card">
-                    <h2>Mô tả</h2>
-                    <div class="form-group">
-                        <textarea id="description" [(ngModel)]="bike.description" class="form-control" rows="6"></textarea>
-                    </div>
-                </section>
-            </div>
+                </div>
 
         </div>
     </div>
 
-<div class="popup-overlay" *ngIf="showConfirmPopup">
+    <div class="popup-overlay" *ngIf="showConfirmPopup">
         <div class="popup-container">
             <h2>Xác nhận</h2>
             <p>Bạn có chắc chắn muốn lưu các thay đổi này?</p>
@@ -154,6 +197,5 @@
             </div>
         </div>
     </div>
-
 
 </div>

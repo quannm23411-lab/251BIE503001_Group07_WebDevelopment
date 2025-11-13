@@ -48,12 +48,12 @@
               [ngClass]="{ 'input-error': password.invalid && (password.dirty || password.touched) }"
             />
             <button 
-  type="button" 
-  class="toggle-password btn btn-outline-secondary" 
-  id="togglePassword" 
-  (click)="togglePasswordVisibility()">
-  <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
-</button>
+              type="button" 
+              class="toggle-password " 
+              id="togglePassword" 
+              (click)="togglePasswordVisibility()">
+              <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+            </button>
 
           </div>
           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">

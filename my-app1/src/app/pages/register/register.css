@@ -23,14 +23,14 @@ body {
   width: 50%;
   /* ============================================= */
   /* ĐÃ THAY ĐỔI: Thay màu đỏ bằng ảnh nền */
-  background: url('../../../assets/images/products/datbike-weaver200.jpg') no-repeat center center;
-  background-size: cover;
+  background: url('../../../assets/images/background-log-in.jpg') no-repeat center center;
+  /* background-size: cover; */
   position: relative;
   /* ============================================= */
 }
 
 /* THÊM MỚI: Lớp phủ mờ cho ảnh nền */
-.sidebar::before {
+/* .sidebar::before {
   content: '';
   position: absolute;
   top: 0;
@@ -38,7 +38,7 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.15);
-}
+} */
 
 .main-content {
   width: 50%;
@@ -56,38 +56,40 @@ body {
 .header { text-align: center; margin-bottom: 1.5rem; }
 .header-text { margin-bottom: 0.5rem; }
 .welcome-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 23px; color: #121212; margin-bottom: 0.25rem; }
-.brand-name { font-family: 'Zen Dots', cursive; font-weight: 400; font-size: 30px; color: #596f00; }
-.page-title { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 32px; background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.brand-name { font-family: 'Zen Dots', cursive; font-weight: 400; font-size: 30px; color: #121212; }
+.page-title { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 32px;   background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .signup-form { opacity: 0; transform: translateY(-1rem); animation: fadeIn 1s 0.2s ease forwards; }
 .form-group { margin-bottom: 1rem; }
 .form-label { display: block; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 18px; color: #121212; margin-bottom: 0.5rem; }
 .input-wrapper { position: relative; }
 .form-input { width: 100%; height: 42px; padding: 0 1rem; border: 1px solid #999898; border-radius: 5px; background-color: #ffffff; font-family: 'Inter', sans-serif; font-size: 16px; color: #121212; transition: border-color 0.2s; }
 .form-input::placeholder { color: #999898; }
-.form-input:focus { outline: none; border-color: #596f00; }
+.form-input:focus { outline: none; border-color: #2B3B41; }
 .form-input.input-error { border-color: #ff3860; }
-.input-wrapper .form-input { padding-right: 3.5rem; }
-.toggle-password { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; transition: color 0.2s; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #596f00; padding: 0; width: auto; }
-.toggle-password:hover { text-decoration: underline; }
-.password-hint { font-family: 'Inter', sans-serif; font-style: italic; font-size: 12px; color: #596f00; margin-top: 0.5rem; }
+.input-wrapper .form-input { padding-right: 4rem; }
+.toggle-password { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; transition: color 0.2s; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #2B3B41; padding: 0; width: auto; }
+.password-hint { font-family: 'Inter', sans-serif; font-style: italic; font-size: 12px; color: #2B3B41; margin-top: 0.5rem; }
 .terms-text { font-family: 'Inter', sans-serif; font-size: 12px; margin-bottom: 1.5rem; }
 .text-gray { color: #999898; }
-.text-green { color: #596f00; }
+.text-green { color: #2B3B41; }
 .text-black { color: #000000; }
 
 .btn-submit {
   width: 100%;
   height: 42px;
+  /* CŨ: 66px */
+  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   border: none;
-  border-radius: 5px;
-  background: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
+  border-radius: 10px;
+  color: white;
   font-size: 20px;
-  color: #ffffff;
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeIn 1s 1000ms ease forwards;
+  transition: opacity 0.3s;
   
   /* ============================================= */
   /* ĐÃ THÊM: Căn giữa nội dung (cho spinner) */
@@ -135,31 +137,33 @@ body {
 
 /* ... (Toàn bộ style từ .divider đến @media (max-width: 1024px) giữ nguyên) ... */
 
-.divider { position: relative; text-align: center; margin-bottom: 1.5rem; }
+.divider { position: relative; text-align: center; margin-bottom: 0.75rem; }
 .divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background-color: #d1d5db; }
 .divider span { position: relative; display: inline-block; padding: 0 1rem; background-color: #ffffff; font-family: 'Inter', sans-serif; font-size: 12px; color: #121212; }
-.btn-google { width: 100%; height: 66px; position: relative; display: flex; align-items: center; justify-content: center; border: none; border-radius: 5px; background-color: #ffffff; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; color: #000000; cursor: pointer; transition: background-color 0.2s; }
-.btn-google::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 5px; background: linear-gradient(91deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+.btn-google { width: 100%; height: 42px; position: relative; display: flex; align-items: center; justify-content: center; border: none; border-radius: 5px; background-color: #ffffff; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; color: #000000; cursor: pointer; transition: background-color 0.2s; }
+.btn-google::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 5px;  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
 .btn-google:hover { background-color: #f9fafb; }
 .google-icon { width: 28px; height: 28px; margin-right: 0.5rem; }
 .footer { margin-top: 1rem; text-align: center; font-size: 20px; opacity: 0; transform: translateY(-10px); animation: fadeIn 1s 1600ms ease forwards; }
 .footer-text { color: #121212; }
-.footer-link { font-weight: 700; color: #596f00; text-decoration: none; cursor: pointer; }
+.footer-link { font-weight: 700; color: #72D4A5; text-decoration: none; cursor: pointer; }
 .footer-link:hover { text-decoration: underline; } /* Đổi tên từ .link-login:hover */
 
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .container {
     flex-direction: column;
+    align-items: center;
+
   }
 
   .sidebar {
     width: 100%;
-    height: 150px;
+    height: 10px;
     /* ============================================= */
     /* ĐÃ THAY ĐỔI: Dùng gradient cho mobile (giống login) */
-    background-image: linear-gradient(90deg, rgba(89, 111, 0, 1) 0%, rgba(138, 182, 45, 1) 100%);
+    background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
     background-size: cover; /* Giữ lại phòng trường hợp gradient không load */
     /* ============================================= */
   }
@@ -173,6 +177,17 @@ body {
     width: 100%;
     padding: 2rem;
   }
+  .page-title {
+    font-size: 28px;
+  }
+
+  .welcome-text {
+    font-size: 20px;
+  }
+
+  .brand-name {
+    font-size: 30px;
+  }
 }
 
 /* ... (Toàn bộ @media (max-width: 640px) giữ nguyên) ... */
@@ -185,6 +200,7 @@ body {
   .form-label { font-size: 16px; }
   .btn-submit { font-size: 18px; }
   .footer-text, .footer-link { font-size: 16px; } /* Đổi tên từ .link-login */
+
 }
 
 

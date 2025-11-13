@@ -1,0 +1,143 @@
+<main class="cart-page container mt-5 pt-4">
+<div class="breadcrumb-cart-wrapper">
+  <nav class="breadcrumb">
+    <a routerLink="/">Trang chủ</a>
+    <span>/</span>
+    <span class="current">Giỏ hàng</span>
+  </nav>
+</div>
+
+
+    <section *ngIf="items().length > 0; else emptyCart" class="cart-layout">
+        <!-- DANH SÁCH ITEM -->
+        <div class="cart-items">
+            <div class="cart-item" *ngFor="let item of items(); trackBy: trackById">
+                <div class="cart-item__select">
+                    <input type="checkbox" class="cart-checkbox" />
+                </div>
+
+                <div class="cart-item__image">
+                    <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+                </div>
+
+                <div class="cart-item__content">
+                    <div class="cart-item__top">
+                        <div class="cart-item__header">
+                            <h2 class="cart-item__name">
+                                {{ item.name }}
+                            </h2>
+                            <p class="cart-item__meta">
+                                <span *ngIf="item.brandName">{{ item.brandName }}</span>
+                                <span *ngIf="item.vehicleType">
+                                    · {{ item.vehicleType }}
+                                </span>
+                            </p>
+                            <p class="cart-item__date">
+                                {{ getRentalDateLabel(item) }}
+                            </p>
+                        </div>
+
+                        <div class="cart-item__status">
+                            <span *ngIf="item.availabilityStatus !== false"
+                                class="status-badge status-badge--available">
+                                Có sẵn
+                            </span>
+
+                            <span *ngIf="item.availabilityStatus === false" class="status-badge status-badge--out">
+                                Hết hàng
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cart-item__body">
+                        <!-- Giá / ngày -->
+                        <div class="cart-item__price">
+                            <span class="label">Giá / ngày</span>
+                            <div class="cart-item__price-values">
+                                <span class="price">
+                                    {{ item.finalPricePerDay | number: '1.0-0' }} đ
+                                </span>
+                                <span *ngIf="
+                    item.pricePerDay &&
+                    item.pricePerDay > item.finalPricePerDay
+                  " class="price-old">
+                                    {{ item.pricePerDay | number: '1.0-0' }} đ
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Số lượng -->
+                        <div class="cart-item__qty">
+                            <span class="label">Số lượng</span>
+                            <div class="qty-control">
+                                <button type="button" class="qty-btn" (click)="decrease(item)">
+                                    −
+                                </button>
+                                <span class="qty-value">{{ item.quantity }}</span>
+                                <button type="button" class="qty-btn" (click)="increase(item)">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tạm tính -->
+                        <div class="cart-item__subtotal">
+                            <span class="label">Tạm tính</span>
+                            <div class="subtotal-line">
+                                <span class="subtotal-expression">
+                                    {{ item.finalPricePerDay | number: '1.0-0' }} đ
+                                    × {{ item.totalDays || 1 }} ngày
+                                    × {{ item.quantity }} xe
+                                </span>
+                                <span class="subtotal-value">
+                                    {{ item.subtotal | number: '1.0-0' }} đ
+                                </span>
+                            </div>
+                            <button type="button" class="link-remove" (click)="remove(item)">
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="cart-clear" (click)="clear()">
+                Xóa toàn bộ giỏ
+            </button>
+        </div>
+
+        <!-- THANH TÓM TẮT DƯỚI CÙNG -->
+        <div class="cart-footer-bar">
+            <div class="cart-footer-left">
+                <label class="select-all">
+                    <input type="checkbox" class="cart-checkbox" />
+                    <span>Tất cả</span>
+                </label>
+            </div>
+
+            <div class="cart-footer-right">
+                <div class="cart-footer-total">
+                    <span class="label">Tổng cộng</span>
+                    <span class="cart-footer-price">
+                        {{ totalAmount() | number: '1.0-0' }} đ
+                    </span>
+                </div>
+                <button type="button" class="cart-footer-btn" [routerLink]="['/checkout']">
+                    Thanh toán ({{ totalQuantity() }})
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <ng-template #emptyCart>
+        <section class="cart-empty text-center">
+            <h2>Giỏ xe đang trống</h2>
+            <p>
+                Thêm vài chiếc xe điện trước khi tính chuyện đi chơi xa.
+            </p>
+            <a routerLink="/rent" class="btn-primary-link">
+                Bắt đầu thuê xe
+            </a>
+        </section>
+    </ng-template>
+</main>
