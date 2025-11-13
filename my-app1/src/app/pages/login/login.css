@@ -20,14 +20,15 @@ body {
 
 .left-panel {
   width: 50%;
+  height: 100vh;
   /* ============================================= */
   /* ĐÃ THAY ĐỔI: Thay màu đỏ bằng ảnh nền */
-  background: url('../../../assets/images/products/datbike-weaver200.jpg') no-repeat center center;
-  background-size: cover;
+  /* background: url('../../../assets/images/products/datbike-weaver200.jpg') no-repeat center center;
+  background-size: cover; */
   position: relative;
   /* ============================================= */
   background: url('/my-app1/src/assets/images/background-log-in.jpg') center/cover no-repeat;
-  background: #d75656;
+  /* background: #d75656; */
 }
 
 /* THÊM MỚI: Lớp phủ mờ cho ảnh nền */
