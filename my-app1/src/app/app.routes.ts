@@ -276,28 +276,24 @@ export const routes: Routes = [
       },
 
       // Sau này có about thì mở thêm
-{
-  path: 'about',
-  loadComponent: () =>
-    import('./pages/about/about').then(m => m.About),
-  children: [
-    {
-      path: 'policy',
-      loadComponent: () =>
-        import('./pages/policy/policy').then(m => m.Policy),
-    },
-    {
-      path: 'guide',
-      loadComponent: () =>
-        import('./pages/guide/guide').then(m => m.Guide),
-    },
-    {
-      path: 'contact',
-      loadComponent: () =>
-        import('./pages/contact/contact').then(m => m.Contact),
-    },
-  ],
-}
+      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
+      // Thông tin chung 
+      {
+        path: 'policy',
+        loadComponent: () =>
+          import('./pages/policy/policy').then(m => m.Policy),
+      },
+      {
+        path: 'guide',
+        loadComponent: () =>
+          import('./pages/guide/guide').then(m => m.Guide),
+      },
+      {
+        path: 'contact',
+        loadComponent: () =>
+          import('./pages/contact/contact').then(m => m.Contact),
+      },
+
     ],
   },
 

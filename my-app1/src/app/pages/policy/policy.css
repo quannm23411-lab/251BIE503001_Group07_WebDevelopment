@@ -19,3 +19,29 @@
     padding-left: 16px;
   }
 }
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.breadcrumb-link {
+  color: #2dbf83;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  margin: 0 6px;
+  color: #666;
+}
+
+.breadcrumb-current {
+  color: #444;
+  font-weight: 600;
+}
