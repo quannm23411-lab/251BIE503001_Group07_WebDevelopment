@@ -10,6 +10,13 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.nav {
+  background-color: #3b8661;
+  display: flex;
+  justify-content: center;
+  margin-top: 2px; /* thêm nhẹ để đường tiếp giáp không “cắt” mép bo */
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -67,9 +74,11 @@ body {
 .header__controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0;
   flex: 1 1 auto;
-  min-width: 0; /* cho phép co lại */
+  min-width: 0;
+  /* THÊM DÒNG NÀY: tạo khe với thanh nav */
+  margin-bottom: 8px;
 }
 
 /* Location */
@@ -78,8 +87,10 @@ body {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  border-radius: 8px;
+  /* bo tròn bên trái */
+  border-radius: 999px 0 0 999px;
   border: 1px solid #e0e0e0;
+  border-right: 0;
   background: #fff;
   cursor: pointer;
   font-weight: 600;
@@ -111,9 +122,11 @@ body {
   display: flex;
   align-items: center;
   background: #fff;
-  border-radius: 10px;
+  /* bo tròn bên phải để dính với btn-loc thành 1 khối */
+  border-radius: 0 999px 999px 0;
   border: 1px solid #e0e0e0;
-  flex: 1 1 260px;       /* co giãn theo không gian còn lại */
+  border-left: 0;
+  flex: 1 1 260px;
   width: auto;
   max-width: 520px;
   transition: max-width 0.3s ease;
@@ -390,7 +403,7 @@ body {
   transform: translateY(0);
 }
 
-.nav__rent:hover > .nav__link {
+.nav__rent:hover>.nav__link {
   color: #ffeb3b;
 }
 
@@ -410,7 +423,7 @@ body {
 /* Tablet ngang ~ 992px */
 @media (max-width: 992px) {
   .nav__welcome {
-    display: none; /* bớt text để khỏi chật */
+    display: none;
   }
 
   .header__middle {
@@ -419,12 +432,12 @@ body {
   }
 
   .header__search {
-    max-width: none;  /* cho full cột giữa */
+    max-width: none;
     flex: 1 1 auto;
   }
 
   .header__controls {
-    gap: 8px;
+    gap: 0;
   }
 
   .header__actions {
@@ -449,7 +462,9 @@ body {
 
   .header__search {
     max-width: none;
-    flex: 1 1 auto;
+    border-radius: 999px;
+    /* khi ẩn location thì search tự bo full pill */
+    border-left: 1px solid #e0e0e0;
   }
 }
 
@@ -474,23 +489,19 @@ body {
     column-gap: 8px;
   }
 
-  /* Logo thu nhỏ một chút cho gọn */
   .header__logo img {
     width: 110px;
     height: auto;
   }
 
-  /* Ẩn toàn bộ khối location + search */
   .header__controls {
     display: none;
   }
 
-  /* Ẩn lời chào user */
   .nav__welcome {
     display: none;
   }
 
-  /* Cart + Đăng xuất nằm sát nhau bên phải */
   .header__actions {
     gap: 8px;
     justify-content: flex-end;
