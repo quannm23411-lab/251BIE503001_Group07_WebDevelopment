@@ -65,11 +65,22 @@
 
 
   <!-- PROMO BANNER -->
-  <section class="container my-5">
-    <app-promo-banner [active]="promo.active" [code]="promo.code" [amount]="promo.amount" [endDate]="promo.endDate"
+<section class="promo-wrapper">
+
+  <div class="promo-custom">
+    <img class="promo-image" src="assets/images/homepage/promo-gift.png" alt="Promo Image">
+
+    <app-promo-banner
+      [active]="promo.active"
+      [code]="promo.code"
+      [amount]="promo.amount"
+      [endDate]="promo.endDate"
       variant="red">
     </app-promo-banner>
-  </section>
+  </div>
+
+</section>
+
 
   <!-- MOTORBIKE -->
   <section class="category container py-4">
