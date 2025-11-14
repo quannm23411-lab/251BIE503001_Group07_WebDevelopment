@@ -17,63 +17,75 @@
   </section>
 
   <!-- HERO / TOP RENT -->
-<section class="top-rent container py-5">
-  <div class="section-title">Thuê nhiều tháng này</div>
-  <p class="section-subtitle">Top các loại xe có lượt thuê cao trong tháng</p>
+  <section class="top-rent container py-5">
+    <div class="section-title">Thuê nhiều tháng này</div>
+    <p class="section-subtitle">Top các loại xe có lượt thuê cao trong tháng</p>
 
-  <div class="product-grid">
-    <ng-container *ngIf="topRentList.length > 0; else noTop">
-      <a
-        class="product-card position-relative"
-        *ngFor="let p of topRentList"
-        [routerLink]="['/rent', p.id]"
-      >
-        <!-- Badge giảm giá nếu có -->
-        <span
-          *ngIf="p.discount && p.discount > 0"
-          class="badge bg-danger position-absolute top-0 start-0 m-2"
-        >
-          -{{ p.discount }}%
-        </span>
+    <div class="carousel-wrapper">
 
-        <!-- Hình sản phẩm -->
-        <img
-          class="product-card__img"
-          [ngSrc]="getImg(p, 'card')"
-          [width]="getSize('card').w"
-          [height]="getSize('card').h"
-          [alt]="p.vehicleName || 'Sản phẩm'"
-          loading="lazy"
-        />
+      <!-- Nút trái -->
+      <button class="carousel-arrow left" (click)="scrollLeft()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
 
-        <!-- Tên xe -->
-        <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+      <!-- Danh sách sản phẩm -->
+      <div class="carousel" #carousel>
+        <a class="product-card" *ngFor="let p of topRentList" [routerLink]="['/rent', p.id]">
+          <!-- Badge giảm giá -->
+          <span *ngIf="p.discount && p.discount > 0" class="home-badge">
+            -{{ p.discount }}%
+          </span>
+          <div class="product-img-wrapper">
+            <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+              [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
-        <!-- Giá -->
-        <p class="product-card__price">
-          Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-        </p>
+            <h3 class="product-card__name">{{ p.vehicleName }}</h3>
 
-        <!-- Trạng thái -->
-        <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
-          {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-        </small>
-      </a>
-    </ng-container>
+            <p class="product-card__price">
+              Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+            </p>
 
-    <ng-template #noTop>
-      <p class="text-muted">Chưa có xe phù hợp.</p>
-    </ng-template>
-  </div>
-</section>
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+          </div>
+
+
+          <div class="product-features" *ngIf="p.details?.features?.length">
+            <div class="feature-item" *ngFor="let f of p.details.features">
+              <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
+              <span>{{ f }}</span>
+            </div>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- Nút phải -->
+      <button class="carousel-arrow right" (click)="scrollRight()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+
+    </div>
+  </section>
 
 
   <!-- PROMO BANNER -->
-  <section class="container my-5">
-    <app-promo-banner [active]="promo.active" [code]="promo.code" [amount]="promo.amount" [endDate]="promo.endDate"
+<section class="promo-wrapper">
+
+  <div class="promo-custom">
+    <img class="promo-image" src="assets/images/homepage/promo-gift.png" alt="Promo Image">
+
+    <app-promo-banner
+      [active]="promo.active"
+      [code]="promo.code"
+      [amount]="promo.amount"
+      [endDate]="promo.endDate"
       variant="red">
     </app-promo-banner>
-  </section>
+  </div>
+
+</section>
 
   <!-- MOTORBIKE -->
   <section class="category container py-4">
@@ -195,7 +207,7 @@
     </div>
   </section>
 
-  <<!-- KHÁCH HÀNG NÓI GÌ VỀ ECOMOVE -->
+  <!-- KHÁCH HÀNG NÓI GÌ VỀ ECOMOVE -->
     <section class="container py-5 testimonials-section">
       <h3 class="section-title">Khách hàng nói gì về EcoMOVE</h3>
 
