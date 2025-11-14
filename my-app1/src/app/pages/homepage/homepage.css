@@ -65,128 +65,8 @@ body {
 .section-subtitle {
   text-align: center;
   color: var(--muted);
-  font-size: 14.5px;
-  margin-bottom: var(--space-lg);
-}
-/* ===============================
-   TOP RENT – GIỐNG RELATED CARD
-================================*/
-.top-rent-section {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.top-rent-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  margin-top: 20px;
-}
-
-/* CARD COPY Y CHANG RELATED */
-.top-rent-grid .product-card {
-  flex: none;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  text-decoration: none;
-  color: #111;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.top-rent-grid .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.top-rent-grid .product-card .image {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-}
-
-.top-rent-grid .product-card .image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.top-rent-grid .product-card .discount {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #c10016;
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 6px;
-}
-
-/* FEATURES */
-.top-rent-grid .product-card__features {
-  background: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
-  color: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 8px;
-  font-weight: 500;
-}
-
-.top-rent-grid .product-card__features span {
-  display: inline-block;
-  white-space: nowrap;
-  font-size: 12px;
-  width: 48%;
-  margin-bottom: 6px;
-  text-align: left;
-}
-
-.top-rent-grid .product-card__features i {
-  margin-right: 6px;
-  font-size: 14px;
-}
-
-.top-rent-grid .product-card .details {
-  padding: 14px 16px;
-}
-
-.top-rent-grid .product-card .name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 4px;
-}
-
-.top-rent-grid .product-card .meta {
-  font-size: 13px;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.top-rent-grid .product-card .price {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.top-rent-grid .product-card .price .now {
-  color: #1c3830;
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.top-rent-grid .product-card .price .old {
-  color: #999;
-  text-decoration: line-through;
-  font-size: 13px;
+  font-size: 15.5px;
+  margin-bottom: 0.2rem;
 }
 
 /* RESPONSIVE */
@@ -212,6 +92,59 @@ body {
 /* =========================================
    PRODUCT GRID & CARD
 ========================================= */
+/* --- Layout chung --- */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Mũi tên qua lại --- */
+.carousel-arrow {
+  border: none;
+  background: rgba(217, 217, 217, 0.46);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  width: 35px;
+  height: 96px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.carousel-arrow:hover {
+  background: #f2f2f2;
+}
+
+.carousel-arrow.left {
+  margin-right: -10px;
+}
+
+.carousel-arrow.right {
+  margin-left: -10px;
+}
+
+.carousel-arrow i {
+  font-size: 22px;
+  color: #333;
+}
+
 .product-grid {
   display: grid;
   gap: 22px;
@@ -220,38 +153,62 @@ body {
 }
 
 .product-card {
+
   position: relative;
-  background: var(--card);
-  border-radius: var(--radius);
-  text-align: center;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding-top: 0px !important;
+  margin-top: 0px !important;
+  flex: 0 0 360px;
+  background: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
+  padding: 0.2rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+
+  background: #e53935;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
-
-.product-card__img {
+.product-img-wrapper {
   width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  text-align: left;
+}
+.product-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: contain;
-  background: var(--card);
-  padding: 16px 10px 0;
+  padding: 2%;
 }
 
 .product-card__name {
   margin: 8px 0 4px;
   font-weight: 700;
   font-size: 1rem;
-  color: var(--ink);
+  color: #121212;
 }
 
 .product-card__price {
   font-size: 0.9rem;
-  color: var(--muted);
+  color: #121212;
 }
 
 .product-card__price span {
@@ -259,14 +216,76 @@ body {
   font-weight: 700;
   font-size: 1rem;
 }
-
-/* =========================================
-   PROMO BANNER (component padding wrapper)
-========================================= */
-.promo-banner {
-  border-radius: var(--radius);
-  margin: var(--space-xl) 0;
+.product-card .product-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px 0;
+  padding-left: 3%;
+  padding-right: 3%;
+  gap: 0;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 0 0 12px 12px;
 }
+.product-card .feature-item {
+  padding: 5px 8px;
+}
+/* Bỏ viền cột cuối */
+.product-card .feature-item:last-child {
+  border-right: none;
+}
+/* ===============================
+   PROMO BANNER WRAPPER STYLE
+=============================== */
+.promo-wrapper {
+  position: relative;
+  margin: 30px 0;
+}
+
+.promo-custom {
+  position: relative;
+}
+
+.promo-image {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-40%);
+  width: 25%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  z-index: 10;
+}
+
+.promo-wrapper {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.promo-wrapper app-promo-banner {
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+  background: linear-gradient(-90deg, #FFFFFF 0%, #45B880 100%) !important;
+  padding: 22px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  position: relative;
+}
+
+
+
+/* responsive */
+@media (max-width: 768px) {
+  .promo-wrapper app-promo-banner {
+    padding: 18px;
+    border-radius: 14px;
+  }
+}
+
 
 /* =========================================
    BENEFITS SECTION
@@ -285,8 +304,8 @@ body {
   border-radius: 15px;
   padding: 30px 32px;
   transition: all 0.25s ease;
-   min-height: 150px;
-     box-shadow: none;
+  min-height: 150px;
+  box-shadow: none;
 }
 
 .benefit-card:hover {
@@ -344,9 +363,9 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 15px;
   box-shadow: var(--shadow);
-   padding: 30px 32px;
+  padding: 30px 32px;
   transition: all 0.25s ease;
-   min-height: 150px;
+  min-height: 150px;
 }
 
 .step:hover {
@@ -357,7 +376,7 @@ body {
 .step-number {
   position: absolute;
   top: -20px;
-left: -12px;
+  left: -12px;
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -411,15 +430,16 @@ left: -12px;
 .testimonials {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px; /* khoảng cách giữa 2 ô */
-    margin-top: 24px;
+  gap: 40px;
+  /* khoảng cách giữa 2 ô */
+  margin-top: 24px;
 }
 
 .testi {
   background: var(--card);
   border: 1px solid #e5e7eb;
   border-radius: 15px;
-   padding: 30px 32px;
+  padding: 30px 32px;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
@@ -478,8 +498,8 @@ left: -12px;
   display: grid;
   gap: var(--space-md);
   grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px 32px; 
-    margin-top: var(--space-lg);
+  gap: 24px 32px;
+  margin-top: var(--space-lg);
 }
 
 .faq details {
@@ -488,7 +508,7 @@ left: -12px;
   border-radius: var(--radius);
   padding: 0;
   overflow: hidden;
-    box-shadow: none; 
+  box-shadow: none;
 }
 
 .faq summary {
@@ -498,7 +518,7 @@ left: -12px;
   font-weight: 700;
   color: var(--ink);
   position: relative;
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .faq summary::-webkit-details-marker {
@@ -535,8 +555,8 @@ left: -12px;
   overflow: hidden;
   text-align: center;
   padding: 100px 20px 120px;
-  padding-top: 160px; 
-  margin-bottom: 0; 
+  padding-top: 160px;
+  margin-bottom: 0;
 }
 
 /* --- Nền trang trí hình tròn --- */
@@ -584,13 +604,14 @@ left: -12px;
   /* thêm lớp mờ đè để tạo cảm giác layer chồng */
   content: "";
   position: absolute;
-    width: 220px;
+  width: 220px;
   height: 220px;
   bottom: -150px;
   right: -80px;
   border-radius: 50%;
   background: rgba(51, 76, 76, 0.6);
 }
+
 /* --- Nội dung CTA --- */
 .cta-content {
   position: relative;
@@ -653,6 +674,7 @@ left: -12px;
   .steps {
     gap: 24px;
   }
+
   .cta {
     padding: 80px 16px 100px;
   }
@@ -738,7 +760,8 @@ left: -12px;
     height: 38px;
     font-size: 16px;
   }
-    .cta {
+
+  .cta {
     padding: 70px 20px 80px;
   }
 
@@ -822,7 +845,8 @@ left: -12px;
   .faq details {
     padding: 0;
   }
-    .cta {
+
+  .cta {
     padding: 60px 16px 70px;
   }
 
