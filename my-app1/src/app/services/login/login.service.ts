@@ -83,7 +83,8 @@ export class LoginService {
               birthdate: customer?.ngaySinh || '',
               address: customer
                 ? `${customer.diaChi.soNhaDuong}, ${customer.diaChi.phuongXa}, ${customer.diaChi.quanHuyen}, ${customer.diaChi.tinhThanh}`
-                : ''
+                : '',
+              driverLicense: customer?.thongTinBangLai?.soBangLai || ''
             };
 
             // lưu profile chi tiết cho các trang Account

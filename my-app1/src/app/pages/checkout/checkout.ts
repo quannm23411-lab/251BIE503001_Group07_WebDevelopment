@@ -8,12 +8,19 @@ interface CheckoutForm {
     fullName: string;
     phone: string;
     email: string;
-    nationalId: string;
+    nationalId: string;        // dùng cho SỐ BẰNG LÁI (khách chính)
     pickupLocation: string;
     pickupTime: string;
     returnTime: string;
     paymentMethod: string;
     note: string;
+}
+
+interface ReceiverForm {
+    fullName: string;
+    phone: string;
+    nationalId: string;        // CCCD / bằng lái người nhận
+    noteForDriver: string;
 }
 
 @Component({
@@ -27,7 +34,7 @@ export class Checkout {
     private cart = inject(CartService);
     private router = inject(Router);
 
-    // form model (KHÔNG dùng signal để tránh lỗi [(ngModel)])
+    // form người đặt (chỉ đọc, trừ ghi chú)
     form: CheckoutForm = {
         fullName: '',
         phone: '',
@@ -36,9 +43,20 @@ export class Checkout {
         pickupLocation: '',
         pickupTime: '',
         returnTime: '',
-        paymentMethod: 'cod',
+        paymentMethod: 'cash',
         note: '',
     };
+
+    // form người nhận
+    receiver: ReceiverForm = {
+        fullName: '',
+        phone: '',
+        nationalId: '',
+        noteForDriver: '',
+    };
+
+    // toggle: người nhận giống người đặt?
+    receiverSameAsCustomer = true;
 
     // state hiển thị
     isSubmitting = signal(false);
@@ -61,6 +79,17 @@ export class Checkout {
         this.selectedItems().reduce((sum, item) => sum + (item.subtotal || 0), 0)
     );
 
+    // số tiền giảm giá (sau này xử lý voucher thì set lại signal này)
+    discountAmount = signal(0);
+
+    // số tiền thực tế phải thanh toán = tổng - giảm giá (không âm)
+    readonly payableAmount = computed(() => {
+        const total = this.selectedTotalAmount();
+        const discount = this.discountAmount();
+        const result = total - discount;
+        return result > 0 ? result : 0;
+    });
+
     // helper format tiền
     vnd(n: number | null | undefined): string {
         if (n == null) return '0₫';
@@ -72,7 +101,7 @@ export class Checkout {
     }
 
     constructor() {
-        // đọc selectedIds được truyền từ trang Cart
+        // đọc selectedIds được truyền từ Cart
         const nav = this.router.getCurrentNavigation();
         const state = (nav?.extras.state || {}) as { selectedIds?: string[] };
         const ids = state?.selectedIds;
@@ -80,17 +109,38 @@ export class Checkout {
         const all = this.cartItems();
 
         if (ids && ids.length > 0) {
-            // lọc lại đúng những item được tick trong cart
             const subset = all.filter(it => ids.includes(it.id));
             this.selectedItems.set(subset);
         } else {
-            // TH user gõ thẳng /checkout, hoặc reload F5:
-            // nếu trong giỏ còn hàng → cho thanh toán hết,
-            // nếu giỏ trống → đá về /cart
             if (all.length > 0) {
                 this.selectedItems.set(all);
             } else {
                 this.router.navigate(['/cart']);
+            }
+        }
+
+        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile
+        if (typeof localStorage !== 'undefined') {
+            const raw = localStorage.getItem('eco_profile');
+            if (raw) {
+                try {
+                    const profile = JSON.parse(raw);
+                    this.form.fullName = profile.fullname || '';
+                    this.form.phone = profile.phone || '';
+                    this.form.email = profile.email || '';
+                    // ưu tiên lấy số bằng lái nếu đã map ở profile
+                    this.form.nationalId =
+                        profile.driverLicense ||
+                        profile.licenseNumber ||
+                        profile.nationalId ||
+                        '';
+
+                    if (!this.form.note && profile.address) {
+                        this.form.note = `Địa chỉ khách: ${profile.address}`;
+                    }
+                } catch {
+                    // méo JSON thì thôi khỏi fill, khỏi làm quá
+                }
             }
         }
     }
@@ -107,12 +157,16 @@ export class Checkout {
 
         this.isSubmitting.set(true);
 
-        // giả lập tạo đơn
         const code = 'ECM-' + Date.now().toString().slice(-6);
         this.orderCode.set(code);
         this.createdAt.set(new Date());
 
-        // clear GIỎ sau khi đặt thành công
+        // ở đây nếu cần gửi backend thì gom data:
+        // const customerInfo = { ...this.form };
+        // const receiverInfo = this.receiverSameAsCustomer
+        //   ? customerInfo
+        //   : this.receiver;
+
         this.cart.clear();
         this.selectedItems.set([]);
 
