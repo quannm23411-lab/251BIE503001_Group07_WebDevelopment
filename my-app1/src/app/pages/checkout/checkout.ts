@@ -1,19 +1,26 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CartService } from '../../services/cart.services';
+import { CartService, CartItem } from '../../services/cart.services';
 
 interface CheckoutForm {
     fullName: string;
     phone: string;
     email: string;
-    nationalId: string;
+    nationalId: string;        // dùng cho SỐ BẰNG LÁI (khách chính)
     pickupLocation: string;
     pickupTime: string;
     returnTime: string;
     paymentMethod: string;
     note: string;
+}
+
+interface ReceiverForm {
+    fullName: string;
+    phone: string;
+    nationalId: string;        // CCCD / bằng lái người nhận
+    noteForDriver: string;
 }
 
 @Component({
@@ -27,7 +34,7 @@ export class Checkout {
     private cart = inject(CartService);
     private router = inject(Router);
 
-    // form model (KHÔNG dùng signal để tránh lỗi [(ngModel)])
+    // form người đặt (chỉ đọc, trừ ghi chú)
     form: CheckoutForm = {
         fullName: '',
         phone: '',
@@ -36,9 +43,20 @@ export class Checkout {
         pickupLocation: '',
         pickupTime: '',
         returnTime: '',
-        paymentMethod: 'cod',
+        paymentMethod: 'cash',
         note: '',
     };
+
+    // form người nhận
+    receiver: ReceiverForm = {
+        fullName: '',
+        phone: '',
+        nationalId: '',
+        noteForDriver: '',
+    };
+
+    // toggle: người nhận giống người đặt?
+    receiverSameAsCustomer = true;
 
     // state hiển thị
     isSubmitting = signal(false);
@@ -46,10 +64,31 @@ export class Checkout {
     orderCode = signal<string | null>(null);
     createdAt = signal<Date | null>(null);
 
-    // shortcuts lấy dữ liệu giỏ hàng
-    cartItems = this.cart.items;          // signal<CartItem[]>
-    totalQuantity = this.cart.totalQuantity; // computed
-    totalAmount = this.cart.totalAmount;     // computed
+    // toàn bộ item trong giỏ (signal từ CartService)
+    readonly cartItems = this.cart.items;
+
+    // danh sách item thực sự đem đi thanh toán (subset theo tick)
+    readonly selectedItems = signal<CartItem[]>([]);
+
+    // tổng SL / tổng tiền theo selectedItems
+    readonly selectedTotalQuantity = computed(() =>
+        this.selectedItems().reduce((sum, item) => sum + (item.quantity || 0), 0)
+    );
+
+    readonly selectedTotalAmount = computed(() =>
+        this.selectedItems().reduce((sum, item) => sum + (item.subtotal || 0), 0)
+    );
+
+    // số tiền giảm giá (sau này xử lý voucher thì set lại signal này)
+    discountAmount = signal(0);
+
+    // số tiền thực tế phải thanh toán = tổng - giảm giá (không âm)
+    readonly payableAmount = computed(() => {
+        const total = this.selectedTotalAmount();
+        const discount = this.discountAmount();
+        const result = total - discount;
+        return result > 0 ? result : 0;
+    });
 
     // helper format tiền
     vnd(n: number | null | undefined): string {
@@ -58,7 +97,52 @@ export class Checkout {
     }
 
     get hasItems(): boolean {
-        return (this.cartItems() ?? []).length > 0;
+        return this.selectedItems().length > 0;
+    }
+
+    constructor() {
+        // đọc selectedIds được truyền từ Cart
+        const nav = this.router.getCurrentNavigation();
+        const state = (nav?.extras.state || {}) as { selectedIds?: string[] };
+        const ids = state?.selectedIds;
+
+        const all = this.cartItems();
+
+        if (ids && ids.length > 0) {
+            const subset = all.filter(it => ids.includes(it.id));
+            this.selectedItems.set(subset);
+        } else {
+            if (all.length > 0) {
+                this.selectedItems.set(all);
+            } else {
+                this.router.navigate(['/cart']);
+            }
+        }
+
+        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile
+        if (typeof localStorage !== 'undefined') {
+            const raw = localStorage.getItem('eco_profile');
+            if (raw) {
+                try {
+                    const profile = JSON.parse(raw);
+                    this.form.fullName = profile.fullname || '';
+                    this.form.phone = profile.phone || '';
+                    this.form.email = profile.email || '';
+                    // ưu tiên lấy số bằng lái nếu đã map ở profile
+                    this.form.nationalId =
+                        profile.driverLicense ||
+                        profile.licenseNumber ||
+                        profile.nationalId ||
+                        '';
+
+                    if (!this.form.note && profile.address) {
+                        this.form.note = `Địa chỉ khách: ${profile.address}`;
+                    }
+                } catch {
+                    // méo JSON thì thôi khỏi fill, khỏi làm quá
+                }
+            }
+        }
     }
 
     onSubmit(formRef: NgForm) {
@@ -73,17 +157,25 @@ export class Checkout {
 
         this.isSubmitting.set(true);
 
-        // giả lập tạo đơn
         const code = 'ECM-' + Date.now().toString().slice(-6);
         this.orderCode.set(code);
         this.createdAt.set(new Date());
 
-        // clear giỏ sau khi đặt thành công
+        // ở đây nếu cần gửi backend thì gom data:
+        // const customerInfo = { ...this.form };
+        // const receiverInfo = this.receiverSameAsCustomer
+        //   ? customerInfo
+        //   : this.receiver;
+
         this.cart.clear();
+        this.selectedItems.set([]);
 
         this.isSubmitting.set(false);
         this.isSuccess.set(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     backToRent() {

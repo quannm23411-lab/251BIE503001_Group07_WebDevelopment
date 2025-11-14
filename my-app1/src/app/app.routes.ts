@@ -196,39 +196,51 @@ export const routes: Routes = [
 
       // Trang tài khoản khách hàng
       {
-        path: 'account',
-        children: [
-          { path: '', redirectTo: 'profile', pathMatch: 'full' },
-          {
-            path: 'profile',
-            loadComponent: () =>
-              import('./pages/account/profile/profile-view').then(
-                m => m.ProfileView
-              ),
-          },
-          {
-            path: 'profile/edit',
-            loadComponent: () =>
-              import('./pages/account/profile/profile-edit').then(
-                m => m.ProfileEdit
-              ),
-          },
-          {
-            path: 'orders',
-            loadComponent: () =>
-              import('./pages/account/orders/orders').then(
-                m => m.AccountOrders
-              ),
-          },
-          {
-            path: 'review/:id',
-            loadComponent: () =>
-              import('./pages/account/review/review').then(
-                m => m.AccountReview
-              ),
-          },
-        ],
-      },
+  path: 'account',
+  children: [
+    { path: '', redirectTo: 'profile', pathMatch: 'full' },
+
+    {
+      path: 'profile',
+      loadComponent: () =>
+        import('./pages/account/profile/profile-view').then(
+          m => m.AccountProfileView
+        ),
+    },
+    {
+      path: 'profile/edit',
+      loadComponent: () =>
+        import('./pages/account/profile/profile-edit').then(
+          m => m.AccountProfileEdit
+        ),
+    },
+    {
+      path: 'orders',
+      loadComponent: () =>
+        import('./pages/account/orders/orders').then(
+          m => m.AccountOrders
+        ),
+    },
+
+    // ⭐ THÊM ROUTE NÀY
+    {
+      path: 'review/:id/write',
+      loadComponent: () =>
+        import('./pages/account/review/review-write').then(
+          m => m.AccountReviewWrite
+        ),
+    },
+
+    {
+      path: 'review/:id',
+      loadComponent: () =>
+        import('./pages/account/review/review').then(
+          m => m.AccountReview
+        ),
+    },
+  ],
+},
+
 
       // BLOG
       {
@@ -301,7 +313,7 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () =>
-          import('./pages/contact/contact').then(m => m.Contact),
+          import('./pages/contact-page/contact-page').then(m => m.ContactPage),
       },
 
     ],

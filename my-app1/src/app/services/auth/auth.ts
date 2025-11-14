@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 export type UserRole = 'admin' | 'customer';
+
 export interface AuthUser {
   id?: number;
   email: string;
@@ -12,9 +13,12 @@ export interface AuthUser {
 @Injectable({ providedIn: 'root' })
 export class Auth {
   private storageKey = 'authUser';
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
-  private get isBrowser() { return isPlatformBrowser(this.platformId); }
+  private get isBrowser() {
+    return isPlatformBrowser(this.platformId);
+  }
 
   login(user: AuthUser) {
     if (!this.isBrowser) return;

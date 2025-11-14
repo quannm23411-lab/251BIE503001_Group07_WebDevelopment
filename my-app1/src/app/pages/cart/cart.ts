@@ -2,6 +2,8 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
+import { Auth } from '../../services/auth/auth'; // ✅ chỉ import Auth, KHÔNG inject AuthUser
+
 
 @Component({
     selector: 'app-cart-page',
@@ -13,6 +15,7 @@ import { CartService, CartItem } from '../../services/cart.services';
 export class CartPage {
     private cart = inject(CartService);
     private router = inject(Router);
+    private auth = inject(Auth); // 👈 THÊM DÒNG NÀY
 
     // Signals từ CartService
     readonly items = this.cart.items;
@@ -23,15 +26,19 @@ export class CartPage {
     // SELECTION STATE
     // =========================
 
-    /** Lưu danh sách productId đang được tick */
+    /** Lưu danh sách id của từng dòng trong giỏ (id = productId_start_end) */
     readonly selectedIds = signal<Set<string>>(new Set());
 
-    /** Flag: lần đầu vào từ product-detail, auto chọn item nhưng KHÔNG tick "Tất cả" */
-    private autoSelectedFromState = false;
+    /** Trạng thái riêng cho checkbox "Tất cả" (không auto sync theo item) */
+    readonly selectAllChecked = signal(false);
 
-    /** Key dùng cho selection: ưu tiên productId, fallback về id */
+    /** Key dùng cho selection: luôn theo id của dòng cart */
     private getKey(item: CartItem): string {
-        return String((item as any).productId ?? item.id);
+        return item.id;
+    }
+
+    getSelectedIdsArray() {
+        return Array.from(this.selectedIds());
     }
 
     constructor() {
@@ -40,12 +47,7 @@ export class CartPage {
 
         if (state.autoSelectId) {
             this.selectedIds.set(new Set([String(state.autoSelectId)]));
-            this.autoSelectedFromState = true;
         }
-    }
-
-    trackById(index: number, item: CartItem) {
-        return item.id;
     }
 
     // ========== DATE LABEL ==========
@@ -71,6 +73,10 @@ export class CartPage {
     }
 
     // ========== CART ACTIONS ==========
+    trackById(index: number, item: CartItem) {
+        return item.id;
+    }
+
     increase(item: CartItem) {
         this.cart.updateQuantity(item.id, item.quantity + 1);
     }
@@ -85,11 +91,34 @@ export class CartPage {
         const next = new Set(this.selectedIds());
         next.delete(this.getKey(item));
         this.selectedIds.set(next);
+        this.selectAllChecked.set(false);
     }
 
     clear() {
         this.cart.clear();
         this.selectedIds.set(new Set());
+        this.selectAllChecked.set(false);
+    }
+
+    onCheckoutClick() {
+        const selectedIds = this.getSelectedIdsArray
+            ? this.getSelectedIdsArray()
+            : Array.from(this.selectedIds?.() ?? []);
+
+        if (!selectedIds.length) {
+            return;
+        }
+
+        if (this.auth.isLoggedIn()) {
+            this.router.navigate(['/checkout'], {
+                state: { selectedIds }
+            });
+        } else {
+            this.router.navigate(['/login'], {
+                queryParams: { returnUrl: '/checkout' },
+                state: { selectedIds }
+            });
+        }
     }
 
     // ========== SELECTION HELPERS ==========
@@ -99,8 +128,6 @@ export class CartPage {
     }
 
     toggleItem(item: CartItem, checked: boolean) {
-        this.autoSelectedFromState = false; // từ đây trở đi user tự control
-
         const next = new Set(this.selectedIds());
         const key = this.getKey(item);
 
@@ -111,31 +138,15 @@ export class CartPage {
         }
 
         this.selectedIds.set(next);
-    }
-
-    isAllSelected(): boolean {
-        if (this.autoSelectedFromState) return false; // không auto tick "Tất cả"
-
-        const list = this.items();
-        const selected = this.selectedIds();
-        return list.length > 0 && selected.size === list.length;
-    }
-
-    isIndeterminate(): boolean {
-        if (this.autoSelectedFromState) return false; // cũng không cho trạng thái lửng lơ
-
-        const list = this.items();
-        const selected = this.selectedIds();
-        return selected.size > 0 && selected.size < list.length;
+        // User đã thao tác từng item thì "Tất cả" phải tự tắt
+        this.selectAllChecked.set(false);
     }
 
     toggleSelectAll(checked: boolean) {
-        this.autoSelectedFromState = false; // từ lúc user click thì bỏ chế độ auto
+        this.selectAllChecked.set(checked);
 
         if (checked) {
-            const all = new Set<string>(
-                this.items().map(it => this.getKey(it))
-            );
+            const all = new Set<string>(this.items().map(it => this.getKey(it)));
             this.selectedIds.set(all);
         } else {
             this.selectedIds.set(new Set());

@@ -113,8 +113,8 @@
 
             <div class="cart-footer-left">
                 <label class="select-all">
-                    <input type="checkbox" class="cart-checkbox" [checked]="isAllSelected()"
-                        [indeterminate]="isIndeterminate()" (change)="toggleSelectAll($any($event.target).checked)" />
+                    <input type="checkbox" class="cart-checkbox" [checked]="selectAllChecked()"
+                        (change)="toggleSelectAll($any($event.target).checked)" />
                     <span>Tất cả</span>
                 </label>
             </div>
@@ -127,8 +127,8 @@
                     </span>
                 </div>
 
-                <button type="button" class="cart-footer-btn" [routerLink]="['/checkout']"
-                    [disabled]="selectedTotalQuantity() === 0">
+                <button class="cart-footer__checkout-btn" [disabled]="selectedTotalQuantity() === 0"
+                    (click)="onCheckoutClick()">
                     Thanh toán ({{ selectedTotalQuantity() }})
                 </button>
             </div>

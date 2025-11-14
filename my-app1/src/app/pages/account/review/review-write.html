@@ -1,0 +1,122 @@
+<div class="account-bg"></div>
+
+<div class="account-breadcrumb">
+  <a routerLink="/">Trang chủ</a> /
+  <span>Lịch sử thuê xe</span> /
+  <b>Đánh giá đơn hàng</b>
+</div>
+
+<div class="account-layout">
+  <!-- Sidebar -->
+  <div class="account-sidebar-wrap">
+    <div class="account-sidebar">
+      <div class="hello">Xin chào,</div>
+      <div class="name">{{ user.fullname }}</div>
+      <div class="menu">
+        <a routerLink="/account/profile">Thông tin tài khoản</a>
+        <a routerLink="/account/orders">Lịch sử thuê xe</a>
+        <a routerLink="/logout" class="logout">Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card trắng -->
+  <div class="account-main-card">
+    <div class="account-orders-head">
+      <div class="account-orders-head-title">
+        <i class="bi bi-clock-history"></i>
+        <h2>ĐÁNH GIÁ ĐƠN HÀNG</h2>
+      </div>
+
+      <div class="account-search">
+        <input type="text" placeholder="Tìm kiếm theo tên hàng, ID đơn hàng..." disabled />
+        <button type="button" disabled>
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Thông tin đơn thuê -->
+    <div class="account-review-order">
+      <div class="account-order-card">
+        <img [src]="orderInfo.img" [alt]="orderInfo.bike" />
+        <div class="account-order-meta">
+          <h3>{{ orderInfo.bike }}</h3>
+          <p>Ngày nhận: {{ orderInfo.start }}</p>
+          <p>Ngày trả: {{ orderInfo.end }}</p>
+          <p>ID đơn hàng: {{ id }}</p>
+        </div>
+
+        <div class="account-order-status is-finished">
+          Hoàn thành
+        </div>
+
+        <div class="account-order-actions">
+          <button class="btn-green" type="button" (click)="cancel()">
+            Quay lại
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form đánh giá -->
+    <div class="account-review-box">
+      <div class="account-review-header">
+        <img [src]="user.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
+        <div>
+          <div class="account-review-name">{{ user.fullname }}</div>
+          <div class="account-review-stars">
+            <i
+              class="bi"
+              *ngFor="let s of [1,2,3,4,5]"
+              [ngClass]="s <= rating ? 'bi-star-fill' : 'bi-star'"
+              (click)="setRating(s)">
+            </i>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="form" class="account-review-form" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="title">Tiêu đề đánh giá</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            placeholder="Ví dụ: Xe chạy rất êm, đáng tiền" />
+        </div>
+
+        <div class="form-group">
+          <label for="content">Nội dung đánh giá *</label>
+          <textarea
+            id="content"
+            rows="4"
+            formControlName="content"
+            placeholder="Chia sẻ trải nghiệm thuê xe của bạn..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Hình ảnh kèm theo</label>
+          <input type="file" multiple (change)="onFilesSelected($event)" />
+          <div class="review-image-list" *ngIf="images.length">
+            <div
+              class="review-image-item"
+              *ngFor="let img of images; let i = index">
+              <img [src]="img" alt="Ảnh đánh giá" />
+              <button type="button" (click)="removeImage(i)">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-review-actions">
+          <button class="btn-outline-gray" type="button" (click)="cancel()">
+            Hủy
+          </button>
+          <button class="btn-red" type="submit">
+            Gửi đánh giá
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

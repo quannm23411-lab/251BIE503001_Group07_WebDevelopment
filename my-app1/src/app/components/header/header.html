@@ -67,14 +67,26 @@
         </span>
       </a>
 
-      <!-- Login / User -->
+      <!-- Login -->
       <a *ngIf="!isLoggedIn()" routerLink="/login" class="nav__login-btn">
         Đăng nhập
       </a>
 
-      <div *ngIf="isLoggedIn()" class="nav__user">
-        <span class="nav__welcome">Xin chào, {{ currentUser?.fullname }}</span>
-        <button type="button" class="nav__logout-btn" (click)="logout()">Đăng xuất</button>
+      <!-- User profile dropdown -->
+      <div *ngIf="isLoggedIn()" class="nav__profile">
+        <button type="button" class="nav__profile-toggle" (click)="toggleProfileMenu()">
+          <img class="nav__avatar" [src]="currentUserAvatar" alt="Avatar" />
+          <span class="nav__profile-name">
+            {{ currentUser?.fullname }}
+          </span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+
+        <div class="nav__profile-menu" *ngIf="profileMenuOpen">
+          <a (click)="goToProfile()">Thông tin tài khoản</a>
+          <a (click)="goToOrders()">Lịch sử thuê xe</a>
+          <button type="button" (click)="logout()">Đăng xuất</button>
+        </div>
       </div>
     </div>
 

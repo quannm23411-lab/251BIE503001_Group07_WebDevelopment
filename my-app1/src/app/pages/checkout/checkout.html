@@ -30,11 +30,11 @@
                     <span>Phương thức thanh toán:</span>
                     <strong>
                         {{
-                        form.paymentMethod === 'cod'
-                        ? 'Thanh toán khi nhận xe'
-                        : form.paymentMethod === 'bank'
+                        form.paymentMethod === 'bank'
                         ? 'Chuyển khoản ngân hàng'
-                        : 'Ví điện tử'
+                        : form.paymentMethod === 'momo'
+                        ? 'Momo'
+                        : 'Tiền mặt'
                         }}
                     </strong>
                 </div>
@@ -50,65 +50,89 @@
 
     <!-- Trang thanh toán chính -->
     <section *ngIf="hasItems && !isSuccess()" class="checkout-main container">
-
         <form class="checkout-flow" #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)" novalidate>
             <!-- CARD: Thông tin khách hàng -->
             <section class="checkout-card customer-card">
                 <h2 class="summary-title">Thông tin khách hàng</h2>
 
                 <div class="customer-form">
-
                     <div class="form-row">
                         <label>Họ và tên *</label>
-                        <input type="text" name="fullName" [(ngModel)]="form.fullName" required
+                        <input type="text" name="fullName" [(ngModel)]="form.fullName" readonly class="field-readonly"
                             placeholder="Nhập họ tên" />
                     </div>
 
                     <div class="form-row">
                         <label>Số điện thoại *</label>
-                        <input type="tel" name="phone" [(ngModel)]="form.phone" required placeholder="VD: 0901234567" />
+                        <input type="tel" name="phone" [(ngModel)]="form.phone" readonly class="field-readonly"
+                            placeholder="VD: 0901234567" />
                     </div>
 
                     <div class="form-row">
                         <label>Email *</label>
-                        <input type="email" name="email" [(ngModel)]="form.email" required
+                        <input type="email" name="email" [(ngModel)]="form.email" readonly class="field-readonly"
                             placeholder="example@gmail.com" />
                     </div>
 
                     <div class="form-row">
-                        <label>CCCD / CMND *</label>
-                        <input type="text" name="nationalId" [(ngModel)]="form.nationalId" required
-                            placeholder="Nhập số CCCD/CMND" />
+                        <label>Số bằng lái *</label>
+                        <input type="text" name="nationalId" [(ngModel)]="form.nationalId" readonly
+                            class="field-readonly" placeholder="Số bằng lái" />
                     </div>
 
-                    <div class="form-row-2col">
-    <div class="col">
-        <label>Thời gian nhận xe *</label>
-        <input type="datetime-local"
-               name="pickupTime"
-               [(ngModel)]="form.pickupTime"
-               required />
-    </div>
-
-    <div class="col">
-        <label>Thời gian trả xe *</label>
-        <input type="datetime-local"
-               name="returnTime"
-               [(ngModel)]="form.returnTime"
-               required />
-    </div>
-</div>
+                    <!-- BỎ 2 Ô NGÀY NHẬN / TRẢ -->
 
                     <div class="form-row">
                         <label>Ghi chú thêm</label>
-                        <textarea name="note" [(ngModel)]="form.note" rows="3"
+                        <textarea id="note-textarea" name="note" [(ngModel)]="form.note" rows="3"
                             placeholder="Nhập ghi chú nếu có..."></textarea>
                     </div>
-
                 </div>
             </section>
-            <!-- CARD 1: Sản phẩm + điểm nhận/trả -->
-            <section class="checkout-card product-card" *ngFor="let item of cartItems()">
+
+            <!-- CARD: Người nhận xe -->
+            <section class="checkout-card receiver-card">
+                <div class="receiver-header">
+                    <h2 class="summary-title">Thông tin người nhận xe</h2>
+                    <button type="button" class="btn btn-link btn-change-receiver"
+                        (click)="receiverSameAsCustomer = !receiverSameAsCustomer">
+                        {{
+                        receiverSameAsCustomer
+                        ? 'Thay đổi thông tin người nhận'
+                        : 'Dùng thông tin khách hàng'
+                        }}
+                    </button>
+                </div>
+
+                <div class="receiver-form" *ngIf="!receiverSameAsCustomer">
+                    <div class="form-row">
+                        <label>Họ và tên người nhận *</label>
+                        <input type="text" name="receiverFullName" [(ngModel)]="receiver.fullName"
+                            [required]="!receiverSameAsCustomer" placeholder="Nhập họ tên người nhận" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>Số điện thoại người nhận *</label>
+                        <input type="tel" name="receiverPhone" [(ngModel)]="receiver.phone"
+                            [required]="!receiverSameAsCustomer" placeholder="VD: 0901234567" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>CCCD / Bằng lái người nhận *</label>
+                        <input type="text" name="receiverNationalId" [(ngModel)]="receiver.nationalId"
+                            [required]="!receiverSameAsCustomer" placeholder="Nhập số CCCD / bằng lái người nhận" />
+                    </div>
+
+                    <div class="form-row">
+                        <label>Ghi chú cho tài xế</label>
+                        <textarea name="receiverNoteForDriver" [(ngModel)]="receiver.noteForDriver" rows="3"
+                            placeholder="Ví dụ: Người nhận là bố/mẹ, gọi trước khi giao..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD: Sản phẩm + điểm nhận/trả -->
+            <section class="checkout-card product-card" *ngFor="let item of selectedItems()">
                 <div class="product-main">
                     <div class="product-thumb">
                         <img [src]="item.imageUrl" [alt]="item.name" />
@@ -117,14 +141,6 @@
                     <div class="product-info">
                         <div class="product-header">
                             <h2 class="product-name">{{ item.name }}</h2>
-
-                            <div class="product-color">
-                                <button type="button" class="color-selector">
-                                    <span class="color-dot"></span>
-                                    <span>Xanh mint</span>
-                                    <span class="icon-caret">▾</span>
-                                </button>
-                            </div>
                         </div>
 
                         <div class="product-dates">
@@ -143,7 +159,14 @@
                         </div>
 
                         <div class="product-price">
-                            {{ vnd(item.finalPricePerDay || item.pricePerDay) }}
+                            <div class="price-line">
+                                {{ vnd(item.finalPricePerDay || item.pricePerDay) }}
+                                × {{ item.totalDays || 1 }} ngày
+                                × {{ item.quantity || 1 }} xe
+                            </div>
+                            <div class="price-total">
+                                {{ vnd(item.subtotal || 0) }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,9 +194,9 @@
                     </div>
                 </div>
             </section>
+
             <!-- CARD 2: Mã giảm giá + phương thức thanh toán -->
             <section class="checkout-card payment-card">
-                <!-- Mã giảm giá -->
                 <div class="voucher-row">
                     <label for="voucher">Nhập mã giảm giá:</label>
                     <div class="voucher-input-group">
@@ -186,7 +209,6 @@
 
                 <hr class="divider" />
 
-                <!-- Phương thức thanh toán -->
                 <div class="payment-header">
                     <span>Phương thức thanh toán</span>
                 </div>
@@ -196,7 +218,7 @@
                         <div class="voucher-box"></div>
                         <div class="voucher-text">
                             <span class="label">Tổng cộng Voucher giảm giá</span>
-                            <span class="value">0Đ</span>
+                            <span class="value">{{ vnd(discountAmount()) }}</span>
                         </div>
                     </div>
 
@@ -234,19 +256,19 @@
 
                 <div class="summary-row">
                     <span>Tổng tiền thuê</span>
-                    <span>{{ vnd(totalAmount()) }}</span>
+                    <span>{{ vnd(selectedTotalAmount()) }}</span>
                 </div>
 
                 <div class="summary-row">
-                    <span>Chi phát sinh</span>
-                    <span>0Đ</span>
+                    <span>Số tiền giảm giá</span>
+                    <span>- {{ vnd(discountAmount()) }}</span>
                 </div>
 
                 <hr class="divider" />
 
                 <div class="summary-row summary-row--total">
-                    <span>Tổng thanh toán</span>
-                    <span class="summary-total">{{ vnd(totalAmount()) }}</span>
+                    <span>Số tiền thanh toán</span>
+                    <span class="summary-total">{{ vnd(payableAmount()) }}</span>
                 </div>
             </section>
 
@@ -259,11 +281,6 @@
 
             <!-- Thanh dưới cùng -->
             <div class="checkout-bottom">
-                <div class="bottom-total">
-                    <span>Tổng cộng</span>
-                    <span class="bottom-price">{{ vnd(totalAmount()) }}</span>
-                </div>
-
                 <button type="submit" class="btn btn-main btn-main-large" [disabled]="isSubmitting()">
                     {{ isSubmitting() ? 'Đang xử lý...' : 'Thuê xe' }}
                 </button>

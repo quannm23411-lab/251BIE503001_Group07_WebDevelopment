@@ -1,0 +1,221 @@
+/* =================================
+   1. BREADCRUMBS (STYLE CHUNG)
+   ================================= */
+/* .breadcrumb-nav {
+  display: flex;
+  align-items: left;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.breadcrumb-link {
+  color: #2dbf83;
+  text-decoration: none;
+  font-weight: 500;
+}
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+.breadcrumb-separator {
+  margin: 0 6px;
+  color: #666;
+}
+.breadcrumb-current {
+  color: #444;
+  font-weight: 600;
+} */
+
+/* =============================================
+  🔽 THÊM MỚI: HERO HEADER (HỌC TỪ ABOUT.CSS) 🔽
+  =============================================
+*/
+img {
+    height: 90px;
+    width: auto;
+    margin-top: 0;
+}
+.contact__hero {
+  /* Dùng gradient y hệt 'about__hero' */
+  background-image: linear-gradient(180deg, rgb(52, 99, 90) 0 20%, #54b385 50%, #fff 100%);
+  color: #f4f9f6;
+  /* Thêm padding-bottom để fade to white */
+  padding: 60px 16px 80px; 
+  text-align: center;
+}
+
+.contact__hero .container {
+  max-width: 900px; /* Giống about__lead */
+  margin: 0 auto;
+}
+
+/* Style cho breadcrumbs trên nền tối */
+.breadcrumb-nav--light {
+  margin-bottom: 24px;
+  justify-content: center; /* Căn giữa */
+}
+.breadcrumb-nav--light .breadcrumb-link {
+  color: #f0f0f0; /* Màu trắng nhạt */
+}
+.breadcrumb-nav--light .breadcrumb-separator,
+.breadcrumb-nav--light .breadcrumb-current {
+  color: #ffffff; /* Màu trắng */
+}
+
+/* Tiêu đề chính */
+.contact__hero-title {
+  font-size: 3rem; /* 48px */
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Mô tả dưới tiêu đề */
+.contact__hero-lead {
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  line-height: 1.7;
+  margin: 0 auto;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================
+  🔽 NỘI DUNG CHÍNH (FORM, INFO, MAP) 🔽
+  =============================================
+*/
+.contact-page-content {
+  max-width: 1100px;
+  
+  /* THAY ĐỔI QUAN TRỌNG: Kéo nội dung đè lên phần gradient */
+  margin-top: -50px; 
+  position: relative;
+  z-index: 10;
+  
+  /* Bọc nội dung trong thẻ card trắng */
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  
+  /* Tăng padding bên trong card */
+  padding: 2.5rem 2rem; 
+}
+
+/* --- XÓA STYLE TIÊU ĐỀ CŨ --- */
+/* .page-title { ... } */
+
+
+/* --- Cột thông tin bên trái (Giữ nguyên) --- */
+.info-col {
+  border-right: 1px solid #e0e0e0;
+  padding-right: 2.5rem;
+}
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 1.5rem;
+}
+.info-item i {
+  font-size: 1.5rem;
+  color: #2dbf83; 
+  margin-top: 5px;
+}
+.info-item strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2px;
+}
+.info-item p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+.social-links a {
+  color: #555;
+  font-size: 1.8rem;
+  transition: color 0.3s, transform 0.3s;
+}
+.social-links a:hover {
+  color: #2dbf83;
+  transform: scale(1.1);
+}
+
+/* --- Form liên hệ bên phải (Giữ nguyên) --- */
+.contact-form label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+.contact-form .form-control {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.contact-form .form-control:focus {
+  border-color: #45B880;
+  box-shadow: 0 0 0 3px rgba(69, 184, 128, 0.15);
+}
+.contact-form .form-control.is-invalid {
+  border-color: #dc3545;
+}
+.btn-submit {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 1rem;
+}
+.btn-submit:hover {
+  opacity: 0.9;
+}
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Bản đồ (Giữ nguyên) --- */
+.map-responsive {
+  overflow: hidden;
+  padding-bottom: 50%; 
+  position: relative;
+  height: 0;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+/* --- Responsive (Giá trị có thể thay đổi một chút) --- */
+@media (max-width: 991.98px) {
+  .info-col {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 0;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact__hero-title {
+    font-size: 2.25rem; /* Giảm cỡ chữ trên mobile */
+  }
+  .contact__hero-lead {
+    font-size: 0.95rem;
+  }
+  .contact-page-content {
+    /* Giảm padding trên mobile */
+    padding: 2rem 1.25rem;
+  }
+}
