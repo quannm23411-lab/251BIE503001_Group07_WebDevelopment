@@ -114,11 +114,26 @@
           <div class="rent-dropdown__group">
             <h4>Dòng xe</h4>
             <ul>
-              <li><a routerLink="/rent?type=scooter">Scooter điện</a></li>
-              <li><a routerLink="/rent?type=bike">Xe đạp điện</a></li>
-              <li><a routerLink="/rent?type=motor">Mô tô điện</a></li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-may-dien' }">
+                  Xe máy điện
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-dap-dien' }">
+                  Xe đạp điện
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-dap-dien-gap-gon' }">
+                  Xe đạp điện gấp gọn
+                </a>
+              </li>
             </ul>
           </div>
+
+
+
 
           <div class="rent-dropdown__group">
             <h4>Thông tin</h4>
@@ -135,7 +150,7 @@
             <ul>
               <li><a href="/policy">Chính sách</a></li>
               <li><a routerLink="/support/guide">Hướng dẫn</a></li>
-              <li><a routerLink="/support/contact">Liên hệ</a></li>
+              <li><a href="/contact">Liên hệ</a></li>
             </ul>
           </div>
 

@@ -110,6 +110,11 @@ export class LoginService {
       return null;
     }
   }
+  // Lấy thông tin user đang đăng nhập từ Auth
+  // Cho các component (header, account, ...) dùng mà không cần import Auth
+  getCurrentUser(): AuthUser | null {
+    return this.auth.getCurrentUser();
+  }
 
   isAdmin(): boolean {
     return this.auth.isAdmin();
