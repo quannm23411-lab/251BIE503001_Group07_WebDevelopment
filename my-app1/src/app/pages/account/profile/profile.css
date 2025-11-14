@@ -419,12 +419,17 @@
 .account-order-status {
   font-size: 13px;
   font-weight: 600;
-  color: #ff3b41;
 }
 
 .account-order-status.is-finished {
-  color: #444444;
+  color: #4ae4d2;
 }
+.account-order-status.is-renting {
+color: #ff3b41;}
+.account-order-status.is-upcoming {
+  color: #d29119;
+}
+
 
 .account-order-actions {
   display: flex;

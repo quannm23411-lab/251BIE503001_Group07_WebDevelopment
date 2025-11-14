@@ -67,32 +67,36 @@
       </div>
 
       <!-- Cột trạng thái -->
-      <div class="account-order-status" [ngClass]="{ 'is-finished': o.status === 'Hoàn thành' }">
+      <div class="account-order-status" [ngClass]="{
+    'is-finished': o.status === 'Hoàn thành',
+    'is-renting': o.status === 'Đang thuê',
+    'is-upcoming': o.status === 'Sắp nhận xe'
+  }">
         {{ o.status }}
       </div>
+
 
       <!-- Cột nút hành động -->
       <div class="account-order-actions">
         <!-- Chỉ hiển thị nút khi đã Hoàn thành -->
         <ng-container *ngIf="o.status === 'Hoàn thành'">
           <!-- Chưa đánh giá thì cho phép Đánh giá -->
-          <ng-container *ngIf="!o.hasReviewed; else hasReviewBlock">
-            <button class="btn-outline-red" type="button" [routerLink]="['/account/review', o.id]">
-              Đánh giá
-            </button>
-          </ng-container>
-
-          <!-- Đã đánh giá thì chuyển thành Xem đánh giá -->
-          <ng-template #hasReviewBlock>
-            <button class="btn-outline-gray" type="button" [routerLink]="['/account/review', o.id]">
-              Xem đánh giá
-            </button>
-          </ng-template>
-
-          <!-- Nút Thuê lại -->
-          <button class="btn-outline-red" type="button" (click)="rentAgain(o)">
-            Thuê lại
+          <button class="btn-outline-red" type="button" [routerLink]="['/account/review', o.id, 'write']">
+            Đánh giá
           </button>
+
+        <!-- Đã đánh giá thì chuyển thành Xem đánh giá -->
+        <ng-template #hasReviewBlock>
+          <button class="btn-outline-gray" type="button" [routerLink]="['/account/review', o.id]">
+            Xem đánh giá
+          </button>
+        </ng-template>
+
+
+        <!-- Nút Thuê lại -->
+        <button class="btn-outline-red" type="button" (click)="rentAgain(o)">
+          Thuê lại
+        </button>
         </ng-container>
       </div>
     </div>

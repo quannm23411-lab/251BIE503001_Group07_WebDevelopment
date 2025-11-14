@@ -6,27 +6,98 @@
       "password": "123456",
       "fullname": "Admin EcoMOVE",
       "role": "admin",
-      "avatar": "/assets/images/avatars/admin.png",
+      "avatar": "/assets/images/avatar/default.png",
       "customerCode": null
     },
     {
       "id": 2,
-      "email": "user1@gmail.com",
-      "password": "abc123",
-      "fullname": "Nguyễn Văn User",
+      "email": "miwan@email.com",
+      "password": "pass123",
+      "fullname": "Nguyễn Minh Quân",
       "role": "customer",
-      "avatar": "/assets/images/avatars/default.png",
-      "customerCode": null
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH001"
     },
     {
       "id": 3,
+      "email": "saela@email.com",
+      "password": "pass123",
+      "fullname": "Lê Thị Duy Nhất",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH002"
+    },
+    {
+      "id": 4,
       "email": "vo.hong.phuc@email.com",
-      "password": "ecomove123",
+      "password": "pass123",
       "fullname": "Võ Hồng Phúc",
       "role": "customer",
-      "avatar": "/assets/images/avatars/hong-phuc.png",
-      "customerCode": "KH003",
-      "tier": "EcoGold"
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH003"
+    },
+    {
+      "id": 5,
+      "email": "lyns@email.com",
+      "password": "pass123",
+      "fullname": "Phan Thị Ánh Linh",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH004"
+    },
+    {
+      "id": 6,
+      "email": "grace@email.com",
+      "password": "pass123",
+      "fullname": "Nguyễn Khánh Xuân",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH005"
+    },
+    {
+      "id": 7,
+      "email": "lan.dang.thi@email.com",
+      "password": "pass123",
+      "fullname": "Đặng Thị Lan",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH006"
+    },
+    {
+      "id": 8,
+      "email": "tuan.vu.anh@email.com",
+      "password": "pass123",
+      "fullname": "Vũ Anh Tuấn",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH007"
+    },
+    {
+      "id": 9,
+      "email": "mai.bui.thi@email.com",
+      "password": "pass123",
+      "fullname": "Bùi Thị Mai",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH008"
+    },
+    {
+      "id": 10,
+      "email": "bao.do.gia@email.com",
+      "password": "pass123",
+      "fullname": "Đỗ Gia Bảo",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH009"
+    },
+    {
+      "id": 11,
+      "email": "thao.ngo.thanh@email.com",
+      "password": "pass123",
+      "fullname": "Ngô Thanh Thảo",
+      "role": "customer",
+      "avatar": "/assets/images/avatar/default.png",
+      "customerCode": "KH010"
     }
   ]
 }

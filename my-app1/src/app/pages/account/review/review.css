@@ -1,1 +1,49 @@
 @import '../profile/profile.css';
+.account-review-form .form-group {
+  margin-bottom: 16px;
+}
+
+.account-review-form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.account-review-form input,
+.account-review-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.review-image-list {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-image-item {
+  position: relative;
+}
+
+.review-image-item img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.review-image-item button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  cursor: pointer;
+}
