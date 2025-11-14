@@ -1,7 +1,9 @@
 <div class="account-bg"></div>
 
 <div class="account-breadcrumb">
-  <a routerLink="/">Trang chủ</a> / <span>Tài khoản</span> / <b>Thông tin tài khoản</b>
+  <a routerLink="/">Trang chủ</a> /
+  <span>Tài khoản</span> /
+  <b>Thông tin tài khoản</b>
 </div>
 
 <div class="account-layout">
@@ -10,10 +12,20 @@
     <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
       <div class="name">{{ user.fullname }}</div>
+
       <div class="menu">
-        <a routerLink="/account/profile" class="active">Thông tin tài khoản</a>
-        <a routerLink="/account/orders">Lịch sử thuê xe</a>
-        <a routerLink="/logout" class="logout">Đăng xuất</a>
+        <a
+          routerLink="/account/profile"
+          class="active"
+        >
+          Thông tin tài khoản
+        </a>
+        <a routerLink="/account/orders">
+          Lịch sử thuê xe
+        </a>
+        <a routerLink="/logout" class="logout">
+          Đăng xuất
+        </a>
       </div>
     </div>
   </div>
@@ -25,9 +37,12 @@
         <div class="account-avatar-wrap">
           <img [src]="user.avatar" alt="Avatar" />
         </div>
+
         <div class="account-user-meta">
           <h2>{{ user.fullname }}</h2>
-          <div class="account-tier-badge">{{ user.tier || 'EcoBasic' }}</div>
+          <div class="account-tier-badge">
+            {{ user.tier || 'EcoBasic' }}
+          </div>
         </div>
       </div>
 
@@ -72,18 +87,20 @@
         </div>
       </div>
 
-
       <div class="account-info-row">
         <div class="account-info-row-label">Cấp bậc:</div>
         <div class="account-info-row-value">
-          <span class="account-tier-badge">{{ user.tier || 'EcoBasic' }}</span>
+          <span class="account-tier-badge">
+            {{ user.tier || 'EcoBasic' }}
+          </span>
         </div>
       </div>
 
       <label class="account-checkbox">
         <input type="checkbox" checked />
         <span>
-          Tôi muốn nhận thông báo về các chương trình ưu đãi, mẫu xe điện mới và tin tức thú vị qua email.
+          Tôi muốn nhận thông báo về các chương trình ưu đãi, mẫu xe điện mới
+          và tin tức thú vị qua email.
         </span>
       </label>
     </div>

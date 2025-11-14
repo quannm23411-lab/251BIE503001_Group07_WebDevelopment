@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { LoginService } from '../../services/login/login.service';
+import { LoginService, UserProfile } from '../../services/login/login.service';
 
 interface HotSuggestion {
   img: string;
@@ -70,13 +70,25 @@ export class Header {
     return this.loginService.isLoggedIn();
   }
 
+  /** Auth user (id, email, role...) cho guard, quyền, v.v. */
   get currentUser(): any {
     return this.loginService.getCurrentUser();
   }
 
+  /** Profile chi tiết đọc từ eco_profile (fullname, avatar, tier...) */
+  get profile(): UserProfile | null {
+    return this.loginService.getProfile();
+  }
+
+  /** Tên hiển thị trên header */
+  get displayName(): string {
+    return this.profile?.fullname || this.currentUser?.fullname || '';
+  }
+
+  /** Avatar trên header */
   get currentUserAvatar(): string {
-    const user = this.currentUser;
-    return user?.avatar || '/assets/images/avatars/default.png';
+    const p = this.profile;
+    return p?.avatar || '/assets/images/avatars/default.png';
   }
 
   toggleProfileMenu(): void {

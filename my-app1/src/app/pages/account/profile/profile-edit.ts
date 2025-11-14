@@ -92,16 +92,29 @@ export class AccountProfileEdit implements OnInit {
   }
 
   onPickAvatar(input: HTMLInputElement): void {
-    const file = input.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      this.form.patchValue({ avatar: base64 });
-    };
-    reader.readAsDataURL(file);
+  if (!input.files || input.files.length === 0) {
+    return;
   }
+
+  const file = input.files[0];
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const url = reader.result as string;
+
+    // cập nhật ngay vào form để template bound hiển thị liền
+    this.form.patchValue({ avatar: url });
+    this.form.markAsDirty();
+  };
+
+  // bắt đầu đọc file trước khi reset value
+  reader.readAsDataURL(file);
+
+  // reset để nếu chọn lại cùng một file vẫn bắn change
+  input.value = '';
+}
+
 
   save(): void {
     if (!this.form.valid) {

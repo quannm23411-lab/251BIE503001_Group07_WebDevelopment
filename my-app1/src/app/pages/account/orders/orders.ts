@@ -67,7 +67,9 @@ export class AccountOrders implements OnInit {
     this.loadOrdersFromJson();
   }
 
+  // ====== LOAD USER ======
   private loadUserFromLocalStorage(): void {
+    // an toàn cho mọi môi trường
     if (typeof localStorage === 'undefined') {
       return;
     }
@@ -78,9 +80,7 @@ export class AccountOrders implements OnInit {
     }
 
     try {
-      const data = JSON.parse(raw) as Partial<AccountProfile> & {
-        tier?: Tier;
-      };
+      const data = JSON.parse(raw) as Partial<AccountProfile> & { tier?: Tier };
 
       if (data.fullname) {
         this.user.fullname = data.fullname;
@@ -92,9 +92,11 @@ export class AccountOrders implements OnInit {
         this.user.tier = data.tier;
       }
     } catch {
+      // bỏ qua lỗi parse
     }
   }
 
+  // ====== LOAD ORDERS ======
   private loadOrdersFromJson(): void {
     if (typeof localStorage === 'undefined') {
       return;
@@ -114,6 +116,7 @@ export class AccountOrders implements OnInit {
 
     if (!customerCode) {
       this.orders = [];
+      this.rawOrders = [];
       return;
     }
 
@@ -170,6 +173,7 @@ export class AccountOrders implements OnInit {
     };
   }
 
+  // ====== FORMAT / MAP ======
   private formatDate(iso: string | null | undefined): string {
     if (!iso) {
       return '';
@@ -297,7 +301,7 @@ export class AccountOrders implements OnInit {
     return days > 0 ? days : 1;
   }
 
-  // Thuê lại: dựng lại giỏ hàng từ đơn đó và nhảy sang /checkout
+  // ====== THUÊ LẠI ======
   rentAgain(orderCard: AccountOrderCard): void {
     const order = this.rawOrders.find(o => o.maDonThue === orderCard.id);
 
@@ -340,10 +344,8 @@ export class AccountOrders implements OnInit {
       return item;
     });
 
-    // Đẩy giỏ mới vào CartService
     this.cart.setItems(items);
 
-    // Điều hướng sang trang thanh toán
     this.router.navigate(['/checkout'], {
       state: {
         selectedIds: items.map(i => i.id)
