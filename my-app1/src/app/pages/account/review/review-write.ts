@@ -1,18 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-import { ProductReviewService, ProductReview } from '../../../services/product-review.services';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ProductReviewService } from '../../../services/product-review.services';
+
+type Tier = 'EcoGold' | 'EcoSilver' | 'EcoBasic';
 
 interface AccountProfile {
   fullname: string;
-  avatar?: string;
+  avatar: string;
+  tier?: Tier;
 }
 
 interface ChiTietDonThue {
@@ -29,188 +29,145 @@ interface OrderJson {
   chiTietDonThue: ChiTietDonThue[];
 }
 
+interface Product {
+  id: string;
+  vehicleName: string;
+  image: string;
+}
+
+interface OrderInfoForReview {
+  bike: string;
+  img: string;
+  start: string;
+  end: string;
+  status: string;
+}
+
 @Component({
   selector: 'account-review-write',
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './review-write.html',
-  styleUrls: ['./review.css'] // dùng chung css với review
+  styleUrls: ['./review.css'] // dùng chung css review
 })
 export class AccountReviewWrite implements OnInit {
 
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
   private reviewService = inject(ProductReviewService);
 
   user: AccountProfile = {
     fullname: 'Khách EcoMOVE',
-    avatar: '/assets/images/avatars/default.png'
+    avatar: '/assets/images/avatars/default.png',
+    tier: 'EcoBasic'
   };
 
-  id = '';
-  vehicleId = '';
-  orderInfo = {
+  id: string = '';
+
+  orderInfo: OrderInfoForReview = {
     bike: '',
-    img: '',
+    img: 'assets/images/products/placeholder.jpg',
     start: '',
-    end: ''
+    end: '',
+    status: ''
   };
 
-  form!: FormGroup;
-  rating = 0;
+  form: FormGroup = this.fb.group({
+    rating: [5, Validators.required],
+    content: ['', [Validators.required, Validators.minLength(5)]],
+    image: ['']
+  });
+
+  // cho phần sao trong template
+  rating: number = 5;
+
+  // cho phần preview ảnh trong template
   images: string[] = [];
-  submitting = false;
 
   ngOnInit(): void {
-    this.buildForm();
     this.loadUserFromLocalStorage();
-    this.loadOrderData();
-  }
-
-  private buildForm(): void {
-    this.form = this.fb.group({
-      title: ['', [Validators.maxLength(100)]],
-      content: ['', [Validators.required, Validators.maxLength(1000)]]
-    });
+    this.loadData();
   }
 
   private loadUserFromLocalStorage(): void {
     if (typeof localStorage === 'undefined') return;
+
     const raw = localStorage.getItem('eco_profile');
     if (!raw) return;
+
     try {
       const data = JSON.parse(raw) as any;
       if (data.fullname) this.user.fullname = data.fullname;
       if (data.avatar) this.user.avatar = data.avatar;
-    } catch {}
+      if (data.tier) this.user.tier = data.tier;
+    } catch {
+      // ignore
+    }
   }
 
-  private loadOrderData(): void {
-    if (typeof localStorage === 'undefined') return;
-
+  private getCustomerCode(): string | undefined {
+    if (typeof localStorage === 'undefined') return undefined;
     const raw = localStorage.getItem('eco_profile');
-    let customerCode: string | undefined;
-
-    if (raw) {
-      try {
-        const data = JSON.parse(raw) as any;
-        customerCode = data.customerCode;
-      } catch {
-        customerCode = undefined;
-      }
+    if (!raw) return undefined;
+    try {
+      const data = JSON.parse(raw) as any;
+      return data.customerCode;
+    } catch {
+      return undefined;
     }
+  }
 
-    this.route.paramMap.subscribe(params => {
-      const orderId = params.get('id');
-      if (!orderId || !customerCode) return;
-      this.id = orderId;
+  private loadData(): void {
+    const orderId = this.route.snapshot.paramMap.get('id');
+    if (!orderId) {
+      this.router.navigate(['/account/orders']);
+      return;
+    }
+    this.id = orderId;
 
-      const ordersUrl = 'assets/data/orders.json';
+    const customerCode = this.getCustomerCode();
 
-      this.http.get<OrderJson[]>(ordersUrl).subscribe({
-        next: ordersJson => {
-          const order = ordersJson.find(
+    const products$ = this.http
+      .get<Product[]>('assets/data/products.json')
+      .pipe(catchError(() => of([] as Product[])));
+
+    const orders$ = this.http
+      .get<OrderJson[]>('assets/data/orders.json')
+      .pipe(catchError(() => of([] as OrderJson[])));
+
+    forkJoin({ products: products$, orders: orders$ }).subscribe(
+      ({ products, orders }) => {
+        let order = orders.find(o => o.maDonThue === orderId);
+        if (customerCode) {
+          const byCustomer = orders.find(
             o => o.maDonThue === orderId && o.maKhachHang === customerCode
           );
-          if (!order || !order.chiTietDonThue.length) return;
-
-          const item = order.chiTietDonThue[0];
-          this.vehicleId = item.idXe;
-
-          this.orderInfo = {
-            bike: this.mapVehicleName(item.idXe),
-            img: this.mapVehicleImage(item.idXe),
-            start: this.formatDate(item.thoiGianNhanXe),
-            end: this.formatDate(item.thoiGianTraXe)
-          };
+          if (byCustomer) order = byCustomer;
         }
-      });
-    });
-  }
 
-  setRating(value: number): void {
-    this.rating = value;
-  }
+        if (!order || !order.chiTietDonThue || !order.chiTietDonThue.length) {
+          this.router.navigate(['/account/orders']);
+          return;
+        }
 
-  onFilesSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || !input.files.length) return;
+        const detail = order.chiTietDonThue[0];
+        const vehicleId = detail.idXe;
+        const product = products.find(p => p.id === vehicleId);
 
-    Array.from(input.files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = reader.result as string;
-        this.images.push(base64);
-      };
-      reader.readAsDataURL(file);
-    });
+        const bikeName = product?.vehicleName || `Xe mã ${vehicleId}`;
+        const img = product?.image || 'assets/images/products/placeholder.jpg';
 
-    input.value = '';
-  }
-
-  removeImage(idx: number): void {
-    this.images.splice(idx, 1);
-  }
-
-  submit(): void {
-    if (this.submitting) return;
-
-    if (this.rating <= 0) {
-      alert('Vui lòng chọn số sao đánh giá.');
-      return;
-    }
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const rawProfile = localStorage.getItem('eco_profile');
-    if (!rawProfile) {
-      alert('Bạn cần đăng nhập lại.');
-      return;
-    }
-
-    let customerCode = '';
-    try {
-      const data = JSON.parse(rawProfile) as any;
-      customerCode = data.customerCode || '';
-    } catch {}
-
-    if (!customerCode || !this.vehicleId) {
-      alert('Không xác định được đơn hàng hoặc xe để đánh giá.');
-      return;
-    }
-
-    const value = this.form.value;
-
-    const today = new Date();
-    const dateStr = today.toISOString().slice(0, 10);
-
-    const newReview: ProductReview = {
-      reviewId: 'U' + today.getTime(),
-      vehicleId: this.vehicleId,
-      customerId: customerCode,
-      customerName: this.user.fullname,
-      rating: this.rating,
-      reviewDate: dateStr,
-      status: 'pending',
-      title: value.title || '',
-      content: value.content || '',
-      images: this.images
-    };
-
-    this.submitting = true;
-    this.reviewService.addUserReview(newReview);
-
-    // quay lại trang xem đánh giá
-    this.router.navigate(['/account/review', this.id]);
-  }
-
-  cancel(): void {
-    this.router.navigate(['/account/orders']);
+        this.orderInfo = {
+          bike: bikeName,
+          img,
+          start: this.formatDate(detail.thoiGianNhanXe),
+          end: this.formatDate(detail.thoiGianTraXe),
+          status: this.deriveStatus(order)
+        };
+      }
+    );
   }
 
   private formatDate(iso: string | null | undefined): string {
@@ -223,35 +180,109 @@ export class AccountReviewWrite implements OnInit {
     return `${dd}/${mm}/${yyyy}`;
   }
 
-  private mapVehicleName(idXe: string): string {
-    const map: Record<string, string> = {
-      V001: 'Evo 200 Lite',
-      V002: 'Mẫu xe V002',
-      V003: 'Mẫu xe V003',
-      V005: 'Mẫu xe V005',
-      V006: 'Mẫu xe V006',
-      V008: 'Mẫu xe V008',
-      V009: 'Mẫu xe V009',
-      V011: 'Mẫu xe V011',
-      V013: 'Mẫu xe V013',
-      V015: 'Mẫu xe V015'
-    };
-    return map[idXe] || `Xe mã ${idXe}`;
+  private mapStatus(tinhTrang: string): string {
+    if (tinhTrang === 'Đã hoàn thành') return 'Hoàn thành';
+    return tinhTrang;
   }
 
-  private mapVehicleImage(idXe: string): string {
-    const map: Record<string, string> = {
-      V001: 'assets/images/products/v001.jpg',
-      V002: 'assets/images/products/v002.jpg',
-      V003: 'assets/images/products/v003.jpg',
-      V005: 'assets/images/products/v005.jpg',
-      V006: 'assets/images/products/v006.jpg',
-      V008: 'assets/images/products/v008.jpg',
-      V009: 'assets/images/products/v009.jpg',
-      V011: 'assets/images/products/v011.jpg',
-      V013: 'assets/images/products/v013.jpg',
-      V015: 'assets/images/products/v015.jpg'
+  private deriveStatus(order: OrderJson): string {
+    const details = order.chiTietDonThue || [];
+    if (!details.length) return this.mapStatus(order.tinhTrangDon);
+
+    let earliestStart: Date | null = null;
+    let latestEnd: Date | null = null;
+
+    for (const d of details) {
+      if (d.thoiGianNhanXe) {
+        const start = new Date(d.thoiGianNhanXe);
+        if (!earliestStart || start.getTime() < earliestStart.getTime()) {
+          earliestStart = start;
+        }
+      }
+      if (d.thoiGianTraXe) {
+        const end = new Date(d.thoiGianTraXe);
+        if (!latestEnd || end.getTime() > latestEnd.getTime()) {
+          latestEnd = end;
+        }
+      }
+    }
+
+    if (!earliestStart || !latestEnd) {
+      return this.mapStatus(order.tinhTrangDon);
+    }
+
+    const now = new Date();
+
+    if (now.getTime() > latestEnd.getTime()) return 'Hoàn thành';
+    if (now.getTime() >= earliestStart.getTime() && now.getTime() <= latestEnd.getTime()) {
+      return 'Đang thuê';
+    }
+    if (now.getTime() < earliestStart.getTime()) return 'Sắp nhận xe';
+
+    return this.mapStatus(order.tinhTrangDon);
+  }
+
+  // ===== các hàm cho template =====
+
+  cancel(): void {
+    this.router.navigate(['/account/orders']);
+  }
+
+  setRating(star: number): void {
+    this.rating = star;
+    this.form.patchValue({ rating: star });
+  }
+
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || !input.files.length) {
+      return;
+    }
+
+    const files = Array.from(input.files);
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const url = reader.result as string;
+        this.images.push(url);
+
+        // lưu tạm ảnh đầu tiên vào form cho dễ dùng
+        if (!this.form.value.image) {
+          this.form.patchValue({ image: url });
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  removeImage(index: number): void {
+    if (index < 0 || index >= this.images.length) return;
+
+    this.images.splice(index, 1);
+
+    // cập nhật lại field image trong form
+    const first = this.images[0] ?? '';
+    this.form.patchValue({ image: first });
+  }
+
+  submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const payload = {
+      orderId: this.id,
+      vehicleName: this.orderInfo.bike,
+      rating: this.rating,
+      content: this.form.value.content,
+      image: this.form.value.image
     };
-    return map[idXe] || 'assets/images/products/placeholder.jpg';
+
+    console.log('Review payload (demo):', payload);
+
+    alert('Đã gửi đánh giá demo. Tính năng lưu dữ liệu sẽ được cập nhật sau.');
+    this.router.navigate(['/account/orders']);
   }
 }
