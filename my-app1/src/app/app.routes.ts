@@ -26,25 +26,6 @@ const requireAdmin = () => {
   return true;
 };
 
-// Guard yêu cầu đăng nhập (cho thanh toán)
-const requireLogin = () => {
-  const router = inject(Router);
-  const auth = inject(Auth);
-  const platformId = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(platformId);
-
-  if (!isBrowser) return true;
-
-  if (!auth.isLoggedIn()) {
-    router.navigate(['/login'], {
-      queryParams: { returnUrl: '/checkout' }
-    });
-    return false;
-  }
-
-  return true;
-};
-
 export const routes: Routes = [
   // Auth
   {
@@ -206,10 +187,9 @@ export const routes: Routes = [
           import('./pages/cart/cart').then(m => m.CartPage),
       },
 
-      // Trang thanh toán: /checkout (yêu cầu đăng nhập)
+      // Trang thanh toán: /checkout
       {
         path: 'checkout',
-        canActivate: [requireLogin],
         loadComponent: () =>
           import('./pages/checkout/checkout').then(m => m.Checkout),
       },
@@ -242,6 +222,7 @@ export const routes: Routes = [
               ),
           },
 
+          // ⭐ THÊM ROUTE NÀY
           {
             path: 'review/:id/write',
             loadComponent: () =>
@@ -259,6 +240,7 @@ export const routes: Routes = [
           },
         ],
       },
+
 
       // BLOG
       {
@@ -306,13 +288,8 @@ export const routes: Routes = [
       },
 
       // Sau này có about thì mở thêm
-      {
-        path: 'about',
-        loadComponent: () =>
-          import('./pages/about/about').then(m => m.About)
-      },
-
-      // Thông tin chung
+      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
+      // Thông tin chung 
       {
         path: 'policy',
         loadComponent: () =>
@@ -336,8 +313,9 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () =>
-          import('./pages/contact-page/contact-page').then(m => m.ContactPage),
+          import('./pages/contact/contact').then(m => m.Contact),
       },
+
     ],
   },
 

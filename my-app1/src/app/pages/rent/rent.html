@@ -78,29 +78,23 @@
           Xe đạp điện gấp gọn
         </label> -->
         <label>
-    <input
-      type="checkbox"
-      [checked]="isTypeSelected('Xe máy điện')"
-      (change)="toggleType('Xe máy điện', $any($event.target).checked)" />
-    Xe máy điện
-  </label>
+          <input type="checkbox" [checked]="isTypeSelected('Xe máy điện')"
+            (change)="toggleType('Xe máy điện', $any($event.target).checked)" />
+          Xe máy điện
+        </label>
 
-  <label>
-    <input
-      type="checkbox"
-      [checked]="isTypeSelected('Xe đạp điện')"
-      (change)="toggleType('Xe đạp điện', $any($event.target).checked)" />
-    Xe đạp điện
-  </label>
+        <label>
+          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện')"
+            (change)="toggleType('Xe đạp điện', $any($event.target).checked)" />
+          Xe đạp điện
+        </label>
 
-  <label>
-    <input
-      type="checkbox"
-      [checked]="isTypeSelected('Xe đạp điện gấp gọn')"
-      (change)="toggleType('Xe đạp điện gấp gọn', $any($event.target).checked)" />
-    Xe đạp điện gấp gọn
-  </label>
-</div>
+        <label>
+          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện gấp gọn')"
+            (change)="toggleType('Xe đạp điện gấp gọn', $any($event.target).checked)" />
+          Xe đạp điện gấp gọn
+        </label>
+      </div>
 
       <div class="filter-row">
         <span class="filter-label">Thương hiệu:</span>

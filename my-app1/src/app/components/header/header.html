@@ -14,7 +14,7 @@
 
     <!-- Logo -->
     <div class="header__logo">
-      <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
+      <a href="/"><img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" /></a>
     </div>
 
     <!-- Location + Search -->
@@ -149,7 +149,12 @@
             <h4>Hỗ trợ</h4>
             <ul>
               <li><a href="/policy">Chính sách</a></li>
-              <li><a routerLink="/support/guide">Hướng dẫn</a></li>
+              <li>
+                <a [routerLink]="['/']" fragment="guide-section">
+                  Hướng dẫn
+                </a>
+              </li>
+
               <li><a href="/contact">Liên hệ</a></li>
             </ul>
           </div>
