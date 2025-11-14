@@ -203,12 +203,12 @@ body {
   margin: 8px 0 4px;
   font-weight: 700;
   font-size: 1rem;
-  color: #121212;
+  color: #ffffff;
 }
 
 .product-card__price {
   font-size: 0.9rem;
-  color: #121212;
+  color: #ffffff;
 }
 
 .product-card__price span {
@@ -418,6 +418,17 @@ body {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.4;
+}
+/* Hình minh họa */
+.steps-illustration {
+  position: absolute;
+  right: -90px;             
+  width: 400px;        
+  pointer-events: none;
+  user-select: none;
+
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.18));
+  opacity: 0.6;
 }
 
 /* =========================================
