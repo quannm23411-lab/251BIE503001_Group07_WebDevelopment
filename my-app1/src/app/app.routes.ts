@@ -26,6 +26,25 @@ const requireAdmin = () => {
   return true;
 };
 
+// Guard yêu cầu đăng nhập (cho thanh toán)
+const requireLogin = () => {
+  const router = inject(Router);
+  const auth = inject(Auth);
+  const platformId = inject(PLATFORM_ID);
+  const isBrowser = isPlatformBrowser(platformId);
+
+  if (!isBrowser) return true;
+
+  if (!auth.isLoggedIn()) {
+    router.navigate(['/login'], {
+      queryParams: { returnUrl: '/checkout' }
+    });
+    return false;
+  }
+
+  return true;
+};
+
 export const routes: Routes = [
   // Auth
   {
@@ -187,60 +206,59 @@ export const routes: Routes = [
           import('./pages/cart/cart').then(m => m.CartPage),
       },
 
-      // Trang thanh toán: /checkout
+      // Trang thanh toán: /checkout (yêu cầu đăng nhập)
       {
         path: 'checkout',
+        canActivate: [requireLogin],
         loadComponent: () =>
           import('./pages/checkout/checkout').then(m => m.Checkout),
       },
 
       // Trang tài khoản khách hàng
       {
-  path: 'account',
-  children: [
-    { path: '', redirectTo: 'profile', pathMatch: 'full' },
+        path: 'account',
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
 
-    {
-      path: 'profile',
-      loadComponent: () =>
-        import('./pages/account/profile/profile-view').then(
-          m => m.AccountProfileView
-        ),
-    },
-    {
-      path: 'profile/edit',
-      loadComponent: () =>
-        import('./pages/account/profile/profile-edit').then(
-          m => m.AccountProfileEdit
-        ),
-    },
-    {
-      path: 'orders',
-      loadComponent: () =>
-        import('./pages/account/orders/orders').then(
-          m => m.AccountOrders
-        ),
-    },
+          {
+            path: 'profile',
+            loadComponent: () =>
+              import('./pages/account/profile/profile-view').then(
+                m => m.AccountProfileView
+              ),
+          },
+          {
+            path: 'profile/edit',
+            loadComponent: () =>
+              import('./pages/account/profile/profile-edit').then(
+                m => m.AccountProfileEdit
+              ),
+          },
+          {
+            path: 'orders',
+            loadComponent: () =>
+              import('./pages/account/orders/orders').then(
+                m => m.AccountOrders
+              ),
+          },
 
-    // ⭐ THÊM ROUTE NÀY
-    {
-      path: 'review/:id/write',
-      loadComponent: () =>
-        import('./pages/account/review/review-write').then(
-          m => m.AccountReviewWrite
-        ),
-    },
+          {
+            path: 'review/:id/write',
+            loadComponent: () =>
+              import('./pages/account/review/review-write').then(
+                m => m.AccountReviewWrite
+              ),
+          },
 
-    {
-      path: 'review/:id',
-      loadComponent: () =>
-        import('./pages/account/review/review').then(
-          m => m.AccountReview
-        ),
-    },
-  ],
-},
-
+          {
+            path: 'review/:id',
+            loadComponent: () =>
+              import('./pages/account/review/review').then(
+                m => m.AccountReview
+              ),
+          },
+        ],
+      },
 
       // BLOG
       {
@@ -288,8 +306,13 @@ export const routes: Routes = [
       },
 
       // Sau này có about thì mở thêm
-      { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
-      // Thông tin chung 
+      {
+        path: 'about',
+        loadComponent: () =>
+          import('./pages/about/about').then(m => m.About)
+      },
+
+      // Thông tin chung
       {
         path: 'policy',
         loadComponent: () =>
@@ -315,7 +338,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/contact-page/contact-page').then(m => m.ContactPage),
       },
-
     ],
   },
 
