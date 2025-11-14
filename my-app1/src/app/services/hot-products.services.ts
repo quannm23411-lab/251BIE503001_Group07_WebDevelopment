@@ -7,14 +7,30 @@ import { combineLatest, map, of, shareReplay, catchError } from 'rxjs';
 export interface Product {
     id: string;
     vehicleName: string;
-    pricePerHour?: number;
-    pricePerDay: number;
-    image: string;
-    discount: number;
-    availabilityStatus: boolean;
+    brandId: string;
+    model: string;
+    licensePlate: string;
+    batteryCapacity: string;
+    rangePerCharge: number;
     vehicleType: string;
-    tags?: string[];
-    rating?: number;
+
+    pricePerHour: number;
+    pricePerDay: number;
+
+    availabilityStatus: boolean;
+    rating: number;
+    discount: number;
+    location: string;
+
+    tags: string[];
+    image: string;
+    description: string;
+
+    details: {
+        title: string;
+        paragraphs: string[];
+        features: string[];
+    };
 }
 
 /** Cấu hình hot products – tách riêng trong assets/data/hot-products.json */

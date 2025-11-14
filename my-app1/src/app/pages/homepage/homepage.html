@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
 <main class="main-content container-fluid">
-
-  <!-- POPUP WELCOME -->
-  <app-popup
-    [visible]="showWelcomePopup"
-    (closed)="showWelcomePopup = false">
-  </app-popup>
-
 
   <!-- BANNER -->
   <section class="container">
@@ -16,55 +10,58 @@
   </section>
 
   <!-- HERO / TOP RENT -->
-<section class="top-rent container py-5">
-  <div class="section-title">Thuê nhiều tháng này</div>
-  <p class="section-subtitle">Top các loại xe có lượt thuê cao trong tháng</p>
+  <section class="top-rent container py-5">
+    <div class="section-title">Thuê nhiều tháng này</div>
+    <p class="section-subtitle">Top các loại xe có lượt thuê cao trong tháng</p>
 
-  <div class="product-grid">
-    <ng-container *ngIf="topRentList.length > 0; else noTop">
-      <a
-        class="product-card position-relative"
-        *ngFor="let p of topRentList"
-        [routerLink]="['/rent', p.id]"
-      >
-        <!-- Badge giảm giá nếu có -->
-        <span
-          *ngIf="p.discount && p.discount > 0"
-          class="badge bg-danger position-absolute top-0 start-0 m-2"
-        >
-          -{{ p.discount }}%
-        </span>
+    <div class="carousel-wrapper">
 
-        <!-- Hình sản phẩm -->
-        <img
-          class="product-card__img"
-          [ngSrc]="getImg(p, 'card')"
-          [width]="getSize('card').w"
-          [height]="getSize('card').h"
-          [alt]="p.vehicleName || 'Sản phẩm'"
-          loading="lazy"
-        />
+      <!-- Nút trái -->
+      <button class="carousel-arrow left" (click)="scrollLeft()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
 
-        <!-- Tên xe -->
-        <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+      <!-- Danh sách sản phẩm -->
+      <div class="carousel" #carousel>
+        <a class="product-card" *ngFor="let p of topRentList" [routerLink]="['/rent', p.id]">
+          <!-- Badge giảm giá -->
+          <span *ngIf="p.discount && p.discount > 0" class="home-badge">
+            -{{ p.discount }}%
+          </span>
+          <div class="product-img-wrapper">
+            <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
+              [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
-        <!-- Giá -->
-        <p class="product-card__price">
-          Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
-        </p>
+            <h3 class="product-card__name">{{ p.vehicleName }}</h3>
 
-        <!-- Trạng thái -->
-        <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
-          {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-        </small>
-      </a>
-    </ng-container>
+            <p class="product-card__price">
+              Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+            </p>
 
-    <ng-template #noTop>
-      <p class="text-muted">Chưa có xe phù hợp.</p>
-    </ng-template>
-  </div>
-</section>
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+          </div>
+
+
+          <div class="product-features" *ngIf="p.details?.features?.length">
+            <div class="feature-item" *ngFor="let f of p.details.features">
+              <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
+              <span>{{ f }}</span>
+            </div>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- Nút phải -->
+      <button class="carousel-arrow right" (click)="scrollRight()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+
+    </div>
+  </section>
+
 
 
   <!-- PROMO BANNER -->
@@ -81,8 +78,9 @@
 
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
-        <article class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+        <a class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)"
+          [routerLink]="['/rent', p.id]">
+          <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
 
@@ -90,11 +88,13 @@
             [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
-        </article>
+        </a>
       </ng-container>
       <ng-template #noMotor>
         <p class="text-muted">Chưa có xe phù hợp.</p>
@@ -109,7 +109,8 @@
 
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
-        <article class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)">
+        <a class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)"
+          [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
           </span>
@@ -118,11 +119,13 @@
             [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
-        </article>
+        </a>
       </ng-container>
       <ng-template #noEbike>
         <p class="text-muted">Chưa có xe phù hợp.</p>
@@ -137,7 +140,7 @@
 
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
-        <article class="product-card position-relative" *ngFor="let p of compactBikeList">
+        <a class="product-card position-relative" *ngFor="let p of compactBikeList" [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
           </span>
@@ -146,11 +149,13 @@
             [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
-          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+          <p class="product-card__price">
+            Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+          </p>
           <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
             {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
           </small>
-        </article>
+        </a>
       </ng-container>
       <ng-template #noCompact>
         <p class="text-muted">Chưa có xe phù hợp.</p>
@@ -159,91 +164,86 @@
   </section>
 
   <!-- LỢI ÍCH NỔI BẬT -->
-<section class="container py-5">
-  <h3 class="section-title text-center mb-4">Lợi ích nổi bật</h3>
-  <div class="row gy-4 gx-4 justify-content-center">
-    <div class="col-12 col-sm-6 col-lg-4" *ngFor="let b of benefits">
-      <div class="benefit-card p-4 h-100 shadow-sm d-flex align-items-start gap-3">
-        <i class="fa-solid fs-3 text-success" [ngClass]="b.icon"></i>
-        <div>
-          <div class="fw-semibold fs-6">{{ b.title }}</div>
-          <div class="text-muted small">{{ b.desc }}</div>
+  <section class="container py-5">
+    <h3 class="section-title text-center mb-4">Lợi ích nổi bật</h3>
+    <div class="row gy-4 gx-4 justify-content-center">
+      <div class="col-12 col-sm-6 col-lg-4" *ngFor="let b of benefits">
+        <div class="benefit-card p-4 h-100 shadow-sm d-flex align-items-start gap-3">
+          <i class="fa-solid fs-3 text-success" [ngClass]="b.icon"></i>
+          <div>
+            <div class="fw-semibold fs-6">{{ b.title }}</div>
+            <div class="text-muted small">{{ b.desc }}</div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- 3 BƯỚC LÀ CÓ XE -->
-  <!-- 3 BƯỚC LÀ CÓ XE -->
-<section class="container py-5 steps-section">
-  <h3 class="section-title">3 bước là có xe</h3>
-
-  <div class="steps">
-    <div class="step" *ngFor="let s of steps">
-      <div class="step-number">{{ s.no }}</div>
-      <div class="step-content">
-        <i class="fa-solid" [ngClass]="s.icon"></i>
-        <div>
-          <div class="step-title">{{ s.title }}</div>
-          <div class="step-desc">{{ s.desc }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- KHÁCH HÀNG NÓI GÌ VỀ ECOMOVE -->
-<section class="container py-5 testimonials-section">
-  <h3 class="section-title">Khách hàng nói gì về EcoMOVE</h3>
-
-  <div class="testimonials">
-    <div class="testi" *ngFor="let t of testimonials">
-      <div class="testi-header">
- <div class="avatar">
-          <img [src]="t.avatar || 'assets/images/default-avatar.png'" [alt]="t.name" />
-        </div>
-        <div class="stars">
-          <i class="bi bi-star-fill" *ngFor="let s of [].constructor(t.rating)"></i>
-        </div>
-      </div>
-
-      <div class="quote">“{{ t.text }}”</div>
-      <div class="meta"><em>{{ t.name }}, {{ t.city }}</em></div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- FAQ -->
-  <section class="container py-4">
-    <h3 class="section-title">Hỏi đáp nhanh</h3>
-    <div class="row g-3 mt-3">
-      <div class="col-12 col-md-6" *ngFor="let f of faqs">
-        <details class="p-3 border rounded-3 bg-white">
-          <summary class="fw-semibold cursor-pointer">{{ f.q }}</summary>
-          <div class="mt-2 text-muted small">{{ f.a }}</div>
-        </details>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-<section class="cta">
-  <div class="cta-bg">
-    <div class="circle-left"></div>
-    <div class="circle-left-small"></div>
-    <div class="circle-right"></div>
-  </div>
+  <!-- 3 BƯỚC LÀ CÓ XE -->
+  <section class="container py-5 steps-section">
+    <h3 class="section-title">3 bước là có xe</h3>
 
-  <div class="cta-content">
-    <h4>Sẵn sàng di chuyển xanh?</h4>
-    <p>Chọn xe yêu thích và lên đường ngay hôm nay.</p>
-         <button class="btn" type="button" [routerLink]="['/rent']">Đặt xe ngay</button>
-  </div>
-</section>
+    <div class="steps">
+      <div class="step" *ngFor="let s of steps">
+        <div class="step-number">{{ s.no }}</div>
+        <div class="step-content">
+          <i class="fa-solid" [ngClass]="s.icon"></i>
+          <div>
+            <div class="step-title">{{ s.title }}</div>
+            <div class="step-desc">{{ s.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <<!-- KHÁCH HÀNG NÓI GÌ VỀ ECOMOVE -->
+    <section class="container py-5 testimonials-section">
+      <h3 class="section-title">Khách hàng nói gì về EcoMOVE</h3>
+
+      <div class="testimonials">
+        <div class="testi" *ngFor="let t of testimonials">
+          <div class="testi-header">
+            <div class="avatar">
+              <img [src]="t.avatar || 'assets/images/default-avatar.png'" [alt]="t.name" />
+            </div>
+            <div class="stars">
+              <i class="bi bi-star-fill" *ngFor="let s of [].constructor(t.rating)"></i>
+            </div>
+          </div>
+
+          <div class="quote">“{{ t.text }}”</div>
+          <div class="meta"><em>{{ t.name }}<span *ngIf="t.city">, {{ t.city }}</span></em></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="container py-4">
+      <h3 class="section-title">Hỏi đáp nhanh</h3>
+      <div class="row g-3 mt-3">
+        <div class="col-12 col-md-6" *ngFor="let f of faqs">
+          <details class="p-3 border rounded-3 bg-white">
+            <summary class="fw-semibold cursor-pointer">{{ f.q }}</summary>
+            <div class="mt-2 text-muted small">{{ f.a }}</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="cta-bg">
+        <div class="circle-left"></div>
+        <div class="circle-left-small"></div>
+        <div class="circle-right"></div>
+      </div>
+
+      <div class="cta-content">
+        <h4>Sẵn sàng di chuyển xanh?</h4>
+        <p>Chọn xe yêu thích và lên đường ngay hôm nay.</p>
+        <button class="btn" type="button" [routerLink]="['/rent']">Đặt xe ngay</button>
+      </div>
+    </section>
 
 </main>
