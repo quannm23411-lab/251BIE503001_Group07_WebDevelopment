@@ -75,7 +75,8 @@ body {
 .header__controls {
     display: flex;
     align-items: center;
-    gap: 12px;                     /* khoảng cách giữa 2 ô */
+    gap: 12px;
+    /* khoảng cách giữa 2 ô */
     flex: 1;
     min-width: 0;
 }
@@ -408,7 +409,7 @@ body {
     }
 
     .header__controls {
-        gap: 10px;             
+        gap: 10px;
     }
 
     .header__search {
@@ -422,17 +423,21 @@ body {
     .nav__welcome {
         display: none;
     }
+
     .header__middle {
         padding: 8px 16px;
         column-gap: 12px;
     }
+
     .header__actions {
         gap: 8px;
     }
+
     .nav__logout-btn {
         padding: 4px 8px;
         font-size: 12px;
     }
+
     .header__controls {
         gap: 10px;
     }
@@ -441,6 +446,7 @@ body {
         flex: 1;
         max-width: none;
     }
+
     .rent-dropdown {
         width: 80vw;
         left: 50%;
@@ -458,12 +464,145 @@ body {
     }
 }
 
+/* PROFILE DROPDOWN */
 
+/* PROFILE DROPDOWN */
 
-/* MOBILE (≤ 600px) */
+.nav__profile {
+    position: relative;
+}
+
+/* nút avatar + tên */
+.nav__profile-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.nav__profile-toggle:hover {
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.nav__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* tên người dùng, cắt gọn nếu dài */
+.nav__profile-name {
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav__profile-toggle .bi-chevron-down {
+    font-size: 12px;
+}
+
+/* menu dropdown */
+.nav__profile-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    padding: 8px 0;
+    min-width: 210px;
+    width: max-content;
+    background: #ffffff;
+    color: #222;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    z-index: 1300;
+}
+
+.nav__profile-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 28px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.nav__profile-menu a,
+.nav__profile-menu button {
+    display: block;
+    width: 100%;
+    padding: 9px 16px;
+    text-align: left;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #222;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav__profile-menu a:hover,
+.nav__profile-menu button:hover {
+    background: #f5f7f9;
+}
+
+/* ẩn hệ thống chào cũ nếu còn */
+.nav__welcome,
+.nav__logout-btn {
+    display: none;
+}
+/* Tablet: thu gọn tên để tránh đè icon khác */
+@media (max-width: 900px) {
+    .header__actions {
+        gap: 8px;
+    }
+
+    .nav__profile-name {
+        max-width: 90px;
+        font-size: 12px;
+    }
+
+    .nav__profile-toggle {
+        padding: 4px 8px;
+    }
+}
+
+/* Mobile nhỏ: chỉ giữ avatar + mũi tên, không hiện tên */
+@media (max-width: 600px) {
+    .nav__profile-name {
+        display: none;
+        max-width: 0;
+    }
+
+    .nav__profile-toggle {
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .nav__avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .header__actions {
+        gap: 6px;
+    }
+}
+
+/* ================= MOBILE (≤ 600px) ================= */
 @media (max-width: 600px) {
 
-    /* Bố cục mobile */
     .header__middle {
         padding: 6px 10px;
         column-gap: 8px;
@@ -496,7 +635,23 @@ body {
         font-size: 24px;
     }
 
-    /* Dropdown mobile dọc */
+    /* avatar compact hơn trên mobile */
+    .nav__profile-toggle {
+        padding: 4px 8px;
+    }
+
+    .nav__profile-name {
+        max-width: 80px;
+        font-size: 12px;
+    }
+
+    .nav__profile-menu {
+        right: -4px;
+        top: calc(100% + 8px);
+        max-width: 240px;
+    }
+
+    /* Dropdown ĐẶT XE dạng cột dọc */
     .rent-dropdown {
         width: 85vw;
         display: block;
