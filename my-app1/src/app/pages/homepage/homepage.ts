@@ -8,27 +8,23 @@ import { ProductReviewService, ProductReview } from '../../services/product-revi
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
 import { RouterLink } from '@angular/router';
-<<<<<<< HEAD
 import { Popup } from '../popup/popup';
 import { Contact } from '../contact/contact';
-=======
 import { forkJoin } from 'rxjs';
 
->>>>>>> 1ec9219a81f1740e9f95a6fd28a67d71cb789a7d
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-<<<<<<< HEAD
   imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup, Contact],
-=======
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink],
->>>>>>> 1ec9219a81f1740e9f95a6fd28a67d71cb789a7d
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
 
 export class Homepage implements OnInit, OnDestroy {
+
+  showWelcomePopup = false;
+
     /* --- CAROUSEL: lấy reference HTML --- */
   @ViewChild('carousel', { static: false }) carousel!: ElementRef;
 
@@ -184,8 +180,10 @@ getFeatureIcon(text: string): string {
       this.cdr.detectChanges();
       this.loadRandomReviews();
     });
+    setTimeout(() => {
+      this.showWelcomePopup = true;
+    }, 2000);
   }
-
   ngOnDestroy(): void { }
 
   /** Ảnh (qua ProductLoadingService) */
