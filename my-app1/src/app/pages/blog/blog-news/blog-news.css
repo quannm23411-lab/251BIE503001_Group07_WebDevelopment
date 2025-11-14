@@ -116,7 +116,9 @@ h3.section::after {
     display: grid;
     grid-template-columns: 1.35fr 1fr;
     gap: 20px;
-    align-items: stretch
+    align-items: stretch;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 /* hero left */
@@ -259,7 +261,9 @@ h3.section::after {
 .blog-list {
     display: grid;
     gap: 14px;
-    margin-top: 12px
+    margin-top: 12px;
+    margin-left: 90px;
+    margin-right: 80px;
 }
 
 .blog-item {

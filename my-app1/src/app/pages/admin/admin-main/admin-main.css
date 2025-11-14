@@ -181,6 +181,18 @@ td { font-size: 14px; }
     color: #567C02;
     white-space: nowrap;
 }
+.chart-wrapper {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
 
 /* === 5. RESPONSIVE === */
 @media (max-width: 1200px) {
