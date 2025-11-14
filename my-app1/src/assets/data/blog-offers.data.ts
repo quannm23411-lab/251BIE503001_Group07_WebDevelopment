@@ -1,3 +1,4 @@
+
 export interface OfferItem {
   id: string;
   title: string;
@@ -5,6 +6,9 @@ export interface OfferItem {
   date: string;   
   image?: string; 
   category?: string;
+}
+export interface BlogOffersData {
+  items: OfferItem[];
 }
 
 export const BLOG_OFFERS = {

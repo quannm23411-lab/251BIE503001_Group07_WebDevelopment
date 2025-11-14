@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@gmail.com",
+            "password": "123456",
+            "fullname": "Admin EcoMOVE",
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "email": "user1@gmail.com",
+            "password": "abc123",
+            "fullname": "Nguyễn Văn User",
+            "role": "customer"
+        }
+    ]
+}

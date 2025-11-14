@@ -1,0 +1,22 @@
+<div class="banner" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)">
+    <div class="banner__viewport">
+        <div class="banner__rail" [style.transform]="'translateX(-' + active() * 100 + '%)'">
+            <ng-container *ngFor="let it of items; trackBy: trackById">
+                <a class="banner__item" [href]="it.link || null" [attr.aria-label]="it.alt || 'banner'">
+                    <img [src]="it.src" [alt]="it.alt || 'banner'" loading="eager" />
+                </a>
+            </ng-container>
+        </div>
+    </div>
+
+    <button *ngIf="showArrows" class="banner__arrow banner__arrow--left" type="button" (click)="prev()"
+        aria-label="Previous">‹</button>
+    <button *ngIf="showArrows" class="banner__arrow banner__arrow--right" type="button" (click)="next()"
+        aria-label="Next">›</button>
+
+    <div *ngIf="showDots" class="banner__dots">
+        <button *ngFor="let it of items; index as i" class="banner__dot" [class.is-active]="i === active()"
+            type="button" (click)="go(i)" [attr.aria-label]="'Go to slide ' + (i+1)">
+        </button>
+    </div>
+</div>

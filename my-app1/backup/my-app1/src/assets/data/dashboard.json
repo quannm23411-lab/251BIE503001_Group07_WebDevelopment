@@ -1,0 +1,41 @@
+{
+    "carsRented": 85,
+    "carsTotal": 120,
+    "ordersToday": 26,
+    "revenue": 132,
+    "newUsers": 17,
+    "alerts": [
+        "Xe PEGA 05 cần bảo trì định kỳ",
+        "Khách hàng #C231 chưa trả xe sau 2 ngày",
+        "Doanh thu hôm nay tăng 15% so với hôm qua",
+        "3 xe mới đã được thêm vào kho"
+    ],
+    "months": [
+        "Tháng 1",
+        "Tháng 2",
+        "Tháng 3",
+        "Tháng 4",
+        "Tháng 5",
+        "Tháng 6",
+        "Tháng 7",
+        "Tháng 8",
+        "Tháng 9",
+        "Tháng 10",
+        "Tháng 11",
+        "Tháng 12"
+    ],
+    "revenueData": [
+        95,
+        102,
+        112,
+        98,
+        125,
+        142,
+        136,
+        155,
+        160,
+        175,
+        180,
+        200
+    ]
+}

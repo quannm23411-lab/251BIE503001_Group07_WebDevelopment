@@ -1,0 +1,202 @@
+[
+  {
+    "maKhachHang": "KH001",
+    "hoTen": "Nguyễn Minh Quân",
+    "email": "miwan@email.com",
+    "soDienThoai": "0901234567",
+    "ngaySinh": "1990-05-15",
+    "diaChi": {
+      "soNhaDuong": "123 Đường Võ Văn Tần",
+      "phuongXa": "Phường 6",
+      "quanHuyen": "Quận 3",
+      "tinhThanh": "TP. Hồ Chí Minh"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "A12345678",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2030-12-31"
+    },
+    "ngayDangKy": "2025-01-10T08:30:00Z",
+    "hangThanhVien": "Vàng"
+  },
+  {
+    "maKhachHang": "KH002",
+    "hoTen": "Lê Thị Duy Nhất",
+    "email": "saela@email.com",
+    "soDienThoai": "0987654321",
+    "ngaySinh": "1995-11-20",
+    "diaChi": {
+      "soNhaDuong": "456 Đường Lê Lợi",
+      "phuongXa": "Phường Bến Thành",
+      "quanHuyen": "Quận 1",
+      "tinhThanh": "TP. Hồ Chí Minh"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "B87654321",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2028-06-15"
+    },
+    "ngayDangKy": "2025-03-22T14:45:10Z",
+    "hangThanhVien": "Bạc"
+  },
+  {
+    "maKhachHang": "KH003",
+    "hoTen": "Võ Hồng Phúc",
+    "email": "vo.hong.phuc@email.com",
+    "soDienThoai": "0335557799",
+    "ngaySinh": "1988-02-01",
+    "diaChi": {
+      "soNhaDuong": "789 Đường Hai Bà Trưng",
+      "phuongXa": "Phường Hàng Bài",
+      "quanHuyen": "Quận Hoàn Kiếm",
+      "tinhThanh": "TP. Hà Nội"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "C11223344",
+      "hangBangLai": "B1",
+      "ngayHetHan": "2029-01-30"
+    },
+    "ngayDangKy": "2025-07-01T11:05:00Z",
+    "hangThanhVien": "Đồng"
+  },
+  {
+    "maKhachHang": "KH004",
+    "hoTen": "Phan Thị Ánh Linh",
+    "email": "lyns@email.com",
+    "soDienThoai": "0912345678",
+    "ngaySinh": "1992-09-10",
+    "diaChi": {
+      "soNhaDuong": "101 Đường Nguyễn Chí Thanh",
+      "phuongXa": "Phường Láng Thượng",
+      "quanHuyen": "Quận Đống Đa",
+      "tinhThanh": "TP. Hà Nội"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "D55667788",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2027-11-05"
+    },
+    "ngayDangKy": "2025-02-15T16:20:00Z",
+    "hangThanhVien": "Bạc"
+  },
+  {
+    "maKhachHang": "KH005",
+    "hoTen": "Nguyễn Khánh Xuân",
+    "email": "grace@email.com",
+    "soDienThoai": "0778889900",
+    "ngaySinh": "1998-07-25",
+    "diaChi": {
+      "soNhaDuong": "22 Đường Nguyễn Văn Linh",
+      "phuongXa": "Phường Nam Dương",
+      "quanHuyen": "Quận Hải Châu",
+      "tinhThanh": "TP. Đà Nẵng"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "E99887766",
+      "hangBangLai": "B1",
+      "ngayHetHan": "2031-03-14"
+    },
+    "ngayDangKy": "2025-05-30T09:00:00Z",
+    "hangThanhVien": "Đồng"
+  },
+  {
+    "maKhachHang": "KH006",
+    "hoTen": "Đặng Thị Lan",
+    "email": "lan.dang.thi@email.com",
+    "soDienThoai": "0886665544",
+    "ngaySinh": "1985-12-30",
+    "diaChi": {
+      "soNhaDuong": "333 Đường 3/2",
+      "phuongXa": "Phường 11",
+      "quanHuyen": "Quận 10",
+      "tinhThanh": "TP. Hồ Chí Minh"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "F12121212",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2026-08-20"
+    },
+    "ngayDangKy": "2025-04-12T10:15:00Z",
+    "hangThanhVien": "Vàng"
+  },
+  {
+    "maKhachHang": "KH007",
+    "hoTen": "Vũ Anh Tuấn",
+    "email": "tuan.vu.anh@email.com",
+    "soDienThoai": "0934567890",
+    "ngaySinh": "1993-03-18",
+    "diaChi": {
+      "soNhaDuong": "44 Phố Cổ",
+      "phuongXa": "Phường Hàng Bạc",
+      "quanHuyen": "Quận Hoàn Kiếm",
+      "tinhThanh": "TP. Hà Nội"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "G34343434",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2029-05-25"
+    },
+    "ngayDangKy": "2025-08-05T13:00:00Z",
+    "hangThanhVien": "Đồng"
+  },
+  {
+    "maKhachHang": "KH008",
+    "hoTen": "Bùi Thị Mai",
+    "email": "mai.bui.thi@email.com",
+    "soDienThoai": "0559012345",
+    "ngaySinh": "1997-08-08",
+    "diaChi": {
+      "soNhaDuong": "55 Đường Bạch Đằng",
+      "phuongXa": "Phường Thạch Thang",
+      "quanHuyen": "Quận Hải Châu",
+      "tinhThanh": "TP. Đà Nẵng"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "H56565656",
+      "hangBangLai": "B1",
+      "ngayHetHan": "2032-01-10"
+    },
+    "ngayDangKy": "2025-01-20T17:10:00Z",
+    "hangThanhVien": "Bạc"
+  },
+  {
+    "maKhachHang": "KH009",
+    "hoTen": "Đỗ Gia Bảo",
+    "email": "bao.do.gia@email.com",
+    "soDienThoai": "0765432109",
+    "ngaySinh": "2000-01-01",
+    "diaChi": {
+      "soNhaDuong": "67 Đường Pasteur",
+      "phuongXa": "Phường Bến Nghé",
+      "quanHuyen": "Quận 1",
+      "tinhThanh": "TP. Hồ Chí Minh"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "I78787878",
+      "hangBangLai": "B1",
+      "ngayHetHan": "2030-07-07"
+    },
+    "ngayDangKy": "2025-06-18T11:30:00Z",
+    "hangThanhVien": "Đồng"
+  },
+  {
+    "maKhachHang": "KH010",
+    "hoTen": "Ngô Thanh Thảo",
+    "email": "thao.ngo.thanh@email.com",
+    "soDienThoai": "0909090909",
+    "ngaySinh": "1991-04-14",
+    "diaChi": {
+      "soNhaDuong": "88 Đường Xã Đàn",
+      "phuongXa": "Phường Phương Liên",
+      "quanHuyen": "Quận Đống Đa",
+      "tinhThanh": "TP. Hà Nội"
+    },
+    "thongTinBangLai": {
+      "soBangLai": "K90909090",
+      "hangBangLai": "B2",
+      "ngayHetHan": "2027-02-28"
+    },
+    "ngayDangKy": "2025-10-01T20:00:00Z",
+    "hangThanhVien": "Bạc"
+  }
+]

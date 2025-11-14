@@ -1,0 +1,46 @@
+<div class="account-bg"></div>
+
+<div class="crumb">
+  <a routerLink="/">Trang chủ</a> / <a routerLink="/account/profile">Tài khoản</a> / <b>Lịch sử thuê xe</b>
+</div>
+
+<div class="account-wrap">
+  <aside class="account-aside">
+    <div class="card user-mini">
+      <div class="hello">Xin chào,</div>
+      <div class="name">{{ user.fullname }}</div>
+      <nav class="menu">
+        <a routerLink="/account/profile">Thông tin tài khoản</a>
+        <a routerLink="/account/orders" class="active">Lịch sử thuê xe</a>
+        <a routerLink="/logout">Đăng xuất</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="account-main">
+    <div class="card scroll">
+      <div class="orders-head">
+        <h2>📋 Lịch sử thuê xe</h2>
+        <div class="search">
+          <input type="text" placeholder="Tìm tên xe, ID đơn hàng...">
+          <button>🔍</button>
+        </div>
+      </div>
+
+      <div class="order-row" *ngFor="let o of orders">
+        <img [src]="o.img" alt="{{o.name}}">
+        <div class="meta">
+          <h3>{{o.name}}</h3>
+          <p>Ngày nhận: {{o.start}}</p>
+          <p>Ngày trả: {{o.end}}</p>
+          <p>ID đơn hàng: {{o.id}}</p>
+        </div>
+        <div class="status" [class.active]="o.status==='Đang thuê'">{{o.status}}</div>
+        <div class="actions">
+          <button *ngIf="o.status==='Hoàn thành'" routerLink="/account/review/{{o.id}}">Đánh giá</button>
+          <button>Thuê lại</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,285 @@
+/* ... (Tất cả style cũ của bạn giữ nguyên) ... */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+}
+.admin {
+  display: flex;
+  background-image: linear-gradient(180deg, #2B3B41 0%, #45B880 100%);
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+.sidebar {
+  width: 240px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.08);
+}
+.sidebar-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    /* 🔽 THÊM MỚI: Cho phép container co dãn 🔽 */
+    flex: 1; 
+    overflow-y: auto;
+}
+.sidebar-logo-desktop img {
+    width: 100%;
+}
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    /* 🔽 THÊM MỚI: Để đẩy user info xuống 🔽 */
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+.sidebar-menu li {
+    border-radius: 16px;      
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+    padding: 12px 20px;
+    cursor: pointer;
+    gap: 8px;
+}
+.sidebar .sidebar-menu li:hover,
+.sidebar .sidebar-menu li:focus-visible,
+.sidebar .sidebar-menu li.active {
+  background: #fff;
+  color: #2B3B41;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.main {
+    flex: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+}
+.content-surface {
+  background: #ececec;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  border: 1px solid rgba(0,0,0,.05);
+  padding: 16px 18px;
+  margin: 14px 0 20px;
+  overflow: hidden; 
+}
+.content-surface .table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.sidebar-header-mobile { display: none; }
+.sidebar-toggle { display: none; }
+.sidebar-logo-mobile { display: none; }
+.menu-overlay { display: none; }
+
+/* === MEDIA QUERY === */
+@media (max-width: 992px) {
+    .admin {
+        flex-direction: column;
+        height: 100%; 
+        overflow: auto;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto; 
+        flex-direction: column; 
+        overflow: visible; 
+        position: relative; 
+        z-index: 101; 
+    }
+    .sidebar-header-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 60px; 
+        padding: 0 15px;
+        background-image: linear-gradient(90deg, #2B3B41 0%, #45B880 100%);
+        box-sizing: border-box; 
+    }
+    .sidebar-logo-mobile { display: block; }
+    .sidebar-logo-mobile img { width: 200px; }
+    .sidebar-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+    }
+    .sidebar-logo-desktop { display: none; }
+    .sidebar-menu-container {
+        position: absolute;
+        top: 60px; 
+        left: 0;
+        width: 100%;
+        background-color: #567C02; 
+        padding: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 100; 
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+        /* 🔽 THÊM MỚI: Sửa lỗi layout di động 🔽 */
+        height: calc(100vh - 60px); 
+        overflow-y: auto; 
+    }
+    .sidebar-menu-container.show {
+        display: block; 
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    .sidebar-menu li {
+        color: white; 
+        padding: 15px 20px;
+    }
+    .sidebar-menu li.active {
+        background-color: #6fa304; 
+        color: white; 
+    }
+    .main { padding: 15px; }
+    .menu-overlay {
+        position: fixed; 
+        top: 60px;       
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); 
+        z-index: 99; 
+        display: none; 
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .menu-overlay.show {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.sidebar-menu li i {
+    width: 20px; 
+    margin-right: 10px;
+    text-align: center; 
+}
+.sidebar-toggle { font-size: 24px; }
+
+/* === CSS cho User Info (Đã sửa) === */
+
+/* ❌ XÓA: .nav-list (đã chuyển vào .sidebar-menu) ❌ */
+
+.admin-user-info {
+  margin-top: auto; /* 👈 Đẩy xuống dưới cùng */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 15px; 
+  border-top: 1px solid rgba(255, 255, 255, 0.1); 
+}
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: #f0f0f0; 
+}
+.admin-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  color: white; 
+  font-family: 'Inter', sans-serif; 
+}
+.admin-name {
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap; 
+}
+
+.admin-role {
+  font-size: 13px;
+  color: #c0f0c0; 
+  text-transform: capitalize; 
+}
+.logout-link {
+  cursor: pointer;
+  color: #ffffff !important; /* 👈 Làm cho link Đăng xuất có màu đỏ nhạt */
+}
+.logout-link:hover {
+  background: #ffffff !important; /* 👈 Khi hover có nền đỏ */
+  color: #2B3B41 !important;
+}
+
+/* === 🔽 THÊM MỚI: CSS cho Popup Đăng xuất 🔽 === */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.popup-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.popup-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+.popup-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.popup-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.btn-popup-cancel {
+    background: #f0f0f0;
+    color: #555;
+}
+.btn-popup-cancel:hover {
+    background: #e0e0e0;
+}
+.btn-popup-danger {
+    background: #a30000;
+    color: white;
+}
+.btn-popup-danger:hover {
+    background: #c00000;
+}

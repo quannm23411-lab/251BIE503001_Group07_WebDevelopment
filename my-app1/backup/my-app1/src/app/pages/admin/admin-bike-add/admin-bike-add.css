@@ -1,0 +1,257 @@
+/* === Import các style chung (Giả định) === */
+/* Các style này copy từ admin-bike.css */
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+.main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Cho responsive */
+}
+
+.actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.table-state-cell {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+/* === Style cho Header trang chi tiết === */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.header-title h1 {
+/* Tiêu đề: viết hoa + đậm + nền gradient ngang */         
+  font-weight: 700;                           /* in đậm */     
+  background-image: linear-gradient(90deg, #596F00 0%, #8AB62D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;    
+  font-size: 32px;                     /* hiển thị gradient trong chữ */
+}
+.header-title span {
+    font-size: 14px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.btn-back {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-back:hover {
+    background: #e0e0e0;
+}
+.btn-save {
+    background: #567C02; /* Màu xanh lá cây */
+    color: white;
+    font-weight: 500;
+}
+.btn-save i {
+    margin-right: 5px;
+}
+
+/* === Layout 2 cột === */
+.detail-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Cột trái 66%, Cột phải 33% */
+    gap: 20px;
+    margin-top: 20px;
+}
+.detail-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.detail-col-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* === Style Thẻ "Card" === */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* === Style Form === */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box; /* Quan trọng */
+    font-family: 'Poppins', sans-serif;
+}
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Grid 2 cột cho form */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Hình ảnh */
+.detail-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* === Responsive === */
+@media (max-width: 992px) {
+    .detail-layout {
+        grid-template-columns: 1fr; /* Xếp chồng 2 cột */
+    }
+    .main__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .actions {
+        width: 100%;
+        margin-left: 0;
+    }
+    .btn-save {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr; /* Xếp chồng 2 ô input */
+    }
+    .main {
+        padding: 15px;
+    }
+}
+
+/* === Style cho Popup (Giữ nguyên) === */
+.popup-overlay {
+    position: fixed; /* Nằm cố định trên màn hình */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Lớp nền mờ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Luôn nằm trên cùng */
+}
+/* ... (toàn bộ style popup giữ nguyên) ... */
+.popup-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px; /* Chiều rộng tối đa */
+    text-align: center;
+}
+.popup-icon-success {
+    font-size: 48px;
+    color: #567C02;
+    margin-bottom: 15px;
+}
+.popup-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+.popup-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.popup-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.btn-popup-cancel {
+    background: #f0f0f0;
+    color: #555;
+}
+.btn-popup-cancel:hover {
+    background: #e0e0e0;
+}
+.btn-popup-confirm {
+    background: #567C02; /* Màu xanh lá cây chủ đạo */
+    color: white;
+}
+.btn-popup-confirm:hover {
+    background: #6fa304; /* Màu đậm hơn */
+}
+
+/* === 🔽 THÊM MỚI: STYLE CHO VALIDATION === */
+.invalid-feedback {
+    color: #a30000;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block; /* Đảm bảo nó hiển thị */
+}
+.form-control.is-invalid {
+    border-color: #a30000;
+}
+.form-control.is-invalid:focus {
+    border-color: #a30000;
+    box-shadow: 0 0 0 2px rgba(163, 0, 0, 0.2);
+}
+.form-text {
+    font-size: 13px;
+    color: #777;
+    margin-top: 5px;
+    display: block;
+}

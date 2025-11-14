@@ -1,0 +1,50 @@
+<!-- nền ảnh cố định -->
+<div class="account-bg"></div>
+
+<!-- breadcrumb đơn giản -->
+<div class="crumb">
+  <a routerLink="/">Trang chủ</a> / <span>Tài khoản</span> / <b>Thông tin tài khoản</b>
+</div>
+
+<div class="account-wrap">
+  <!-- sidebar sticky -->
+  <aside class="account-aside">
+    <div class="card user-mini">
+      <div class="hello">Xin chào,</div>
+      <div class="name">{{ user.fullname }}</div>
+      <nav class="menu">
+        <a routerLink="/account/profile" class="active">Thông tin tài khoản</a>
+        <a routerLink="/account/orders">Lịch sử thuê xe</a>
+        <a routerLink="/logout">Đăng xuất</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- khối trắng cuộn nội bộ -->
+  <main class="account-main">
+    <div class="card scroll">
+      <div class="head">
+        <div class="user">
+          <img [src]="user.avatar" class="avatar" alt="avatar">
+          <div class="meta">
+            <h2>{{ user.fullname }}</h2>
+            <span class="badge gold">{{ user.tier }}</span>
+          </div>
+        </div>
+        <button class="btn primary" (click)="edit()">✏️ Chỉnh sửa</button>
+      </div>
+
+      <div class="info">
+        <p><b>Họ và tên</b> <span>{{ user.fullname }}</span></p>
+        <p><b>Email</b> <span>{{ user.email }}</span></p>
+        <p><b>Mật khẩu</b> <span>********</span></p>
+        <p><b>Cấp bậc</b> <span class="badge gold">{{ user.tier }}</span></p>
+
+        <label class="newsletter">
+          <input type="checkbox" checked>
+          Tôi muốn nhận thông báo về ưu đãi qua email
+        </label>
+      </div>
+    </div>
+  </main>
+</div>

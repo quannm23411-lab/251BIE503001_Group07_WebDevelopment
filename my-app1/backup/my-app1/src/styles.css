@@ -1,0 +1,18 @@
+/* Trong file: src/styles.css */
+
+:root {
+    --header-offset: 145px;
+    /* fallback */
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;       /* <-- THÊM VÀO */
+}
+
+body {
+    /* XÓA DÒNG NÀY ĐI: padding-top: var(--header-offset); */
+    font-family: "Inter", sans-serif;
+}

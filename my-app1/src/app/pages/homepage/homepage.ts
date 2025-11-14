@@ -3,26 +3,28 @@ import { CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage } from '@angular/c
 
 import { HotProductService, Product } from '../../services/hot-products.services';
 import { ProductLoadingService } from '../../services/product-loading.services';
-import { ProductReviewService, ProductReview } from '../../services/product-review.services';
 
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { Popup } from '../popup/popup';
+
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink],
+  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
 export class Homepage implements OnInit, OnDestroy {
 
+  showWelcomePopup = false;
+
   banners: BannerItem[] = [
-    { id: 'b1', src: './assets/images/banner-1.jpg', alt: 'Gia nhập cộng đồng EcoMove' },
-    { id: 'b2', src: './assets/images/banner-2.jpg', alt: 'Đặt xe ngay tại EcoMove' },
-    { id: 'b3', src: './assets/images/banner-3.jpg', alt: 'Nhận ưu đãi độc quyền từ EcoMove' }
+    { id: 'b1', src: 'assets/images/banner-1.jpg', alt: 'Khuyến mãi tháng này' },
+    { id: 'b2', src: 'assets/images/banner-2.jpg', alt: 'Thuê xe nhanh trong 30 phút' },
+    { id: 'b3', src: 'assets/images/banner-3.jpg', alt: 'Đi xa tiết kiệm' }
   ];
 
   topRentList: Product[] = [];
@@ -53,14 +55,10 @@ export class Homepage implements OnInit, OnDestroy {
     { no: 3, icon: 'bi bi-scooter', title: 'Nhận xe & lên đường', desc: 'Tại trạm hoặc giao tận nơi.' }
   ];
 
-  /** Testimonials hiển thị ở section "Khách hàng nói gì" */
-  testimonials: {
-    avatar: string;
-    name: string;
-    city?: string;
-    text: string;
-    rating: number;
-  }[] = [];
+  testimonials = [
+    { avatar: 'assets/images/avatar/k-xuan.jpg', name: 'K. Xuân', city: 'TP.HCM', text: 'Đặt 8h, 8h15 có xe tại khách sạn. Pin đi cả ngày vẫn còn.', rating: 5 },
+    { avatar: 'assets/images/avatar/a-linh.jpg', name: 'A. Linh', city: 'Đà Nẵng', text: 'Thủ tục nhanh, xe mới, hỗ trợ tận tình.', rating: 5 }
+  ];
 
   faqs = [
     { q: 'Cần giấy tờ gì khi thuê?', a: 'CCCD/Passport + cọc định danh hoặc thẻ tín dụng.' },
@@ -70,17 +68,19 @@ export class Homepage implements OnInit, OnDestroy {
     { q: 'Xử lý vi phạm giao thông?', a: 'Khách hàng chịu trách nhiệm theo quy định pháp luật.' }
   ];
 
-  /** Flag tránh load lại review nhiều lần không cần thiết */
-  private reviewsLoaded = false;
-
   constructor(
     private hot: HotProductService,
     private cdr: ChangeDetectorRef,
-    private img: ProductLoadingService,
-    private reviews: ProductReviewService
+    private img: ProductLoadingService
   ) { }
 
   ngOnInit(): void {
+
+    // ⬅️ tự động mở popup sau 2 giây
+    setTimeout(() => {
+      this.showWelcomePopup = true;
+    }, 2000);
+
     this.hot.getConfig().subscribe(cfg => {
       if (cfg?.sections) {
         this.sectionText.motorbike.title = cfg.sections.motorbike.title || this.sectionText.motorbike.title;
@@ -90,98 +90,35 @@ export class Homepage implements OnInit, OnDestroy {
         this.sectionText.compact.title = cfg.sections.compact.title || this.sectionText.compact.title;
         this.sectionText.compact.subtitle = cfg.sections.compact.subtitle || this.sectionText.compact.subtitle;
       }
-
       const p = cfg?.promo;
       if (p?.active) {
-        this.promo = {
-          active: true,
-          code: p.code,
-          amount: Number(p.discountAmount ?? 0),
-          endDate: p.endDate
-        };
+        this.promo = { active: true, code: p.code, amount: Number(p.discountAmount ?? 0), endDate: p.endDate };
       }
-
       this.cdr.detectChanges();
     });
 
     this.hot.getTopRent(4).subscribe(list => {
       this.topRentList = list;
       this.cdr.detectChanges();
-      this.loadRandomReviews();
     });
 
-    this.hot.getHotByCategory('motorbike', 4).subscribe(v => {
-      this.motorbikeList = v;
-      this.cdr.detectChanges();
-      this.loadRandomReviews();
-    });
-
-    this.hot.getHotByCategory('ebike', 4).subscribe(v => {
-      this.ecoBikeList = v;
-      this.cdr.detectChanges();
-      this.loadRandomReviews();
-    });
-
-    this.hot.getHotByCategory('compact', 8).subscribe(v => {
-      this.compactBikeList = v;
-      this.cdr.detectChanges();
-      this.loadRandomReviews();
-    });
+    this.hot.getHotByCategory('motorbike', 4).subscribe(v => { this.motorbikeList = v; this.cdr.detectChanges(); });
+    this.hot.getHotByCategory('ebike', 4).subscribe(v => { this.ecoBikeList = v; this.cdr.detectChanges(); });
+    this.hot.getHotByCategory('compact', 8).subscribe(v => { this.compactBikeList = v; this.cdr.detectChanges(); });
   }
 
   ngOnDestroy(): void { }
 
-  /** Ảnh (qua ProductLoadingService) */
+  /** ===== Ảnh (qua ProductLoadingService) ===== */
   getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
     return this.img.getImageUrl(p, kind);
   }
-
   getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
     return this.img.getImageSize(kind);
   }
 
-  /** Format giá */
+  /** ===== Format giá ===== */
   formatVND(price: number): string {
     return (price ?? 0).toLocaleString('vi-VN') + 'đ';
-  }
-
-  /** Lấy ngẫu nhiên một vài đánh giá từ ProductReviewService để show trên homepage */
-  private loadRandomReviews() {
-    if (this.reviewsLoaded) return;
-
-    // gom tất cả id sản phẩm đang hiển thị trên homepage
-    const idSet = new Set<string | number>();
-    this.topRentList.forEach(p => p?.id && idSet.add(p.id));
-    this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
-    this.ecoBikeList.forEach(p => p?.id && idSet.add(p.id));
-    this.compactBikeList.forEach(p => p?.id && idSet.add(p.id));
-
-    const ids = Array.from(idSet).slice(0, 6); // tối đa 6 xe để gọi
-    if (!ids.length) return;
-
-    forkJoin(
-      ids.map(id => this.reviews.getByVehicleId(String(id)))
-    ).subscribe((lists: ProductReview[][]) => {
-      const all: ProductReview[] = lists.flat().filter(Boolean).filter(r => r.status === 'approved');
-      if (!all.length) return;
-
-      // shuffle nhẹ cho "ngẫu nhiên"
-      const shuffled = all.slice().sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, 4); // lấy 3 review để hiển thị
-
-      this.testimonials = picked.map(r => ({
-        avatar: (r.images && r.images[0]) || 'assets/images/default-avatar.png',
-        name: r.customerName || 'Khách hàng EcoMOVE',
-        city: 'TP.HCM', // JSON không có city, để fixed text cho gọn
-        text: r.content || r.title || '',
-        rating: r.rating || 5
-      }));
-
-      if (this.testimonials.length) {
-        this.reviewsLoaded = true;
-      }
-
-      this.cdr.detectChanges();
-    });
   }
 }

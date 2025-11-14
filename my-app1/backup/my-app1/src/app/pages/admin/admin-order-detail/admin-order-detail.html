@@ -1,0 +1,213 @@
+<div class="main">
+    <div *ngIf="isLoading" class="table-state-cell">
+        Đang tải thông tin đơn hàng...
+    </div>
+
+    <div *ngIf="!isLoading && !order" class="table-state-cell">
+        Không tìm thấy thông tin đơn hàng.
+        <br><br>
+        <button (click)="goBack()" class="btn-back">Quay lại</button>
+    </div>
+
+    <div *ngIf="!isLoading && order">
+        <header class="main__header">
+            <div class="header-left">
+                <button (click)="goBack()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="header-title">
+                    <h1>Đơn hàng: {{ order.maDonThue }}</h1>
+                    <span>Đặt lúc: {{ order.thoiGianDatHang | date:'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button (click)="saveChanges()" class="btn-save">
+                    <i class="fas fa-save"></i> Lưu thay đổi
+                </button>
+            </div>
+        </header>
+
+        <div class="detail-layout">
+            
+            <div class="detail-col-main">
+                <section class="card">
+                    <h2>Chi tiết đơn hàng</h2>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="orderStatus">Trạng thái đơn</label>
+                            <select id="orderStatus" [(ngModel)]="order.tinhTrangDon" class="form-control">
+                                <option *ngFor="let s of orderStatuses" [value]="s">{{ s }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentStatus">Trạng thái thanh toán</label>
+                            <select id="paymentStatus" [(ngModel)]="order.thanhToan.tinhTrangThanhToan" class="form-control">
+                                <option *ngFor="let p of paymentStatuses" [value]="p">{{ p }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="tienDatCoc">Tiền đặt cọc</label>
+                            <input type="text" id="tienDatCoc" [value]="order.tienDatCoc" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="trangThaiCoc">Trạng thái cọc</label>
+                            <select id="trangThaiCoc" [(ngModel)]="order.trangThaiCoc" class="form-control">
+                                <option *ngFor="let d of depositStatuses" [value]="d">{{ d }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </section>
+
+<section class="card">
+    <h2>Xe đã thuê ({{ rentedItems.length }})</h2>
+    
+<div class="table-wrapper">
+    <table class="table-rented-items">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Chi tiết thuê</th>
+                <th>Thông tin nhận xe</th> 
+                <th>Thông tin trả xe</th> 
+                <th>Trạng thái & Thực tế</th> 
+                <th>Tổng cộng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of rentedItems">
+                <td>
+                    <div class="product-cell">
+                        <img [src]="item.image" alt="{{ item.vehicleName }}" class="product-cell-image">
+                        <div class="product-cell-info">
+                            <strong>{{ item.vehicleName }}</strong>
+                            <span>ID: {{ item.idXe }}</span>
+                            <a [routerLink]="['/admin/bike-detail', item.idXe]" class="link-to-detail product-detail-link">
+                                Xem chi tiết xe <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                
+                <td>
+                    <div class="info-cell">
+                        <span>Số lượng: {{ item.soLuong }}</span>
+                        <span>{{ item.donGia | number }}đ x {{ item.soNgayThue }} ngày</span>
+                    </div>
+                </td>
+                
+                <td>
+                    <div class="info-cell location-cell">
+                        <span>{{ item.diaDiemNhanXe }}</span>
+                        <span>({{ item.thoiGianNhanXe | date:'dd/MM HH:mm' }})</span>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="info-cell location-cell">
+                        <span>{{ item.diaDiemTraXe }}</span>
+                        <span>({{ item.thoiGianTraXe | date:'dd/MM HH:mm' }})</span>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="info-cell editable-cell">
+                        <label>Trạng thái xe:</label>
+                        <select [(ngModel)]="item.tinhTrangXe" class="form-control-table">
+                            <option *ngFor="let s of vehicleStatuses" [value]="s">{{ s }}</option>
+                        </select>
+                        
+                        <label>Thời gian trả thực tế:</label>
+                        <input type="text" [(ngModel)]="item.thoiGianTraXeThucTe" 
+                               placeholder="(Chưa trả)" class="form-control-table">
+                    </div>
+                </td>
+                
+                <td>
+                    <strong class="total-price-cell">{{ item.tongGiaTri | number }}đ</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</section>
+            </div>
+            <div class="detail-col-side">
+                <section class="card">
+                    <h2>Thông tin khách hàng</h2>
+                    <div class="form-group">
+                        <label>Họ tên</label>
+                        <input type="text" [value]="customer.hoTen" class="form-control" readonly>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" [value]="customer.email" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" [value]="customer.soDienThoai" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <a [routerLink]="['/admin/customer-detail', customer.maKhachHang]" class="link-to-detail">
+                        Xem chi tiết khách hàng <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </section>
+
+                <section class="card">
+                    <h2>Thông tin thanh toán</h2>
+                    <div class="form-group">
+                        <label for="tongGiaTriGoc">Tổng giá trị gốc</label>
+                        <input type="text" id="tongGiaTriGoc" [value]="order.thanhToan.tongGiaTriGoc" class="form-control" readonly>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="maGiamGia">Mã giảm giá</label>
+                            <input type="text" id="maGiamGia" [(ngModel)]="order.thanhToan.maGiamGia" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="tienGiam">Tiền giảm</label>
+                            <input type="number" id="tienGiam" [(ngModel)]="order.thanhToan.tienGiam" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donViTienTe">Đơn vị tiền tệ</label>
+                        <input type="text" id="donViTienTe" [(ngModel)]="order.thanhToan.donViTienTe" class="form-control">
+                    </div>
+                    
+                    <hr class="divider">
+                    <div class="form-group total-price">
+                        <label for="chiPhiSauGiam">Tổng thanh toán (Sau giảm)</label>
+                        <input type="text" [value]="order.thanhToan.chiPhiSauGiam" class="form-control" readonly>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showConfirmPopup">
+        <div class="popup-container">
+            <h2>Xác nhận</h2>
+            <p>Bạn có chắc chắn muốn lưu các thay đổi này?</p>
+            <div class="popup-actions">
+                <button (click)="onCancelSave()" class="btn-popup-cancel">Hủy</button>
+                <button (click)="onConfirmSave()" class="btn-popup-confirm">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="showSuccessPopup">
+        <div class="popup-container">
+            <h2>Thành công</h2>
+            <p>Đã lưu thay đổi thành công!</p>
+            <div class="popup-actions">
+                <button (click)="onCloseSuccessAndGoBack()" class="btn-popup-cancel">Quay về</button>
+                <button (click)="onCloseSuccessAndStay()" class="btn-popup-confirm">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

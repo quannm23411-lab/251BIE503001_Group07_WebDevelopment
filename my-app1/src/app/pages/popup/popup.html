@@ -1,1 +1,60 @@
-<p>popup works!</p>
+<div class="popup-backdrop" *ngIf="visible" (click)="close()">
+  <div class="popup" (click)="$event.stopPropagation()">
+
+    <!-- DECOR SHAPES -->
+    <span class="decor decor-bl2"></span>
+    <span class="decor decor-bl"></span>
+    <span class="decor decor-br"></span>
+    <span class="decor decor-tr-big"></span>
+    <span class="decor decor-tr-small"></span>
+
+    <!-- Close btn -->
+    <button class="close-btn" (click)="close()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <!-- WELCOME AREA -->
+    <div class="welcome">
+      <span class="welcome-text">Chào mừng bạn đến với</span>
+      <img src="../../../assets/images/logofull.png" alt="EcoMove Logo" class="welcome-logo" />
+    </div>
+
+    <!-- TITLE -->
+    <h2 class="popup-title">ĐỪNG BỎ LỠ MÃ GIẢM GIÁ VÀ XE MỚI!</h2>
+
+    <!-- SUB TEXT -->
+    <p class="popup-sub">
+      Nhận thông báo <span class="green">ưu đãi theo tuần</span>, gói thuê
+      <span class="green">tiết kiệm</span> và các dòng xe điện
+      <span class="green">vừa ra mắt!</span>
+    </p>
+
+    <!-- Nếu thành công, hiển thị thông báo -->
+    <div *ngIf="isSuccess" class="success-message">
+      <p>CHÚC MỪNG BẠN ĐÃ NHẬN  KHUYẾN MÃI THÀNH CÔNG</p>
+    </div>
+
+    <!-- FORM -->
+    <form (ngSubmit)="submitEmail(emailModel)" #emailForm="ngForm" class="email-form" *ngIf="!isSuccess">
+      <input
+        type="email"
+        name="email"
+        placeholder="Nhập email của bạn..."
+        [(ngModel)]="email"
+        required
+        email
+        #emailModel="ngModel"
+      />
+
+      <!-- Lỗi ngay dưới input -->
+      <div *ngIf="emailModel.invalid && emailModel.touched" class="email-note-error">
+        Email không hợp lệ, vui lòng thử lại.
+      </div>
+
+      <button class="submit-btn" [disabled]="emailModel.invalid">
+        CẬP NHẬT NGAY!
+      </button>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="main">
+    <div *ngIf="isLoading" class="table-state-cell">
+        Đang tải dữ liệu Dashboard...
+    </div>
+
+    <div *ngIf="!isLoading">
+        <header class="main__header">
+            <h1>Dashboard</h1>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon icon-revenue">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Tổng doanh thu</span>
+                    <h3>{{ stats.totalRevenue | number:'1.0-0' }}đ</h3>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon icon-orders">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Tổng đơn hàng</span>
+                    <h3>{{ stats.totalOrders }}</h3>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-rentals">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Đơn đang thuê</span>
+                    <h3>{{ stats.activeRentals }}</h3>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-customers">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Số khách hàng</span>
+                    <h3>{{ stats.uniqueCustomers }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-layout">
+            
+            <div class="dashboard-col-main">
+                <section class="card">
+                    <div class="card-header">
+                        <h2>Đơn hàng gần đây</h2>
+                        <button (click)="goToAllOrders()" class="btn-link">Xem tất cả</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Mã khách hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh toán</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of recentOrders" (click)="goToOrder(order.maDonThue)" class="clickable-row">
+                                    <td><strong>{{ order.maDonThue }}</strong></td>
+                                    <td>{{ order.maKhachHang }}</td>
+                                    <td>{{ order.thanhToan.chiPhiSauGiam | number:'1.0-0' }}đ</td>
+                                    <td>
+                                        <span class="payment-status" [ngClass]="order.paymentStatusClass">
+                                            {{ order.thanhToan.tinhTrangThanhToan }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="status" [ngClass]="order.tinhTrangDonClass">
+                                            {{ order.tinhTrangDon }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div class="dashboard-col-side">
+                <section class="card">
+                    <h2>Xe được thuê nhiều nhất</h2>
+                    
+                    <ul class="top-vehicle-list">
+                        <li *ngFor="let item of topVehicles" (click)="goToBike(item.product.id)" class="clickable-row">
+                            <img [src]="item.product.image" alt="{{ item.product.vehicleName }}">
+                            <div class="top-vehicle-info">
+                                <strong>{{ item.product.vehicleName }}</strong>
+                                <span>ID: {{ item.product.id }}</span>
+                            </div>
+                            <span class="top-vehicle-count">{{ item.count }} lượt</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+        </div>
+
+    </div>
+</div>
