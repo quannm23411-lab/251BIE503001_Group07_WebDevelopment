@@ -63,6 +63,11 @@ export class CartService {
         }
     }
 
+    // hàm mới, thay toàn bộ giỏ hàng
+    setItems(items: CartItem[]): void {
+        this._items.set(items);
+    }
+
     private loadFromStorage(): CartItem[] | null {
         if (!this.isBrowser) return null;
         try {
@@ -114,7 +119,7 @@ export class CartService {
         rentStart?: string | null;
         rentEnd?: string | null;
         quantity?: number;
-        availabilityStatus?: boolean;  // true/false giống products.json
+        availabilityStatus?: boolean;  // true false giống products.json
     }) {
         const rentStart = payload.rentStart || undefined;
         const rentEnd = payload.rentEnd || undefined;
@@ -143,7 +148,6 @@ export class CartService {
                         finalPricePerDay: payload.finalPricePerDay,
                         quantity,
                         subtotal,
-                        // nếu không truyền thì mặc định true = còn xe
                         availabilityStatus: payload.availabilityStatus ?? true
                     }
                 ];
