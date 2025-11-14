@@ -127,8 +127,8 @@
                     </span>
                 </div>
 
-                <button type="button" class="cart-footer-btn" [routerLink]="['/checkout']"
-                    [state]="{ selectedIds: getSelectedIdsArray() }" [disabled]="selectedTotalQuantity() === 0">
+                <button class="cart-footer__checkout-btn" [disabled]="selectedTotalQuantity() === 0"
+                    (click)="onCheckoutClick()">
                     Thanh toán ({{ selectedTotalQuantity() }})
                 </button>
             </div>

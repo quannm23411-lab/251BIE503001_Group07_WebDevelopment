@@ -367,30 +367,34 @@
     color: #ef4444;
 }
 
-.cart-footer-btn {
-    padding: 10px 26px;
-    border-radius: 999px;
-    border: none;
-    cursor: pointer;
+.cart-footer__checkout-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 28px;
+    font-size: 18px;
     font-weight: 600;
-    font-size: 0.98rem;
-    /* gradient kiểu CTA "Đặt xe ngay" */
-    background: linear-gradient(135deg, #004f3b, #2ed67a);
-    color: #ffffff;
-    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.35);
-    transition: box-shadow 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+    color: #fff;
+    background: linear-gradient(90deg, #0a4d3c 0%, #1cc580 100%);
+    border: none;
+    border-radius: 32px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.18);
+    white-space: nowrap;
 }
 
-.cart-footer-btn:hover:not(:disabled) {
-    box-shadow: 0 10px 22px rgba(16, 185, 129, 0.45);
+.cart-footer__checkout-btn:hover {
+    opacity: 0.95;
     transform: translateY(-1px);
 }
 
-.cart-footer-btn:disabled {
-    background: #d1d5db;
-    color: #6b7280;
-    box-shadow: none;
+.cart-footer__checkout-btn:disabled {
+    background: #ccc !important;
+    color: #666 !important;
     cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 /* EMPTY */

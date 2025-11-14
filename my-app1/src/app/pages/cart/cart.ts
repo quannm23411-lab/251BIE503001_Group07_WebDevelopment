@@ -2,6 +2,8 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
+import { Auth } from '../../services/auth/auth'; // ✅ chỉ import Auth, KHÔNG inject AuthUser
+
 
 @Component({
     selector: 'app-cart-page',
@@ -13,6 +15,7 @@ import { CartService, CartItem } from '../../services/cart.services';
 export class CartPage {
     private cart = inject(CartService);
     private router = inject(Router);
+    private auth = inject(Auth); // 👈 THÊM DÒNG NÀY
 
     // Signals từ CartService
     readonly items = this.cart.items;
@@ -70,7 +73,6 @@ export class CartPage {
     }
 
     // ========== CART ACTIONS ==========
-
     trackById(index: number, item: CartItem) {
         return item.id;
     }
@@ -96,6 +98,27 @@ export class CartPage {
         this.cart.clear();
         this.selectedIds.set(new Set());
         this.selectAllChecked.set(false);
+    }
+
+    onCheckoutClick() {
+        const selectedIds = this.getSelectedIdsArray
+            ? this.getSelectedIdsArray()
+            : Array.from(this.selectedIds?.() ?? []);
+
+        if (!selectedIds.length) {
+            return;
+        }
+
+        if (this.auth.isLoggedIn()) {
+            this.router.navigate(['/checkout'], {
+                state: { selectedIds }
+            });
+        } else {
+            this.router.navigate(['/login'], {
+                queryParams: { returnUrl: '/checkout' },
+                state: { selectedIds }
+            });
+        }
     }
 
     // ========== SELECTION HELPERS ==========

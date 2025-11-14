@@ -2,22 +2,19 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 // =============================================
-// THÊM MỚI: Import RouterLink
+// Import Router, RouterLink, ActivatedRoute
 // =============================================
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { Auth, AuthUser } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  // =============================================
-  // THÊM MỚI: Thêm RouterLink vào mảng imports
-  // =============================================
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink // <-- Thêm vào đây
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
@@ -34,8 +31,13 @@ export class Login implements OnInit {
   featureModalTitle = signal('');
   featureModalBody = signal('');
 
+  // NEW: giữ returnUrl & selectedIds (từ Cart → Login)
+  returnUrl = '/';
+  private selectedIdsFromCart: string[] = [];
+
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private loginService = inject(LoginService);
   private auth = inject(Auth);
 
@@ -44,6 +46,16 @@ export class Login implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       remember: [false]
+    });
+
+    // Lấy selectedIds từ state khi điều hướng từ Cart
+    const nav = this.router.getCurrentNavigation();
+    const state = (nav?.extras.state as any) ?? history.state;
+    this.selectedIdsFromCart = state?.selectedIds ?? [];
+
+    // Đọc ?returnUrl=/checkout trong query string
+    this.route.queryParamMap.subscribe(params => {
+      this.returnUrl = params.get('returnUrl') || '/';
     });
   }
 
@@ -74,7 +86,6 @@ export class Login implements OnInit {
     });
   }
 
-
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
@@ -97,9 +108,23 @@ export class Login implements OnInit {
 
   closeModalAndNavigate() {
     this.isModalVisible = false;
-    // Cập nhật: dùng .currentUser() (vì bạn đã đổi tên hàm trong register.ts)
     const user = this.auth.getCurrentUser();
-    if (user?.role === 'admin') this.router.navigate(['/admin']);
-    else this.router.navigate(['/']);
+
+    // Nếu có returnUrl (ví dụ /checkout) → ưu tiên quay về đó
+    if (this.returnUrl && this.returnUrl !== '/') {
+      this.router.navigateByUrl(this.returnUrl, {
+        state: this.selectedIdsFromCart.length
+          ? { selectedIds: this.selectedIdsFromCart }
+          : undefined
+      });
+      return;
+    }
+
+    // Không có returnUrl → giữ logic cũ (admin / customer)
+    if (user?.role === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }
