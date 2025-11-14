@@ -20,6 +20,9 @@ export class Header {
   isShrink = false;
   currentCity = 'TP Hồ Chí Minh';
 
+  // mobile menu
+  mobileMenuOpen = false;
+
   // search
   suggestOpen = false;
   hotSuggestions: HotSuggestion[] = [
@@ -52,6 +55,16 @@ export class Header {
     this.isShrink = offset > 80;
   }
 
+  // ====== MOBILE MENU ======
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+
+    // mở menu mobile thì đóng profile dropdown
+    if (this.mobileMenuOpen) {
+      this.profileMenuOpen = false;
+    }
+  }
+
   // ====== USER / PROFILE ======
   isLoggedIn(): boolean {
     return this.loginService.isLoggedIn();
@@ -68,20 +81,28 @@ export class Header {
 
   toggleProfileMenu(): void {
     this.profileMenuOpen = !this.profileMenuOpen;
+
+    // mở dropdown profile thì đóng mobile menu
+    if (this.profileMenuOpen) {
+      this.mobileMenuOpen = false;
+    }
   }
 
   goToProfile(): void {
     this.profileMenuOpen = false;
+    this.mobileMenuOpen = false;
     this.router.navigate(['/account/profile']);
   }
 
   goToOrders(): void {
     this.profileMenuOpen = false;
+    this.mobileMenuOpen = false;
     this.router.navigate(['/account/orders']);
   }
 
   logout(): void {
     this.profileMenuOpen = false;
+    this.mobileMenuOpen = false;
     this.loginService.logout();
     this.router.navigate(['/']);
   }
@@ -112,6 +133,7 @@ export class Header {
 
   applySuggestion(s: HotSuggestion): void {
     this.suggestOpen = false;
+    this.mobileMenuOpen = false;
     // bạn có thể điều hướng tới trang tìm kiếm ở đây
     console.log('Apply suggestion:', s.label);
   }
@@ -119,6 +141,7 @@ export class Header {
   onSearch(event: Event): void {
     event.preventDefault();
     this.suggestOpen = false;
+    this.mobileMenuOpen = false;
   }
 
   onQueryChange(value: string): void {
