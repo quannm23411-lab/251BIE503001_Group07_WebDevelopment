@@ -1,60 +1,86 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-
-type Tier = 'EcoGold' | 'EcoSilver' | 'EcoBasic';
-
-interface AccountProfile {
-  avatar: string;
-  fullname: string;
-  email: string;
-  password?: string;
-  tier?: Tier;
-}
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'profile-view',
+  selector: 'account-profile-view',
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './profile-view.html',
   styleUrls: ['./profile.css']
 })
-export class ProfileView {
-  private router = inject(Router);
+export class AccountProfileView implements OnInit {
 
-  user: AccountProfile = {
-    avatar: '/assets/images/avatars/default.png',
+  user: any = {
     fullname: 'Khách EcoMove',
     email: '',
+    avatar: '/assets/images/avatars/default.png',
     tier: 'EcoBasic'
   };
 
-  showPwd = false;
   userPassword = '';
+  showPwd = false;
 
-  constructor() {
-    if (typeof localStorage === 'undefined') return;
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
+  ngOnInit(): void {
+    this.loadProfile();
+  }
+
+  private loadProfile(): void {
     const raw = localStorage.getItem('eco_profile');
-    if (!raw) return;
+    let email = '';
 
-    try {
-      const data = JSON.parse(raw) as AccountProfile;
-      this.user.avatar = data.avatar || this.user.avatar;
-      this.user.fullname = data.fullname || this.user.fullname;
-      this.user.email = data.email || this.user.email;
-      this.user.tier = data.tier || this.user.tier;
-      this.userPassword = data.password || '';
-    } catch {
-      // nếu parse lỗi thì dùng mặc định
+    if (raw) {
+      try {
+        const profile = JSON.parse(raw);
+
+        this.user.fullname = profile.fullname || 'Khách EcoMove';
+        this.user.email = profile.email || '';
+        this.user.avatar =
+          profile.avatar || '/assets/images/avatars/default.png';
+        this.user.tier = profile.tier || 'EcoBasic';
+
+        if (profile.password) {
+          this.userPassword = profile.password;
+        }
+
+        email = this.user.email;
+      } catch {
+        // giữ default
+      }
+    }
+
+    if (!this.userPassword && email) {
+      this.http
+        .get<{ users: any[] }>('assets/data/users.json')
+        .subscribe({
+          next: (res) => {
+            const match = res.users.find(
+              (u) =>
+                u.email &&
+                u.email.toLowerCase() === email.toLowerCase()
+            );
+            if (match && match.password) {
+              this.userPassword = match.password;
+            } else {
+              this.userPassword = '';
+            }
+          },
+          error: () => {
+            this.userPassword = '';
+          }
+        });
     }
   }
 
-  togglePwd() {
+  togglePwd(): void {
     this.showPwd = !this.showPwd;
   }
 
-  edit() {
-    this.router.navigateByUrl('/account/profile/edit');
+  edit(): void {
+    this.router.navigate(['/account/profile/edit']);
   }
 }

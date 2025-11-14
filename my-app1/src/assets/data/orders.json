@@ -44,7 +44,7 @@
       "donViTienTe": "VND",
       "tinhTrangThanhToan": "Đã thanh toán"
     },
-    "tinhTrangDon": "Đang thuê",
+    "tinhTrangDon": "Đã hoàn thành",
     "chiTietDonThue": [
       {
         "idXe": "V001",
@@ -53,11 +53,11 @@
         "soNgayThue": 3,
         "tongGiaTri": 540000,
         "thoiGianNhanXe": "2025-11-05T08:00:00Z",
-        "thoiGianTraXe": "2025-11-08T08:00:00Z",
+        "thoiGianTraXe": "2025-11-29T08:00:00Z",
         "diaDiemNhanXe": "Sân bay Đà Nẵng",
         "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, TP. Đà Nẵng",
-        "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đang thuê"
+        "thoiGianTraXeThucTe": "2025-11-08T07:50:00Z",
+        "tinhTrangXe": "Đã trả"
       },
       {
         "idXe": "V003",
@@ -69,8 +69,8 @@
         "thoiGianTraXe": "2025-11-08T08:00:00Z",
         "diaDiemNhanXe": "Sân bay Đà Nẵng",
         "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, TP. Đà Nẵng",
-        "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đang thuê"
+        "thoiGianTraXeThucTe": "2025-11-08T07:55:00Z",
+        "tinhTrangXe": "Đã trả"
       }
     ]
   },
@@ -194,36 +194,36 @@
     ]
   },
   {
-    "maDonThue": "RENT006",
-    "maKhachHang": "KH004",
-    "thoiGianDatHang": "2025-11-07T10:10:00Z",
-    "tienDatCoc": 100000,
-    "trangThaiCoc": "Đã thanh toán",
-    "thanhToan": {
-      "tongGiaTriGoc": 180000,
-      "maGiamGia": null,
-      "tienGiam": 0,
-      "chiPhiSauGiam": 180000,
-      "donViTienTe": "VND",
-      "tinhTrangThanhToan": "Đã thanh toán"
-    },
-    "tinhTrangDon": "Đang thuê",
-    "chiTietDonThue": [
-      {
-        "idXe": "V013",
-        "soLuong": 1,
-        "donGia": 180000,
-        "soNgayThue": 1,
-        "tongGiaTri": 180000,
-        "thoiGianNhanXe": "2025-11-08T08:00:00Z",
-        "thoiGianTraXe": "2025-11-09T08:00:00Z",
-        "diaDiemNhanXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
-        "diaDiemTraXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
-        "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đang thuê"
-      }
-    ]
+  "maDonThue": "RENT006",
+  "maKhachHang": "KH004",
+  "thoiGianDatHang": "2025-11-07T10:10:00Z",
+  "tienDatCoc": 100000,
+  "trangThaiCoc": "Đã thanh toán",
+  "thanhToan": {
+    "tongGiaTriGoc": 180000,
+    "maGiamGia": null,
+    "tienGiam": 0,
+    "chiPhiSauGiam": 180000,
+    "donViTienTe": "VND",
+    "tinhTrangThanhToan": "Đã thanh toán"
   },
+  "tinhTrangDon": "Đã hoàn thành",
+  "chiTietDonThue": [
+    {
+      "idXe": "V013",
+      "soLuong": 1,
+      "donGia": 180000,
+      "soNgayThue": 1,
+      "tongGiaTri": 180000,
+      "thoiGianNhanXe": "2025-11-08T08:00:00Z",
+      "thoiGianTraXe": "2025-11-09T08:00:00Z",
+      "diaDiemNhanXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
+      "diaDiemTraXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
+      "thoiGianTraXeThucTe": "2025-11-09T07:50:00Z",
+      "tinhTrangXe": "Đã trả"
+    }
+  ]
+},
   {
     "maDonThue": "RENT007",
     "maKhachHang": "KH009",
@@ -256,34 +256,34 @@
     ]
   },
   {
-    "maDonThue": "RENT008",
-    "maKhachHang": "KH007",
-    "thoiGianDatHang": "2025-11-08T11:00:00Z",
-    "tienDatCoc": 350000,
-    "trangThaiCoc": "Đã thanh toán",
-    "thanhToan": {
-      "tongGiaTriGoc": 700000,
-      "maGiamGia": null,
-      "tienGiam": 0,
-      "chiPhiSauGiam": 700000,
-      "donViTienTe": "VND",
-      "tinhTrangThanhToan": "Đã thanh toán"
-    },
-    "tinhTrangDon": "Đang thuê",
-    "chiTietDonThue": [
-      {
-        "idXe": "V015",
-        "soLuong": 1,
-        "donGia": 350000,
-        "soNgayThue": 2,
-        "tongGiaTri": 700000,
-        "thoiGianNhanXe": "2025-11-08T12:00:00Z",
-        "thoiGianTraXe": "2025-11-10T12:00:00Z",
-        "diaDiemNhanXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
-        "diaDiemTraXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
-        "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đang thuê"
-      }
-    ]
-  }
+  "maDonThue": "RENT008",
+  "maKhachHang": "KH007",
+  "thoiGianDatHang": "2025-11-08T11:00:00Z",
+  "tienDatCoc": 350000,
+  "trangThaiCoc": "Đã thanh toán",
+  "thanhToan": {
+    "tongGiaTriGoc": 700000,
+    "maGiamGia": null,
+    "tienGiam": 0,
+    "chiPhiSauGiam": 700000,
+    "donViTienTe": "VND",
+    "tinhTrangThanhToan": "Đã thanh toán"
+  },
+  "tinhTrangDon": "Đã hoàn thành",
+  "chiTietDonThue": [
+    {
+      "idXe": "V015",
+      "soLuong": 1,
+      "donGia": 350000,
+      "soNgayThue": 2,
+      "tongGiaTri": 700000,
+      "thoiGianNhanXe": "2025-11-08T12:00:00Z",
+      "thoiGianTraXe": "2025-11-10T12:00:00Z",
+      "diaDiemNhanXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
+      "diaDiemTraXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
+      "thoiGianTraXeThucTe": "2025-11-10T11:40:00Z",
+      "tinhTrangXe": "Đã trả"
+    }
+  ]
+}
 ]
