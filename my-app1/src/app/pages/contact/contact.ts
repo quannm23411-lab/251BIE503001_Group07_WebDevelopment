@@ -2,10 +2,17 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-contact',
-  imports: [],
   templateUrl: './contact.html',
-  styleUrl: './contact.css'
+  styleUrls: ['./contact.css']
 })
 export class Contact {
+  isChatVisible: boolean = false;
 
+  toggleChat() {
+    this.isChatVisible = !this.isChatVisible;
+  }
+
+  closeChat() {
+    this.isChatVisible = false;
+  }
 }

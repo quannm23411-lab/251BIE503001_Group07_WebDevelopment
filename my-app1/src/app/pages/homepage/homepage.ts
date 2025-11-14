@@ -8,12 +8,12 @@ import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
 import { RouterLink } from '@angular/router';
 import { Popup } from '../popup/popup';
-
+import { Contact } from '../contact/contact';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup],
+  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup, Contact],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })

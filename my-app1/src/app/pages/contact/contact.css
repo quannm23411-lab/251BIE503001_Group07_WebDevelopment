@@ -1,0 +1,57 @@
+.contact-icons {
+    position: fixed;
+    bottom: 80px;
+    /* Giảm giá trị bottom để nhích lên cao hơn */
+    right: 10px;
+    z-index: 9999;
+}
+
+.contact-icon {
+    margin: 8px;
+    /* Giảm khoảng cách giữa các icon */
+    width: 57px;
+    /* Giảm kích thước vòng tròn */
+    height: 57px;
+    /* Giảm kích thước vòng tròn */
+    border-radius: 50%;
+    /* Giữ hình tròn */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #fff; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    margin-top: 15px;
+}
+
+.contact-icon:hover {
+  transform: translateY(-5px) scale(1.07);
+  background: linear-gradient(135deg, #559c82, #c5ebdc); 
+}
+
+.contact-icon img {
+    width: 45px;
+    /* Giảm kích thước ảnh bên trong */
+    height: 45px;
+    /* Giảm kích thước ảnh bên trong */
+    object-fit: cover;
+}
+
+/* Style for chat popup */
+.chat-popup {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    display: none;
+    /* Hide initially */
+}
+
+.chat-popup.active {
+    display: block;
+}

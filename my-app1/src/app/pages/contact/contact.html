@@ -1,1 +1,21 @@
-<p>contact works!</p>
+<div class="contact-icons">
+  <!-- Zalo Icon -->
+  <a href="https://zalo.me/your-zalo-id" target="_blank" class="contact-icon zaloclass">
+    <img src="../../../assets/images/logo_social/logozalo.png" alt="Zalo" />
+  </a>
+  <!-- Messenger Icon -->
+  <a href="https://m.me/your-facebook-id" target="_blank" class="contact-icon messengerclass">
+    <img src="../../../assets/images/logo_social/logomessenger.png" alt="Messenger" />
+  </a>
+  <!-- Facebook Icon -->
+  <a href="https://facebook.com/your-facebook-id" target="_blank" class="contact-icon facebookclass">
+    <img src="../../../assets/images/logo_social/logofacebook.png" alt="Facebook" />
+  </a>
+</div>
+
+<!-- Optional: Popup chat box -->
+<div class="chat-popup" *ngIf="isChatVisible">
+  <h4>Chat with us</h4>
+  <button (click)="closeChat()">Close</button>
+  <!-- Embed Zalo chat iframe or any other chat here -->
+</div>
