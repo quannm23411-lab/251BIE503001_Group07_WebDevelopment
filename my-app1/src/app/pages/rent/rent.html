@@ -74,9 +74,7 @@
           Xe đạp điện
         </label>
         <label>
-          <input type="checkbox" (change)="
-              toggleType('Xe đạp điện gấp gọn', $event.target.checked)
-            " />
+          <input type="checkbox" (change)="toggleType('Xe đạp điện gấp gọn', $event.target.checked)" />
           Xe đạp điện gấp gọn
         </label>
       </div>
@@ -129,14 +127,12 @@
             <i class="bi bi-patch-check-fill"></i>
           </button>
 
-          <!-- Dropdown Giá -->
           <div class="sort-price-dropdown">
             <button type="button" class="btn btn-outline btn-green-outline dropdown-toggle" (click)="togglePriceMenu()"
               [class.active]="sortKey() === 'price_asc' || sortKey() === 'price_desc'">
               {{ priceSortLabel() }}
               <i class="bi bi-chevron-down"></i>
             </button>
-
 
             <div class="dropdown-menu shadow-sm mt-1" [class.show]="showPriceMenu()">
               <button type="button" class="dropdown-item" [class.active]="sortKey() === 'price_asc'"
@@ -158,17 +154,18 @@
   <section class="top-rent container py-5">
     <div class="product-grid">
       <ng-container *ngIf="topRentList().length > 0; else noTop">
-        <!-- 3 hàng x 4 xe / trang (pageSize = 12) -->
-        <a class="product-card position-relative" *ngFor="let p of topRentList()" [routerLink]="['/rent', p.id]">
+
+        <!-- 3 hàng x 4 xe / trang -->
+        <a class="product-card position-relative" *ngFor="let p of topRentList()" [routerLink]="['/rent', p.id]"
+          [queryParams]="buildDateParams()">
+
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
           </span>
 
-          <!-- Ảnh -->
           <img class="product-card__img" [src]="productService.getImageUrl(p, 'card')" [alt]="p.vehicleName"
             loading="lazy" />
 
-          <!-- Thanh xanh: rating + range + type -->
           <div class="product-card__features">
             <div class="product-card__features-top">
               <span class="product-card__rating">
@@ -197,12 +194,9 @@
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
 
-            <!-- Nút trạng thái -->
             <button type="button" class="product-card__availability"
               [class.product-card__availability--active]="p.availabilityStatus"
-              [class.product-card__availability--disabled]="
-                !p.availabilityStatus
-              ">
+              [class.product-card__availability--disabled]="!p.availabilityStatus">
               {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
             </button>
           </div>

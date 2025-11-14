@@ -131,7 +131,10 @@ export class ProductDetail {
   // ====== CART ACTIONS ======
   private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
     const p = this.product();
-    if (!p || !p.availabilityStatus) return; // hết hàng thì cút luôn
+    if (!p || !p.availabilityStatus) return;
+
+    const rentStart = this.rentStart;
+    const rentEnd = this.rentEnd;
 
     this.cart.addOrUpdateFromProduct({
       productId: String(p.id),
@@ -141,17 +144,20 @@ export class ProductDetail {
       vehicleType: p.vehicleType,
       pricePerDay: p.pricePerDay ?? p.finalPricePerDay,
       finalPricePerDay: p.finalPricePerDay,
-      rentStart: this.rentStart,
-      rentEnd: this.rentEnd,
+      rentStart,
+      rentEnd,
       quantity: 1
     });
 
     if (options?.redirectToCart) {
+      const cartItemId = `${p.id}_${rentStart || 'none'}_${rentEnd || 'none'}`;
+
       this.router.navigate(['/cart'], {
-        state: { autoSelectId: String(p.id) }
+        state: { autoSelectId: cartItemId }
       });
     }
   }
+
 
   bookNow() {
     // ĐẶT XE NGAY: thêm vào giỏ + nhảy sang /cart
@@ -177,10 +183,38 @@ export class ProductDetail {
   }
 
   constructor() {
+    this.route = inject(ActivatedRoute);
+    this.router = inject(Router);
+    this.products = inject(ProductLoadingService);
+    this.reviewsService = inject(ProductReviewService);
+    this.cart = inject(CartService);
+
+    // mỗi lần id đổi thì reset slider
     effect(() => {
-      // mỗi lần id đổi thì reset slider
       this.id();
       this.activeIndex.set(0);
+    });
+
+    // đọc ?start=&end= trên URL
+    this.route.queryParamMap.subscribe(pm => {
+      const start = pm.get('start');
+      const end = pm.get('end');
+
+      const isValidDate = (s: string | null) => {
+        if (!s) return false;
+        const d = new Date(s);
+        return !isNaN(d.getTime());
+      };
+
+      if (isValidDate(start) && isValidDate(end)) {
+        const sDate = new Date(start!);
+        const eDate = new Date(end!);
+
+        if (eDate.getTime() > sDate.getTime()) {
+          this.rentStart = start!;
+          this.rentEnd = end!;
+        }
+      }
     });
   }
 

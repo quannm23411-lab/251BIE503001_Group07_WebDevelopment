@@ -38,7 +38,8 @@ export class RentPage {
     selectedTypes = signal<Set<string>>(new Set()); // "Xe máy điện", ...
     selectedBrands = signal<Set<string>>(new Set()); // Vinfast, Yadea, ...
     minPrice = signal<number>(0);
-    maxPrice = signal<number>(500_000); sortKey = signal<SortKey>('popular'); // mặc định: phổ biến
+    maxPrice = signal<number>(500_000);
+    sortKey = signal<SortKey>('popular'); // mặc định: phổ biến
     pageSize = 12; // 3 hàng x 4 xe / trang
     page = signal(1);
 
@@ -50,6 +51,8 @@ export class RentPage {
 
     /** UI state nhỏ */
     showPriceMenu = signal(false);
+    showRentModeMenu = signal(false);
+    cityNotice = signal<string>('');
 
     priceSortLabel = computed(() => {
         switch (this.sortKey()) {
@@ -61,10 +64,6 @@ export class RentPage {
                 return 'Giá';
         }
     });
-
-    showRentModeMenu = signal(false);
-
-    cityNotice = signal<string>('');
 
     rentModeLabel = computed(() => {
         switch (this.rentMode()) {
@@ -178,6 +177,7 @@ export class RentPage {
     totalPages = computed(() =>
         Math.max(1, Math.ceil(this.total() / this.pageSize)),
     );
+
     topRentList = computed(() => {
         const start = (this.page() - 1) * this.pageSize;
         return this.filtered().slice(start, start + this.pageSize);
@@ -201,9 +201,9 @@ export class RentPage {
         this.selectedBrands.set(s);
         this.page.set(1);
     }
+
     onMinPriceChange(val: string | number) {
         const n = typeof val === 'number' ? val : parseInt(val as string, 10) || 0;
-        // không cho lớn hơn max
         const clamped = Math.max(0, Math.min(n, this.maxPrice()));
         this.minPrice.set(clamped);
         this.page.set(1);
@@ -211,11 +211,11 @@ export class RentPage {
 
     onMaxPriceChange(val: string | number) {
         const n = typeof val === 'number' ? val : parseInt(val as string, 10) || 0;
-        // không cho nhỏ hơn min
         const clamped = Math.min(500_000, Math.max(n, this.minPrice()));
         this.maxPrice.set(clamped);
         this.page.set(1);
     }
+
     setSort(k: SortKey) {
         this.sortKey.set(k);
         this.page.set(1);
@@ -227,6 +227,16 @@ export class RentPage {
         this.router.navigate([], {
             queryParams: { page: n },
             queryParamsHandling: 'merge',
+        });
+    }
+
+    /** Điều hướng sang trang chi tiết (không dùng queryParams ở HTML thì có thể dùng hàm này) */
+    goToDetail(p: ProductVM) {
+        const start = this.startDate() || this.todayStr;
+        const end = this.endDate() || this.calcMinEndDate(this.rentMode(), start);
+
+        this.router.navigate(['/rent', p.id], {
+            queryParams: { start, end },
         });
     }
 
@@ -282,14 +292,13 @@ export class RentPage {
         this.endDate.set(this.toInputDate(end));
     }
 
-
     onCityChange(_: string) {
         if (typeof window !== 'undefined') {
             alert('Tính năng lọc theo khu vực đang được phát triển.');
         }
     }
-    /** Dropdown Giá */
 
+    /** Dropdown Giá */
     togglePriceMenu() {
         this.showPriceMenu.update((v) => !v);
     }
@@ -354,5 +363,12 @@ export class RentPage {
         // day: ít nhất +1 ngày
         d.setDate(d.getDate() + 1);
         return this.toInputDate(d);
+    }
+
+    /** Query params ngày thuê / trả cho routerLink */
+    buildDateParams() {
+        const start = this.startDate() || this.todayStr;
+        const end = this.endDate() || this.calcMinEndDate(this.rentMode(), start);
+        return { start, end };
     }
 }
