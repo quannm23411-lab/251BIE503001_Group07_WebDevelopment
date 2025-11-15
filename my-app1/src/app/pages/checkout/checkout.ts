@@ -5,12 +5,27 @@ import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
 import { LoginService } from '../../services/login/login.service';
 import { RentalDatesService } from '../../services/rental-dates.services';
+import promotionsData from '../../../assets/data/promotions.json';
+
+interface Promotion {
+    id: string;
+    maGiamGia: string;
+    tenKhuyenMai: string;
+    loaiGiamGia: 'percent' | 'fixed';
+    giaTri: number;
+    donHangToiThieu: number;
+    soLuongToiDa: number;
+    soLuongDaDung: number;
+    ngayBatDau: string;
+    ngayKetThuc: string;
+    trangThai: string;
+}
 
 interface CheckoutForm {
     fullName: string;
     phone: string;
     email: string;
-    soBangLai: string;        // dùng cho SỐ BẰNG LÁI (khách chính)
+    soBangLai: string;
     pickupLocation: string;
     pickupTime: string;
     returnTime: string;
@@ -21,7 +36,7 @@ interface CheckoutForm {
 interface ReceiverForm {
     fullName: string;
     phone: string;
-    soBangLai: string;        // CCCD / bằng lái người nhận
+    soBangLai: string;
     noteForDriver: string;
 }
 
@@ -38,7 +53,15 @@ export class Checkout {
     private loginService = inject(LoginService);
     private rentalDates = inject(RentalDatesService);
 
-    // form người đặt (chỉ đọc, trừ ghi chú)
+    // trạng thái
+    isSubmitting = signal(false);
+    isSuccess = signal(false);
+    isWaitingTransfer = signal(false); // đang hiển thị QR
+    transferDone = signal(false);
+    orderCode = signal<string | null>(null);
+    createdAt = signal<Date | null>(null);
+
+    // form người đặt
     form: CheckoutForm = {
         fullName: '',
         phone: '',
@@ -59,74 +82,88 @@ export class Checkout {
         noteForDriver: '',
     };
 
-    // toggle: người nhận giống người đặt?
     receiverSameAsCustomer = true;
 
-    // state hiển thị
-    isSubmitting = signal(false);
-    isSuccess = signal(false);
-    orderCode = signal<string | null>(null);
-    createdAt = signal<Date | null>(null);
-
-    // toàn bộ item trong giỏ (signal từ CartService)
+    // giỏ hàng
     readonly cartItems = this.cart.items;
-
-    // danh sách item thực sự đem đi thanh toán (subset theo tick)
     readonly selectedItems = signal<CartItem[]>([]);
 
-    // tổng SL / tổng tiền theo selectedItems
     readonly selectedTotalQuantity = computed(() =>
-        this.selectedItems().reduce((sum, item) => sum + (item.quantity || 0), 0)
+        this.selectedItems().reduce((s, i) => s + (i.quantity || 0), 0)
     );
 
     readonly selectedTotalAmount = computed(() =>
-        this.selectedItems().reduce((sum, item) => sum + (item.subtotal || 0), 0)
+        this.selectedItems().reduce((s, i) => s + (i.subtotal || 0), 0)
     );
 
-    // số tiền giảm giá (sau này xử lý voucher thì set lại signal này)
+    // voucher
+    voucherCode = '';
+    appliedVoucher = signal<Promotion | null>(null);
+    voucherError = signal<string | null>(null);
+
     discountAmount = signal(0);
 
-    // số tiền thực tế phải thanh toán = tổng - giảm giá (không âm)
     readonly payableAmount = computed(() => {
         const total = this.selectedTotalAmount();
-        const discount = this.discountAmount();
-        const result = total - discount;
-        return result > 0 ? result : 0;
+        const dc = this.discountAmount();
+        return total - dc > 0 ? total - dc : 0;
     });
 
-    // helper format tiền
+    // điều khoản
+    acceptTerms = false;
+    termsError = signal(false);
+
+    // icon phương thức thanh toán
+    paymentIcons: Record<string, string> = {
+        bank: 'assets/images/payment-icons/bank.png',
+        momo: 'assets/images/payment-icons/momo.png',
+        cash: 'assets/images/payment-icons/cash.png',
+    };
+
+    getPaymentIcon(method: string): string {
+        return this.paymentIcons[method] ?? this.paymentIcons['cash'];
+    }
+
+    // ảnh QR cho momo / bank
+    qrImages: Record<string, string> = {
+        bank: 'assets/bank-qr.png',
+        momo: 'assets/momo-qr.png',
+        cash: 'assets/cash-qr.png', // phòng khi sau này dùng, giờ không cũng được
+    };
+
+    getQrImage(): string {
+        const m = this.form.paymentMethod;
+        return this.qrImages[m] ?? this.qrImages['bank'];
+    }
+
+    // helper tiền
     vnd(n: number | null | undefined): string {
         if (n == null) return '0₫';
         return n.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     }
 
-    get hasItems(): boolean {
+    get hasItems() {
         return this.selectedItems().length > 0;
     }
 
     constructor() {
-        // đọc selectedIds được truyền từ Cart
+        // đọc selectedIds từ Cart
         const nav = this.router.getCurrentNavigation();
         const state = (nav?.extras.state || {}) as { selectedIds?: string[] };
-        const ids = state?.selectedIds;
 
+        const ids = state?.selectedIds;
         const all = this.cartItems();
 
-        if (ids && ids.length > 0) {
-            const subset = all.filter(it => ids.includes(it.id));
-            this.selectedItems.set(subset);
+        if (ids?.length) {
+            this.selectedItems.set(all.filter((i) => ids.includes(i.id)));
         } else {
-            if (all.length > 0) {
-                this.selectedItems.set(all);
-            } else {
-                this.router.navigate(['/cart']);
-            }
+            if (all.length === 0) this.router.navigate(['/cart']);
+            this.selectedItems.set(all);
         }
 
-        // sync global date từ các item đã chọn
         this.syncGlobalDatesFromSelected();
 
-        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile (qua LoginService)
+        // auto-fill profile
         const profile = this.loginService.getProfile();
         if (profile) {
             this.form.fullName = profile.fullname || '';
@@ -138,6 +175,10 @@ export class Checkout {
                 this.form.note = `Địa chỉ khách: ${profile.address}`;
             }
         }
+    }
+
+    toggleReceiverMode() {
+        this.receiverSameAsCustomer = !this.receiverSameAsCustomer;
     }
 
     private syncGlobalDatesFromSelected() {
@@ -160,14 +201,84 @@ export class Checkout {
             }
         }
 
-        if (minStart && maxEnd) {
-            this.rentalDates.setRange(minStart, maxEnd);
+        if (minStart && maxEnd) this.rentalDates.setRange(minStart, maxEnd);
+    }
+
+    // xử lý voucher
+    applyVoucher() {
+        const code = this.voucherCode.trim().toUpperCase();
+        if (!code) {
+            this.voucherError.set('Vui lòng nhập mã giảm giá.');
+            this.appliedVoucher.set(null);
+            this.discountAmount.set(0);
+            return;
         }
+
+        const promo = (promotionsData as Promotion[]).find(
+            (p) => p.maGiamGia.toUpperCase() === code
+        );
+
+        if (!promo) {
+            this.voucherError.set('Mã giảm giá không tồn tại.');
+            this.appliedVoucher.set(null);
+            this.discountAmount.set(0);
+            return;
+        }
+
+        const now = new Date();
+        const start = new Date(promo.ngayBatDau);
+        const end = new Date(promo.ngayKetThuc);
+
+        if (promo.trangThai !== 'active' || now < start || now > end) {
+            this.voucherError.set('Mã giảm giá đã hết hạn hoặc chưa bắt đầu.');
+            this.appliedVoucher.set(null);
+            this.discountAmount.set(0);
+            return;
+        }
+
+        if (promo.soLuongDaDung >= promo.soLuongToiDa) {
+            this.voucherError.set('Mã giảm giá đã được sử dụng hết.');
+            this.appliedVoucher.set(null);
+            this.discountAmount.set(0);
+            return;
+        }
+
+        const total = this.selectedTotalAmount();
+        if (total < promo.donHangToiThieu) {
+            this.voucherError.set(
+                `Đơn tối thiểu phải từ ${promo.donHangToiThieu.toLocaleString()}₫`
+            );
+            this.appliedVoucher.set(null);
+            this.discountAmount.set(0);
+            return;
+        }
+
+        let discount = 0;
+        if (promo.loaiGiamGia === 'percent') {
+            discount = Math.floor((total * promo.giaTri) / 100);
+        } else {
+            discount = promo.giaTri;
+        }
+
+        this.voucherError.set(null);
+        this.appliedVoucher.set(promo);
+        this.discountAmount.set(discount);
     }
 
     onSubmit(formRef: NgForm) {
-        if (!this.hasItems) {
+        this.termsError.set(false);
+
+        if (!this.acceptTerms) {
+            this.termsError.set(true);
             return;
+        }
+
+        if (!this.receiverSameAsCustomer) {
+            const { fullName, phone, soBangLai } = this.receiver;
+            if (!fullName?.trim() || !phone?.trim() || !soBangLai?.trim()) {
+                formRef.control.markAllAsTouched();
+                return;
+            }
         }
 
         if (formRef.invalid) {
@@ -175,6 +286,18 @@ export class Checkout {
             return;
         }
 
+        // BANK / MOMO → qua bước QR
+        if (this.form.paymentMethod === 'bank' || this.form.paymentMethod === 'momo') {
+            this.isWaitingTransfer.set(true);
+            return;
+        }
+
+        // Tiền mặt: finalize luôn
+        this.finalizeOrder();
+    }
+
+    // tạo đơn & clear cart
+    finalizeOrder() {
         this.isSubmitting.set(true);
 
         const code = 'ECM-' + Date.now().toString().slice(-6);
@@ -192,14 +315,22 @@ export class Checkout {
         }
     }
 
-    backToRent() {
-        const range = this.rentalDates.range();
-        const start = range.start;
-        const end = range.end;
+    // dùng trong HTML: (click)="confirmTransfer()"
+    confirmTransfer() {
+        this.isWaitingTransfer.set(false);
+        this.transferDone.set(true);
+        this.finalizeOrder();
+    }
 
-        if (start && end) {
+    cancelTransfer() {
+        this.isWaitingTransfer.set(false);
+    }
+
+    backToRent() {
+        const r = this.rentalDates.range();
+        if (r.start && r.end) {
             this.router.navigate(['/rent'], {
-                queryParams: { start, end },
+                queryParams: { start: r.start, end: r.end },
             });
         } else {
             this.router.navigate(['/rent']);

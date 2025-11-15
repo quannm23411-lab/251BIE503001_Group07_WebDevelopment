@@ -263,6 +263,16 @@
     outline: none;
 }
 
+.voucher-message {
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    color: #ef4444;
+}
+
+.voucher-message--success {
+    color: #16a34a;
+}
+
 .divider {
     border: none;
     border-top: 1px solid #e5e7eb;
@@ -355,14 +365,6 @@
     color: #111827;
 }
 
-.payment-discount {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    font-size: 0.8rem;
-    color: #ef4444;
-}
-
 /* ACTIVE trạng thái */
 
 .payment-option--active .payment-card-visual,
@@ -414,6 +416,30 @@
     text-decoration: underline;
     text-underline-offset: 2px;
 }
+
+.terms-row {
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+.terms-checkbox input {
+    width: 16px;
+    height: 16px;
+}
+
+.terms-checkbox a {
+    color: #16a34a;
+}
+
+/* BOTTOM BAR */
 
 .checkout-bottom {
     margin-top: 0.5rem;
@@ -470,12 +496,19 @@
     padding-inline: 1.8rem;
 }
 
+.btn-main.disabled-terms {
+    background: #434242 !important;
+    box-shadow: none !important;
+    cursor: not-allowed;
+    opacity: 1 !important;
+}
+
 /* nút link đổi người nhận */
 
 .btn-change-receiver {
     background: transparent;
     border: none;
-    color: #ea580c;
+    color: #2fa44d;
     font-size: 0.9rem;
     font-weight: 500;
     display: inline-flex;
@@ -536,6 +569,62 @@
     cursor: not-allowed;
 }
 
+.qr-card {
+    text-align: center;
+}
+
+.qr-note {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.qr-wrapper {
+    margin: 0 auto 1rem;
+    width: 260px;
+    height: 260px;
+    border-radius: 16px;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.qr-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.qr-info {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin-bottom: 1.25rem;
+}
+
+.qr-info strong {
+    color: #111827;
+}
+
+.qr-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* validation */
+
+.form-row input.ng-invalid.ng-touched,
+.form-row textarea.ng-invalid.ng-touched {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.form-error {
+    font-size: 0.8rem;
+    color: #ef4444;
+}
+
 /* NGƯỜI NHẬN XE */
 
 .receiver-card {
@@ -556,6 +645,34 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+.payment-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.payment-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.terms-row.error .terms-checkbox span {
+    color: 0 12px 24px rgba(22, 163, 74, 0.6) !important;
+    font-weight: 600;
+}
+
+.terms-row.error a {
+    color: 0 12px 24px rgba(22, 163, 74, 0.6) !important;
+    text-decoration: underline;
+}
+
 
 /* RESPONSIVE */
 

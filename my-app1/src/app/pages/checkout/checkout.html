@@ -48,8 +48,41 @@
         </div>
     </section>
 
+    <!-- BƯỚC QR: CHUYỂN KHOẢN / MOMO -->
+    <section *ngIf="hasItems && !isSuccess() && isWaitingTransfer()" class="checkout-main container">
+        <div class="checkout-card qr-card">
+            <h2 class="summary-title">
+                Thanh toán
+                {{ form.paymentMethod === 'momo' ? 'Momo' : 'chuyển khoản ngân hàng' }}
+            </h2>
+
+            <p class="qr-note">
+                Vui lòng quét mã QR bên dưới để thanh toán số tiền
+                <strong>{{ vnd(payableAmount()) }}</strong>.
+            </p>
+
+            <div class="qr-wrapper">
+                <img [src]="getQrImage()" alt="QR thanh toán" />
+            </div>
+
+            <div class="qr-info" *ngIf="orderCode() as code">
+                <div>Mã đơn: <strong>{{ code }}</strong></div>
+                <div *ngIf="createdAt() as created">
+                    Thời gian tạo:
+                    <strong>{{ created | date: 'HH:mm dd/MM/yyyy' }}</strong>
+                </div>
+            </div>
+
+            <div class="qr-actions">
+                <button type="button" class="btn btn-main btn-main-large" (click)="confirmTransfer()">
+                    Đã chuyển khoản thành công
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Trang thanh toán chính -->
-    <section *ngIf="hasItems && !isSuccess()" class="checkout-main container">
+    <section *ngIf="hasItems && !isSuccess() && !isWaitingTransfer()" class="checkout-main container">
         <form class="checkout-flow" #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)" novalidate>
             <!-- CARD: Thông tin khách hàng -->
             <section class="checkout-card customer-card">
@@ -76,11 +109,9 @@
 
                     <div class="form-row">
                         <label>Số bằng lái *</label>
-                        <input type="text" name="soBangLai" [(ngModel)]="form.soBangLai" readonly
-                            class="field-readonly" placeholder="Số bằng lái" />
+                        <input type="text" name="soBangLai" [(ngModel)]="form.soBangLai" readonly class="field-readonly"
+                            placeholder="Số bằng lái" />
                     </div>
-
-                    <!-- BỎ 2 Ô NGÀY NHẬN / TRẢ -->
 
                     <div class="form-row">
                         <label>Ghi chú thêm</label>
@@ -94,8 +125,7 @@
             <section class="checkout-card receiver-card">
                 <div class="receiver-header">
                     <h2 class="summary-title">Thông tin người nhận xe</h2>
-                    <button type="button" class="btn btn-link btn-change-receiver"
-                        (click)="receiverSameAsCustomer = !receiverSameAsCustomer">
+                    <button type="button" class="btn btn-link btn-change-receiver" (click)="toggleReceiverMode()">
                         {{
                         receiverSameAsCustomer
                         ? 'Thay đổi thông tin người nhận'
@@ -108,19 +138,33 @@
                     <div class="form-row">
                         <label>Họ và tên người nhận *</label>
                         <input type="text" name="receiverFullName" [(ngModel)]="receiver.fullName"
-                            [required]="!receiverSameAsCustomer" placeholder="Nhập họ tên người nhận" />
+                            [required]="!receiverSameAsCustomer" #receiverFullNameRef="ngModel"
+                            placeholder="Nhập họ tên người nhận" />
+                        <div class="form-error" *ngIf="
+                receiverFullNameRef.invalid && receiverFullNameRef.touched
+              ">
+                            Vui lòng nhập họ tên người nhận.
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <label>Số điện thoại người nhận *</label>
                         <input type="tel" name="receiverPhone" [(ngModel)]="receiver.phone"
-                            [required]="!receiverSameAsCustomer" placeholder="VD: 0901234567" />
+                            [required]="!receiverSameAsCustomer" #receiverPhoneRef="ngModel"
+                            placeholder="VD: 0901234567" />
+                        <div class="form-error" *ngIf="receiverPhoneRef.invalid && receiverPhoneRef.touched">
+                            Vui lòng nhập số điện thoại người nhận.
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <label>CCCD / Bằng lái người nhận *</label>
                         <input type="text" name="receiversoBangLai" [(ngModel)]="receiver.soBangLai"
-                            [required]="!receiverSameAsCustomer" placeholder="Nhập số CCCD / bằng lái người nhận" />
+                            [required]="!receiverSameAsCustomer" #receiverIdRef="ngModel"
+                            placeholder="Nhập số CCCD / bằng lái người nhận" />
+                        <div class="form-error" *ngIf="receiverIdRef.invalid && receiverIdRef.touched">
+                            Vui lòng nhập CCCD / số bằng lái người nhận.
+                        </div>
                     </div>
 
                     <div class="form-row">
@@ -200,10 +244,21 @@
                 <div class="voucher-row">
                     <label for="voucher">Nhập mã giảm giá:</label>
                     <div class="voucher-input-group">
-                        <input id="voucher" type="text" placeholder="Nhập mã voucher (nếu có)" />
-                        <button type="button" class="btn btn-apply">
+                        <input id="voucher" type="text" name="voucherCode" [(ngModel)]="voucherCode"
+                            placeholder="Nhập mã voucher (nếu có)" />
+                        <button type="button" class="btn btn-apply" (click)="applyVoucher()">
                             Áp dụng
                         </button>
+                    </div>
+
+                    <div class="voucher-message" *ngIf="voucherError()">
+                        {{ voucherError() }}
+                    </div>
+                    <div class="voucher-message voucher-message--success"
+                        *ngIf="!voucherError() && appliedVoucher() as promo">
+                        Đã áp dụng:
+                        <strong>{{ promo.tenKhuyenMai }}</strong>
+                        ({{ promo.maGiamGia }})
                     </div>
                 </div>
 
@@ -226,7 +281,9 @@
                         <label class="payment-option">
                             <input type="radio" name="paymentMethod" value="bank" [(ngModel)]="form.paymentMethod" />
                             <div class="payment-card-visual">
-                                <div class="payment-thumb"></div>
+                                <div class="payment-thumb">
+                                    <img [src]="getPaymentIcon('bank')" alt="Chuyển khoản ngân hàng" />
+                                </div>
                                 <div class="payment-label">Chuyển khoản ngân hàng</div>
                             </div>
                         </label>
@@ -234,7 +291,9 @@
                         <label class="payment-option">
                             <input type="radio" name="paymentMethod" value="momo" [(ngModel)]="form.paymentMethod" />
                             <div class="payment-card-visual">
-                                <div class="payment-thumb"></div>
+                                <div class="payment-thumb">
+                                    <img [src]="getPaymentIcon('momo')" alt="Momo" />
+                                </div>
                                 <div class="payment-label">Momo</div>
                             </div>
                         </label>
@@ -242,7 +301,9 @@
                         <label class="payment-option">
                             <input type="radio" name="paymentMethod" value="cash" [(ngModel)]="form.paymentMethod" />
                             <div class="payment-card-visual">
-                                <div class="payment-thumb"></div>
+                                <div class="payment-thumb">
+                                    <img [src]="getPaymentIcon('cash')" alt="Tiền mặt" />
+                                </div>
                                 <div class="payment-label">Tiền mặt</div>
                             </div>
                         </label>
@@ -279,9 +340,20 @@
                 <a href="javascript:void(0)">Điều khoản EcoMove</a>.
             </p>
 
+            <div class="terms-row" [class.error]="termsError()">
+                <label class="terms-checkbox">
+                    <input type="checkbox" name="acceptTerms" [(ngModel)]="acceptTerms" />
+                    <span>
+                        Tôi đã đọc và đồng ý với
+                        <a href="javascript:void(0)">Điều khoản EcoMove</a>.
+                    </span>
+                </label>
+            </div>
+
             <!-- Thanh dưới cùng -->
             <div class="checkout-bottom">
-                <button type="submit" class="btn btn-main btn-main-large" [disabled]="isSubmitting()">
+                <button type="submit" class="btn btn-main btn-main-large" [ngClass]="{ 'disabled-terms': !acceptTerms }"
+                    [disabled]="isSubmitting() || checkoutForm.invalid">
                     {{ isSubmitting() ? 'Đang xử lý...' : 'Thuê xe' }}
                 </button>
             </div>

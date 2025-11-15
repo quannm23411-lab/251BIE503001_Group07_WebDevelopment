@@ -63,5 +63,18 @@
     "ngayBatDau": "2025-01-01T00:00:00Z",
     "ngayKetThuc": "2025-12-31T23:59:59Z",
     "trangThai": "inactive"
+  },
+  {
+    "id": "KM006",
+    "maGiamGia": "MIWAN",
+    "tenKhuyenMai": "Minh Quân",
+    "loaiGiamGia": "percent",
+    "giaTri": 50,
+    "donHangToiThieu": 0,
+    "soLuongToiDa": 10,
+    "soLuongDaDung": 1,
+    "ngayBatDau": "2025-01-01T00:00:00Z",
+    "ngayKetThuc": "2025-12-31T23:59:59Z",
+    "trangThai": "active"
   }
 ]
