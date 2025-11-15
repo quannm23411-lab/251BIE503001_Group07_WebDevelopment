@@ -185,7 +185,7 @@ th.sortable i.fa-sort-down {
 }
 
 
-@media (max-width: 480px) { /* Cho điện thoại */
+@media (max-width: 520px) { /* Cho điện thoại */
     .main {
         padding: 10px;
     }

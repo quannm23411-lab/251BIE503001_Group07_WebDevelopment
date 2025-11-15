@@ -81,7 +81,7 @@ export class AdminBike implements OnInit {
       price: item.pricePerDay,
       battery: item.batteryCapacity,
       range: item.rangePerCharge + ' KM',
-      status: item.availabilityStatus ? 'Sẵn sàng' : 'Hết hàng'  ,
+      status: item.status,
       statusClass: item.availabilityStatus ? 'ready' : 'rented',
       location: item.location,
       image: '' + item.image,
