@@ -4,7 +4,9 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   ViewChild,
-  ElementRef
+  ElementRef,
+  ViewChildren,
+  QueryList
 } from '@angular/core';
 import {
   CommonModule,
@@ -16,10 +18,16 @@ import {
 
 import { HotProductService, Product } from '../../services/hot-products.services';
 import { ProductLoadingService } from '../../services/product-loading.services';
-import { ProductReviewService, ProductReview } from '../../services/product-review.services';
+import {
+  ProductReviewService,
+  ProductReview
+} from '../../services/product-review.services';
 
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
-import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
+import {
+  BannerCarousel,
+  BannerItem
+} from '../../components/banner-carousel/banner-carousel';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Popup } from '../popup/popup';
 
@@ -43,31 +51,32 @@ import { Popup } from '../popup/popup';
 export class Homepage implements OnInit, OnDestroy {
   showWelcomePopup = false;
 
-  /* --- CAROUSEL: lấy reference HTML --- */
-  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
+  /* --- TOP RENT CAROUSEL refs --- */
+  @ViewChild('carousel', { static: false })
+  carousel!: ElementRef<HTMLDivElement>;
 
-  scrollLeft() {
-    if (this.carousel) {
-      this.carousel.nativeElement.scrollBy({
-        left: -300,
-        behavior: 'smooth'
-      });
-    }
-  }
+  @ViewChildren('topRentCard')
+  topRentCards!: QueryList<ElementRef<HTMLAnchorElement>>;
 
-  scrollRight() {
-    if (this.carousel) {
-      this.carousel.nativeElement.scrollBy({
-        left: 300,
-        behavior: 'smooth'
-      });
-    }
-  }
+  /** index xe đang được phóng to ở giữa */
+  activeTopIndex = 0;
 
   banners: BannerItem[] = [
-    { id: 'b1', src: './assets/images/banner-1.jpg', alt: 'Gia nhập cộng đồng EcoMove' },
-    { id: 'b2', src: './assets/images/banner-2.jpg', alt: 'Đặt xe ngay tại EcoMove' },
-    { id: 'b3', src: './assets/images/banner-3.jpg', alt: 'Nhận ưu đãi độc quyền từ EcoMove' }
+    {
+      id: 'b1',
+      src: './assets/images/banner-1.jpg',
+      alt: 'Gia nhập cộng đồng EcoMove'
+    },
+    {
+      id: 'b2',
+      src: './assets/images/banner-2.jpg',
+      alt: 'Đặt xe ngay tại EcoMove'
+    },
+    {
+      id: 'b3',
+      src: './assets/images/banner-3.jpg',
+      alt: 'Nhận ưu đãi độc quyền từ EcoMove'
+    }
   ];
 
   topRentList: Product[] = [];
@@ -93,12 +102,36 @@ export class Homepage implements OnInit, OnDestroy {
   promo = { active: false, code: '', amount: 0, endDate: '' };
 
   benefits = [
-    { icon: 'bi bi-check-circle', title: 'Tiết kiệm & minh bạch', desc: 'Giá niêm yết, không phụ phí ẩn.' },
-    { icon: 'bi bi-truck', title: 'Nhận xe nhanh', desc: 'Giao nhận 10–30 phút (khu vực trung tâm).' },
-    { icon: 'bi bi-battery-charging', title: 'Pin bền – đi xa', desc: 'Tầm chạy 70–200 km mỗi lần sạc.' },
-    { icon: 'bi bi-shield-shaded', title: 'An toàn & bảo dưỡng', desc: 'Xe kiểm tra định kỳ, có bảo hiểm trách nhiệm.' },
-    { icon: 'bi bi-globe-americas', title: 'Đặt & quản lý online', desc: 'Tất cả thao tác trên một nền tảng.' },
-    { icon: 'bi bi-headset', title: 'Hỗ trợ 24/7', desc: 'Có lỗi là có mặt, hỗ trợ tức thì.' }
+    {
+      icon: 'bi bi-check-circle',
+      title: 'Tiết kiệm & minh bạch',
+      desc: 'Giá niêm yết, không phụ phí ẩn.'
+    },
+    {
+      icon: 'bi bi-truck',
+      title: 'Nhận xe nhanh',
+      desc: 'Giao nhận 10–30 phút (khu vực trung tâm).'
+    },
+    {
+      icon: 'bi bi-battery-charging',
+      title: 'Pin bền – đi xa',
+      desc: 'Tầm chạy 70–200 km mỗi lần sạc.'
+    },
+    {
+      icon: 'bi bi-shield-shaded',
+      title: 'An toàn & bảo dưỡng',
+      desc: 'Xe kiểm tra định kỳ, có bảo hiểm trách nhiệm.'
+    },
+    {
+      icon: 'bi bi-globe-americas',
+      title: 'Đặt & quản lý online',
+      desc: 'Tất cả thao tác trên một nền tảng.'
+    },
+    {
+      icon: 'bi bi-headset',
+      title: 'Hỗ trợ 24/7',
+      desc: 'Có lỗi là có mặt, hỗ trợ tức thì.'
+    }
   ];
 
   steps = [
@@ -122,7 +155,6 @@ export class Homepage implements OnInit, OnDestroy {
     }
   ];
 
-  /** Testimonials hiển thị ở section "Khách hàng nói gì" */
   testimonials: {
     avatar: string;
     name: string;
@@ -132,14 +164,29 @@ export class Homepage implements OnInit, OnDestroy {
   }[] = [];
 
   faqs = [
-    { q: 'Cần giấy tờ gì khi thuê?', a: 'CCCD/Passport + cọc định danh hoặc thẻ tín dụng.' },
-    { q: 'Lỡ hết pin giữa đường?', a: 'Liên hệ hotline, đội hỗ trợ mang pin/đổi xe.' },
-    { q: 'Phí giao xe như thế nào?', a: 'Miễn phí bán kính 3km từ trạm; ngoài phạm vi tính theo km.' },
-    { q: 'Huỷ/đổi lịch ra sao?', a: 'Miễn phí trước 2 giờ; sau 2 giờ phụ thu 10–30%.' },
-    { q: 'Xử lý vi phạm giao thông?', a: 'Khách hàng chịu trách nhiệm theo quy định pháp luật.' }
+    {
+      q: 'Cần giấy tờ gì khi thuê?',
+      a: 'CCCD/Passport + cọc định danh hoặc thẻ tín dụng.'
+    },
+    {
+      q: 'Lỡ hết pin giữa đường?',
+      a: 'Liên hệ hotline, đội hỗ trợ mang pin/đổi xe.'
+    },
+    {
+      q: 'Phí giao xe như thế nào?',
+      a: 'Miễn phí bán kính 3km từ trạm; ngoài phạm vi tính theo km.'
+    },
+    {
+      q: 'Huỷ/đổi lịch ra sao?',
+      a: 'Miễn phí trước 2 giờ; sau 2 giờ phụ thu 10–30%.'
+    },
+    {
+      q: 'Xử lý vi phạm giao thông?',
+      a: 'Khách hàng chịu trách nhiệm theo quy định pháp luật.'
+    }
   ];
 
-  /** Flag tránh load lại review nhiều lần không cần thiết */
+  /** tránh load lại review nhiều lần không cần thiết */
   private reviewsLoaded = false;
 
   featureIcons: Record<string, string> = {
@@ -161,7 +208,7 @@ export class Homepage implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) { }
 
-  /** Lấy icon phù hợp theo nội dung feature */
+  /** icon feature */
   getFeatureIcon(text: string): string {
     text = text.toLowerCase();
 
@@ -171,7 +218,7 @@ export class Homepage implements OnInit, OnDestroy {
       }
     }
 
-    return 'bi-check-circle-fill'; // icon fallback
+    return 'bi-check-circle-fill';
   }
 
   ngOnInit(): void {
@@ -180,7 +227,8 @@ export class Homepage implements OnInit, OnDestroy {
         this.sectionText.motorbike.title =
           cfg.sections.motorbike.title || this.sectionText.motorbike.title;
         this.sectionText.motorbike.subtitle =
-          cfg.sections.motorbike.subtitle || this.sectionText.motorbike.subtitle;
+          cfg.sections.motorbike.subtitle ||
+          this.sectionText.motorbike.subtitle;
         this.sectionText.ebike.title =
           cfg.sections.ebike.title || this.sectionText.ebike.title;
         this.sectionText.ebike.subtitle =
@@ -204,38 +252,42 @@ export class Homepage implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     });
 
+    // chỉ lấy những xe còn hàng cho homepage
     this.hot.getTopRent(4).subscribe(list => {
-      this.topRentList = list;
+      this.topRentList = (list || []).filter(x => x.availabilityStatus !== false);
+      this.activeTopIndex = 0;
+      this.cdr.detectChanges();
+      setTimeout(() => this.scrollToActive(), 0);
+      this.loadRandomReviews();
+    });
+
+    this.hot.getHotByCategory('motorbike', 3).subscribe(v => {
+      this.motorbikeList = (v || []).filter(x => x.availabilityStatus !== false);
       this.cdr.detectChanges();
       this.loadRandomReviews();
     });
 
-    this.hot.getHotByCategory('motorbike', 4).subscribe(v => {
-      this.motorbikeList = v;
+    this.hot.getHotByCategory('ebike', 3).subscribe(v => {
+      this.ecoBikeList = (v || []).filter(x => x.availabilityStatus !== false);
       this.cdr.detectChanges();
       this.loadRandomReviews();
     });
 
-    this.hot.getHotByCategory('ebike', 4).subscribe(v => {
-      this.ecoBikeList = v;
+    this.hot.getHotByCategory('compact', 3).subscribe(v => {
+      this.compactBikeList = (v || []).filter(x => x.availabilityStatus !== false);
       this.cdr.detectChanges();
       this.loadRandomReviews();
     });
 
-    this.hot.getHotByCategory('compact', 8).subscribe(v => {
-      this.compactBikeList = v;
-      this.cdr.detectChanges();
-      this.loadRandomReviews();
-    });
-
+    // popup welcome
     setTimeout(() => {
       this.showWelcomePopup = true;
     }, 2000);
 
+    // scroll tới anchor trong trang
     this.route.fragment.subscribe(fragment => {
       if (!fragment) return;
 
-      // Đợi view render xong rồi mới scroll
       setTimeout(() => {
         const el = document.getElementById(fragment);
         if (el) {
@@ -250,7 +302,53 @@ export class Homepage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void { }
 
-  /** Ảnh (qua ProductLoadingService) */
+  /** chuyển sang item kế tiếp trong top-rent */
+  nextTopRent(): void {
+    if (!this.topRentList.length) return;
+
+    this.activeTopIndex =
+      (this.activeTopIndex + 1) % this.topRentList.length;
+
+    this.cdr.detectChanges();
+    setTimeout(() => this.scrollToActive(), 0);
+  }
+
+  /** quay lại item trước đó trong top-rent */
+  prevTopRent(): void {
+    if (!this.topRentList.length) return;
+
+    const len = this.topRentList.length;
+    this.activeTopIndex = (this.activeTopIndex - 1 + len) % len;
+
+    this.cdr.detectChanges();
+    setTimeout(() => this.scrollToActive(), 0);
+  }
+
+  /** canh cho card active nằm giữa carousel */
+  private scrollToActive(): void {
+    const carouselEl = this.carousel?.nativeElement;
+    const cards = this.topRentCards?.toArray();
+    if (!carouselEl || !cards?.length) return;
+
+    const activeCardRef = cards[this.activeTopIndex];
+    if (!activeCardRef) return;
+
+    const activeEl = activeCardRef.nativeElement as HTMLElement;
+    const carouselRect = carouselEl.getBoundingClientRect();
+    const activeRect = activeEl.getBoundingClientRect();
+
+    const offset =
+      activeRect.left -
+      carouselRect.left -
+      (carouselRect.width / 2 - activeRect.width / 2);
+
+    carouselEl.scrollBy({
+      left: offset,
+      behavior: 'smooth'
+    });
+  }
+
+  /** ảnh */
   getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
     return this.img.getImageUrl(p, kind);
   }
@@ -264,11 +362,10 @@ export class Homepage implements OnInit, OnDestroy {
     return (price ?? 0).toLocaleString('vi-VN') + 'đ';
   }
 
-  /** Lấy ngẫu nhiên một vài đánh giá ĐÃ APPROVED để show trên homepage */
+  /** Lấy ngẫu nhiên review đã approved để show trên homepage */
   private loadRandomReviews() {
     if (this.reviewsLoaded) return;
 
-    // gom tất cả id sản phẩm đang hiển thị trên homepage
     const idSet = new Set<string | number>();
     this.topRentList.forEach(p => p?.id && idSet.add(p.id));
     this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
@@ -278,27 +375,28 @@ export class Homepage implements OnInit, OnDestroy {
     const ids = Array.from(idSet);
     if (!ids.length) return;
 
-    this.reviews.getApprovedByVehicleIds(ids).subscribe((all: ProductReview[]) => {
-      if (!all.length) return;
+    this.reviews
+      .getApprovedByVehicleIds(ids)
+      .subscribe((all: ProductReview[]) => {
+        if (!all.length) return;
 
-      // shuffle nhẹ cho "ngẫu nhiên"
-      const shuffled = all.slice().sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, 4); // lấy 4 review để hiển thị
+        const shuffled = all.slice().sort(() => Math.random() - 0.5);
+        const picked = shuffled.slice(0, 4);
 
-      this.testimonials = picked.map(r => ({
-        avatar:
-          (r.images && r.images[0]) || 'assets/images/default-avatar.png',
-        name: r.customerName || 'Khách hàng EcoMOVE',
-        city: 'TP.HCM',
-        text: r.content || r.title || '',
-        rating: r.rating || 5
-      }));
+        this.testimonials = picked.map(r => ({
+          avatar:
+            (r.images && r.images[0]) || 'assets/images/default-avatar.png',
+          name: r.customerName || 'Khách hàng EcoMOVE',
+          city: 'TP.HCM',
+          text: r.content || r.title || '',
+          rating: r.rating || 5
+        }));
 
-      if (this.testimonials.length) {
-        this.reviewsLoaded = true;
-      }
+        if (this.testimonials.length) {
+          this.reviewsLoaded = true;
+        }
 
-      this.cdr.detectChanges();
-    });
+        this.cdr.detectChanges();
+      });
   }
 }

@@ -440,7 +440,7 @@ body {
   transform: translateY(0);
 }
 
-.nav__rent:hover > .nav__link {
+.nav__rent:hover>.nav__link {
   color: #ffe19f;
 }
 
@@ -575,6 +575,7 @@ body {
 */
 
 @media (max-width: 900px) {
+
   /* nav desktop ẩn, dùng mobile nav */
   .nav {
     display: none;
@@ -755,4 +756,46 @@ body {
   .header__search {
     max-width: 680px;
   }
+}
+
+/* Tối màn hình khi mở gợi ý search */
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 900;
+}
+
+/* Đảm bảo ô search + popup nằm trên backdrop */
+.header__search {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Popup gợi ý */
+.search-suggest {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+  padding: 16px 20px;
+}
+
+/* Dòng xem tất cả */
+.suggest-all {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  font-weight: 500;
+  color: #16a34a;
+  cursor: pointer;
+}
+
+/* Highlight ký tự matching */
+.search-highlight {
+  color: #16a34a;
+  font-weight: 600;
 }

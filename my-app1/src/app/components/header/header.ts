@@ -1,11 +1,14 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginService, UserProfile } from '../../services/login/login.service';
+import { HotProductService } from '../../services/hot-products.services';
+import { Subscription, map } from 'rxjs';
 
-interface HotSuggestion {
-  img: string;
-  label: string;
+interface SearchSuggestion {
+  id: string;
+  name: string;
+  image: string;
 }
 
 @Component({
@@ -15,8 +18,7 @@ interface HotSuggestion {
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
-export class Header {
-
+export class Header implements OnInit, OnDestroy {
   isShrink = false;
   currentCity = 'TP Hồ Chí Minh';
 
@@ -25,67 +27,65 @@ export class Header {
 
   // search
   suggestOpen = false;
-  hotSuggestions: HotSuggestion[] = [
-    {
-      img: 'assets/images/search-scooter.png',
-      label: 'Thuê scooter điện đi làm'
-    },
-    {
-      img: 'assets/images/search-bike.png',
-      label: 'Xe đạp điện cho sinh viên'
-    },
-    {
-      img: 'assets/images/search-moto.png',
-      label: 'Mô tô điện cuối tuần'
-    }
-  ];
+  searchTerm = '';
+  suggestions: SearchSuggestion[] = [];
+  private searchSub?: Subscription;
 
   // profile dropdown
   profileMenuOpen = false;
 
   constructor(
     private loginService: LoginService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private hotService: HotProductService
+  ) { }
 
-  // shrink header khi scroll
+  /* ========= LIFECYCLE ========= */
+
+  ngOnInit(): void {
+    this.loadTopSuggestions();
+  }
+
+  ngOnDestroy(): void {
+    this.searchSub?.unsubscribe();
+  }
+
+  /* ========= HEADER SCROLL ========= */
+
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const offset = window.scrollY || window.pageYOffset;
     this.isShrink = offset > 80;
   }
 
-  // ====== MOBILE MENU ======
+  /* ========= MOBILE MENU ========= */
+
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
 
-    // mở menu mobile thì đóng profile dropdown
     if (this.mobileMenuOpen) {
       this.profileMenuOpen = false;
     }
   }
 
-  // ====== USER / PROFILE ======
+  /* ========= USER / PROFILE ========= */
+
   isLoggedIn(): boolean {
     return this.loginService.isLoggedIn();
   }
 
-  /** Auth user (id, email, role...) cho guard, quyền, v.v. */
   get currentUser(): any {
     return this.loginService.getCurrentUser();
   }
 
-  /** Profile chi tiết đọc từ eco_profile (fullname, avatar, tier...) */
   get profile(): UserProfile | null {
     return this.loginService.getProfile();
   }
 
-  /** Tên hiển thị trên header */
   get displayName(): string {
     return this.profile?.fullname || this.currentUser?.fullname || '';
   }
 
-  /** Avatar trên header */
   get currentUserAvatar(): string {
     const p = this.profile;
     return p?.avatar || '/assets/images/avatars/default.png';
@@ -94,7 +94,6 @@ export class Header {
   toggleProfileMenu(): void {
     this.profileMenuOpen = !this.profileMenuOpen;
 
-    // mở dropdown profile thì đóng mobile menu
     if (this.profileMenuOpen) {
       this.mobileMenuOpen = false;
     }
@@ -119,9 +118,9 @@ export class Header {
     this.router.navigate(['/']);
   }
 
-  // ====== CART ======
+  /* ========= CART ========= */
+
   cartItemCount(): number {
-    // nếu sau này bạn có CartService thì sửa lại chỗ này
     if (typeof localStorage === 'undefined') return 0;
     try {
       const raw = localStorage.getItem('eco_cart_count');
@@ -133,40 +132,115 @@ export class Header {
     }
   }
 
-  // ====== LOCATION ======
+  /* ========= LOCATION ========= */
+
   notifyLocationWip(): void {
     alert('Tính năng chọn địa điểm sẽ được cập nhật sau.');
   }
 
-  // ====== SEARCH (stub cơ bản) ======
+  /* ========= SEARCH LOGIC ========= */
+
+  private loadTopSuggestions(): void {
+    this.searchSub?.unsubscribe();
+    this.searchSub = this.hotService
+      .getTopRent(3)
+      .subscribe(list => {
+        this.suggestions = (list || []).map(p => ({
+          id: String(p.id),
+          name: p.vehicleName,
+          image: p.image
+        }));
+      });
+  }
+
   openSuggest(): void {
     this.suggestOpen = true;
+    if (!this.searchTerm) {
+      this.loadTopSuggestions();
+    }
   }
 
-  applySuggestion(s: HotSuggestion): void {
+  closeSuggest(): void {
     this.suggestOpen = false;
-    this.mobileMenuOpen = false;
-    // bạn có thể điều hướng tới trang tìm kiếm ở đây
-    console.log('Apply suggestion:', s.label);
-  }
-
-  onSearch(event: Event): void {
-    event.preventDefault();
-    this.suggestOpen = false;
-    this.mobileMenuOpen = false;
   }
 
   onQueryChange(value: string): void {
-    // nếu muốn filter hotSuggestions thì làm thêm ở đây
-    // hiện tại chỉ đóng gợi ý nếu trống
-    if (!value) {
-      this.suggestOpen = false;
+    const v = (value || '').trim();
+    this.searchTerm = v;
+
+    if (!v) {
+      this.loadTopSuggestions();
+      this.suggestOpen = true;
+      return;
     }
+
+    this.searchSub?.unsubscribe();
+    this.searchSub = this.hotService
+      .searchProducts(v)
+      .pipe(map(list => list.slice(0, 3)))
+      .subscribe(list => {
+        this.suggestions = (list || []).map(p => ({
+          id: String(p.id),
+          name: p.vehicleName,
+          image: p.image
+        }));
+        this.suggestOpen = true;
+      });
   }
 
   onSearchKey(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.suggestOpen = false;
+      this.closeSuggest();
     }
+  }
+
+  onSearch(event: Event): void {
+    event.preventDefault();
+    this.closeSuggest();
+    this.mobileMenuOpen = false;
+
+    const term = this.searchTerm.trim();
+    if (!term) {
+      this.router.navigate(['/rent']);
+    } else {
+      this.router.navigate(['/rent'], { queryParams: { q: term } });
+    }
+  }
+
+  applySuggestion(s: SearchSuggestion): void {
+    this.closeSuggest();
+    this.mobileMenuOpen = false;
+
+    const keyword = s.name?.trim();
+    if (!keyword) {
+      this.router.navigate(['/rent']);
+      return;
+    }
+
+    this.searchTerm = keyword;
+    this.router.navigate(['/rent'], { queryParams: { q: keyword } });
+  }
+
+  goToAllProducts(): void {
+    this.closeSuggest();
+    this.mobileMenuOpen = false;
+
+    const term = this.searchTerm.trim();
+    if (term) {
+      this.router.navigate(['/rent'], { queryParams: { q: term } });
+    } else {
+      this.router.navigate(['/rent']);
+    }
+  }
+
+  /** Tô màu phần trùng với searchTerm trong tên xe */
+  highlightName(name: string): string {
+    const text = name || '';
+    const q = this.searchTerm.trim();
+    if (!q) return text;
+
+    const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`(${escaped})`, 'gi');
+    return text.replace(re, '<span class="search-highlight">$1</span>');
   }
 }

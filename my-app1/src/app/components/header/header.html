@@ -1,18 +1,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
-<header class="header" id="mainHeader" [class.shrink]="isShrink">
+<!-- BACKDROP TỐI MÀN HÌNH KHI SEARCH -->
+<div class="search-backdrop" *ngIf="suggestOpen" (click)="closeSuggest()"></div>
 
+<header class="header" id="mainHeader" [class.shrink]="isShrink">
   <!-- Quảng cáo chạy -->
   <div class="header__ads">
     <marquee behavior="scroll" direction="left" scrollamount="6" loop="infinite">
-      🌿 Miễn phí giao nhận xe tại hơn 30 điểm trong thành phố • Hỗ trợ kỹ thuật 24/7 • Ưu đãi đến 10 phần trăm tuần đầu
-      thuê 🌿
+      🌿 Miễn phí giao nhận xe tại hơn 30 điểm trong thành phố • Hỗ trợ kỹ thuật
+      24/7 • Ưu đãi đến 10 phần trăm tuần đầu thuê 🌿
     </marquee>
   </div>
 
   <!-- Thanh giữa -->
   <div class="header__middle">
-
     <!-- Logo -->
     <div class="header__logo">
       <a routerLink="/">
@@ -22,7 +23,6 @@
 
     <!-- Location + Search -->
     <div class="header__controls">
-
       <!-- Location -->
       <button type="button" class="btn-loc" (click)="notifyLocationWip()">
         <img src="../../../assets/images/location.png" alt="location" />
@@ -34,38 +34,44 @@
 
       <!-- Search -->
       <form class="header__search" (submit)="onSearch($event)">
-
         <button type="submit" class="search-icon-btn" aria-label="Tìm kiếm">
           <img src="../../../assets/images/search.png" alt="Tìm kiếm" />
         </button>
 
         <input #searchInput type="text" class="header__search-input" placeholder="Bạn muốn thuê gì hôm nay?"
-          autocomplete="off" (focus)="openSuggest()
-          " (input)="onQueryChange(searchInput.value)" (keydown)="onSearchKey($event)" />
+          autocomplete="off" (focus)="openSuggest()" (input)="onQueryChange(searchInput.value)"
+          (keydown)="onSearchKey($event)" />
 
         <!-- Gợi ý -->
-        <div class="search-suggest" *ngIf="suggestOpen && hotSuggestions.length">
-          <div class="suggest-title">Xu hướng tìm kiếm 🔥</div>
-          <ul>
-            <li *ngFor="let s of hotSuggestions" (click)="applySuggestion(s)">
-              <img [src]="s.img" alt="icon" />
-              <span>{{ s.label }}</span>
+        <div class="search-suggest" *ngIf="suggestOpen">
+          <div class="suggest-title">
+            {{ searchTerm ? 'Kết quả phù hợp' : 'HOT NHẤT THÁNG NÀY' }}
+          </div>
+
+          <ul *ngIf="suggestions.length > 0">
+            <li *ngFor="let s of suggestions" (click)="applySuggestion(s)">
+              <img [src]="s.image" alt="Xe gợi ý" />
+              <span [innerHTML]="highlightName(s.name)"></span>
             </li>
           </ul>
-        </div>
 
+          <!-- Dòng xem tất cả -->
+          <div class="suggest-all" (click)="goToAllProducts()">
+            Xem tất cả sản phẩm...
+          </div>
+        </div>
       </form>
     </div>
 
     <!-- Hamburger + menu mobile -->
     <div class="mobile-nav-wrapper">
-      <button type="button" class="header__hamburger" aria-label="Mở menu">
+      <button type="button" class="header__hamburger" aria-label="Mở menu" (click)="toggleMobileMenu()">
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <nav class="mobile-nav">
+      <nav class="mobile-nav" [class.open]="mobileMenuOpen">
         <a routerLink="/" routerLinkActive="nav__link--active" [routerLinkActiveOptions]="{ exact: true }">
           TRANG CHỦ
         </a>
@@ -83,7 +89,6 @@
 
     <!-- Actions -->
     <div class="header__actions">
-
       <!-- Cart -->
       <a routerLink="/cart" class="nav__cart" aria-label="Giỏ hàng">
         <i class="bi bi-cart"></i>
@@ -116,13 +121,11 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- Nav desktop -->
   <nav class="nav">
     <ul class="nav__menu">
-
       <li>
         <a class="nav__link" routerLink="/" routerLinkActive="nav__link--active"
           [routerLinkActiveOptions]="{ exact: true }">
@@ -137,7 +140,6 @@
 
         <!-- Dropdown đặt xe -->
         <div class="rent-dropdown">
-
           <div class="rent-dropdown__group">
             <h4>Dòng xe</h4>
             <ul>
@@ -152,8 +154,8 @@
                 </a>
               </li>
               <li>
-                <a [routerLink]="['/rent']" [queryParams]="{ type: 'mo-to-dien' }">
-                  Mô tô điện
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-dap-dien-gap-gon' }">
+                  Xe đạp điện gấp gọn
                 </a>
               </li>
             </ul>
@@ -162,9 +164,21 @@
           <div class="rent-dropdown__group">
             <h4>Thông tin</h4>
             <ul>
-              <li><a routerLink="/blog/offers" routerLinkActive="nav__link--active">Ưu đãi</a></li>
-              <li><a routerLink="/blog/products" routerLinkActive="nav__link--active">Sản phẩm mới</a></li>
-              <li><a routerLink="/blog/news" routerLinkActive="nav__link--active">Tin tức</a></li>
+              <li>
+                <a routerLink="/blog/offers" routerLinkActive="nav__link--active">
+                  Ưu đãi
+                </a>
+              </li>
+              <li>
+                <a routerLink="/blog/products" routerLinkActive="nav__link--active">
+                  Sản phẩm mới
+                </a>
+              </li>
+              <li>
+                <a routerLink="/blog/news" routerLinkActive="nav__link--active">
+                  Tin tức
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -180,7 +194,6 @@
               <li><a href="/contact">Liên hệ</a></li>
             </ul>
           </div>
-
         </div>
       </li>
 
@@ -195,8 +208,6 @@
           VỀ CHÚNG TÔI
         </a>
       </li>
-
     </ul>
   </nav>
-
 </header>
