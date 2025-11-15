@@ -11,10 +11,22 @@
         </div>
     </header>
 
+    <section class="view-toggle">
+        <button [class.active]="currentView === 'default'" (click)="setView('default')">
+            <i class="fas fa-list-alt"></i> Tổng quan
+        </button>
+        <button [class.active]="currentView === 'payment'" (click)="setView('payment')">
+            <i class="fas fa-credit-card"></i> Quản lý thanh toán
+        </button>
+        <button [class.active]="currentView === 'handover'" (click)="setView('handover')">
+            <i class="fas fa-calendar-check"></i> Quản lý giao nhận
+        </button>
+    </section>
+
     <section class="filters">
-        <input type="text" placeholder="Mã đơn/ tên khách/ SĐT" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" />
+        <input type="text" placeholder="Mã đơn/ tên khách/ SĐT/ Tên xe" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" />
         <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilter()">
-            <option value="">Trạng thái</option>
+            <option value="">Trạng thái đơn</option>
             <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
         </select>
         <select [(ngModel)]="locationFilter" (ngModelChange)="applyFilter()">
@@ -34,115 +46,180 @@
 
     <section class="rental-list">
         <table>
-            <thead>
-                <tr>
+            <thead [ngSwitch]="currentView">
+                <tr *ngSwitchCase="'default'">
                     <th class="sortable" (click)="onSort('maDonThue')" [class.sort-active]="sortColumn === 'maDonThue'">
-                        <div class="th-content">
-                            <span>Mã đơn</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'maDonThue' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'maDonThue' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                        <div class="th-content"><span>Mã đơn</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'maDonThue' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'maDonThue' && sortDirection === 'desc'"></i></div>
                     </th>
-                    <th class="sortable" (click)="onSort('khachHangTen')" [class.sort-active]="sortColumn === 'khachHangTen'">
-                        <div class="th-content">
-                            <span>Khách hàng</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'khachHangTen' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'khachHangTen' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                    <th class="sortable hide-on-mobile" (click)="onSort('khachHangTen')" [class.sort-active]="sortColumn === 'khachHangTen'">
+                        <div class="th-content"><span>Khách hàng</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'khachHangTen' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'khachHangTen' && sortDirection === 'desc'"></i></div>
                     </th>
-                    <th class="sortable" (click)="onSort('thoiGianDatHang')" [class.sort-active]="sortColumn === 'thoiGianDatHang'">
-                        <div class="th-content">
-                            <span>Ngày đặt</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'thoiGianDatHang' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'thoiGianDatHang' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                    <th class="sortable hide-on-tablet" (click)="onSort('thoiGianDatHang')" [class.sort-active]="sortColumn === 'thoiGianDatHang'">
+                        <div class="th-content"><span>Ngày đặt</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'thoiGianDatHang' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'thoiGianDatHang' && sortDirection === 'desc'"></i></div>
                     </th>
                     <th class="sortable" (click)="onSort('tongChiPhi')" [class.sort-active]="sortColumn === 'tongChiPhi'">
-                        <div class="th-content">
-                            <span>Tổng tiền</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'tongChiPhi' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'tongChiPhi' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                        <div class="th-content"><span>Tổng tiền</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tongChiPhi' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tongChiPhi' && sortDirection === 'desc'"></i></div>
                     </th>
-                    <th class="sortable" (click)="onSort('paymentStatus')" [class.sort-active]="sortColumn === 'paymentStatus'">
-                        <div class="th-content">
-                            <span>Thanh toán</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'paymentStatus' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'paymentStatus' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                    <th class="sortable hide-on-tablet" (click)="onSort('paymentStatus')" [class.sort-active]="sortColumn === 'paymentStatus'">
+                        <div class="th-content"><span>Thanh toán</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'paymentStatus' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'paymentStatus' && sortDirection === 'desc'"></i></div>
                     </th>
-                    <th class="sortable" (click)="onSort('khuVuc')" [class.sort-active]="sortColumn === 'khuVuc'">
-                        <div class="th-content">
-                            <span>Khu vực</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'khuVuc' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'khuVuc' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                    <th class="sortable hide-on-tablet" (click)="onSort('khuVuc')" [class.sort-active]="sortColumn === 'khuVuc'">
+                        <div class="th-content"><span>Khu vực</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'khuVuc' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'khuVuc' && sortDirection === 'desc'"></i></div>
                     </th>
                     <th class="sortable" (click)="onSort('tinhTrangDon')" [class.sort-active]="sortColumn === 'tinhTrangDon'">
-                        <div class="th-content">
-                            <span>Trạng thái</span>
-                            <i class="fas fa-sort" 
-                               [class.fa-sort-up]="sortColumn === 'tinhTrangDon' && sortDirection === 'asc'"
-                               [class.fa-sort-down]="sortColumn === 'tinhTrangDon' && sortDirection === 'desc'">
-                            </i>
-                        </div>
+                        <div class="th-content"><span>Trạng thái</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tinhTrangDon' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tinhTrangDon' && sortDirection === 'desc'"></i></div>
                     </th>
-                    </tr>
+                </tr>
+
+                <tr *ngSwitchCase="'payment'">
+                    <th class="sortable" (click)="onSort('maDonThue')" [class.sort-active]="sortColumn === 'maDonThue'">
+                        <div class="th-content"><span>Mã đơn</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'maDonThue' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'maDonThue' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-mobile" (click)="onSort('khachHangTen')" [class.sort-active]="sortColumn === 'khachHangTen'">
+                        <div class="th-content"><span>Khách hàng</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'khachHangTen' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'khachHangTen' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable" (click)="onSort('tongChiPhi')" [class.sort-active]="sortColumn === 'tongChiPhi'">
+                        <div class="th-content"><span>Tổng tiền</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tongChiPhi' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tongChiPhi' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-tablet" (click)="onSort('tienDatCoc')" [class.sort-active]="sortColumn === 'tienDatCoc'">
+                        <div class="th-content"><span>Tiền cọc</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tienDatCoc' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tienDatCoc' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-mobile" (click)="onSort('trangThaiCoc')" [class.sort-active]="sortColumn === 'trangThaiCoc'">
+                        <div class="th-content"><span>TT Cọc</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'trangThaiCoc' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'trangThaiCoc' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-mobile" (click)="onSort('maThanhToan')" [class.sort-active]="sortColumn === 'maThanhToan'">
+                        <div class="th-content"><span>Mã TT</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'maThanhToan' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'maThanhToan' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable" (click)="onSort('paymentStatus')" [class.sort-active]="sortColumn === 'paymentStatus'">
+                        <div class="th-content"><span>TT Đơn</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'paymentStatus' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'paymentStatus' && sortDirection === 'desc'"></i></div>
+                    </th>
+                </tr>
+
+                <tr *ngSwitchCase="'handover'">
+                    <th class="sortable" (click)="onSort('maDonThue')" [class.sort-active]="sortColumn === 'maDonThue'">
+                        <div class="th-content"><span>Mã đơn</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'maDonThue' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'maDonThue' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable" (click)="onSort('tenXe')" [class.sort-active]="sortColumn === 'tenXe'">
+                        <div class="th-content"><span>Tên xe</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tenXe' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tenXe' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-tablet" (click)="onSort('thoiGianNhanXe')" [class.sort-active]="sortColumn === 'thoiGianNhanXe'">
+                        <div class="th-content"><span>Thời gian nhận</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'thoiGianNhanXe' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'thoiGianNhanXe' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-tablet" (click)="onSort('thoiGianTraXe')" [class.sort-active]="sortColumn === 'thoiGianTraXe'">
+                        <div class="th-content"><span>Thời gian trả</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'thoiGianTraXe' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'thoiGianTraXe' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable hide-on-mobile col-location" (click)="onSort('diaDiemNhanXe')" [class.sort-active]="sortColumn === 'diaDiemNhanXe'">
+                        <div class="th-content"><span>Địa điểm nhận</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'diaDiemNhanXe' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'diaDiemNhanXe' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable" (click)="onSort('tinhTrangXe')" [class.sort-active]="sortColumn === 'tinhTrangXe'">
+                        <div class="th-content"><span>TT Xe</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tinhTrangXe' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tinhTrangXe' && sortDirection === 'desc'"></i></div>
+                    </th>
+                    <th class="sortable" (click)="onSort('tinhTrangDon')" [class.sort-active]="sortColumn === 'tinhTrangDon'">
+                        <div class="th-content"><span>TT Đơn</span><i class="fas fa-sort" [class.fa-sort-up]="sortColumn === 'tinhTrangDon' && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === 'tinhTrangDon' && sortDirection === 'desc'"></i></div>
+                    </th>
+                </tr>
             </thead>
 
-            <tbody>
+            <tbody [ngSwitch]="currentView">
                 <tr *ngIf="isLoading">
                     <td colspan="7" class="loading-cell">
                         Đang tải danh sách đơn thuê...
                     </td>
                 </tr>
-
-                <tr *ngFor="let rental of filteredRentals" class="clickable-row" (click)="goToDetail(rental)">
-                    <td>
-                        <strong>{{ rental.maDonThue }}</strong>
-                    </td>
-                    <td>
-                        <div class="customer-info">
-                            <strong>{{ rental.khachHangTen }}</strong>
-                            <span>{{ rental.khachHangSdt }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rental.thoiGianDatHang | date:'dd/MM/yyyy HH:mm' }}</td>
-                    <td>{{ rental.tongChiPhi | number }}đ</td>
-                    
-                    <td>
-                        <span class="payment-status" [ngClass]="rental.paymentStatusClass">
-                            {{ rental.paymentStatus }}
-                        </span>
-                    </td>
-                    
-                    <td>{{ rental.khuVuc }}</td> 
-
-                    <td>
-                        <span class="status" [ngClass]="rental.tinhTrangDonClass">
-                            {{ rental.tinhTrangDon }}
-                        </span>
-                    </td>
-                    
-                    </tr>
-
                 <tr *ngIf="!isLoading && filteredRentals.length === 0">
                     <td colspan="7" class="empty-cell">
                         Không tìm thấy đơn thuê nào.
                     </td>
                 </tr>
+
+                <ng-container *ngSwitchCase="'default'">
+                    <ng-container *ngFor="let rental of filteredRentals">
+                        <tr *ngIf="rental.isFirstInOrder" (click)="goToDetail(rental)" class="clickable-row">
+                            <td>
+                                <strong>{{ rental.maDonThue }}</strong>
+                            </td>
+                            <td class="hide-on-mobile">
+                                <div class="customer-info">
+                                    <strong>{{ rental.khachHangTen }}</strong>
+                                    <span>{{ rental.khachHangSdt }}</span>
+                                </div>
+                            </td>
+                            <td class="hide-on-tablet">{{ rental.thoiGianDatHang | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td>{{ rental.tongChiPhi | number }}đ</td>
+                            <td class="hide-on-tablet">
+                                <span class="payment-status" [ngClass]="rental.paymentStatusClass">
+                                    {{ rental.paymentStatus }}
+                                </span>
+                            </td>
+                            <td class="hide-on-tablet">{{ rental.khuVuc }}</td> 
+                            <td>
+                                <span class="status" [ngClass]="rental.tinhTrangDonClass">
+                                    {{ rental.tinhTrangDon }}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'payment'">
+                    <ng-container *ngFor="let rental of filteredRentals">
+                        <tr *ngIf="rental.isFirstInOrder" (click)="goToDetail(rental)" class="clickable-row">
+                            <td>
+                                <strong>{{ rental.maDonThue }}</strong>
+                            </td>
+                            <td class="hide-on-mobile">
+                                <div class="customer-info">
+                                    <strong>{{ rental.khachHangTen }}</strong>
+                                    <span>{{ rental.khachHangSdt }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rental.tongChiPhi | number }}đ</td>
+                            <td class="hide-on-tablet">{{ rental.tienDatCoc | number }}đ</td>
+                            <td class="hide-on-mobile">
+                                <span class="payment-status" [ngClass]="rental.cocStatusClass">
+                                    {{ rental.trangThaiCoc }}
+                                </span>
+                            </td>
+                            <td class="hide-on-mobile">
+                                {{ rental.maThanhToan || 'N/A' }}
+                            </td>
+                            <td>
+                                <span class="payment-status" [ngClass]="rental.paymentStatusClass">
+                                    {{ rental.paymentStatus }}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'handover'">
+                    <ng-container *ngFor="let rental of filteredRentals; let i = index">
+                        <tr (click)="goToDetail(rental)" class="clickable-row"
+                            [class.child-row]="i > 0 && rental.maDonThue === filteredRentals[i-1].maDonThue">
+                            <td>
+                                <strong *ngIf="i === 0 || rental.maDonThue !== filteredRentals[i-1].maDonThue">
+                                    {{ rental.maDonThue }}
+                                </strong>
+                            </td>
+                            <td>{{ rental.tenXe }}</td>
+                            <td class="hide-on-tablet">{{ rental.thoiGianNhanXe | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td class="hide-on-tablet">{{ rental.thoiGianTraXe | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td class="hide-on-mobile col-location">{{ rental.diaDiemNhanXe }}</td>
+                            <td>
+                                <span class="status" [ngClass]="rental.vehicleStatusClass">
+                                    {{ rental.tinhTrangXe }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status" [ngClass]="rental.tinhTrangDonClass"
+                                    *ngIf="i === 0 || rental.maDonThue !== filteredRentals[i-1].maDonThue">
+                                    {{ rental.tinhTrangDon }}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
             </tbody>
         </table>
     </section>

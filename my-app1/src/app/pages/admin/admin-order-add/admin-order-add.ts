@@ -85,6 +85,7 @@ export class AdminOrderAdd implements OnInit {
         tienGiam: 0,
         chiPhiSauGiam: 0,
         donViTienTe: 'VND',
+        maThanhToan: null, // <-- THÊM MỚI
         tinhTrangThanhToan: 'Chờ thanh toán'
       },
       chiTietDonThue: [] 

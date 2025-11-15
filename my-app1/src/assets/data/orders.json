@@ -11,6 +11,7 @@
       "tienGiam": 0,
       "chiPhiSauGiam": 300000,
       "donViTienTe": "VND",
+      "maThanhToan": "T001H002",
       "tinhTrangThanhToan": "Đã thanh toán"
     },
     "tinhTrangDon": "Đã hoàn thành",
@@ -42,9 +43,10 @@
       "tienGiam": 216000,
       "chiPhiSauGiam": 1224000,
       "donViTienTe": "VND",
+      "maThanhToan": "T002H005",
       "tinhTrangThanhToan": "Đã thanh toán"
     },
-    "tinhTrangDon": "Đã hoàn thành",
+    "tinhTrangDon": "Đang thuê",
     "chiTietDonThue": [
       {
         "idXe": "V001",
@@ -57,7 +59,7 @@
         "diaDiemNhanXe": "Sân bay Đà Nẵng",
         "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, TP. Đà Nẵng",
         "thoiGianTraXeThucTe": "2025-11-08T07:50:00Z",
-        "tinhTrangXe": "Đã trả"
+        "tinhTrangXe": "Đang thuê"
       },
       {
         "idXe": "V003",
@@ -86,9 +88,10 @@
       "tienGiam": 0,
       "chiPhiSauGiam": 420000,
       "donViTienTe": "VND",
-      "tinhTrangThanhToan": "Chờ thanh toán"
+      "maThanhToan": "T003H001",
+      "tinhTrangThanhToan": "Đã thanh toán"
     },
-    "tinhTrangDon": "Đã xác nhận",
+    "tinhTrangDon": "Đã hoàn thành",
     "chiTietDonThue": [
       {
         "idXe": "V005",
@@ -101,7 +104,7 @@
         "diaDiemNhanXe": "123 Võ Văn Tần, Quận 3, TP. HCM",
         "diaDiemTraXe": "123 Võ Văn Tần, Quận 3, TP. HCM",
         "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đã đặt"
+        "tinhTrangXe": "Đã trả"
       },
       {
         "idXe": "V008",
@@ -114,7 +117,7 @@
         "diaDiemNhanXe": "123 Võ Văn Tần, Quận 3, TP. HCM",
         "diaDiemTraXe": "Sân bay Tân Sơn Nhất, TP. HCM",
         "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đã đặt"
+        "tinhTrangXe": "Đã trả"
       }
     ]
   },
@@ -130,9 +133,10 @@
       "tienGiam": 105000,
       "chiPhiSauGiam": 945000,
       "donViTienTe": "VND",
+      "maThanhToan": null,
       "tinhTrangThanhToan": "Chờ thanh toán"
     },
-    "tinhTrangDon": "Đã xác nhận",
+    "tinhTrangDon": "Đã hoàn thành",
     "chiTietDonThue": [
       {
         "idXe": "V015",
@@ -145,7 +149,7 @@
         "diaDiemNhanXe": "789 Đường Hai Bà Trưng, TP. Hà Nội",
         "diaDiemTraXe": "Sân bay Nội Bài, TP. Hà Nội",
         "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đã đặt"
+        "tinhTrangXe": "Đã trả"
       }
     ]
   },
@@ -161,6 +165,7 @@
       "tienGiam": 81000,
       "chiPhiSauGiam": 459000,
       "donViTienTe": "VND",
+      "maThanhToan": "T005H006",
       "tinhTrangThanhToan": "Đã thanh toán"
     },
     "tinhTrangDon": "Đã hoàn thành",
@@ -205,6 +210,7 @@
     "tienGiam": 0,
     "chiPhiSauGiam": 180000,
     "donViTienTe": "VND",
+    "maThanhToan": "T006H004",
     "tinhTrangThanhToan": "Đã thanh toán"
   },
   "tinhTrangDon": "Đã hoàn thành",
@@ -236,6 +242,7 @@
       "tienGiam": 48000,
       "chiPhiSauGiam": 432000,
       "donViTienTe": "VND",
+      "maThanhToan": null,
       "tinhTrangThanhToan": "Chờ thanh toán"
     },
     "tinhTrangDon": "Đã xác nhận",
@@ -251,7 +258,7 @@
         "diaDiemNhanXe": "67 Đường Pasteur, Quận 1, TP. HCM",
         "diaDiemTraXe": "67 Đường Pasteur, Quận 1, TP. HCM",
         "thoiGianTraXeThucTe": null,
-        "tinhTrangXe": "Đã đặt"
+        "tinhTrangXe": "Chờ giao"
       }
     ]
   },
@@ -267,9 +274,10 @@
     "tienGiam": 0,
     "chiPhiSauGiam": 700000,
     "donViTienTe": "VND",
+    "maThanhToan": "T008H007",
     "tinhTrangThanhToan": "Đã thanh toán"
   },
-  "tinhTrangDon": "Đã hoàn thành",
+  "tinhTrangDon": "Đã huỷ",
   "chiTietDonThue": [
     {
       "idXe": "V015",
