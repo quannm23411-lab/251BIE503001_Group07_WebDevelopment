@@ -51,7 +51,9 @@
       <div class="location">
         <label for="city">Tỉnh/Thành phố</label>
         <select id="city" (change)="onCityChange($any($event.target).value)">
-          <option value="TP.Hồ Chí Minh" selected>TP.Hồ Chí Minh</option>
+          <option value="TP.Hồ Chí Minh" selected>
+            TP.Hồ Chí Minh
+          </option>
           <option value="Hà Nội">Hà Nội</option>
           <option value="Đà Nẵng">Đà Nẵng</option>
         </select>
@@ -67,20 +69,32 @@
         <span class="filter-label">Loại xe:</span>
 
         <label>
-          <input type="checkbox" [checked]="isTypeSelected('Xe máy điện')"
-            (change)="toggleType('Xe máy điện', $any($event.target).checked)" />
+          <input type="checkbox" [checked]="isTypeSelected('Xe máy điện')" (change)="
+              toggleType(
+                'Xe máy điện',
+                $any($event.target).checked
+              )
+            " />
           Xe máy điện
         </label>
 
         <label>
-          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện')"
-            (change)="toggleType('Xe đạp điện', $any($event.target).checked)" />
+          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện')" (change)="
+              toggleType(
+                'Xe đạp điện',
+                $any($event.target).checked
+              )
+            " />
           Xe đạp điện
         </label>
 
         <label>
-          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện gấp gọn')"
-            (change)="toggleType('Xe đạp điện gấp gọn', $any($event.target).checked)" />
+          <input type="checkbox" [checked]="isTypeSelected('Xe đạp điện gấp gọn')" (change)="
+              toggleType(
+                'Xe đạp điện gấp gọn',
+                $any($event.target).checked
+              )
+            " />
           Xe đạp điện gấp gọn
         </label>
       </div>
@@ -88,15 +102,30 @@
       <div class="filter-row">
         <span class="filter-label">Thương hiệu:</span>
         <label>
-          <input type="checkbox" (change)="toggleBrand('VinFast', $any($event.target).checked)" />
+          <input type="checkbox" (change)="
+              toggleBrand(
+                'VinFast',
+                $any($event.target).checked
+              )
+            " />
           VinFast
         </label>
         <label>
-          <input type="checkbox" (change)="toggleBrand('Yadea', $any($event.target).checked)" />
+          <input type="checkbox" (change)="
+              toggleBrand(
+                'Yadea',
+                $any($event.target).checked
+              )
+            " />
           Yadea
         </label>
         <label>
-          <input type="checkbox" (change)="toggleBrand('Dat Bike', $any($event.target).checked)" />
+          <input type="checkbox" (change)="
+              toggleBrand(
+                'Dat Bike',
+                $any($event.target).checked
+              )
+            " />
           Dat Bike
         </label>
       </div>
@@ -114,7 +143,8 @@
         </div>
 
         <span class="price-value">
-          {{ formatVND(minPrice()) }} - {{ formatVND(maxPrice()) }}
+          {{ formatVND(minPrice()) }} -
+          {{ formatVND(maxPrice()) }}
         </span>
         <span class="price-bound">500.000 đ</span>
 
@@ -135,7 +165,10 @@
 
           <div class="sort-price-dropdown">
             <button type="button" class="btn btn-outline btn-green-outline dropdown-toggle" (click)="togglePriceMenu()"
-              [class.active]="sortKey() === 'price_asc' || sortKey() === 'price_desc'">
+              [class.active]="
+                sortKey() === 'price_asc' ||
+                sortKey() === 'price_desc'
+              ">
               {{ priceSortLabel() }}
               <i class="bi bi-chevron-down"></i>
             </button>
@@ -160,10 +193,9 @@
   <section class="top-rent container py-5">
     <div class="product-grid">
       <ng-container *ngIf="topRentList().length > 0; else noTop">
-
         <!-- 3 hàng x 4 xe / trang -->
         <a class="product-card position-relative" *ngFor="let p of topRentList()" [routerLink]="['/rent', p.id]"
-          [queryParams]="buildDateParams()">
+          [queryParams]="buildQueryParamsFor(p)">
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
           </span>
@@ -175,7 +207,7 @@
             <div class="product-card__features-top">
               <span class="product-card__rating">
                 <i class="bi bi-star-fill"></i>
-                {{ p.rating | number : '1.1-1' }}/5
+                {{ p.rating | number: '1.1-1' }}/5
               </span>
               <span class="product-card__range">
                 <i class="bi bi-battery-charging"></i>
@@ -185,7 +217,9 @@
 
             <div class="product-card__features-bottom">
               <span class="product-card__type">
-                {{ productService.getVehicleTypeLabel(p.vehicleType) }}
+                {{
+                productService.getVehicleTypeLabel(p.vehicleType)
+                }}
               </span>
             </div>
           </div>
@@ -199,9 +233,11 @@
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
 
-            <button type="button" class="product-card__availability"
-              [class.product-card__availability--active]="p.availabilityStatus"
-              [class.product-card__availability--disabled]="!p.availabilityStatus">
+            <button type="button" class="product-card__availability" [class.product-card__availability--active]="
+                p.availabilityStatus
+              " [class.product-card__availability--disabled]="
+                !p.availabilityStatus
+              ">
               {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
             </button>
           </div>
@@ -219,7 +255,10 @@
         <i class="bi bi-chevron-left"></i>
       </button>
 
-      <ng-container *ngFor="let n of [].constructor(totalPages()); let i = index">
+      <ng-container *ngFor="
+          let n of [].constructor(totalPages());
+          let i = index
+        ">
         <button class="pager-btn" [class.active]="page() === i + 1" (click)="goto(i + 1)">
           {{ i + 1 }}
         </button>

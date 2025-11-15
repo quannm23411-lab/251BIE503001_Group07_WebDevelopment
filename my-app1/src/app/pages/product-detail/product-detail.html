@@ -5,15 +5,13 @@
   <nav class="breadcrumb">
     <a routerLink="/">Trang chủ</a>
     <span>/</span>
-
-    <!-- NÚT LOẠI XE: text tiếng Việt + query type để Rent auto tick -->
-    <a routerLink="/rent" [queryParams]="{ type: categorySlug(p.vehicleType) }">
-      {{ typeLabel(p.vehicleType) }}
+    <!-- QUAY LẠI RENT: giữ type + start + end -->
+    <a routerLink="/rent" [queryParams]="buildBreadcrumbQueryParams()">
+      {{ categoryLabel() }}
     </a>
-
     <span>/</span>
     <span class="current">
-      {{ typeLabel(p.vehicleType) }} {{ p.vehicleName }}
+      {{ categoryLabel() }} {{ p.vehicleName }}
     </span>
   </nav>
 
@@ -55,7 +53,7 @@
       <div class="pd-meta">
         <span class="brand">{{ p.brandName || '—' }}</span>
         <span class="dot">•</span>
-        <span class="type">{{ typeLabel(p.vehicleType) }}</span>
+        <span class="type">{{ categoryLabel() }}</span>
         <span class="dot">•</span>
         <span class="status" [class.ok]="p.availabilityStatus" [class.bad]="!p.availabilityStatus">
           {{ statusLabel() }}
@@ -64,10 +62,14 @@
 
       <div class="pd-pricing">
         <div class="now">{{ vnd(p.finalPricePerDay) }}/Ngày</div>
-        <div class="old" *ngIf="p.pricePerDay && p.pricePerDay !== p.finalPricePerDay">
+        <div class="old" *ngIf="
+            p.pricePerDay && p.pricePerDay !== p.finalPricePerDay
+          ">
           {{ vnd(p.pricePerDay) }}
         </div>
-        <div class="discount" *ngIf="p.discount">-{{ p.discount }}%</div>
+        <div class="discount" *ngIf="p.discount">
+          -{{ p.discount }}%
+        </div>
       </div>
 
       <!-- BOX THÔNG TIN NHANH -->
@@ -98,7 +100,7 @@
         </span>
       </div>
 
-      <!-- NGÀY THUÊ – CHỈ HIỂN THỊ -->
+      <!-- NGÀY THUÊ -->
       <div class="pd-dates">
         <div class="date-item">
           <label>Ngày thuê</label>
@@ -114,7 +116,8 @@
         </div>
       </div>
       <p class="pd-dates-note">
-        Lịch thuê được chọn ở bước trước. Nếu bạn muốn đổi ngày vui lòng quay lại trang Đặt xe.
+        Lịch thuê được chọn ở bước trước. Nếu bạn muốn đổi ngày vui lòng quay
+        lại trang thuê xe.
       </p>
 
       <!-- NÚT HÀNH ĐỘNG -->
@@ -125,7 +128,7 @@
           </button>
         </div>
         <div class="bottom">
-          <button class="btn-cart full" (click)="addToCart()" [disabled]="!p.availabilityStatus">
+          <button class="btn-cart" (click)="addToCart()" [disabled]="!p.availabilityStatus">
             THÊM VÀO GIỎ
           </button>
         </div>
@@ -177,9 +180,13 @@
     <h3 class="desc-title">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h3>
 
     <div class="rating-score">
-      <div class="score">{{ avgRating() | number: '1.1-1' }}/5</div>
+      <div class="score">
+        {{ avgRating() | number: '1.1-1' }}/5
+      </div>
       <div class="stars">
-        <i class="bi" *ngFor="let s of stars" [ngClass]="s <= avgRatingRounded() ? 'bi-star-fill' : 'bi-star'"></i>
+        <i class="bi" *ngFor="let s of stars" [ngClass]="
+            s <= avgRatingRounded() ? 'bi-star-fill' : 'bi-star'
+          "></i>
       </div>
       <p class="review-count">
         {{ reviewCount() }} lượt đánh giá
@@ -194,10 +201,13 @@
             <div class="review-info">
               <h4 class="review-name">{{ r.customerName }}</h4>
               <div class="review-stars">
-                <i class="bi" *ngFor="let s of stars" [ngClass]="s <= r.rating ? 'bi-star-fill' : 'bi-star'"></i>
+                <i class="bi" *ngFor="let s of stars" [ngClass]="
+                    s <= r.rating ? 'bi-star-fill' : 'bi-star'
+                  "></i>
               </div>
               <span class="review-date">
-                Đánh giá ngày {{ r.reviewDate | date: 'dd/MM/yyyy' }}
+                Đánh giá ngày
+                {{ r.reviewDate | date: 'dd/MM/yyyy' }}
               </span>
             </div>
           </div>
@@ -281,9 +291,12 @@
             </div>
 
             <div class="price">
-              <span class="now">{{ vnd(r.finalPricePerDay) }}/ngày</span>
+              <span class="now">
+                {{ vnd(r.finalPricePerDay) }}/ngày
+              </span>
               <span class="old" *ngIf="
-                  r.pricePerDay && r.pricePerDay !== r.finalPricePerDay
+                  r.pricePerDay &&
+                  r.pricePerDay !== r.finalPricePerDay
                 ">{{ vnd(r.pricePerDay) }}</span>
             </div>
           </div>

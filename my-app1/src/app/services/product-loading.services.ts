@@ -134,25 +134,25 @@ export class ProductLoadingService {
 
     /** Text hiển thị dòng loại xe trong card / detail */
     getVehicleTypeLabel(vehicleType: string): string {
-        const raw = (vehicleType ?? '').trim();
-        if (!raw) return 'Dòng xe khác';
+        const t = (vehicleType ?? '').trim();
 
-        // Trường hợp mới: DB đã lưu TV sẵn → xài luôn
-        if (
-            raw === 'Xe máy điện' ||
-            raw === 'Xe đạp điện' ||
-            raw === 'Xe đạp điện gấp gọn'
-        ) {
-            return raw;
+        // Data mới: đã dùng tiếng Việt rồi thì trả thẳng
+        if (['Xe máy điện', 'Xe đạp điện', 'Xe đạp điện gấp gọn'].includes(t)) {
+            return t;
         }
 
-        // Trường hợp cũ lỡ còn sót
-        const lower = raw.toLowerCase();
-        if (lower === 'motorbike' || lower === 'scooter') return 'Xe máy điện';
-        if (lower === 'e-bike' || lower === 'bicycle') return 'Xe đạp điện';
-
-        // fallback: trả nguyên string
-        return raw;
+        // Fallback cho data cũ còn sót tiếng Anh
+        switch (t) {
+            case 'Motorbike':
+            case 'Scooter':
+                return 'Xe máy điện';
+            case 'E-Bike':
+            case 'Bicycle':
+            case 'Electric Bicycle':
+                return 'Xe đạp điện';
+            default:
+                return 'Xe điện';
+        }
     }
 
     /** ====== Private ====== */

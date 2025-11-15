@@ -24,6 +24,26 @@ import {
 } from '../../services/product-review.services';
 import { CartService } from '../../services/cart.services';
 
+type CategorySlug = 'xe-may-dien' | 'xe-dap-dien' | 'xe-dap-dien-gap-gon';
+
+const TYPE_CATEGORY: Record<
+  string,
+  { label: string; slug: CategorySlug }
+> = {
+  'Xe máy điện': {
+    label: 'Xe máy điện',
+    slug: 'xe-may-dien'
+  },
+  'Xe đạp điện': {
+    label: 'Xe đạp điện',
+    slug: 'xe-dap-dien'
+  },
+  'Xe đạp điện gấp gọn': {
+    label: 'Xe đạp điện gấp gọn',
+    slug: 'xe-dap-dien-gap-gon'
+  }
+};
+
 @Component({
   selector: 'app-product-detail',
   standalone: true,
@@ -32,7 +52,7 @@ import { CartService } from '../../services/cart.services';
   styleUrls: ['./product-detail.css']
 })
 export class ProductDetail {
-  // ====== Thuê ngày (sẽ set trong constructor) ======
+  // ====== Thuê ngày (set trong constructor) ======
   rentStart: string = '';
   rentEnd: string = '';
 
@@ -42,15 +62,12 @@ export class ProductDetail {
   private reviewsService = inject(ProductReviewService);
   private cart = inject(CartService);
 
-  // dùng cho render sao
   readonly stars = [1, 2, 3, 4, 5];
 
-  // ====== Product theo route /rent/:id ======
+  // ====== Product theo /rent/:id ======
   id = toSignal(
     this.route.paramMap.pipe(map(pm => pm.get('id') || '')),
-    {
-      initialValue: ''
-    }
+    { initialValue: '' }
   );
 
   product = toSignal<ProductVM | undefined>(
@@ -74,6 +91,42 @@ export class ProductDetail {
     this.activeIndex.set(i);
   }
 
+  // ====== Category cho breadcrumb (Xe máy điện / Xe đạp điện / ...) ======
+  private resolveCategoryForProduct(p: ProductVM): { label: string; slug: CategorySlug } {
+    // Chuẩn hóa loại xe về tiếng Việt bằng service
+    const normalized = this.products.getVehicleTypeLabel(p.vehicleType ?? '');
+    const direct = TYPE_CATEGORY[normalized];
+    if (direct) return direct;
+
+    const tags = (p.tags ?? []).map(t => String(t).toLowerCase());
+    if (tags.some(t => t.includes('gấp') || t.includes('compact') || t.includes('fold'))) {
+      return TYPE_CATEGORY['Xe đạp điện gấp gọn'];
+    }
+
+    // fallback chung: coi như xe đạp điện (an toàn hơn là bắn bừa)
+    return TYPE_CATEGORY['Xe đạp điện'];
+  }
+
+  category = computed<{ label: string; slug: CategorySlug }>(() => {
+    const p = this.product();
+    if (!p) {
+      return TYPE_CATEGORY['Xe đạp điện'];
+    }
+    return this.resolveCategoryForProduct(p);
+  });
+
+  categoryLabel = computed(() => this.category().label);
+  categorySlug = computed(() => this.category().slug);
+
+  // Dùng cho breadcrumb: quay về rent với type + start + end
+  buildBreadcrumbQueryParams() {
+    return {
+      type: this.categorySlug(),
+      start: this.rentStart,
+      end: this.rentEnd
+    };
+  }
+
   // ====== Related products ======
   allProducts = toSignal(this.products.getAll(), {
     initialValue: [] as ProductVM[]
@@ -92,7 +145,7 @@ export class ProductDetail {
       .slice(0, 8);
   });
 
-  // ====== Reviews (CHỈ LẤY APPROVED) ======
+  // ====== Reviews (CHỈ lấy approved) ======
   private reviews$ = this.route.paramMap.pipe(
     map(pm => pm.get('id') || ''),
     switchMap(id =>
@@ -103,7 +156,6 @@ export class ProductDetail {
     map(list => (list ?? []) as ProductReview[])
   );
 
-  // Không truyền initialValue để tránh lỗi overload, chấp nhận kiểu ProductReview[] | undefined
   reviews = toSignal(this.reviews$);
 
   avgRating = computed(() => {
@@ -114,7 +166,6 @@ export class ProductDetail {
   });
 
   avgRatingRounded = computed(() => Math.round(this.avgRating()));
-
   reviewCount = computed(() => (this.reviews() ?? []).length);
 
   // ====== Helpers ======
@@ -133,40 +184,10 @@ export class ProductDetail {
     return n.toLocaleString('vi-VN') + '₫';
   }
 
-  /** Label loại xe dùng cho breadcrumb + meta (tiếng Việt) */
-  typeLabel(vehicleType?: string | null): string {
-    switch (vehicleType) {
-      case 'Motorbike':
-      case 'Scooter':
-        return 'Xe máy điện';
-      case 'E-Bike':
-      case 'Electric Bicycle':
-      case 'Bicycle':
-        return 'Xe đạp điện';
-      default:
-        return 'Xe điện';
-    }
-  }
-
-  /** Slug loại xe cho query ?type=... (khớp với QUERY_TYPE_MAP trong RentPage) */
-  categorySlug(vehicleType?: string | null): string {
-    switch (vehicleType) {
-      case 'Motorbike':
-      case 'Scooter':
-        return 'xe-may-dien';
-      case 'E-Bike':
-      case 'Electric Bicycle':
-      case 'Bicycle':
-        return 'xe-dap-dien';
-      default:
-        return '';
-    }
-  }
-
   // ====== CART ACTIONS ======
   private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
     const p = this.product();
-    if (!p || !p.availabilityStatus) return; // hết hàng thì thôi
+    if (!p || !p.availabilityStatus) return;
 
     this.cart.addOrUpdateFromProduct({
       productId: String(p.id),
@@ -183,7 +204,6 @@ export class ProductDetail {
     });
 
     if (options?.redirectToCart) {
-      // dùng id cartItem đầy đủ (productId_start_end) để auto-tick đúng dòng
       const cartItemId = `${p.id}_${this.rentStart || 'none'}_${this.rentEnd || 'none'}`;
       this.router.navigate(['/cart'], {
         state: { autoSelectId: cartItemId }
@@ -201,23 +221,31 @@ export class ProductDetail {
     this.addCurrentProductToCart();
   }
 
-  // Vẫn giữ để template không lỗi, sau khi m xoá nút ĐẶT TRƯỚC thì có thể xoá luôn
+  // giữ để template khỏi lỗi (nếu sau này bỏ nút thì xoá)
   preOrder() {
     if (this.isOutOfStock()) return;
     this.addCurrentProductToCart();
   }
 
   goTo(p: ProductVM) {
-    this.router.navigate(['/rent', p.id]).then(() => {
+    // Khi chuyển qua related, vẫn giữ start/end, type tính theo chính sản phẩm đó
+    const cat = this.resolveCategoryForProduct(p);
+
+    this.router.navigate(['/rent', p.id], {
+      queryParams: {
+        start: this.rentStart,
+        end: this.rentEnd,
+        type: cat.slug
+      }
+    }).then(() => {
       if (typeof window !== 'undefined') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   }
 
-  // ====== CONSTRUCTOR: xử lý ngày thuê mặc định / từ query ======
   constructor() {
-    // 1) Tính default: ngày mai -> ngày mốt
+    // 1) Default: ngày mai -> ngày mốt
     const today = new Date();
     const tomorrow = new Date(
       today.getFullYear(),
@@ -233,7 +261,7 @@ export class ProductDetail {
     const defaultStart = this.toInputDate(tomorrow);
     const defaultEnd = this.toInputDate(dayAfter);
 
-    // 2) Đọc query params ?start=&end= (nếu đi từ trang Rent)
+    // 2) Đọc query params ?start=&end=
     const qp = this.route.snapshot.queryParamMap;
     const startParam = qp.get('start');
     const endParam = qp.get('end');
@@ -243,16 +271,13 @@ export class ProductDetail {
       const e = this.parseDate(endParam);
 
       if (s && e && e.getTime() > s.getTime()) {
-        // ngày hợp lệ → dùng theo Rent
         this.rentStart = this.toInputDate(s);
         this.rentEnd = this.toInputDate(e);
       } else {
-        // query dỏm → fallback default
         this.rentStart = defaultStart;
         this.rentEnd = defaultEnd;
       }
     } else {
-      // không có query (vào từ homepage / search / link khác)
       this.rentStart = defaultStart;
       this.rentEnd = defaultEnd;
     }
