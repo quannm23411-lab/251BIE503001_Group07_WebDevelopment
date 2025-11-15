@@ -76,7 +76,7 @@
 
                     <div class="form-row">
                         <label>Số bằng lái *</label>
-                        <input type="text" name="nationalId" [(ngModel)]="form.nationalId" readonly
+                        <input type="text" name="soBangLai" [(ngModel)]="form.soBangLai" readonly
                             class="field-readonly" placeholder="Số bằng lái" />
                     </div>
 
@@ -119,7 +119,7 @@
 
                     <div class="form-row">
                         <label>CCCD / Bằng lái người nhận *</label>
-                        <input type="text" name="receiverNationalId" [(ngModel)]="receiver.nationalId"
+                        <input type="text" name="receiversoBangLai" [(ngModel)]="receiver.soBangLai"
                             [required]="!receiverSameAsCustomer" placeholder="Nhập số CCCD / bằng lái người nhận" />
                     </div>
 

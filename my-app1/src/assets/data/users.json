@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "email": "miwan@email.com",
+      "email": "miwan@gmail.com",
       "password": "pass123",
       "fullname": "Nguyễn Minh Quân",
       "role": "customer",
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "email": "saela@email.com",
+      "email": "saela@gmail.com",
       "password": "pass123",
       "fullname": "Lê Thị Duy Nhất",
       "role": "customer",
@@ -29,7 +29,7 @@
     },
     {
       "id": 4,
-      "email": "vo.hong.phuc@email.com",
+      "email": "vo.hong.phuc@gmail.com",
       "password": "pass123",
       "fullname": "Võ Hồng Phúc",
       "role": "customer",
@@ -38,7 +38,7 @@
     },
     {
       "id": 5,
-      "email": "lyns@email.com",
+      "email": "lyns@gmail.com",
       "password": "pass123",
       "fullname": "Phan Thị Ánh Linh",
       "role": "customer",
@@ -47,7 +47,7 @@
     },
     {
       "id": 6,
-      "email": "grace@email.com",
+      "email": "grace@gmail.com",
       "password": "pass123",
       "fullname": "Nguyễn Khánh Xuân",
       "role": "customer",
@@ -56,7 +56,7 @@
     },
     {
       "id": 7,
-      "email": "lan.dang.thi@email.com",
+      "email": "lan.dang.thi@gmail.com",
       "password": "pass123",
       "fullname": "Đặng Thị Lan",
       "role": "customer",
@@ -65,7 +65,7 @@
     },
     {
       "id": 8,
-      "email": "tuan.vu.anh@email.com",
+      "email": "tuan.vu.anh@gmail.com",
       "password": "pass123",
       "fullname": "Vũ Anh Tuấn",
       "role": "customer",
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "email": "mai.bui.thi@email.com",
+      "email": "mai.bui.thi@gmail.com",
       "password": "pass123",
       "fullname": "Bùi Thị Mai",
       "role": "customer",
@@ -83,7 +83,7 @@
     },
     {
       "id": 10,
-      "email": "bao.do.gia@email.com",
+      "email": "bao.do.gia@gmail.com",
       "password": "pass123",
       "fullname": "Đỗ Gia Bảo",
       "role": "customer",
@@ -92,7 +92,7 @@
     },
     {
       "id": 11,
-      "email": "thao.ngo.thanh@email.com",
+      "email": "thao.ngo.thanh@gmail.com",
       "password": "pass123",
       "fullname": "Ngô Thanh Thảo",
       "role": "customer",

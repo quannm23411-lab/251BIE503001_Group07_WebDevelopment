@@ -9,7 +9,7 @@ interface CheckoutForm {
     fullName: string;
     phone: string;
     email: string;
-    nationalId: string;        // dùng cho SỐ BẰNG LÁI (khách chính)
+    soBangLai: string;        // dùng cho SỐ BẰNG LÁI (khách chính)
     pickupLocation: string;
     pickupTime: string;
     returnTime: string;
@@ -20,7 +20,7 @@ interface CheckoutForm {
 interface ReceiverForm {
     fullName: string;
     phone: string;
-    nationalId: string;        // CCCD / bằng lái người nhận
+    soBangLai: string;        // CCCD / bằng lái người nhận
     noteForDriver: string;
 }
 
@@ -41,7 +41,7 @@ export class Checkout {
         fullName: '',
         phone: '',
         email: '',
-        nationalId: '',
+        soBangLai: '',
         pickupLocation: '',
         pickupTime: '',
         returnTime: '',
@@ -53,7 +53,7 @@ export class Checkout {
     receiver: ReceiverForm = {
         fullName: '',
         phone: '',
-        nationalId: '',
+        soBangLai: '',
         noteForDriver: '',
     };
 
@@ -121,12 +121,17 @@ export class Checkout {
             }
         }
 
-        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile QUA LoginService
+        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile (qua LoginService)
         const profile = this.loginService.getProfile();
         if (profile) {
             this.form.fullName = profile.fullname || '';
             this.form.email = profile.email || '';
-            // phone, nationalId, address... sẽ lấy từ customers.json sau nếu cần
+            this.form.phone = profile.phone || '';
+            this.form.soBangLai = profile.driverLicense || '';
+
+            if (!this.form.note && profile.address) {
+                this.form.note = `Địa chỉ khách: ${profile.address}`;
+            }
         }
     }
 
@@ -146,7 +151,6 @@ export class Checkout {
         this.orderCode.set(code);
         this.createdAt.set(new Date());
 
-        // ở đây nếu cần gửi backend thì gom data:
         // const customerInfo = { ...this.form };
         // const receiverInfo = this.receiverSameAsCustomer
         //   ? customerInfo
