@@ -1,11 +1,12 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
 <header class="header" id="mainHeader" [class.shrink]="isShrink">
 
   <!-- Quảng cáo chạy -->
   <div class="header__ads">
     <marquee behavior="scroll" direction="left" scrollamount="6" loop="infinite">
-      🌿 Miễn phí giao/nhận xe tại 30+ điểm trong thành phố • Hỗ trợ kỹ thuật 24/7 • Ưu đãi đến 10% tuần đầu thuê 🌿
+      🌿 Miễn phí giao nhận xe tại hơn 30 điểm trong thành phố • Hỗ trợ kỹ thuật 24/7 • Ưu đãi đến 10 phần trăm tuần đầu
+      thuê 🌿
     </marquee>
   </div>
 
@@ -14,7 +15,9 @@
 
     <!-- Logo -->
     <div class="header__logo">
-      <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
+      <a routerLink="/">
+        <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
+      </a>
     </div>
 
     <!-- Location + Search -->
@@ -37,10 +40,10 @@
         </button>
 
         <input #searchInput type="text" class="header__search-input" placeholder="Bạn muốn thuê gì hôm nay?"
-          autocomplete="off" (focus)="openSuggest()" (input)="onQueryChange(searchInput.value)"
-          (keydown)="onSearchKey($event)" />
+          autocomplete="off" (focus)="openSuggest()
+          " (input)="onQueryChange(searchInput.value)" (keydown)="onSearchKey($event)" />
 
-        <!-- Suggest -->
+        <!-- Gợi ý -->
         <div class="search-suggest" *ngIf="suggestOpen && hotSuggestions.length">
           <div class="suggest-title">Xu hướng tìm kiếm 🔥</div>
           <ul>
@@ -54,6 +57,30 @@
       </form>
     </div>
 
+    <!-- Hamburger + menu mobile -->
+    <div class="mobile-nav-wrapper">
+      <button type="button" class="header__hamburger" aria-label="Mở menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="mobile-nav">
+        <a routerLink="/" routerLinkActive="nav__link--active" [routerLinkActiveOptions]="{ exact: true }">
+          TRANG CHỦ
+        </a>
+        <a routerLink="/rent" routerLinkActive="nav__link--active">
+          ĐẶT XE
+        </a>
+        <a routerLink="/blog" routerLinkActive="nav__link--active">
+          BLOG
+        </a>
+        <a routerLink="/about" routerLinkActive="nav__link--active">
+          VỀ CHÚNG TÔI
+        </a>
+      </nav>
+    </div>
+
     <!-- Actions -->
     <div class="header__actions">
 
@@ -61,7 +88,7 @@
       <a routerLink="/cart" class="nav__cart" aria-label="Giỏ hàng">
         <i class="bi bi-cart"></i>
 
-        <!-- CHỈ HIỆN KHI > 0 -->
+        <!-- Chỉ hiện khi > 0 -->
         <span class="cart-badge" *ngIf="cartItemCount() > 0">
           {{ cartItemCount() }}
         </span>
@@ -77,7 +104,7 @@
         <button type="button" class="nav__profile-toggle" (click)="toggleProfileMenu()">
           <img class="nav__avatar" [src]="currentUserAvatar" alt="Avatar" />
           <span class="nav__profile-name">
-            {{ currentUser?.fullname }}
+            {{ displayName }}
           </span>
           <i class="bi bi-chevron-down"></i>
         </button>
@@ -92,7 +119,7 @@
 
   </div>
 
-  <!-- NAV -->
+  <!-- Nav desktop -->
   <nav class="nav">
     <ul class="nav__menu">
 
@@ -108,15 +135,27 @@
           ĐẶT XE
         </a>
 
-        <!-- DROPDOWN -->
+        <!-- Dropdown đặt xe -->
         <div class="rent-dropdown">
 
           <div class="rent-dropdown__group">
             <h4>Dòng xe</h4>
             <ul>
-              <li><a routerLink="/rent?type=scooter">Scooter điện</a></li>
-              <li><a routerLink="/rent?type=bike">Xe đạp điện</a></li>
-              <li><a routerLink="/rent?type=motor">Mô tô điện</a></li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-may-dien' }">
+                  Xe máy điện
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'xe-dap-dien' }">
+                  Xe đạp điện
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/rent']" [queryParams]="{ type: 'mo-to-dien' }">
+                  Mô tô điện
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -126,7 +165,6 @@
               <li><a routerLink="/blog/offers" routerLinkActive="nav__link--active">Ưu đãi</a></li>
               <li><a routerLink="/blog/products" routerLinkActive="nav__link--active">Sản phẩm mới</a></li>
               <li><a routerLink="/blog/news" routerLinkActive="nav__link--active">Tin tức</a></li>
-
             </ul>
           </div>
 
@@ -134,17 +172,29 @@
             <h4>Hỗ trợ</h4>
             <ul>
               <li><a href="/policy">Chính sách</a></li>
-              <li><a routerLink="/support/guide">Hướng dẫn</a></li>
-              <li><a routerLink="/support/contact">Liên hệ</a></li>
+              <li>
+                <a [routerLink]="['/']" fragment="guide-section">
+                  Hướng dẫn
+                </a>
+              </li>
+              <li><a href="/contact">Liên hệ</a></li>
             </ul>
           </div>
 
         </div>
       </li>
 
-      <li><a class="nav__link" routerLink="/blog" routerLinkActive="nav__link--active">BLOG</a></li>
+      <li>
+        <a class="nav__link" routerLink="/blog" routerLinkActive="nav__link--active">
+          BLOG
+        </a>
+      </li>
 
-      <li><a class="nav__link" routerLink="/about" routerLinkActive="nav__link--active">VỀ CHÚNG TÔI</a></li>
+      <li>
+        <a class="nav__link" routerLink="/about" routerLinkActive="nav__link--active">
+          VỀ CHÚNG TÔI
+        </a>
+      </li>
 
     </ul>
   </nav>

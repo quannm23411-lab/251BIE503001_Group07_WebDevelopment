@@ -1,171 +1,176 @@
-/* ===== NỀN LÁ TOÀN TRANG ===== */
+/* Breadcrumb: thêm khoảng trống với header */
+.account-breadcrumb {
+  max-width: 1200px;
+  margin: 28px auto 0;  /* tăng khoảng cách với header */
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Lớp gradient chính */
 .account-bg {
   position: fixed;
-  inset: 0;
-  background: url('/assets/images/bg/account-leaf.jpg') center bottom / cover no-repeat fixed;
-  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 260px;
+  z-index: -10;
+  pointer-events: none;
+
+  background-image: linear-gradient(
+    180deg,
+    rgba(76, 211, 150, .95) 0%,
+    rgba(76, 211, 150, .62) 40%,
+    rgba(76, 211, 150, .25) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  filter: saturate(1.1) brightness(1.05);
 }
 
-/* ===== BREADCRUMB THANH MỎNG TRÊN CÙNG (GIỐNG MOCKUP) ===== */
-.account-breadcrumb {
-  background: #b8f1c5;            /* xanh nhạt như hình */
-  color: #145b32;
-  font-size: 12px;
-  padding: 4px 120px 3px;
-}
-
-.account-breadcrumb a {
-  text-decoration: none;
-  color: #145b32;
-}
-
-.account-breadcrumb span,
-.account-breadcrumb b {
-  color: #145b32;
-}
-
-/* ===== LAYOUT CHÍNH: SIDEBAR + CARD TRẮNG ===== */
-.account-layout {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px 60px 36px;
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  column-gap: 32px;
-}
-
-/* Sidebar bọc ngoài để sticky giống mockup */
-.account-sidebar-wrap {
-  position: sticky;
-  top: 110px;
-  align-self: flex-start;
-}
-
-/* Sidebar giống mockup: thẻ trắng nhỏ bên trái */
-.account-sidebar {
-  width: 170px;
-  background: #ffffff;
-  border-radius: 3px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  padding: 14px 10px 16px;
-  text-align: center;
-}
-
-/* Xin chào = Inter bình thường */
-.account-sidebar .hello {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-/* Hồng Phúc = script + có gạch chân */
-.account-sidebar .name {
-  position: relative;
-  font-family: "Dancing Script", cursive;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-.account-sidebar .name::after {
+/* Lớp sáng mềm */
+.account-bg::after {
   content: "";
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -4px;
-  width: 70%;
-  height: 1px;
-  background: #333333;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 320px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, .18) 0%,
+    rgba(255, 255, 255, .26) 44%,
+    rgba(255, 255, 255, .0) 100%
+  );
+  mix-blend-mode: soft-light;
 }
 
-/* Menu: chỉ item active mới xám, còn lại trắng */
-.account-sidebar .menu {
-  display: flex;
-  flex-direction: column;
+
+/* =======================================
+   LAYOUT CHUNG
+======================================= */
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  width: min(1200px, 94%);
+  margin: 28px auto 80px auto;  /* cho cả profile và orders cách top đều nhau */
+  gap: 24px;
+}
+
+
+/* Sidebar */
+.account-sidebar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow:
+    0 20px 40px rgba(16, 24, 40, 0.16),
+    0 0 40px rgba(69, 184, 128, 0.18),
+    0 0 12px rgba(255,255,255,.18);
+}
+
+.account-sidebar .hello {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.account-sidebar .name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 4px 0 18px 0;
+  font-family: 'Courier New', Courier, monospace;
+  background: linear-gradient(90deg, #2B3B41, #72D4A5);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 
 .account-sidebar .menu a {
   display: block;
-  padding: 7px 10px;
-  font-size: 13px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
   text-decoration: none;
-  color: #333333;
-  background: #ffffff;
-  border: 1px solid #ececec;
-  border-radius: 0;
-}
-
-.account-sidebar .menu a + a {
-  border-top: none;
+  color: #2B3B41;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .account-sidebar .menu a.active {
-  background: #dcdcdc;
+  background: #E8F5EE;
+  color: #2A8F55;
   font-weight: 600;
 }
 
-.account-sidebar .menu a.logout {
-  margin-top: 8px;
-  border: none;
-  background: transparent;
-  color: #e53935;
+.account-sidebar .logout {
+  color: #E8342A !important;
+  font-weight: 600;
 }
 
-/* ===== CARD TRẮNG LỚN CHÍNH GIỮA ===== */
+/* =======================================
+   CARD TRẮNG CHÍNH
+======================================= */
+
 .account-main-card {
-  background: #ffffff;
-  border-radius: 3px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.22);
-  padding: 26px 64px 28px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow:
+    0 20px 40px rgba(16, 24, 40, 0.16),
+    0 0 40px rgba(69, 184, 128, 0.18),
+    0 0 12px rgba(255,255,255,.18);
 }
 
-/* ===== HEADER TRÊN CARD: AVATAR + ECOGOLD + BUTTON ===== */
 .account-main-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 22px;
+  margin-bottom: 32px;
 }
 
+/* nhóm avatar + tên + tier */
 .account-user-box {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
+/* Avatar + info */
+
 .account-avatar-wrap {
-  width: 86px;
-  height: 86px;
-  border-radius: 50%;
-  background: #fbe8e6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
+  border: 3px solid rgba(255,255,255,.8);
 }
 
 .account-avatar-wrap img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .account-user-meta h2 {
-  margin: 0 0 6px;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 750;
+  margin: 0;
+  background: linear-gradient(90deg, #2B3B41, #72D4A5);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 
-/* Badge EcoGold gradient vàng giống mockup */
 .account-tier-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 12px;
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 14px;
+  background: #E8F5EE;
+  border: 1px solid #BFE8D1;
   border-radius: 999px;
-  background: linear-gradient(90deg, #ffe68a 0%, #ffcf47 100%);
-  font-size: 11px;
-  font-weight: 600;
-  color: #714f00;
+  font-weight: 700;
+  font-size: 13px;
+  color: #2A8F55;
 }
 
 /* ===== BUTTON “CHỈNH SỬA” (view) ===== */
@@ -336,7 +341,7 @@
   gap: 8px;
 }
 
-/* ===== PHẦN LỊCH SỬ / ĐÁNH GIÁ (để nguyên như cũ) ===== */
+/* ===== PHẦN LỊCH SỬ / ĐÁNH GIÁ ===== */
 
 .account-orders-head {
   display: flex;
@@ -424,12 +429,14 @@
 .account-order-status.is-finished {
   color: #4ae4d2;
 }
+
 .account-order-status.is-renting {
-color: #ff3b41;}
+  color: #ff3b41;
+}
+
 .account-order-status.is-upcoming {
   color: #d29119;
 }
-
 
 .account-order-actions {
   display: flex;

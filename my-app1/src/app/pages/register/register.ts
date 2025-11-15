@@ -18,8 +18,8 @@ export function passwordMatcher(control: AbstractControl): ValidationErrors | nu
   selector: 'app-register',
   standalone: true,
   imports: [
-    CommonModule, 
-    ReactiveFormsModule, 
+    CommonModule,
+    ReactiveFormsModule,
     RouterLink // <-- Đã thêm vào đây
   ],
   templateUrl: './register.html',
@@ -124,11 +124,11 @@ export class Register implements OnInit {
     this.isModalVisible = false;
     this.router.navigate(['/login']);
   }
-  
+
   // =============================================
   // THÊM MỚI: Các hàm xử lý modal tính năng
   // =============================================
-  handleGoogleLogin() { 
+  handleGoogleLogin() {
     this.featureModalTitle.set('Tính năng đang phát triển');
     this.featureModalBody.set('Chức năng Đăng ký bằng Google hiện chưa có sẵn. Vui lòng quay lại sau.');
     this.isFeatureModalVisible.set(true);

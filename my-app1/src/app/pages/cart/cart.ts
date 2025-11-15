@@ -2,8 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
-import { Auth } from '../../services/auth/auth'; // ✅ chỉ import Auth, KHÔNG inject AuthUser
-
+import { Auth } from '../../services/auth/auth';
 
 @Component({
     selector: 'app-cart-page',
@@ -15,7 +14,7 @@ import { Auth } from '../../services/auth/auth'; // ✅ chỉ import Auth, KHÔN
 export class CartPage {
     private cart = inject(CartService);
     private router = inject(Router);
-    private auth = inject(Auth); // 👈 THÊM DÒNG NÀY
+    private auth = inject(Auth);
 
     // Signals từ CartService
     readonly items = this.cart.items;
@@ -101,9 +100,7 @@ export class CartPage {
     }
 
     onCheckoutClick() {
-        const selectedIds = this.getSelectedIdsArray
-            ? this.getSelectedIdsArray()
-            : Array.from(this.selectedIds?.() ?? []);
+        const selectedIds = this.getSelectedIdsArray();
 
         if (!selectedIds.length) {
             return;

@@ -11,6 +11,9 @@ import { RouterLink } from '@angular/router';
 import { Popup } from '../popup/popup';
 import { forkJoin } from 'rxjs';
 
+import { ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-homepage',
@@ -24,7 +27,7 @@ export class Homepage implements OnInit, OnDestroy {
 
   showWelcomePopup = false;
 
-    /* --- CAROUSEL: lấy reference HTML --- */
+  /* --- CAROUSEL: lấy reference HTML --- */
   @ViewChild('carousel', { static: false }) carousel!: ElementRef;
 
   scrollLeft() {
@@ -103,33 +106,34 @@ export class Homepage implements OnInit, OnDestroy {
     private hot: HotProductService,
     private cdr: ChangeDetectorRef,
     private img: ProductLoadingService,
-    private reviews: ProductReviewService
+    private reviews: ProductReviewService,
+    private route: ActivatedRoute
   ) { }
 
 
-featureIcons: Record<string, string> = {
-  "sạc": "bi-lightning-charge-fill",  
-  "quãng": "bi-geo-alt-fill",          
-  "tốc": "bi-speedometer2",            
-  "hiệu": "bi-rocket-takeoff-fill",    
-  "thiết": "bi-brush-fill",           
-  "gps": "bi-crosshair",              
-  "tay": "bi-bicycle",                  
-  "pin": "bi-battery-full"             
-};
+  featureIcons: Record<string, string> = {
+    "sạc": "bi-lightning-charge-fill",
+    "quãng": "bi-geo-alt-fill",
+    "tốc": "bi-speedometer2",
+    "hiệu": "bi-rocket-takeoff-fill",
+    "thiết": "bi-brush-fill",
+    "gps": "bi-crosshair",
+    "tay": "bi-bicycle",
+    "pin": "bi-battery-full"
+  };
 
-/** Lấy icon phù hợp theo nội dung feature */
-getFeatureIcon(text: string): string {
-  text = text.toLowerCase();
+  /** Lấy icon phù hợp theo nội dung feature */
+  getFeatureIcon(text: string): string {
+    text = text.toLowerCase();
 
-  for (const key in this.featureIcons) {
-    if (text.includes(key)) {
-      return this.featureIcons[key];
+    for (const key in this.featureIcons) {
+      if (text.includes(key)) {
+        return this.featureIcons[key];
+      }
     }
-  }
 
-  return "bi-check-circle-fill"; // icon fallback
-}
+    return "bi-check-circle-fill"; // icon fallback
+  }
 
 
   ngOnInit(): void {
@@ -182,60 +186,74 @@ getFeatureIcon(text: string): string {
     setTimeout(() => {
       this.showWelcomePopup = true;
     }, 2000);
-  }
-  ngOnDestroy(): void { }
+    this.route.fragment.subscribe(fragment => {
+      if (!fragment) return;
 
-  /** Ảnh (qua ProductLoadingService) */
-  getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
-    return this.img.getImageUrl(p, kind);
+      // Đợi view render xong rồi mới scroll
+      setTimeout(() => {
+        const el = document.getElementById(fragment);
+        if (el) {
+          el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 0);
+    });
   }
+ngOnDestroy(): void {}
 
-  getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
-    return this.img.getImageSize(kind);
-  }
+/** Ảnh (qua ProductLoadingService) */
+getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
+  return this.img.getImageUrl(p, kind);
+}
 
-  /** Format giá */
-  formatVND(price: number): string {
-    return (price ?? 0).toLocaleString('vi-VN') + 'đ';
-  }
+getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
+  return this.img.getImageSize(kind);
+}
+
+/** Format giá */
+formatVND(price: number): string {
+  return (price ?? 0).toLocaleString('vi-VN') + 'đ';
+}
 
   /** Lấy ngẫu nhiên một vài đánh giá từ ProductReviewService để show trên homepage */
   private loadRandomReviews() {
-    if (this.reviewsLoaded) return;
+  if (this.reviewsLoaded) return;
 
-    // gom tất cả id sản phẩm đang hiển thị trên homepage
-    const idSet = new Set<string | number>();
-    this.topRentList.forEach(p => p?.id && idSet.add(p.id));
-    this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
-    this.ecoBikeList.forEach(p => p?.id && idSet.add(p.id));
-    this.compactBikeList.forEach(p => p?.id && idSet.add(p.id));
+  // gom tất cả id sản phẩm đang hiển thị trên homepage
+  const idSet = new Set<string | number>();
+  this.topRentList.forEach(p => p?.id && idSet.add(p.id));
+  this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
+  this.ecoBikeList.forEach(p => p?.id && idSet.add(p.id));
+  this.compactBikeList.forEach(p => p?.id && idSet.add(p.id));
 
-    const ids = Array.from(idSet).slice(0, 6); // tối đa 6 xe để gọi
-    if (!ids.length) return;
+  const ids = Array.from(idSet).slice(0, 6); // tối đa 6 xe để gọi
+  if (!ids.length) return;
 
-    forkJoin(
-      ids.map(id => this.reviews.getByVehicleId(String(id)))
-    ).subscribe((lists: ProductReview[][]) => {
-      const all: ProductReview[] = lists.flat().filter(Boolean).filter(r => r.status === 'approved');
-      if (!all.length) return;
+  forkJoin(
+    ids.map(id => this.reviews.getByVehicleId(String(id)))
+  ).subscribe((lists: ProductReview[][]) => {
+    const all: ProductReview[] = lists.flat().filter(Boolean).filter(r => r.status === 'approved');
+    if (!all.length) return;
 
-      // shuffle nhẹ cho "ngẫu nhiên"
-      const shuffled = all.slice().sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, 4); // lấy 3 review để hiển thị
+    // shuffle nhẹ cho "ngẫu nhiên"
+    const shuffled = all.slice().sort(() => Math.random() - 0.5);
+    const picked = shuffled.slice(0, 4); // lấy 3 review để hiển thị
 
-      this.testimonials = picked.map(r => ({
-        avatar: (r.images && r.images[0]) || 'assets/images/default-avatar.png',
-        name: r.customerName || 'Khách hàng EcoMOVE',
-        city: 'TP.HCM', // JSON không có city, để fixed text cho gọn
-        text: r.content || r.title || '',
-        rating: r.rating || 5
-      }));
+    this.testimonials = picked.map(r => ({
+      avatar: (r.images && r.images[0]) || 'assets/images/default-avatar.png',
+      name: r.customerName || 'Khách hàng EcoMOVE',
+      city: 'TP.HCM', // JSON không có city, để fixed text cho gọn
+      text: r.content || r.title || '',
+      rating: r.rating || 5
+    }));
 
-      if (this.testimonials.length) {
-        this.reviewsLoaded = true;
-      }
+    if (this.testimonials.length) {
+      this.reviewsLoaded = true;
+    }
 
-      this.cdr.detectChanges();
-    });
-  }
+    this.cdr.detectChanges();
+  });
+}
 }

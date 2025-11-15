@@ -11,11 +11,20 @@
   <div class="account-sidebar-wrap">
     <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
-      <div class="name">{{ form.value.fullname || 'Khách EcoMove' }}</div>
+      <div class="name">
+        {{ form.value.fullname || 'Khách EcoMove' }}
+      </div>
+
       <div class="menu">
-        <a routerLink="/account/profile" class="active">Thông tin tài khoản</a>
-        <a routerLink="/account/orders">Lịch sử thuê xe</a>
-        <a routerLink="/logout" class="logout">Đăng xuất</a>
+        <a routerLink="/account/profile" class="active">
+          Thông tin tài khoản
+        </a>
+        <a routerLink="/account/orders">
+          Lịch sử thuê xe
+        </a>
+        <a routerLink="/logout" class="logout">
+          Đăng xuất
+        </a>
       </div>
     </div>
   </div>
@@ -25,11 +34,17 @@
     <div class="account-main-head">
       <div class="account-user-box">
         <div class="account-avatar-wrap">
-          <img [src]="form.value.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
+          <img
+            [src]="form.value.avatar || '/assets/images/avatars/default.png'"
+            alt="Avatar"
+          />
         </div>
+
         <div class="account-user-meta">
           <h2>{{ form.value.fullname || 'Khách EcoMove' }}</h2>
-          <div class="account-tier-badge">{{ tier || 'EcoBasic' }}</div>
+          <div class="account-tier-badge">
+            {{ tier || 'EcoBasic' }}
+          </div>
         </div>
       </div>
 
@@ -43,9 +58,22 @@
       <div class="account-form-row">
         <label>Ảnh đại diện:</label>
         <div class="account-avatar-edit">
-          <img [src]="form.value.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
-          <input type="file" #file accept="image/*" hidden (change)="onPickAvatar(file)" />
-          <button type="button" class="btn-outline" (click)="file.click()">
+          <img
+            [src]="form.value.avatar || '/assets/images/avatars/default.png'"
+            alt="Avatar"
+          />
+          <input
+            type="file"
+            #file
+            accept="image/*"
+            hidden
+            (change)="onPickAvatar(file)"
+          />
+          <button
+            type="button"
+            class="btn-outline"
+            (click)="file.click()"
+          >
             Chỉnh sửa ảnh
           </button>
         </div>
@@ -64,19 +92,30 @@
       <div class="account-form-row">
         <label>Mật khẩu:</label>
         <div class="account-pwd-wrap">
-          <input [type]="showPwd() ? 'text' : 'password'" formControlName="password" />
-          <button type="button" class="account-pwd-toggle" (click)="togglePwd()" aria-label="Toggle password">
-            <i class="bi" [ngClass]="showPwd() ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+          <input
+            [type]="showPwd() ? 'text' : 'password'"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            class="account-pwd-toggle"
+            (click)="togglePwd()"
+            aria-label="Toggle password"
+          >
+            <i
+              class="bi"
+              [ngClass]="showPwd() ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
+            ></i>
           </button>
         </div>
       </div>
 
       <div class="account-form-actions">
-        <!-- <button type="submit" class="btn-green">
-          <i class="bi bi-save-fill"></i>
-          LƯU
-        </button> -->
-        <button type="button" class="btn-outline-gray" (click)="cancel()">
+        <button
+          type="button"
+          class="btn-outline-gray"
+          (click)="cancel()"
+        >
           Hủy
         </button>
       </div>

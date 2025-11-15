@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import {
@@ -9,10 +9,15 @@ import {
 type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
 type RentMode = 'day' | 'week' | 'month';
 
+/**
+ * Map nhãn checkbox -> các giá trị vehicleType trong products.json
+ * (xem products.json: Scooter, Motorbike, E-Bike,...)
+ */
 const TYPE_MAP: Record<string, string[]> = {
     'Xe máy điện': ['Motorbike', 'Scooter'],
     'Xe đạp điện': ['E-Bike', 'Bicycle', 'Electric Bicycle'],
-    'Xe đạp điện gấp gọn': [], // nhận diện qua tags 'compact' hoặc 'foldable'
+    // loại gấp gọn nhận diện qua tags 'compact' hoặc 'foldable'
+    'Xe đạp điện gấp gọn': [],
 };
 
 @Component({
@@ -23,19 +28,66 @@ const TYPE_MAP: Record<string, string[]> = {
     styleUrls: ['./rent.css'],
 })
 export class RentPage {
-    private svc = inject(ProductLoadingService);
-    private route = inject(ActivatedRoute);
-    private router = inject(Router);
+    public productService!: ProductLoadingService;
 
-    /** cho template dùng trực tiếp helper của service (type label, image...) */
-    public productService = this.svc;
+    constructor(
+        private svc: ProductLoadingService,
+        private route: ActivatedRoute,
+        private router: Router,
+    ) {
+        // nạp data (SSR-friendly, cache từ TransferState)
+        this.svc.getAll().subscribe((list) => this.all.set(list || []));
+
+        // set mặc định ngày thuê / trả
+        const start = this.todayStr;
+        this.startDate.set(start);
+        this.endDate.set(this.calcMinEndDate(this.rentMode(), start));
+
+        // đọc query param: ?q=..., ?page=..., ?type=...
+        this.route.queryParamMap.subscribe((p) => {
+            // keyword
+            const q = (p.get('q') || '').trim();
+            if (q !== this.q()) {
+                this.q.set(q);
+                this.page.set(1);
+            }
+
+            // phân trang
+            const pg = +(p.get('page') || '1');
+            if (pg > 0) this.page.set(pg);
+
+            // loại xe từ dropdown header (?type=xe-may-dien | xe-dap-dien | xe-dap-dien-gap-gon)
+            const typeParam = p.get('type');
+            if (typeParam && this.QUERY_TYPE_MAP[typeParam]) {
+                const label = this.QUERY_TYPE_MAP[typeParam];
+                const set = new Set<string>();
+                set.add(label);               // chỉ chọn đúng loại đó
+                this.selectedTypes.set(set);  // update signal
+                this.page.set(1);
+            }
+            // nếu không có type thì giữ selectedTypes hiện tại
+        });
+        this.productService = this.svc;
+
+    }
+
 
     /** Danh sách toàn bộ sản phẩm (ProductVM đã normalize) */
     all = signal<ProductVM[]>([]);
 
     /** State filter / sort / pagination */
     q = signal<string>(''); // keyword
-    selectedTypes = signal<Set<string>>(new Set()); // "Xe máy điện", ...
+
+    // "Xe máy điện" | "Xe đạp điện" | "Xe đạp điện gấp gọn"
+    selectedTypes = signal<Set<string>>(new Set());
+
+    // map từ query param ?type=... sang nhãn checkbox
+    private readonly QUERY_TYPE_MAP: Record<string, string> = {
+        'xe-may-dien': 'Xe máy điện',
+        'xe-dap-dien': 'Xe đạp điện',
+        'xe-dap-dien-gap-gon': 'Xe đạp điện gấp gọn',
+    };
+
     selectedBrands = signal<Set<string>>(new Set()); // Vinfast, Yadea, ...
     minPrice = signal<number>(0);
     maxPrice = signal<number>(500_000);
@@ -76,27 +128,6 @@ export class RentPage {
         }
     });
 
-    constructor() {
-        // nạp data (SSR-friendly, cache từ TransferState)
-        this.svc.getAll().subscribe((list) => this.all.set(list || []));
-
-        // set mặc định ngày thuê / trả
-        const start = this.todayStr;
-        this.startDate.set(start);
-        this.endDate.set(this.calcMinEndDate(this.rentMode(), start));
-
-        // đọc query param ?q=... để sync với header search
-        this.route.queryParamMap.subscribe((p) => {
-            const q = (p.get('q') || '').trim();
-            if (q !== this.q()) {
-                this.q.set(q);
-                this.page.set(1);
-            }
-            const pg = +(p.get('page') || '1');
-            if (pg > 0) this.page.set(pg);
-        });
-    }
-
     /** PIPELINE FILTER + SORT */
     filtered = computed<ProductVM[]>(() => {
         const list = this.all();
@@ -124,8 +155,10 @@ export class RentPage {
                 const foldTag = (p.tags || []).some((t) =>
                     ['compact', 'foldable'].includes(String(t).toLowerCase()),
                 );
+
                 for (const label of types) {
                     if (label === 'Xe đạp điện gấp gọn' && foldTag) return true;
+
                     const accept = TYPE_MAP[label] || [];
                     if (accept.includes(p.vehicleType)) return true;
                 }
@@ -139,7 +172,9 @@ export class RentPage {
         }
 
         // Giới hạn giá
-        out = out.filter(p => p.pricePerDay >= min && p.pricePerDay <= max);
+        out = out.filter(
+            (p) => p.pricePerDay >= min && p.pricePerDay <= max,
+        );
 
         // Sort
         switch (this.sortKey()) {
@@ -152,7 +187,8 @@ export class RentPage {
             case 'newest':
                 out.sort(
                     (a: any, b: any) =>
-                        (b.createdAt || 0) - (a.createdAt || 0) || b.discount - a.discount,
+                        (b.createdAt || 0) - (a.createdAt || 0) ||
+                        b.discount - a.discount,
                 );
                 break;
             default: {
@@ -163,7 +199,8 @@ export class RentPage {
                     return (
                         pb - pa ||
                         b.discount - a.discount ||
-                        Number(b.availabilityStatus) - Number(a.availabilityStatus)
+                        Number(b.availabilityStatus) -
+                        Number(a.availabilityStatus)
                     );
                 });
             }
@@ -195,6 +232,12 @@ export class RentPage {
         this.page.set(1);
     }
 
+    isTypeSelected(
+        label: 'Xe máy điện' | 'Xe đạp điện' | 'Xe đạp điện gấp gọn',
+    ): boolean {
+        return this.selectedTypes().has(label);
+    }
+
     toggleBrand(name: string, checked: boolean) {
         const s = new Set(this.selectedBrands());
         checked ? s.add(name) : s.delete(name);
@@ -203,15 +246,24 @@ export class RentPage {
     }
 
     onMinPriceChange(val: string | number) {
-        const n = typeof val === 'number' ? val : parseInt(val as string, 10) || 0;
+        const n =
+            typeof val === 'number'
+                ? val
+                : parseInt(val as string, 10) || 0;
         const clamped = Math.max(0, Math.min(n, this.maxPrice()));
         this.minPrice.set(clamped);
         this.page.set(1);
     }
 
     onMaxPriceChange(val: string | number) {
-        const n = typeof val === 'number' ? val : parseInt(val as string, 10) || 0;
-        const clamped = Math.min(500_000, Math.max(n, this.minPrice()));
+        const n =
+            typeof val === 'number'
+                ? val
+                : parseInt(val as string, 10) || 0;
+        const clamped = Math.min(
+            500_000,
+            Math.max(n, this.minPrice()),
+        );
         this.maxPrice.set(clamped);
         this.page.set(1);
     }
@@ -230,10 +282,12 @@ export class RentPage {
         });
     }
 
-    /** Điều hướng sang trang chi tiết (không dùng queryParams ở HTML thì có thể dùng hàm này) */
+    /** Điều hướng sang trang chi tiết */
     goToDetail(p: ProductVM) {
         const start = this.startDate() || this.todayStr;
-        const end = this.endDate() || this.calcMinEndDate(this.rentMode(), start);
+        const end =
+            this.endDate() ||
+            this.calcMinEndDate(this.rentMode(), start);
 
         this.router.navigate(['/rent', p.id], {
             queryParams: { start, end },
@@ -268,7 +322,10 @@ export class RentPage {
         const startStr = this.toInputDate(d);
         this.startDate.set(startStr);
 
-        const minEnd = this.calcMinEndDate(this.rentMode(), startStr);
+        const minEnd = this.calcMinEndDate(
+            this.rentMode(),
+            startStr,
+        );
         const curEnd = this.parseDate(this.endDate());
         const minEndDate = this.parseDate(minEnd)!;
 
@@ -282,7 +339,10 @@ export class RentPage {
         const start = this.parseDate(startStr)!;
 
         let end = this.parseDate(raw);
-        const minEndStr = this.calcMinEndDate(this.rentMode(), startStr);
+        const minEndStr = this.calcMinEndDate(
+            this.rentMode(),
+            startStr,
+        );
         const minEnd = this.parseDate(minEndStr)!;
 
         if (!end || end <= start || end < minEnd) {
@@ -294,7 +354,9 @@ export class RentPage {
 
     onCityChange(_: string) {
         if (typeof window !== 'undefined') {
-            alert('Tính năng lọc theo khu vực đang được phát triển.');
+            alert(
+                'Tính năng lọc theo khu vực đang được phát triển.',
+            );
         }
     }
 
@@ -324,7 +386,12 @@ export class RentPage {
 
     private getPopularity(p: ProductVM): number {
         const anyP: any = p;
-        return anyP.totalRentals ?? anyP.rentalCount ?? anyP.popularityScore ?? 0;
+        return (
+            anyP.totalRentals ??
+            anyP.rentalCount ??
+            anyP.popularityScore ??
+            0
+        );
     }
 
     private toInputDate(d: Date): string {
@@ -340,8 +407,12 @@ export class RentPage {
         return isNaN(d.getTime()) ? null : d;
     }
 
-    private calcMinEndDate(mode: RentMode, startStr: string): string {
-        const base = this.parseDate(startStr) || new Date(this.todayStr);
+    private calcMinEndDate(
+        mode: RentMode,
+        startStr: string,
+    ): string {
+        const base =
+            this.parseDate(startStr) || new Date(this.todayStr);
         const d = new Date(base.getTime());
 
         if (mode === 'week') {
@@ -368,7 +439,9 @@ export class RentPage {
     /** Query params ngày thuê / trả cho routerLink */
     buildDateParams() {
         const start = this.startDate() || this.todayStr;
-        const end = this.endDate() || this.calcMinEndDate(this.rentMode(), start);
+        const end =
+            this.endDate() ||
+            this.calcMinEndDate(this.rentMode(), start);
         return { start, end };
     }
 }

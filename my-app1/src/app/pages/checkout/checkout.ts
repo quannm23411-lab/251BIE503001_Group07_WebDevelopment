@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
+import { LoginService } from '../../services/login/login.service';
 
 interface CheckoutForm {
     fullName: string;
@@ -33,6 +34,7 @@ interface ReceiverForm {
 export class Checkout {
     private cart = inject(CartService);
     private router = inject(Router);
+    private loginService = inject(LoginService);
 
     // form người đặt (chỉ đọc, trừ ghi chú)
     form: CheckoutForm = {
@@ -119,29 +121,12 @@ export class Checkout {
             }
         }
 
-        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile
-        if (typeof localStorage !== 'undefined') {
-            const raw = localStorage.getItem('eco_profile');
-            if (raw) {
-                try {
-                    const profile = JSON.parse(raw);
-                    this.form.fullName = profile.fullname || '';
-                    this.form.phone = profile.phone || '';
-                    this.form.email = profile.email || '';
-                    // ưu tiên lấy số bằng lái nếu đã map ở profile
-                    this.form.nationalId =
-                        profile.driverLicense ||
-                        profile.licenseNumber ||
-                        profile.nationalId ||
-                        '';
-
-                    if (!this.form.note && profile.address) {
-                        this.form.note = `Địa chỉ khách: ${profile.address}`;
-                    }
-                } catch {
-                    // méo JSON thì thôi khỏi fill, khỏi làm quá
-                }
-            }
+        // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile QUA LoginService
+        const profile = this.loginService.getProfile();
+        if (profile) {
+            this.form.fullName = profile.fullname || '';
+            this.form.email = profile.email || '';
+            // phone, nationalId, address... sẽ lấy từ customers.json sau nếu cần
         }
     }
 

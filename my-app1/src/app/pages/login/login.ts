@@ -1,12 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-// =============================================
-// Import Router, RouterLink, ActivatedRoute
-// =============================================
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
-import { Auth, AuthUser } from '../../services/auth/auth';
+import { Auth } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-login',
@@ -71,17 +68,28 @@ export class Login implements OnInit {
     }
 
     this.isLoading.set(true);
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.value as {
+      email: string;
+      password: string;
+      remember: boolean;
+    };
 
     this.loginService.login(email, password).subscribe({
-      next: () => {
+      next: (profile) => {
         this.isLoading.set(false);
+
+        // Sai tài khoản / mật khẩu → login() trả null
+        if (!profile) {
+          this.error.set('Email hoặc mật khẩu không chính xác');
+          return;
+        }
+
         // LoginService đã set authUser + eco_profile rồi
         this.isModalVisible = true;
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.error.set(err.message || 'Email hoặc mật khẩu không chính xác');
+        this.error.set(err?.message || 'Có lỗi xảy ra, vui lòng thử lại.');
       }
     });
   }

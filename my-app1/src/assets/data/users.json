@@ -6,7 +6,7 @@
       "password": "123456",
       "fullname": "Admin EcoMOVE",
       "role": "admin",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": null
     },
     {
@@ -15,7 +15,7 @@
       "password": "pass123",
       "fullname": "Nguyễn Minh Quân",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH001"
     },
     {
@@ -24,7 +24,7 @@
       "password": "pass123",
       "fullname": "Lê Thị Duy Nhất",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH002"
     },
     {
@@ -33,7 +33,7 @@
       "password": "pass123",
       "fullname": "Võ Hồng Phúc",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH003"
     },
     {
@@ -42,7 +42,7 @@
       "password": "pass123",
       "fullname": "Phan Thị Ánh Linh",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH004"
     },
     {
@@ -51,7 +51,7 @@
       "password": "pass123",
       "fullname": "Nguyễn Khánh Xuân",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH005"
     },
     {
@@ -60,7 +60,7 @@
       "password": "pass123",
       "fullname": "Đặng Thị Lan",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH006"
     },
     {
@@ -69,7 +69,7 @@
       "password": "pass123",
       "fullname": "Vũ Anh Tuấn",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH007"
     },
     {
@@ -78,7 +78,7 @@
       "password": "pass123",
       "fullname": "Bùi Thị Mai",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH008"
     },
     {
@@ -87,7 +87,7 @@
       "password": "pass123",
       "fullname": "Đỗ Gia Bảo",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH009"
     },
     {
@@ -96,7 +96,7 @@
       "password": "pass123",
       "fullname": "Ngô Thanh Thảo",
       "role": "customer",
-      "avatar": "/assets/images/avatar/default.png",
+      "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH010"
     }
   ]
