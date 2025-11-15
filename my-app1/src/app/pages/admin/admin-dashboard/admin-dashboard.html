@@ -50,8 +50,63 @@
             </div>
         </div>
 
-        <div class="dashboard-layout">
+        <div class="dashboard-chart-grid">
+            <section class="card">
+                <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <h2 style="border: none; margin: 0; padding: 0;">Doanh thu</h2>
+                </div>
+                
+                <div class="chart-filters">
+                    <div class="chart-toggle-group">
+                        <button 
+                            [class.active]="revenueView === 'daily'" 
+                            (click)="changeRevenueView('daily')">Ngày</button>
+                        <button 
+                            [class.active]="revenueView === 'weekly'" 
+                            (click)="changeRevenueView('weekly')">Tuần</button>
+                        <button 
+                            [class.active]="revenueView === 'monthly'" 
+                            (click)="changeRevenueView('monthly')">Tháng</button>
+                    </div>
+                    <div class="chart-date-range">
+                        <label for="startDate">Từ:</label>
+                        <input 
+                            type="date" 
+                            id="startDate" 
+                            [(ngModel)]="filterStartDate"
+                            (change)="onDateChange()">
+                        
+                        <label for="endDate">Đến:</label>
+                        <input 
+                            type="date" 
+                            id="endDate" 
+                            [(ngModel)]="filterEndDate"
+                            (change)="onDateChange()">
+                    </div>
+                </div>
+
+                <div class="chart-container" style="height: 350px;">
+                    <canvas baseChart
+                        [data]="lineChartData"
+                        [type]="lineChartType"
+                        [options]="lineChartOptions">
+                    </canvas>
+                </div>
+            </section>
             
+            <section class="card">
+                <h2>Trạng thái đơn hàng</h2>
+                <div class="chart-container chart-container-pie">
+                    <canvas baseChart
+                        [data]="donutChartData"
+                        [type]="donutChartType"
+                        [options]="donutChartOptions">
+                    </canvas>
+                </div>
+            </section>
+        </div>
+
+        <div class="dashboard-layout">
             <div class="dashboard-col-main">
                 <section class="card">
                     <div class="card-header">
@@ -63,18 +118,18 @@
                             <thead>
                                 <tr>
                                     <th>Mã đơn</th>
-                                    <th>Mã khách hàng</th>
+                                    <th class="hide-on-mobile">Mã khách hàng</th>
                                     <th>Tổng tiền</th>
-                                    <th>Thanh toán</th>
+                                    <th class="hide-on-mobile">Thanh toán</th>
                                     <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let order of recentOrders" (click)="goToOrder(order.maDonThue)" class="clickable-row">
                                     <td><strong>{{ order.maDonThue }}</strong></td>
-                                    <td>{{ order.maKhachHang }}</td>
+                                    <td class="hide-on-mobile">{{ order.maKhachHang }}</td>
                                     <td>{{ order.thanhToan.chiPhiSauGiam | number:'1.0-0' }}đ</td>
-                                    <td>
+                                    <td class="hide-on-mobile">
                                         <span class="payment-status" [ngClass]="order.paymentStatusClass">
                                             {{ order.thanhToan.tinhTrangThanhToan }}
                                         </span>
@@ -94,7 +149,6 @@
             <div class="dashboard-col-side">
                 <section class="card">
                     <h2>Xe được thuê nhiều nhất</h2>
-                    
                     <ul class="top-vehicle-list">
                         <li *ngFor="let item of topVehicles" (click)="goToBike(item.product.id)" class="clickable-row">
                             <img [src]="item.product.image" alt="{{ item.product.vehicleName }}">
@@ -107,8 +161,6 @@
                     </ul>
                 </section>
             </div>
-
-        </div>
-
+        </div> 
     </div>
 </div>
