@@ -40,6 +40,7 @@
             <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
               [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
+<<<<<<< HEAD
             <h3 class="product-card__name">
               {{ p.vehicleName }}
             </h3>
@@ -48,6 +49,19 @@
               Giá thuê chỉ từ
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
+=======
+            <h3 style="color: #121212;" class="product-card__name">{{ p.vehicleName }}</h3>
+
+            <p style="color: #121212;" class="product-card__price">
+              Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
+            </p>
+
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
           </div>
 
           <div class="product-features" *ngIf="p.details?.features?.length">
@@ -86,8 +100,12 @@
 
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
+<<<<<<< HEAD
         <article class="product-card position-relative category-card" *ngFor="let p of (motorbikeList | slice: 0: 4)"
           [routerLink]="['/rent', p.id]">
+=======
+        <article class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)">
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
           <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
@@ -96,6 +114,7 @@
             <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
               [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
+<<<<<<< HEAD
             <h3 class="product-card__name">
               {{ p.vehicleName }}
             </h3>
@@ -112,6 +131,15 @@
               <span>{{ f }}</span>
             </div>
           </div>
+=======
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
         </article>
       </ng-container>
 
@@ -130,8 +158,12 @@
 
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
+<<<<<<< HEAD
         <article class="product-card position-relative category-card" *ngFor="let p of (ecoBikeList | slice: 0: 4)"
           [routerLink]="['/rent', p.id]">
+=======
+        <article class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)">
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
           <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
@@ -140,6 +172,7 @@
             <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
               [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
+<<<<<<< HEAD
             <h3 class="product-card__name">
               {{ p.vehicleName }}
             </h3>
@@ -156,6 +189,15 @@
               <span>{{ f }}</span>
             </div>
           </div>
+=======
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
         </article>
       </ng-container>
 
@@ -174,8 +216,12 @@
 
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
+<<<<<<< HEAD
         <article class="product-card position-relative category-card" *ngFor="let p of (compactBikeList | slice: 0: 4)"
           [routerLink]="['/rent', p.id]">
+=======
+        <article class="product-card position-relative" *ngFor="let p of compactBikeList">
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
           <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
@@ -184,6 +230,7 @@
             <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
               [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
+<<<<<<< HEAD
             <h3 class="product-card__name">
               {{ p.vehicleName }}
             </h3>
@@ -200,6 +247,15 @@
               <span>{{ f }}</span>
             </div>
           </div>
+=======
+          <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+          <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
+>>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
         </article>
       </ng-container>
 

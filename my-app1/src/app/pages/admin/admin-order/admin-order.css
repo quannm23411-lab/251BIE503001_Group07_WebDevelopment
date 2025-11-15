@@ -13,14 +13,49 @@
 .btn-export { background: #6fa304; color: white; }
 .btn-add { background: #004d40; color: white; }
 
-/* --- Filters--- */
+/* === View Toggle === */
+.view-toggle {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống dòng trên di động */
+  gap: 10px;
+  margin-top: 10px;
+}
+.view-toggle button {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #555;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.view-toggle button i {
+  margin-right: 6px;
+}
+.view-toggle button:hover {
+  background-color: #eee;
+}
+.view-toggle button.active {
+  background-color: #eaf3db;
+  border-color: #567C02;
+  color: #567C02;
+}
+
+/* --- Filters (Giữ nguyên) --- */
 .filters { background: white; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 15px; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
 .filters input, .filters select, .filters button { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; }
 .filters label { font-size: 13px; color: #555; margin-left: 5px; }
 .filters input[type="date"] { padding: 7px 10px; }
 .filters button { background-color: #6fa304; color: white; }
+.date-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 5px; 
+}
 
-/* --- Table--- */
+/* --- Table (Giữ nguyên) --- */
 .rental-list { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
 table {
     width: 100%;
@@ -37,15 +72,28 @@ th { color: #567C02; }
 .customer-info { display: flex; flex-direction: column; }
 .customer-info span { font-size: 13px; color: #777; }
 .loading-cell, .empty-cell { text-align: center; padding: 40px; color: #888; }
+
+/* Style cho cột địa điểm */
+th.col-location, td.col-location {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Style cho Trạng thái Đơn & Xe */
 .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
 .status.rented { background: #ffe3a3; color: #995c00; }
 .status.completed { background: #e0e0e0; color: #555; }
 .status.confirmed { background: #d1eaff; color: #0056b3; }
 .status.cancelled { background: #ffd0d0; color: #a30000; }
+
+/* Style cho Trạng thái Thanh toán & Cọc */
 .payment-status { display: inline-flex; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
 .payment-status.paid { background: #d7f7b4; color: #336000; }
 .payment-status.pending { background: #ffe3a3; color: #995c00; }
-
+/* === THÊM MỚI STYLE NÀY === */
+.payment-status.no-required { background: #e0e0e0; color: #555; }
 
 
 .clickable-row {
@@ -56,6 +104,7 @@ th { color: #567C02; }
     background-color: #f9f9f9;
 }
 
+/* --- Sorting (Giữ nguyên) --- */
 th.sortable {
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -67,7 +116,6 @@ th.sortable .th-content {
     display: flex;
     align-items: center;
     width: 100%;
-
 }
 th.sortable:hover {
     background-color: #fcfcfc;
@@ -80,8 +128,8 @@ th.sortable i {
     color: #ccc;
     transition: color 0.2s ease;
     position: absolute;
-    right: 12px; /* Căn phải */
-    top: 50%; /* Căn giữa */
+    right: 12px;
+    top: 50%;
     transform: translateY(-50%);
 }
 th.sort-active i {
@@ -95,18 +143,10 @@ th.sortable i.fa-sort-down {
     color: #567C02;
     opacity: 1;
 }
-/* ===================================== */
-/* === 🔽 THÊM MỚI ĐỂ NHÓM LABEL VÀ INPUT NGÀY THÁNG === */
-.date-filter-group {
-  display: flex;
-  align-items: center;
-  gap: 5px; 
-}
-/*
 
-/* === MEDIA QUERY=== */
+/* === MEDIA QUERY (Giữ nguyên) === */
 
-@media (max-width: 1080px) {
+@media (max-width: 1080px) { /* Cho máy tính bảng */
     .filters {
         flex-direction: column;
         align-items: stretch;
@@ -114,18 +154,6 @@ th.sortable i.fa-sort-down {
     .filters input, .filters select, .filters button, .filters label {
         width: auto;
         margin-left: 0;
-    }
-    .rental-list th:nth-child(3),
-    .rental-list th:nth-child(4),
-    .rental-list th:nth-child(5),
-    .rental-list th:nth-child(6) {
-        display: none;
-    }
-    .rental-list td:nth-child(3),
-    .rental-list td:nth-child(4),
-    .rental-list td:nth-child(5),
-    .rental-list td:nth-child(6) {
-        display: none;
     }
     .main__header {
         flex-direction: column;
@@ -138,9 +166,9 @@ th.sortable i.fa-sort-down {
     .customer-info strong {
         font-size: 14px;
     }
-
     .date-filter-group {
         display: block;
+    }
     .date-filter-group label {
         display: block; 
         margin-bottom: 5px; 
@@ -150,24 +178,17 @@ th.sortable i.fa-sort-down {
         box-sizing: border-box; 
     }
 
-
-}
-}
-
-@media (max-width: 480px) {
-    .rental-list th:nth-child(2),
-    .rental-list th:nth-child(7) {
-        display: none;
+    /* Ẩn cột bằng class */
+    .hide-on-tablet {
+        display: none !important;
     }
-    .rental-list td:nth-child(2),
-    .rental-list td:nth-child(7) {
-        display: none;
-    }
+}
+
+
+@media (max-width: 520px) { /* Cho điện thoại */
     .main {
         padding: 10px;
     }
-
-
     .date-filter-group {
         display: block; 
     }
@@ -179,4 +200,38 @@ th.sortable i.fa-sort-down {
         width: 100%; 
         box-sizing: border-box; 
     }
+
+    /* Ẩn cột bằng class */
+    .hide-on-mobile {
+        display: none !important;
+    }
+}
+/* ================================ */
+/* === 9. STYLE HÀNG CON (MỚI) === */
+/* ================================ */
+
+/* Áp dụng 1 màu nền hơi khác cho hàng con */
+tr.child-row {
+  background-color: #fdfdfd; 
+}
+
+/* Ẩn đường viền trên cùng của hàng con, tạo cảm giác liền mạch */
+tr.child-row td {
+  border-top: none; 
+}
+
+/* * Thụt lề cho cột Tên xe (cột thứ 2 trong view 'handover').
+ * Dùng ::before để thêm 1 icon mũi tên cong cho đẹp.
+*/
+tr.child-row td:nth-child(2) {
+  position: relative;
+}
+
+tr.child-row td:nth-child(2)::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-weight: bold;
+  font-size: 1.1em;
 }

@@ -28,7 +28,7 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 10px;
+    padding: 10px 10px;
     /* 🔽 THÊM MỚI: Cho phép container co dãn 🔽 */
     flex: 1; 
     overflow-y: auto;
@@ -51,14 +51,27 @@ body, html {
     padding: 12px 20px;
     cursor: pointer;
     gap: 8px;
+    /* Thêm vào để icon và chữ thẳng hàng */
+    display: flex;
+    align-items: center;
 }
 .sidebar .sidebar-menu li:hover,
 .sidebar .sidebar-menu li:focus-visible,
+.sidebar .sidebar-menu li:active {
+  background: #fff;
+  color: #2B3B41;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+
+/* === 🔽 THÊM MỚI: STYLE CHO LINK ĐANG ACTIVE 🔽 === */
 .sidebar .sidebar-menu li.active {
   background: #fff;
   color: #2B3B41;
   box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
+/* === HẾT THÊM MỚI === */
+
+
 .main {
     flex: 1;
     padding: 20px 30px;
@@ -133,7 +146,6 @@ body, html {
         opacity: 0;
         visibility: hidden;
         transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
-        /* 🔽 THÊM MỚI: Sửa lỗi layout di động 🔽 */
         height: calc(100vh - 60px); 
         overflow-y: auto; 
     }
@@ -147,6 +159,12 @@ body, html {
         color: white; 
         padding: 15px 20px;
     }
+
+    /* === 🔽 THÊM MỚI: STYLE ACTIVE CHO DI ĐỘNG 🔽 === */
+    .sidebar .sidebar-menu li.active {
+        color: #2B3B41; /* Vẫn giữ chữ màu xanh đậm */
+    }
+    /* === HẾT THÊM MỚI === */
 
     .main { padding: 15px; }
     .menu-overlay {
@@ -172,12 +190,16 @@ body, html {
     margin-right: 10px;
     text-align: center; 
 }
+
+/* === 🔽 THÊM MỚI: ĐẢM BẢO ICON ACTIVE CŨNG ĐỔI MÀU 🔽 === */
+.sidebar-menu li.active i {
+    color: #2B3B41;
+}
+/* === HẾT THÊM MỚI === */
+
 .sidebar-toggle { font-size: 24px; }
 
 /* === CSS cho User Info (Đã sửa) === */
-
-/* ❌ XÓA: .nav-list (đã chuyển vào .sidebar-menu) ❌ */
-
 .admin-user-info {
   margin-top: auto; /* 👈 Đẩy xuống dưới cùng */
   display: flex;
@@ -206,7 +228,6 @@ body, html {
   font-size: 15px;
   white-space: nowrap; 
 }
-
 .admin-role {
   font-size: 13px;
   color: #c0f0c0; 
@@ -214,14 +235,14 @@ body, html {
 }
 .logout-link {
   cursor: pointer;
-  color: #ffffff !important; /* 👈 Làm cho link Đăng xuất có màu đỏ nhạt */
+  color: #ffffff !important; 
 }
 .logout-link:hover {
-  background: #ffffff !important; /* 👈 Khi hover có nền đỏ */
+  background: #ffffff !important; 
   color: #2B3B41 !important;
 }
 
-/* === 🔽 THÊM MỚI: CSS cho Popup Đăng xuất 🔽 === */
+/* === CSS cho Popup Đăng xuất === */
 .popup-overlay {
     position: fixed;
     top: 0;

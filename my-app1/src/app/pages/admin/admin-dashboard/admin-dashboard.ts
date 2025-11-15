@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { BaseChartDirective } from 'ng2-charts';
-import { FormsModule } from '@angular/forms'; // <-- THÊM MỚI
+import { FormsModule } from '@angular/forms'; 
 
 import {
   Chart,
@@ -21,7 +21,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
   imports: [
     CommonModule,
     BaseChartDirective,
-    FormsModule // <-- THÊM MỚI
+    FormsModule 
   ],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css'
@@ -47,7 +47,7 @@ export class AdminDashboard implements OnInit {
   // Biến state cho danh sách top xe
   topVehicles: any[] = [];
 
-  // === BIẾN STATE MỚI CHO BỘ LỌC ===
+  // Biến state cho bộ lọc
   public revenueView: 'daily' | 'weekly' | 'monthly' = 'daily';
   public filterStartDate: string = ''; // Sẽ được gán trong ngOnInit
   public filterEndDate: string = '';   // Sẽ được gán trong ngOnInit
@@ -77,7 +77,7 @@ export class AdminDashboard implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     plugins: { legend: { display: true, position: 'top' } },
-    // cutout: '70%'
+    // cutout: '70%' // Bị comment nên sẽ là Pie chart, không phải Donut
   };
   public donutChartType: ChartType = 'doughnut';
 
@@ -117,7 +117,7 @@ export class AdminDashboard implements OnInit {
         this.allOrders = ordersData;
         this.productsMap = new Map(productsData.map(p => [p.id, p]));
         
-        // === THÊM MỚI: Tự động gán ngày lọc ===
+        // Tự động gán ngày lọc
         if (this.allOrders.length > 0) {
           const allDates = ordersData.map(o => new Date(o.thoiGianDatHang).getTime());
           const minDate = new Date(Math.min.apply(null, allDates));
@@ -126,14 +126,13 @@ export class AdminDashboard implements OnInit {
           this.filterStartDate = minDate.toISOString().split('T')[0];
           this.filterEndDate = maxDate.toISOString().split('T')[0];
         }
-        // === HẾT ===
 
         // Chạy tất cả các hàm xử lý
         this.processStats();
         this.processRecentOrders();
         this.processTopVehiclesAndBarChart();
         this.processDonutChart();
-        this.processLineChart(); // Chạy lần đầu với ngày đã gán
+        this.processLineChart(); 
         
         this.isLoading = false;
         this.cdr.detectChanges();
@@ -146,19 +145,18 @@ export class AdminDashboard implements OnInit {
     });
   }
 
-  // === HÀM ĐỔI VIEW (Ngày/Tuần/Tháng) ===
+  // Hàm đổi view (Ngày/Tuần/Tháng)
   changeRevenueView(view: 'daily' | 'weekly' | 'monthly') {
     this.revenueView = view;
     this.processLineChart(); // Chạy lại logic cho biểu đồ line
   }
   
-  // === HÀM MỚI: XỬ LÝ KHI ĐỔI NGÀY ===
+  // XỬ LÝ KHI ĐỔI NGÀY
   onDateChange() {
-    // Chỉ cần chạy lại processLineChart, nó sẽ tự đọc giá trị mới
     this.processLineChart();
   }
 
-  // === HÀM HELPER LẤY NGÀY ĐẦU TUẦN ===
+  // HÀM HELPER LẤY NGÀY ĐẦU TUẦN
   private getWeekStartDate(date: Date): string {
     const d = new Date(date);
     const day = d.getDay(); // 0 = Chủ Nhật, 1 = Thứ 2, ...
@@ -168,7 +166,7 @@ export class AdminDashboard implements OnInit {
   }
 
 
-  // --- Các hàm xử lý dữ liệu (không đổi, giữ nguyên) ---
+  // --- Các hàm xử lý dữ liệu ---
 
   processStats() {
     const orders = this.allOrders;
@@ -181,7 +179,7 @@ export class AdminDashboard implements OnInit {
   processRecentOrders() {
     this.recentOrders = [...this.allOrders]
       .sort((a, b) => new Date(b.thoiGianDatHang).getTime() - new Date(a.thoiGianDatHang).getTime())
-      .slice(0, 7)
+      .slice(0, 7) // Lấy 7 đơn
       .map(order => ({
         ...order,
         tinhTrangDonClass: this.getStatusClass(order.tinhTrangDon),
@@ -203,7 +201,7 @@ export class AdminDashboard implements OnInit {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
 
-    // 1. Cập nhật danh sách top
+    // Cập nhật danh sách top
     this.topVehicles = sortedVehicles.map(([id, count]) => {
       return {
         product: this.productsMap.get(id) || { vehicleName: 'Xe không rõ', image: '' },
@@ -211,7 +209,7 @@ export class AdminDashboard implements OnInit {
       };
     });
 
-    // 2. Cập nhật biểu đồ bar
+    // Cập nhật biểu đồ bar (Dù bị comment trong HTML, logic vẫn nên chạy)
     const barLabels = sortedVehicles.map(([id]) => this.productsMap.get(id)?.vehicleName || 'Không rõ');
     const barData = sortedVehicles.map(([id, count]) => count);
     this.barChartData = {
@@ -235,7 +233,7 @@ export class AdminDashboard implements OnInit {
           case 'Đã hoàn thành': return '#90EE90';
           case 'Đã xác nhận': return '#ADD8E6';
           case 'Đang thuê': return '#FFD700';
-          case 'Đã hủy': return '#F08080';
+          case 'Đã huỷ': return '#F08080'; // <-- SỬA Ở ĐÂY (nếu cần)
           default: return '#E0E0E0';
         }
     });
@@ -252,12 +250,11 @@ export class AdminDashboard implements OnInit {
     };
   }
 
-  // === HÀM QUAN TRỌNG: CẬP NHẬT LOGIC LỌC ===
+  // HÀM LỌC BIỂU ĐỒ LINE
   processLineChart() {
     let filteredOrders = this.allOrders;
 
-    // === 1. LỌC THEO NGÀY (MỚI) ===
-    // Chỉ lọc nếu cả 2 ngày đều được chọn
+    // 1. LỌC THEO NGÀY
     if (this.filterStartDate && this.filterEndDate) {
       filteredOrders = filteredOrders.filter(o => {
         const orderDate = o.thoiGianDatHang.split('T')[0];
@@ -293,7 +290,6 @@ export class AdminDashboard implements OnInit {
     if (this.revenueView === 'daily') {
         const completeStats = new Map<string, { revenue: number, count: number }>();
         
-        // Chỉ điền vào chỗ trống nếu ngày hợp lệ
         if (this.filterStartDate && this.filterEndDate) {
           let currentDate = new Date(this.filterStartDate + 'T00:00:00');
           const endDate = new Date(this.filterEndDate + 'T00:00:00');
@@ -313,7 +309,7 @@ export class AdminDashboard implements OnInit {
         sortedStats = [...completeStats.entries()].sort();
 
     } else {
-        // Đối với 'weekly' và 'monthly', chỉ cần sắp xếp map đã gom nhóm
+        // Đối với 'weekly' và 'monthly', chỉ cần sắp xếp
         sortedStats = [...statsByTime.entries()].sort();
     }
     
@@ -349,13 +345,15 @@ export class AdminDashboard implements OnInit {
   }
 
 
-  // --- Các hàm Helper (không đổi) ---
+  // --- Các hàm Helper ---
+
+  // === SỬA LỖI TYPO TẠI ĐÂY ===
   getStatusClass(status: string): string {
     switch (status) {
       case 'Đã hoàn thành': return 'completed';
       case 'Đang thuê': return 'rented';
       case 'Đã xác nhận': return 'confirmed';
-      case 'Đã hủy': return 'cancelled';
+      case 'Đã huỷ': return 'cancelled'; // <-- SỬA TỪ "hủy" THÀNH "huỷ"
       default: return '';
     }
   }

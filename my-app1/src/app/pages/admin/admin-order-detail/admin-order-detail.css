@@ -251,3 +251,44 @@ textarea.form-control { min-height: 120px; resize: vertical; }
     font-size: 11px; 
     margin-left: 3px;
 }
+/* ================================ */
+/* === 10. STYLE NÚT EXPORT (MỚI) === */
+/* ================================ */
+
+/* Style cho nút "Xuất đơn hàng" (chính) */
+.btn-export {
+    background: #004d40; /* Màu xanh đậm */
+    color: white;
+    font-weight: 500;
+}
+.btn-export:hover {
+    background: #00382e;
+}
+.btn-export i {
+    margin-right: 5px;
+}
+
+/* Style cho nút "Xuất thanh toán" (phụ) */
+.btn-export-secondary {
+    background: #f0f0f0; /* Màu xám nhạt */
+    color: #333;
+    font-weight: 500;
+}
+.btn-export-secondary:hover {
+    background: #e0e0e0;
+}
+.btn-export-secondary i {
+    margin-right: 5px;
+}
+
+/* Responsive cho các nút ở header */
+@media (max-width: 992px) { 
+    .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Chia 2 cột cho các nút */
+        gap: 10px;
+    }
+    .btn-save {
+        grid-column: 1 / -1; /* Nút "Lưu" chiếm trọn 1 hàng */
+    }
+}

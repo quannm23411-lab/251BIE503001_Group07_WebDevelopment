@@ -1,5 +1,5 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
 <meta charset="utf-8">
 <div class="main">
@@ -242,6 +242,11 @@
                         <select id="paymentStatus" [(ngModel)]="newOrder.thanhToan.tinhTrangThanhToan" name="paymentStatus" class="form-control">
                             <option *ngFor="let p of paymentStatuses" [value]="p">{{ p }}</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="maThanhToan">Mã thanh toán (nếu có)</label>
+                        <input type="text" id="maThanhToan" [(ngModel)]="newOrder.thanhToan.maThanhToan" name="maThanhToan" class="form-control" placeholder="Vd: VNPAY123...">
                     </div>
                     
                     <hr class="divider">

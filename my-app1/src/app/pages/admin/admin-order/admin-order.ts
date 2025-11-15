@@ -6,21 +6,41 @@ import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
 /**
- * Interface đã được xử lý (kết hợp) để hiển thị trên Bảng
+ * CẬP NHẬT: Interface này giờ đại diện cho 1 XE trong 1 ĐƠN
  */
 interface ProcessedRental {
+  // --- Dữ liệu cấp Đơn hàng (sao chép cho mọi xe) ---
   maDonThue: string;
   khachHangTen: string;
   khachHangSdt: string;
-  thoiGianDatHang: string; // ISO date string
-  tongChiPhi: number;
+  thoiGianDatHang: string; // ISO
+  tongChiPhi: number; // chiPhiSauGiam
   tinhTrangDon: string;
-  tinhTrangDonClass: string; // CSS class
-  paymentStatus: string;
+  tinhTrangDonClass: string;
+  paymentStatus: string; // tinhTrangThanhToan
   paymentStatusClass: string;
   khuVuc: string; 
-  rawRentalData: any; // Lưu dữ liệu gốc
+  tienDatCoc: number;
+  trangThaiCoc: string;
+  cocStatusClass: string; 
+  tongGiaTriGoc: number;
+  maGiamGia: string | null;
+  tienGiam: number;
+  maThanhToan: string | null; 
+  
+  // --- Dữ liệu cấp Xe (duy nhất cho mỗi hàng) ---
+  isFirstInOrder: boolean; // Dùng để ẩn/hiện ở các view khác
+  idXe: string;
+  tenXe: string; // <-- THÊM MỚI
+  thoiGianNhanXe: string; // ISO
+  thoiGianTraXe: string; // ISO
+  diaDiemNhanXe: string;
+  tinhTrangXe: string; // e.g., "Đã đặt", "Đã trả"
+  vehicleStatusClass: string; 
+  
+  rawRentalData: any; 
 }
+
 
 @Component({
   selector: 'app-admin-order',
@@ -34,6 +54,9 @@ export class AdminOrder implements OnInit {
   filteredRentals: ProcessedRental[] = [];
   isLoading: boolean = true;
 
+  // Biến quản lý View
+  currentView: 'default' | 'handover' | 'payment' = 'default';
+
   // Thuộc tính cho bộ lọc
   searchTerm = '';
   statusFilter = '';
@@ -41,10 +64,10 @@ export class AdminOrder implements OnInit {
   startDateFilter = '';
   endDateFilter = '';   
   
-  statuses = ['Đã hoàn thành', 'Đang thuê', 'Đã xác nhận', 'Đã hủy'];
+  statuses = ['Đã hoàn thành', 'Đang thuê', 'Đã xác nhận', 'Đã huỷ'];
   locations = ['TP. Hồ Chí Minh', 'TP. Hà Nội', 'TP. Đà Nẵng', 'Khác'];
 
-  // 🔽 THÊM MỚI: Biến theo dõi trạng thái sắp xếp
+  // Biến theo dõi trạng thái sắp xếp
   sortColumn: keyof ProcessedRental | '' = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
@@ -56,29 +79,44 @@ export class AdminOrder implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+    // === CẬP NHẬT: Tải thêm products.json ===
     const rentals$ = this.http.get<any[]>('assets/data/orders.json');
     const customers$ = this.http.get<any[]>('assets/data/customers.json');
+    const products$ = this.http.get<any[]>('assets/data/products.json');
 
-    forkJoin([rentals$, customers$]).subscribe({
-      next: ([rentalsData, customersData]) => {
+    forkJoin([rentals$, customers$, products$]).subscribe({
+      next: ([rentalsData, customersData, productsData]) => {
         const customerMap = new Map(customersData.map(c => [c.maKhachHang, c]));
-        const mapped = this.mapData(rentalsData, customerMap);
+        const productMap = new Map(productsData.map(p => [p.id, p])); // <-- TẠO MAP XE
+        
+        // === CẬP NHẬT: mapData giờ sẽ "bung" dữ liệu ===
+        const mapped = this.mapData(rentalsData, customerMap, productMap);
         
         this.rentals = mapped;
+        
+        // Cập nhật mảng statuses từ dữ liệu thực tế
+        const uniqueStatuses = [...new Set(mapped.map(r => r.tinhTrangDon))];
+        this.statuses = uniqueStatuses.sort();
+
         this.applyFilter();
         
         this.isLoading = false;
         this.cdr.detectChanges();
       },
       error: err => {
-        console.error('Không tải được dữ liệu đơn thuê', err);
+        console.error('Không tải được dữ liệu', err);
         this.isLoading = false;
         this.cdr.detectChanges();
       }
     });
   }
+
+  // Hàm đổi view
+  setView(view: 'default' | 'handover' | 'payment') {
+    this.currentView = view;
+    this.sortColumn = '';
+  }
   
-  // ... (Giữ nguyên các hàm: getKhuVuc, mapData, getStatusClass, getPaymentStatusClass) ...
   getKhuVuc(diaDiem: string): string {
     const diaDiemLower = diaDiem.toLowerCase();
     if (diaDiemLower.includes('hà nội') || diaDiemLower.includes('hanoi')) {
@@ -93,59 +131,101 @@ export class AdminOrder implements OnInit {
     return 'Khác';
   }
 
-  mapData(rentals: any[], customerMap: Map<string, any>): ProcessedRental[] {
-    return rentals.map(rental => {
+  // === CẬP NHẬT LỚN: "Bung" đơn hàng thành các hàng xe ===
+  mapData(rentals: any[], customerMap: Map<string, any>, productMap: Map<string, any>): ProcessedRental[] {
+    const processedList: ProcessedRental[] = [];
+
+    rentals.forEach(rental => {
       const customer = customerMap.get(rental.maKhachHang) || {};
       const status = rental.tinhTrangDon;
-      const paymentStatus = rental.thanhToan.tinhTrangThanhToan || 'Chờ thanh toán';
-      const diaDiem = rental.chiTietDonThue[0]?.diaDiemNhanXe || 'N/A';
+      const payment = rental.thanhToan || {};
+      const paymentStatus = payment.tinhTrangThanhToan || 'Chờ thanh toán';
+      const cocStatus = rental.trangThaiCoc || 'Không yêu cầu';
 
-      return {
-        maDonThue: rental.maDonThue,
-        khachHangTen: customer.hoTen || 'Khách vãng lai',
-        khachHangSdt: customer.soDienThoai || 'N/A',
-        thoiGianDatHang: rental.thoiGianDatHang,
-        tongChiPhi: rental.thanhToan.chiPhiSauGiam,
-        tinhTrangDon: status,
-        tinhTrangDonClass: this.getStatusClass(status),
-        paymentStatus: paymentStatus,
-        paymentStatusClass: this.getPaymentStatusClass(paymentStatus),
-        khuVuc: this.getKhuVuc(diaDiem),
-        rawRentalData: rental
-      };
+      // Lấy khu vực từ item đầu tiên (để lọc)
+      const firstItemKhuVuc = rental.chiTietDonThue[0] || {};
+      const khuVuc = this.getKhuVuc(firstItemKhuVuc.diaDiemNhanXe || 'N/A');
+
+      // Lặp qua từng XE trong đơn
+      rental.chiTietDonThue.forEach((item: any, index: number) => {
+        const product = productMap.get(item.idXe) || {};
+        const vehicleStatus = item.tinhTrangXe || 'N/A';
+
+        processedList.push({
+          // Dữ liệu Đơn hàng (sao chép)
+          maDonThue: rental.maDonThue,
+          khachHangTen: customer.hoTen || 'Khách vãng lai',
+          khachHangSdt: customer.soDienThoai || 'N/A',
+          thoiGianDatHang: rental.thoiGianDatHang,
+          tongChiPhi: payment.chiPhiSauGiam || 0,
+          tinhTrangDon: status,
+          tinhTrangDonClass: this.getStatusClass(status),
+          paymentStatus: paymentStatus,
+          paymentStatusClass: this.getPaymentStatusClass(paymentStatus),
+          khuVuc: khuVuc,
+          tienDatCoc: rental.tienDatCoc || 0,
+          trangThaiCoc: cocStatus,
+          cocStatusClass: this.getPaymentStatusClass(cocStatus), 
+          tongGiaTriGoc: payment.tongGiaTriGoc || 0,
+          maGiamGia: payment.maGiamGia || null,
+          tienGiam: payment.tienGiam || 0,
+          maThanhToan: payment.maThanhToan || null,
+          rawRentalData: rental,
+
+          // Dữ liệu Xe (duy nhất)
+          isFirstInOrder: index === 0, // <-- Cực kỳ quan trọng
+          idXe: item.idXe,
+          tenXe: product.vehicleName || 'Không rõ tên', // <-- THÊM MỚI
+          thoiGianNhanXe: item.thoiGianNhanXe || 'N/A',
+          thoiGianTraXe: item.thoiGianTraXe || 'N/A',
+          diaDiemNhanXe: item.diaDiemNhanXe || 'N/A',
+          tinhTrangXe: vehicleStatus, 
+          vehicleStatusClass: this.getStatusClass(vehicleStatus), 
+        });
+      });
     });
+
+    return processedList;
   }
 
+  // Cập nhật: Thêm case cho "TT Xe"
   getStatusClass(status: string): string {
     switch (status) {
       case 'Đã hoàn thành': return 'completed';
       case 'Đang thuê': return 'rented';
       case 'Đã xác nhận': return 'confirmed';
-      case 'Đã hủy': return 'cancelled';
+      case 'Đã huỷ': return 'cancelled';
+      // Các trạng thái khác
+      case 'Chờ giao': return 'confirmed'; 
+      case 'Đã trả': return 'completed';
+      case 'Sự cố': return 'cancelled';
       default: return '';
     }
   }
 
+  // Cập nhật: Thêm case cho "TT Cọc"
   getPaymentStatusClass(status: string): any {
     switch (status) {
       case 'Đã thanh toán': return 'paid';
       case 'Chờ thanh toán': return 'pending';
+      case 'Không yêu cầu': return 'no-required';
       default: 'pending';
     }
   }
 
 
   /**
-   * Hàm lọc (Cập nhật)
+   * Hàm lọc (Không đổi)
+   * Vẫn hoạt động tốt vì chúng ta lọc trên dữ liệu đã "bung"
    */
   applyFilter() {
     this.filteredRentals = this.rentals.filter(r => {
-      // ... (Phần code lọc giữ nguyên) ...
       const search = this.searchTerm.toLowerCase().trim();
       const matchesSearch = !search ||
         r.maDonThue.toLowerCase().includes(search) ||
         r.khachHangTen.toLowerCase().includes(search) ||
-        r.khachHangSdt.includes(search);
+        r.khachHangSdt.includes(search) ||
+        r.tenXe.toLowerCase().includes(search); // <-- Thêm tìm kiếm theo tên xe
       const matchesStatus = !this.statusFilter || r.tinhTrangDon === this.statusFilter;
       const matchesLocation = !this.locationFilter || r.khuVuc === this.locationFilter;
       let matchesDate = true;
@@ -158,17 +238,15 @@ export class AdminOrder implements OnInit {
         endDate.setHours(23, 59, 59, 999);
         matchesDate = matchesDate && orderDate <= endDate;
       }
-      // ... (Hết phần code lọc) ...
 
       return matchesSearch && matchesStatus && matchesLocation && matchesDate;
     });
 
-    // 🔽 THÊM MỚI: Sắp xếp sau khi lọc
     this.applySort();
   }
 
   /**
-   * Reset lọc (Cập nhật)
+   * Reset lọc (Không đổi)
    */
   resetFilters() {
     this.searchTerm = '';
@@ -176,10 +254,7 @@ export class AdminOrder implements OnInit {
     this.locationFilter = '';
     this.startDateFilter = '';
     this.endDateFilter = '';
-    
-    // 🔽 THÊM MỚI: Reset cả sắp xếp
     this.sortColumn = '';
-    
     this.applyFilter();
   }
 
@@ -189,7 +264,7 @@ export class AdminOrder implements OnInit {
   goToAddPage() {
     this.router.navigate(['/admin/order-add']);
   }
-  // 🔽 THÊM MỚI: Hàm được gọi khi click vào tiêu đề
+  
   onSort(columnKey: keyof ProcessedRental) {
     if (this.sortColumn === columnKey) {
       this.sortDirection = (this.sortDirection === 'asc') ? 'desc' : 'asc';
@@ -200,7 +275,7 @@ export class AdminOrder implements OnInit {
     this.applySort();
   }
 
-  // 🔽 THÊM MỚI: Hàm thực hiện sắp xếp
+  // Cập nhật: Thêm các cột số mới vào logic sắp xếp
   applySort() {
     if (this.sortColumn) {
       this.filteredRentals.sort((a, b) => {
@@ -209,12 +284,12 @@ export class AdminOrder implements OnInit {
         
         let comparison = 0;
 
-        // Xử lý riêng cho 'tongChiPhi' (vì là number)
-        if (this.sortColumn === 'tongChiPhi' && typeof valA === 'number' && typeof valB === 'number') {
+        // Xử lý riêng cho các cột SỐ
+        const numericColumns = ['tongChiPhi', 'tienDatCoc', 'tongGiaTriGoc', 'tienGiam'];
+        if (numericColumns.includes(this.sortColumn) && typeof valA === 'number' && typeof valB === 'number') {
           comparison = valA - valB;
         } 
-        // Xử lý cho tất cả các chuỗi khác (dùng Tiếng Việt)
-        // (Bao gồm cả ISO date string, so sánh chuỗi cũng đúng)
+        // Xử lý cho tất cả các chuỗi
         else if (typeof valA === 'string' && typeof valB === 'string') {
           comparison = valA.localeCompare(valB, 'vi', { sensitivity: 'base' });
         }
@@ -223,111 +298,77 @@ export class AdminOrder implements OnInit {
       });
     }
   }
-exportToCSV() {
-    // 1. Lấy dữ liệu (lấy từ dữ liệu gốc đã lọc)
-    const rentalsToExport = this.filteredRentals;
 
+  exportToCSV() {
+    // ... (Giữ nguyên hàm exportToCSV) ...
+    // ... (Logic này vẫn đúng vì nó lặp qua rawRentalData) ...
+    const rentalsToExport = this.filteredRentals;
     if (rentalsToExport.length === 0) {
       alert('Không có dữ liệu để xuất.');
       return;
     }
+    // Lọc ra các đơn hàng duy nhất để xuất
+    const uniqueOrders = new Map<string, ProcessedRental>();
+    rentalsToExport.forEach(r => {
+      uniqueOrders.set(r.maDonThue, r);
+    });
 
-    // 2. Định nghĩa tiêu đề cột (đã trải phẳng)
     const headers = [
-      // Thông tin đơn hàng
       'maDonThue', 'maKhachHang', 'thoiGianDatHang', 'tienDatCoc', 'trangThaiCoc', 'tinhTrangDon',
-      // Thông tin thanh toán
       'thanhToan_tongGiaTriGoc', 'thanhToan_maGiamGia', 'thanhToan_tienGiam', 
       'thanhToan_chiPhiSauGiam', 'thanhToan_tinhTrangThanhToan',
-      // Chi tiết xe thuê (sẽ lặp)
       'chiTiet_idXe', 'chiTiet_soLuong', 'chiTiet_donGia', 'chiTiet_soNgayThue',
       'chiTiet_tongGiaTri', 'chiTiet_thoiGianNhanXe', 'chiTiet_thoiGianTraXe',
       'chiTiet_diaDiemNhanXe', 'chiTiet_diaDiemTraXe', 'chiTiet_thoiGianTraXeThucTe',
       'chiTiet_tinhTrangXe'
     ];
-    
-    // 3. Chuẩn bị nội dung CSV
-    let csvContent = headers.join(',') + '\n'; // Dòng tiêu đề
-
-    // Hàm xử lý giá trị (để tránh lỗi nếu tên có dấu phẩy)
+    let csvContent = headers.join(',') + '\n';
     const escapeCSV = (val: any) => {
-      if (val === null || val === undefined) {
-        return ''; // Trả về chuỗi rỗng cho giá trị null/undefined
-      }
+      if (val === null || val === undefined) { return ''; }
       let str = String(val);
-      // Xử lý giá trị ngày tháng để dễ đọc hơn
       if (str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)) {
          str = new Date(str).toLocaleString('vi-VN');
       }
-      // Bọc trong dấu ngoặc kép nếu chứa dấu phẩy hoặc dấu xuống dòng
       if (str.includes(',') || str.includes('"') || str.includes('\n')) {
-        str = `"${str.replace(/"/g, '""')}"`; // Gấp đôi dấu ngoặc kép bên trong
+        str = `"${str.replace(/"/g, '""')}"`;
       }
       return str;
     };
-
-    // 4. Thêm các dòng dữ liệu (lặp qua từng xe trong đơn)
-    rentalsToExport.forEach(rental => {
-      const order = rental.rawRentalData; // Lấy dữ liệu JSON gốc
-      const payment = order.thanhToan || {}; // Lấy object thanhToan
-
-      // Lặp qua từng xe trong chiTietDonThue
+    uniqueOrders.forEach(rental => {
+      const order = rental.rawRentalData;
+      const payment = order.thanhToan || {};
       if (order.chiTietDonThue && order.chiTietDonThue.length > 0) {
         order.chiTietDonThue.forEach((item: any) => {
           const row = [
-            // Thông tin đơn hàng (lặp lại)
-            escapeCSV(order.maDonThue),
-            escapeCSV(order.maKhachHang),
-            escapeCSV(order.thoiGianDatHang),
-            escapeCSV(order.tienDatCoc),
-            escapeCSV(order.trangThaiCoc),
-            escapeCSV(order.tinhTrangDon),
-            // Thông tin thanh toán (lặp lại)
-            escapeCSV(payment.tongGiaTriGoc),
-            escapeCSV(payment.maGiamGia),
-            escapeCSV(payment.tienGiam),
-            escapeCSV(payment.chiPhiSauGiam),
-            escapeCSV(payment.tinhTrangThanhToan),
-            // Chi tiết xe (thay đổi)
-            escapeCSV(item.idXe),
-            escapeCSV(item.soLuong),
-            escapeCSV(item.donGia),
-            escapeCSV(item.soNgayThue),
-            escapeCSV(item.tongGiaTri),
-            escapeCSV(item.thoiGianNhanXe),
-            escapeCSV(item.thoiGianTraXe),
-            escapeCSV(item.diaDiemNhanXe),
-            escapeCSV(item.diaDiemTraXe),
-            escapeCSV(item.thoiGianTraXeThucTe),
-            escapeCSV(item.tinhTrangXe)
+            escapeCSV(order.maDonThue), escapeCSV(order.maKhachHang), escapeCSV(order.thoiGianDatHang),
+            escapeCSV(order.tienDatCoc), escapeCSV(order.trangThaiCoc), escapeCSV(order.tinhTrangDon),
+            escapeCSV(payment.tongGiaTriGoc), escapeCSV(payment.maGiamGia), escapeCSV(payment.tienGiam),
+            escapeCSV(payment.chiPhiSauGiam), escapeCSV(payment.tinhTrangThanhToan),
+            escapeCSV(item.idXe), escapeCSV(item.soLuong), escapeCSV(item.donGia),
+            escapeCSV(item.soNgayThue), escapeCSV(item.tongGiaTri), escapeCSV(item.thoiGianNhanXe),
+            escapeCSV(item.thoiGianTraXe), escapeCSV(item.diaDiemNhanXe), escapeCSV(item.diaDiemTraXe),
+            escapeCSV(item.thoiGianTraXeThucTe), escapeCSV(item.tinhTrangXe)
           ];
           csvContent += row.join(',') + '\n';
         });
       } else {
-        // Xử lý nếu đơn hàng không có chi tiết xe (hiếm gặp)
         const row = [
           escapeCSV(order.maDonThue), escapeCSV(order.maKhachHang), escapeCSV(order.thoiGianDatHang),
           escapeCSV(order.tienDatCoc), escapeCSV(order.trangThaiCoc), escapeCSV(order.tinhTrangDon),
           escapeCSV(payment.tongGiaTriGoc), escapeCSV(payment.maGiamGia), escapeCSV(payment.tienGiam),
           escapeCSV(payment.chiPhiSauGiam), escapeCSV(payment.tinhTrangThanhToan),
-          // Các cột chi tiết xe để trống
           '', '', '', '', '', '', '', '', '', '', '' 
         ];
         csvContent += row.join(',') + '\n';
       }
     });
-
-    // 5. Tạo và tải file (vẫn giữ BOM cho tiếng Việt)
-    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); // BOM cho UTF-8
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
-    
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-
     const date = new Date().toISOString().slice(0, 10);
     link.setAttribute('download', `danh-sach-don-thue-${date}.csv`);
-    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

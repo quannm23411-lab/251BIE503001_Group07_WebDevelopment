@@ -1,0 +1,156 @@
+<div class="account-bg"></div>
+<div class="account-breadcrumb">
+  <a routerLink="/">Trang chủ</a> /
+  <a routerLink="/account/orders">Lịch sử thuê xe</a> /
+  <b>Chi tiết đơn hàng</b>
+</div>
+
+<div class="account-layout">
+  
+  <div class="account-sidebar-wrap">
+    <div class="account-sidebar">
+      <div class="hello">Xin chào,</div>
+      <div class="name">{{ user.fullname }}</div>
+      <div class="menu">
+        <a routerLink="/account/profile">Thông tin tài khoản</a>
+        <a routerLink="/account/orders" class="active">Lịch sử thuê xe</a>
+        <a routerLink="/logout" class="logout">Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="account-main-card">
+    
+    <div class="account-main-head">
+      <div class="account-user-box">
+        <div class="account-avatar-wrap">
+          <img [src]="user.avatar" alt="Avatar" />
+        </div>
+        <div class="account-user-meta">
+          <h2>{{ user.fullname }}</h2>
+          <div class="account-tier-badge">
+            {{ user.tier || 'EcoBasic' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading()" class="loading-state">
+      Đang tải chi tiết đơn hàng...
+    </div>
+    <div *ngIf="!isLoading() && !order()" class="empty-state">
+      Không tìm thấy đơn hàng hoặc đã có lỗi xảy ra.
+    </div>
+
+    <div class="checkout-flow" *ngIf="!isLoading() && order() as ord">
+
+      <div class="order-detail-header">
+        <div>
+          <h2>CHI TIẾT ĐƠN HÀNG</h2>
+          <span class="order-id-detail">Mã: <strong>{{ ord.maDonThue }}</strong></span>
+        </div>
+        <span class="status" [ngClass]="getStatusClass(ord.tinhTrangDon)">
+          {{ mapStatus(ord.tinhTrangDon) }}
+        </span>
+      </div>
+
+      <section class="checkout-card customer-card">
+        <h2 class="summary-title">Thông tin người đặt</h2>
+        <div class="customer-form">
+          <div class="form-row">
+            <label>Họ và tên</label>
+            <div class="field-readonly">{{ ord.customer?.hoTen || 'Không rõ' }}</div>
+          </div>
+          <div class="form-row">
+            <label>Số điện thoại</label>
+            <div class="field-readonly">{{ ord.customer?.soDienThoai || 'Không rõ' }}</div>
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <div class="field-readonly">{{ ord.customer?.email || 'Không rõ' }}</div>
+          </div>
+          <div class="form-row">
+            <label>Số bằng lái</label>
+            <div class="field-readonly">{{ ord.customer?.thongTinBangLai?.soBangLai || 'Không rõ' }}</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="checkout-card product-card" *ngFor="let item of ord.processedItems">
+        <div class="product-main">
+          <div class="product-thumb">
+            <img [src]="item.image" [alt]="item.vehicleName" />
+          </div>
+          <div class="product-info">
+            <div class="product-header">
+              <h2 class="product-name">{{ item.vehicleName }}</h2>
+            </div>
+            <div class="product-dates">
+              <div>
+                <span class="label">Ngày nhận:</span>
+                <span class="value">{{ item.thoiGianNhanXe | date: 'HH:mm dd/MM/yyyy' }}</span>
+              </div>
+              <div>
+                <span class="label">Ngày trả:</span>
+                <span class="value">{{ item.thoiGianTraXe | date: 'HH:mm dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+            <div class="product-price">
+              <div class="price-line">
+                {{ item.donGia | number }}đ
+                × {{ item.soNgayThue || 1 }} ngày
+                × {{ item.soLuong || 1 }} xe
+              </div>
+              <div class="price-total">
+                {{ item.tongGiaTri | number }}đ
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-locations">
+          <div class="location-row">
+            <span class="label">Điểm nhận xe:</span>
+            <div class="field-readonly location-readonly">{{ item.diaDiemNhanXe }}</div>
+          </div>
+          <div class="location-row">
+            <span class="label">Điểm trả xe:</span>
+            <div class="field-readonly location-readonly">{{ item.diaDiemTraXe }}</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="checkout-card summary-card">
+        <h2 class="summary-title">Chi tiết thanh toán</h2>
+        <div class="summary-row">
+          <span>Tổng tiền thuê (gốc)</span>
+          <span>{{ ord.thanhToan.tongGiaTriGoc | number }}đ</span>
+        </div>
+        <div class="summary-row">
+          <span>Mã giảm giá</span>
+          <span>{{ ord.thanhToan.maGiamGia || 'Không áp dụng' }}</span>
+        </div>
+        <div class="summary-row summary-row--discount">
+          <span>Số tiền giảm</span>
+          <span>- {{ ord.thanhToan.tienGiam | number }}đ</span>
+        </div>
+        <hr class="divider" />
+        <div class="summary-row summary-row--total">
+          <span>Số tiền đã thanh toán</span>
+          <span class="summary-total">{{ ord.thanhToan.chiPhiSauGiam | number }}đ</span>
+        </div>
+        <div class="summary-row">
+          <span>Trạng thái thanh toán</span>
+          <span><strong>{{ ord.thanhToan.tinhTrangThanhToan }}</strong></span>
+        </div>
+      </section>
+
+      <div class="order-detail-actions">
+        <button class="btn-primary-ghost" (click)="backToOrders()">
+          Quay lại Lịch sử
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

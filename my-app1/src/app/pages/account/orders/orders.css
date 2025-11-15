@@ -2,7 +2,6 @@
 
 /* ============================
    ACCOUNT ORDERS – EXTRAS
-   (giữ layout chung từ profile.css)
 ============================ */
 
 /* Icon đồng hồ ở tiêu đề LỊCH SỬ THUÊ XE */
@@ -17,182 +16,207 @@
 }
 
 /* ============================
-   LAYOUT CARD ĐƠN HÀNG
-   Status 1 hàng riêng, nút 1 hàng riêng
+   LAYOUT CARD ĐƠN HÀNG MỚI
 ============================ */
 
-.account-order-card {
-  /* override flex trong profile.css nếu có */
-  display: grid;
-  grid-template-columns: 120px 1fr auto;
-  grid-template-rows: auto auto;
-  column-gap: 24px;
-  row-gap: 10px;
-  padding: 20px;
-  border-radius: 10px;
+.order-card-new {
   background: #ffffff;
-  border: 1px solid #eeeeee;
-  margin-bottom: 16px;
-  align-items: flex-start;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Để bo góc các phần con */
 }
 
-/* Ảnh bên trái, chiếm 2 hàng */
-.account-order-card > img {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 110px;
-  height: 110px;
+/* 1. Header Card */
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f9fafb; /* Nền xám rất nhạt */
+  border-bottom: 1px solid #e5e7eb;
+}
+.order-id {
+  font-size: 14px;
+  color: #555;
+}
+.order-id strong {
+  font-weight: 600;
+  color: #111;
+    font-family: 'Inter', sans-serif;
+}
+
+/* 2. Body Card (Danh sách xe) */
+.order-item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 170px; /* Hiển thị khoảng 3 xe */
+  overflow-y: auto;
+}
+.order-item-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  /* Thêm đường viền giữa các item */
+  border-bottom: 1px dashed #eee; 
+}
+.order-item-list li:last-child {
+  border-bottom: none;
+}
+.order-item-list img {
+  width: 65px;
+  height: 50px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid #eee;
+}
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+.item-info strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+}
+.item-info span {
+  font-size: 13px;
+  color: #666;
 }
 
-/* Thông tin đơn hàng ở giữa, 2 hàng */
-.account-order-meta {
-  grid-column: 2;
-  grid-row: 1 / span 2;
+/* 3. Footer Card */
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Xuống dòng trên di động */
+  gap: 15px;
+  padding: 12px 16px;
+  background: #fdfdfd;
+  border-top: 1px solid #e5e7eb;
+}
+.footer-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
-.account-order-meta h3 {
-  margin: 0 0 4px;
+.order-date {
+  font-size: 13px;
+  color: #777;
+}
+.order-total {
+  font-size: 14px;
+  color: #444;
+}
+.order-total strong {
   font-size: 16px;
-  font-weight: 600;
-  color: #1f2933;
+  font-weight: 700;
+  color: #c92a2a; /* Màu đỏ cho tổng tiền */
 }
-
-/* Trạng thái: luôn hàng trên, cột phải */
-.account-order-status {
-  grid-column: 3;
-  grid-row: 1;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: right;
-  white-space: nowrap;
-}
-
-/* Màu trạng thái (giữ logic cũ) */
-.account-order-status.is-renting {
-  color: #eb3c3c;
-}
-.account-order-status.is-finished {
-  color: #00a86b;
-}
-.account-order-status.is-upcoming {
-  color: #f59e0b;
-}
-
-/* Nút hành động: luôn hàng dưới, cột phải */
-.account-order-actions {
-  grid-column: 3;
-  grid-row: 2;
-
+.order-actions {
   display: flex;
-  flex-direction: row;
   gap: 10px;
-  justify-content: flex-end;
-  align-items: center;
 }
 
-/* Nút chung */
-.btn-outline-red,
-.btn-outline-gray {
-  padding: 6px 18px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  background: #fff;
-  cursor: pointer;
-  min-width: 110px;
-  text-align: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
+/* Trạng thái rỗng */
+.empty-state {
+  text-align: center; 
+  padding: 40px; 
+  color: #888;
+  font-size: 15px;
 }
 
-/* Nút đỏ */
+
+/* ============================
+   STYLE NÚT VÀ TRẠNG THÁI
+   (Tái sử dụng từ file cũ và admin)
+============================ */
+
+/* Nút Đỏ (Đánh giá, Thuê lại) */
 .btn-outline-red {
-  border: 1px solid #eb3c3c;
-  color: #eb3c3c;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #fff6d1;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 1px solid #eac224;
+  color: #e7b900;
 }
-
 .btn-outline-red:hover {
-  background: #eb3c3c;
-  color: #ffffff;
+  background: #ffefaf;
+  color: #e7b900;
 }
 
-/* Nút xám */
+/* Nút Xanh (Xem chi tiết) */
+.btn-primary-ghost {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #eaf3db; /* Nền xanh lá mạ */
+  color: #567C02; /* Chữ xanh đậm */
+  border: 1px solid #d8e9ba;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.btn-primary-ghost:hover {
+  background: #ddecc5;
+  border-color: #cadca0;
+}
+
+/* Nút Xám (Đã đánh giá) */
 .btn-outline-gray {
-  border: 1px solid #dadada;
-  color: #9e9e9e;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #dfdede;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 1px solid rgb(150, 148, 148);
+  color: #363636;
 }
 
 .btn-outline-gray:hover {
-  background: #efefef;
+  background: #cecdcd;
+  border-color: rgb(150, 148, 148);
 }
+/* Status Pills (Lấy từ admin) */
+.status { 
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px; 
+    font-weight: 500;
+    white-space: nowrap;
+}
+.status.rented { background: #ffe3a3; color: #995c00; }
+.status.completed { background: #e0e0e0; color: #555; }
+.status.confirmed { background: #d1eaff; color: #0056b3; }
+.status.cancelled { background: #ffd0d0; color: #a30000; }
 
 /* ======================
    RESPONSIVE
 ====================== */
 
-@media (max-width: 900px) {
-  .account-order-card {
-    grid-template-columns: 100px 1fr;
-    grid-template-rows: auto auto auto;
-  }
-
-  .account-order-card > img {
-    grid-row: 1 / span 3;
-  }
-
-  .account-order-meta {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-
-  .account-order-status {
-    grid-column: 2;
-    grid-row: 1;
-    text-align: left;
-  }
-
-  .account-order-actions {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-    justify-content: flex-start;
-    margin-top: 4px;
-  }
-}
-
 @media (max-width: 600px) {
-  .account-order-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    text-align: left;
+  .order-card-footer {
+    flex-direction: column;
+    align-items: stretch; /* Các nút sẽ giãn ra */
   }
-
-  .account-order-card > img {
-    grid-column: 1;
-    grid-row: 1;
+  .order-actions {
+    flex-direction: column;
+  }
+  .btn-outline-red, .btn-primary-ghost {
     width: 100%;
-    max-width: 260px;
-    height: auto;
-  }
-
-  .account-order-meta {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .account-order-status {
-    grid-column: 1;
-    grid-row: 2;
-    text-align: left;
-    margin-top: 4px;
-  }
-
-  .account-order-actions {
-    grid-column: 1;
-    grid-row: 3;
-    justify-content: flex-start;
   }
 }

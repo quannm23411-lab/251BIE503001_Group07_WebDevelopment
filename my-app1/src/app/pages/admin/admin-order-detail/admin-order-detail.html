@@ -21,6 +21,12 @@
                 </div>
             </div>
             <div class="actions">
+                <button (click)="exportReceipt()" type="button" class="btn-export-secondary">
+                    <i class="fas fa-file-invoice-dollar"></i> Xuất thanh toán
+                </button>
+                <button (click)="exportInvoice()" type="button" class="btn-export">
+                    <i class="fas fa-file-pdf"></i> Xuất đơn hàng
+                </button>
                 <button (click)="saveChanges()" class="btn-save">
                     <i class="fas fa-save"></i> Lưu thay đổi
                 </button>
@@ -50,7 +56,7 @@
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="tienDatCoc">Tiền đặt cọc</label>
-                            <input type="text" id="tienDatCoc" [value]="order.tienDatCoc" class="form-control" readonly>
+                            <input type="text" id="tienDatCoc" [value]="order.tienDatCoc | number" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                             <label for="trangThaiCoc">Trạng thái cọc</label>
@@ -59,81 +65,82 @@
                             </select>
                         </div>
                     </div>
-                    </section>
+                </section>
 
-<section class="card">
-    <h2>Xe đã thuê ({{ rentedItems.length }})</h2>
-    
-<div class="table-wrapper">
-    <table class="table-rented-items">
-        <thead>
-            <tr>
-                <th>Sản phẩm</th>
-                <th>Chi tiết thuê</th>
-                <th>Thông tin nhận xe</th> 
-                <th>Thông tin trả xe</th> 
-                <th>Trạng thái & Thực tế</th> 
-                <th>Tổng cộng</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of rentedItems">
-                <td>
-                    <div class="product-cell">
-                        <img [src]="item.image" alt="{{ item.vehicleName }}" class="product-cell-image">
-                        <div class="product-cell-info">
-                            <strong>{{ item.vehicleName }}</strong>
-                            <span>ID: {{ item.idXe }}</span>
-                            <a [routerLink]="['/admin/bike-detail', item.idXe]" class="link-to-detail product-detail-link">
-                                Xem chi tiết xe <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                </td>
-                
-                <td>
-                    <div class="info-cell">
-                        <span>Số lượng: {{ item.soLuong }}</span>
-                        <span>{{ item.donGia | number }}đ x {{ item.soNgayThue }} ngày</span>
-                    </div>
-                </td>
-                
-                <td>
-                    <div class="info-cell location-cell">
-                        <span>{{ item.diaDiemNhanXe }}</span>
-                        <span>({{ item.thoiGianNhanXe | date:'dd/MM HH:mm' }})</span>
-                    </div>
-                </td>
+                <section class="card">
+                    <h2>Xe đã thuê ({{ rentedItems.length }})</h2>
+                    
+                    <div class="table-wrapper">
+                        <table class="table-rented-items">
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Chi tiết thuê</th>
+                                    <th>Thông tin nhận xe</th> 
+                                    <th>Thông tin trả xe</th> 
+                                    <th>Trạng thái & Thực tế</th> 
+                                    <th>Tổng cộng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of rentedItems">
+                                    <td>
+                                        <div class="product-cell">
+                                            <img [src]="item.image" alt="{{ item.vehicleName }}" class="product-cell-image">
+                                            <div class="product-cell-info">
+                                                <strong>{{ item.vehicleName }}</strong>
+                                                <span>ID: {{ item.idXe }}</span>
+                                                <a [routerLink]="['/admin/bike-detail', item.idXe]" class="link-to-detail product-detail-link">
+                                                    Xem chi tiết xe <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="info-cell">
+                                            <span>Số lượng: {{ item.soLuong }}</span>
+                                            <span>{{ item.donGia | number }}đ x {{ item.soNgayThue }} ngày</span>
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="info-cell location-cell">
+                                            <span>{{ item.diaDiemNhanXe }}</span>
+                                            <span>({{ item.thoiGianNhanXe | date:'dd/MM HH:mm' }})</span>
+                                        </div>
+                                    </td>
 
-                <td>
-                    <div class="info-cell location-cell">
-                        <span>{{ item.diaDiemTraXe }}</span>
-                        <span>({{ item.thoiGianTraXe | date:'dd/MM HH:mm' }})</span>
-                    </div>
-                </td>
+                                    <td>
+                                        <div class="info-cell location-cell">
+                                            <span>{{ item.diaDiemTraXe }}</span>
+                                            <span>({{ item.thoiGianTraXe | date:'dd/MM HH:mm' }})</span>
+                                        </div>
+                                    </td>
 
-                <td>
-                    <div class="info-cell editable-cell">
-                        <label>Trạng thái xe:</label>
-                        <select [(ngModel)]="item.tinhTrangXe" class="form-control-table">
-                            <option *ngFor="let s of vehicleStatuses" [value]="s">{{ s }}</option>
-                        </select>
-                        
-                        <label>Thời gian trả thực tế:</label>
-                        <input type="text" [(ngModel)]="item.thoiGianTraXeThucTe" 
-                               placeholder="(Chưa trả)" class="form-control-table">
+                                    <td>
+                                        <div class="info-cell editable-cell">
+                                            <label>Trạng thái xe:</label>
+                                            <select [(ngModel)]="item.tinhTrangXe" class="form-control-table">
+                                                <option *ngFor="let s of vehicleStatuses" [value]="s">{{ s }}</option>
+                                            </select>
+                                            
+                                            <label>Thời gian trả thực tế:</label>
+                                            <input type="text" [(ngModel)]="item.thoiGianTraXeThucTe" 
+                                                placeholder="(Chưa trả)" class="form-control-table">
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        <strong class="total-price-cell">{{ item.tongGiaTri | number }}đ</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </td>
-                
-                <td>
-                    <strong class="total-price-cell">{{ item.tongGiaTri | number }}đ</strong>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</section>
+                </section>
             </div>
+
             <div class="detail-col-side">
                 <section class="card">
                     <h2>Thông tin khách hàng</h2>
@@ -160,7 +167,7 @@
                     <h2>Thông tin thanh toán</h2>
                     <div class="form-group">
                         <label for="tongGiaTriGoc">Tổng giá trị gốc</label>
-                        <input type="text" id="tongGiaTriGoc" [value]="order.thanhToan.tongGiaTriGoc" class="form-control" readonly>
+                        <input type="text" id="tongGiaTriGoc" [value]="order.thanhToan.tongGiaTriGoc | number" class="form-control" readonly>
                     </div>
                     <div class="form-grid-2">
                         <div class="form-group">
@@ -174,14 +181,19 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="maThanhToan">Mã thanh toán</label>
+                        <input type="text" id="maThanhToan" [(ngModel)]="order.thanhToan.maThanhToan" class="form-control" placeholder="(Chưa có)">
+                    </div>
+
+                    <div class="form-group">
                         <label for="donViTienTe">Đơn vị tiền tệ</label>
-                        <input type="text" id="donViTienTe" [(ngModel)]="order.thanhToan.donViTienTe" class="form-control">
+                        <input type="text" id="donViTienTe" [(ngModel)]="order.thanhToan.donViTienTe" class="form-control" readonly>
                     </div>
                     
                     <hr class="divider">
                     <div class="form-group total-price">
                         <label for="chiPhiSauGiam">Tổng thanh toán (Sau giảm)</label>
-                        <input type="text" [value]="order.thanhToan.chiPhiSauGiam" class="form-control" readonly>
+                        <input type="text" [value]="order.thanhToan.chiPhiSauGiam | number" class="form-control" readonly>
                     </div>
                 </section>
             </div>
@@ -199,7 +211,6 @@
             </div>
         </div>
     </div>
-
     <div class="popup-overlay" *ngIf="showSuccessPopup">
         <div class="popup-container">
             <h2>Thành công</h2>
