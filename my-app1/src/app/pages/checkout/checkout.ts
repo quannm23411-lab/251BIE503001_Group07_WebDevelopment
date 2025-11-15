@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
 import { LoginService } from '../../services/login/login.service';
+import { RentalDatesService } from '../../services/rental-dates.services';
 
 interface CheckoutForm {
     fullName: string;
@@ -35,6 +36,7 @@ export class Checkout {
     private cart = inject(CartService);
     private router = inject(Router);
     private loginService = inject(LoginService);
+    private rentalDates = inject(RentalDatesService);
 
     // form người đặt (chỉ đọc, trừ ghi chú)
     form: CheckoutForm = {
@@ -121,6 +123,9 @@ export class Checkout {
             }
         }
 
+        // sync global date từ các item đã chọn
+        this.syncGlobalDatesFromSelected();
+
         // TỰ FILL THÔNG TIN KHÁCH HÀNG TỪ eco_profile (qua LoginService)
         const profile = this.loginService.getProfile();
         if (profile) {
@@ -132,6 +137,31 @@ export class Checkout {
             if (!this.form.note && profile.address) {
                 this.form.note = `Địa chỉ khách: ${profile.address}`;
             }
+        }
+    }
+
+    private syncGlobalDatesFromSelected() {
+        const items = this.selectedItems();
+        if (!items.length) return;
+
+        let minStart: string | null = null;
+        let maxEnd: string | null = null;
+
+        for (const it of items) {
+            if (it.rentStart) {
+                if (!minStart || new Date(it.rentStart) < new Date(minStart)) {
+                    minStart = it.rentStart;
+                }
+            }
+            if (it.rentEnd) {
+                if (!maxEnd || new Date(it.rentEnd) > new Date(maxEnd)) {
+                    maxEnd = it.rentEnd;
+                }
+            }
+        }
+
+        if (minStart && maxEnd) {
+            this.rentalDates.setRange(minStart, maxEnd);
         }
     }
 
@@ -151,11 +181,6 @@ export class Checkout {
         this.orderCode.set(code);
         this.createdAt.set(new Date());
 
-        // const customerInfo = { ...this.form };
-        // const receiverInfo = this.receiverSameAsCustomer
-        //   ? customerInfo
-        //   : this.receiver;
-
         this.cart.clear();
         this.selectedItems.set([]);
 
@@ -168,6 +193,16 @@ export class Checkout {
     }
 
     backToRent() {
-        this.router.navigate(['/rent']);
+        const range = this.rentalDates.range();
+        const start = range.start;
+        const end = range.end;
+
+        if (start && end) {
+            this.router.navigate(['/rent'], {
+                queryParams: { start, end },
+            });
+        } else {
+            this.router.navigate(['/rent']);
+        }
     }
 }

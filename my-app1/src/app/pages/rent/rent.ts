@@ -5,6 +5,7 @@ import {
     ProductLoadingService,
     ProductVM,
 } from '../../services/product-loading.services';
+import { RentalDatesService } from '../../services/rental-dates.services';
 
 type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
 type RentMode = 'day' | 'week' | 'month';
@@ -29,48 +30,6 @@ const TYPE_MAP: Record<string, string[]> = {
 })
 export class RentPage {
     public productService!: ProductLoadingService;
-
-    constructor(
-        private svc: ProductLoadingService,
-        private route: ActivatedRoute,
-        private router: Router,
-    ) {
-        // nạp data (SSR-friendly, cache từ TransferState)
-        this.svc.getAll().subscribe((list) => this.all.set(list || []));
-
-        // set mặc định ngày thuê / trả
-        const start = this.todayStr;
-        this.startDate.set(start);
-        this.endDate.set(this.calcMinEndDate(this.rentMode(), start));
-
-        // đọc query param: ?q=..., ?page=..., ?type=...
-        this.route.queryParamMap.subscribe((p) => {
-            // keyword
-            const q = (p.get('q') || '').trim();
-            if (q !== this.q()) {
-                this.q.set(q);
-                this.page.set(1);
-            }
-
-            // phân trang
-            const pg = +(p.get('page') || '1');
-            if (pg > 0) this.page.set(pg);
-
-            // loại xe từ dropdown header (?type=xe-may-dien | xe-dap-dien | xe-dap-dien-gap-gon)
-            const typeParam = p.get('type');
-            if (typeParam && this.QUERY_TYPE_MAP[typeParam]) {
-                const label = this.QUERY_TYPE_MAP[typeParam];
-                const set = new Set<string>();
-                set.add(label);               // chỉ chọn đúng loại đó
-                this.selectedTypes.set(set);  // update signal
-                this.page.set(1);
-            }
-            // nếu không có type thì giữ selectedTypes hiện tại
-        });
-        this.productService = this.svc;
-
-    }
-
 
     /** Danh sách toàn bộ sản phẩm (ProductVM đã normalize) */
     all = signal<ProductVM[]>([]);
@@ -105,6 +64,72 @@ export class RentPage {
     showPriceMenu = signal(false);
     showRentModeMenu = signal(false);
     cityNotice = signal<string>('');
+
+    constructor(
+        private svc: ProductLoadingService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private rentalDates: RentalDatesService
+    ) {
+        // nạp data (SSR-friendly, cache từ TransferState)
+        this.svc.getAll().subscribe((list) => this.all.set(list || []));
+
+        // set mặc định ngày thuê / trả theo global date (nếu có)
+        const saved = this.rentalDates.range();
+        const savedStart = saved.start;
+        const baseStart = savedStart || this.todayStr;
+        this.startDate.set(baseStart);
+        this.endDate.set(this.calcMinEndDate(this.rentMode(), baseStart));
+
+        // đọc query param: ?q=..., ?page=..., ?type=..., ?start=..., ?end=...
+        this.route.queryParamMap.subscribe((p) => {
+            // keyword
+            const q = (p.get('q') || '').trim();
+            if (q !== this.q()) {
+                this.q.set(q);
+                this.page.set(1);
+            }
+
+            // phân trang
+            const pg = +(p.get('page') || '1');
+            if (pg > 0) this.page.set(pg);
+
+            // loại xe từ dropdown header (?type=xe-may-dien | xe-dap-dien | xe-dap-dien-gap-gon)
+            const typeParam = p.get('type');
+            if (typeParam && this.QUERY_TYPE_MAP[typeParam]) {
+                const label = this.QUERY_TYPE_MAP[typeParam];
+                const set = new Set<string>();
+                set.add(label);               // chỉ chọn đúng loại đó
+                this.selectedTypes.set(set);  // update signal
+                this.page.set(1);
+            }
+
+            // ngày start/end nếu có trong query
+            const startParam = p.get('start');
+            const endParam = p.get('end');
+
+            if (startParam) {
+                const d = this.parseDate(startParam);
+                if (d) {
+                    const s = this.toInputDate(d);
+                    this.startDate.set(s);
+                }
+            }
+
+            if (endParam) {
+                const d = this.parseDate(endParam);
+                if (d) {
+                    const e = this.toInputDate(d);
+                    this.endDate.set(e);
+                }
+            }
+
+            // sau khi set start/end từ query, sync lại về service
+            this.rentalDates.setRange(this.startDate(), this.endDate());
+        });
+
+        this.productService = this.svc;
+    }
 
     priceSortLabel = computed(() => {
         switch (this.sortKey()) {
@@ -289,6 +314,9 @@ export class RentPage {
             this.endDate() ||
             this.calcMinEndDate(this.rentMode(), start);
 
+        // sync lại global date luôn
+        this.rentalDates.setRange(start, end);
+
         this.router.navigate(['/rent', p.id], {
             queryParams: { start, end },
         });
@@ -308,7 +336,11 @@ export class RentPage {
             this.parseDate(start) || new Date(this.todayStr),
         );
         this.startDate.set(normalizedStart);
-        this.endDate.set(this.calcMinEndDate(mode, normalizedStart));
+        const newEnd = this.calcMinEndDate(mode, normalizedStart);
+        this.endDate.set(newEnd);
+
+        // update global
+        this.rentalDates.setRange(normalizedStart, newEnd);
 
         this.showRentModeMenu.set(false);
     }
@@ -332,6 +364,8 @@ export class RentPage {
         if (!curEnd || curEnd <= d || curEnd < minEndDate) {
             this.endDate.set(minEnd);
         }
+
+        this.rentalDates.setRange(this.startDate(), this.endDate());
     }
 
     onEndDateChange(raw: string) {
@@ -349,7 +383,9 @@ export class RentPage {
             end = minEnd;
         }
 
-        this.endDate.set(this.toInputDate(end));
+        const endStr = this.toInputDate(end);
+        this.endDate.set(endStr);
+        this.rentalDates.setRange(startStr, endStr);
     }
 
     onCityChange(_: string) {

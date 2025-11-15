@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
 import { Auth } from '../../services/auth/auth';
+import { RentalDatesService } from '../../services/rental-dates.services';
 
 @Component({
     selector: 'app-cart-page',
@@ -15,6 +16,7 @@ export class CartPage {
     private cart = inject(CartService);
     private router = inject(Router);
     private auth = inject(Auth);
+    private rentalDates = inject(RentalDatesService);
 
     // Signals từ CartService
     readonly items = this.cart.items;
@@ -47,9 +49,19 @@ export class CartPage {
         if (state.autoSelectId) {
             this.selectedIds.set(new Set([String(state.autoSelectId)]));
         }
+
+        // khi vào giỏ, nếu có item thì sync global date theo item đầu tiên
+        const current = this.items();
+        if (current.length > 0) {
+            const first = current[0];
+            if (first.rentStart && first.rentEnd) {
+                this.rentalDates.setFromCartItem(first);
+            }
+        }
     }
 
     // ========== DATE LABEL ==========
+
     getRentalDateLabel(item: CartItem): string {
         if (!item.rentStart || !item.rentEnd) return '';
 
@@ -71,7 +83,44 @@ export class CartPage {
         return `Ngày nhận: ${startStr} • Ngày trả: ${endStr}`;
     }
 
+    /**
+     * Handler để sau này input date trong HTML gọi vào.
+     * kind = 'start' | 'end'
+     */
+    onChangeItemDate(item: CartItem, kind: 'start' | 'end', raw: string) {
+        const value = raw?.trim();
+        if (!value) return;
+
+        const start = kind === 'start' ? value : item.rentStart;
+        const end = kind === 'end' ? value : item.rentEnd;
+
+        if (!start || !end) return;
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            return;
+        }
+
+        if (endDate <= startDate) {
+            if (typeof window !== 'undefined') {
+                alert('Ngày trả phải sau ngày nhận.');
+            }
+            return;
+        }
+
+        // gọi CartService cập nhật lại ngày + subtotal
+        // (trong cart.services.ts mày sẽ thêm hàm updateItemDates)
+        const updated = this.cart.updateItemDates(item.id, start, end);
+
+        if (updated) {
+            // sync date global để các trang khác (rent/detail/checkout) đọc
+            this.rentalDates.setFromCartItem(updated);
+        }
+    }
+
     // ========== CART ACTIONS ==========
+
     trackById(index: number, item: CartItem) {
         return item.id;
     }
@@ -151,6 +200,7 @@ export class CartPage {
     }
 
     // ========== TOTALS THEO ITEM ĐƯỢC CHỌN ==========
+
     readonly selectedTotalAmount = computed(() => {
         const ids = this.selectedIds();
         const list = this.items();

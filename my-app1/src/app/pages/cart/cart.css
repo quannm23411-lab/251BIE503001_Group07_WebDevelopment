@@ -295,25 +295,22 @@
     cursor: pointer;
 }
 
-/* Clear all wrapper */
-
-.cart-clear-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 4px;
-}
+/* Clear all */
 
 .cart-clear {
-    padding: 6px 16px;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 16px;
     border-radius: 999px;
     border: none;
     background: #232323;
     color: #f9fafb;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     opacity: 0.9;
     transition: opacity 0.15s ease, transform 0.1s ease;
+    text-align: center;
 }
 
 .cart-clear:hover {

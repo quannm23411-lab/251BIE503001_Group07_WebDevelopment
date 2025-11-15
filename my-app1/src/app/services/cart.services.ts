@@ -166,6 +166,63 @@ export class CartService {
         });
     }
 
+    /**
+     * Dùng khi user chỉnh lại ngày thuê trong giỏ hàng.
+     * - Cập nhật rentStart / rentEnd / totalDays / subtotal
+     * - Cập nhật lại id = productId_start_end
+     * - Nếu trùng với 1 item khác cùng product + cùng ngày thì gộp quantity
+     */
+    updateItemDates(id: string, rentStart: string, rentEnd: string): CartItem | null {
+        let updated: CartItem | null = null;
+
+        this._items.update(items => {
+            const index = items.findIndex(i => i.id === id);
+            if (index === -1) return items;
+
+            const item = items[index];
+
+            const totalDays = this.calculateDays(rentStart, rentEnd);
+            const newId = `${item.productId}_${rentStart || 'none'}_${rentEnd || 'none'}`;
+            const subtotal = item.finalPricePerDay * totalDays * item.quantity;
+
+            const updatedItem: CartItem = {
+                ...item,
+                id: newId,
+                rentStart,
+                rentEnd,
+                totalDays,
+                subtotal
+            };
+
+            // nếu có item khác trùng newId thì gộp lại
+            const mergeIndex = items.findIndex((i, idx) => idx !== index && i.id === newId);
+
+            if (mergeIndex !== -1) {
+                const target = items[mergeIndex];
+                const mergedQuantity = target.quantity + updatedItem.quantity;
+                const mergedSubtotal = updatedItem.finalPricePerDay * updatedItem.totalDays * mergedQuantity;
+
+                const next = items.slice();
+                next[mergeIndex] = {
+                    ...target,
+                    quantity: mergedQuantity,
+                    subtotal: mergedSubtotal
+                };
+                // xóa item cũ
+                next.splice(index, 1);
+                updated = next[mergeIndex];
+                return next;
+            } else {
+                const next = items.slice();
+                next[index] = updatedItem;
+                updated = updatedItem;
+                return next;
+            }
+        });
+
+        return updated;
+    }
+
     private calculateDays(start?: string, end?: string): number {
         if (!start || !end) return 1;
         const s = new Date(start);
