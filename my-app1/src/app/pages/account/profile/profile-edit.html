@@ -1,3 +1,34 @@
+<div class="success-toast" *ngIf="showSuccessToast()">
+  <i class="bi bi-check-circle-fill"></i>
+  {{ showSuccessToast() }}
+</div>
+
+<div class="error-toast" *ngIf="showErrorToast()">
+  <i class="bi bi-exclamation-triangle-fill"></i>
+  {{ showErrorToast() }}
+</div>
+
+<div class="popup-overlay" *ngIf="showConfirmationPopup()">
+  <div class="popup-box">
+    <h4>Xác nhận thay đổi</h4>
+    <p>Bạn có chắc chắn muốn lưu các thông tin đã thay đổi không?</p>
+    <div class="popup-actions">
+      <button class="btn-popup-cancel" (click)="cancelSave()">Hủy</button>
+      <button class="btn-popup-confirm" (click)="confirmSaveInfo()">Đồng ý</button>
+    </div>
+  </div>
+</div>
+
+<div class="popup-overlay" *ngIf="showPasswordConfirmPopup()">
+  <div class="popup-box">
+    <h4>Xác nhận đổi mật khẩu</h4>
+    <p>Bạn có chắc chắn muốn lưu mật khẩu mới này không?</p>
+    <div class="popup-actions">
+      <button class="btn-popup-cancel" (click)="cancelSavePassword()">Hủy</button>
+      <button class="btn-popup-confirm" (click)="confirmSavePassword()">Lưu mật khẩu</button>
+    </div>
+  </div>
+</div>
 <div class="account-bg"></div>
 
 <div class="account-breadcrumb">
@@ -7,14 +38,12 @@
 </div>
 
 <div class="account-layout">
-  <!-- Sidebar -->
   <div class="account-sidebar-wrap">
     <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
       <div class="name">
-        {{ form.value.fullname || 'Khách EcoMove' }}
+        {{ infoForm.value.fullname || 'Khách EcoMove' }}
       </div>
-
       <div class="menu">
         <a routerLink="/account/profile" class="active">
           Thông tin tài khoản
@@ -29,96 +58,147 @@
     </div>
   </div>
 
-  <!-- Card trắng -->
   <div class="account-main-card">
-    <div class="account-main-head">
-      <div class="account-user-box">
-        <div class="account-avatar-wrap">
-          <img
-            [src]="form.value.avatar || '/assets/images/avatars/default.png'"
-            alt="Avatar"
-          />
+    <div *ngIf="isLoading()">Đang tải thông tin...</div>
+    
+    <ng-container *ngIf="!isLoading()">
+      
+      <form class="account-form" [formGroup]="infoForm" (ngSubmit)="onSubmitInfo()">
+        <div class="account-main-head">
+          <div class="account-user-box">
+            <div class="account-avatar-wrap">
+              <img [src]="infoForm.value.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
+            </div>
+            <div class="account-user-meta">
+              <h2>{{ infoForm.value.fullname || 'Khách EcoMove' }}</h2>
+              <div class="account-tier-badge">
+                {{ infoForm.value.tier || 'EcoBasic' }}
+              </div>
+            </div>
+          </div>
+          <button class="btn-green" type="submit" [disabled]="infoForm.invalid || infoForm.pristine">
+            <i class="bi bi-save-fill"></i>
+            LƯU THÔNG TIN
+          </button>
         </div>
 
-        <div class="account-user-meta">
-          <h2>{{ form.value.fullname || 'Khách EcoMove' }}</h2>
-          <div class="account-tier-badge">
-            {{ tier || 'EcoBasic' }}
+        <div class="account-form-row">
+          <label>Ảnh đại diện:</label>
+          <div class="account-avatar-edit">
+            <img [src]="infoForm.value.avatar || '/assets/images/avatars/default.png'" alt="Avatar" />
+            <input type="file" #file accept="image/*" hidden (change)="onPickAvatar(file)" />
+            <button type="button" class="btn-outline" (click)="file.click()">
+              Chỉnh sửa ảnh
+            </button>
           </div>
         </div>
-      </div>
 
-      <button class="btn-green" type="button" (click)="save()">
-        <i class="bi bi-save-fill"></i>
-        LƯU
-      </button>
-    </div>
+        <div class="account-form-row">
+          <label>Họ và tên:</label>
+          <input type="text" formControlName="fullname" [class.is-invalid]="f_info['fullname'].invalid && f_info['fullname'].touched" />
+          <div *ngIf="f_info['fullname'].invalid && f_info['fullname'].touched" class="form-error-message">
+            Vui lòng nhập họ và tên.
+          </div>
+        </div>
 
-    <form class="account-form" [formGroup]="form" (ngSubmit)="save()">
-      <div class="account-form-row">
-        <label>Ảnh đại diện:</label>
-        <div class="account-avatar-edit">
-          <img
-            [src]="form.value.avatar || '/assets/images/avatars/default.png'"
-            alt="Avatar"
-          />
-          <input
-            type="file"
-            #file
-            accept="image/*"
-            hidden
-            (change)="onPickAvatar(file)"
-          />
-          <button
-            type="button"
-            class="btn-outline"
-            (click)="file.click()"
-          >
-            Chỉnh sửa ảnh
+        <div class="account-form-row">
+          <label>Email:</label>
+          <input type="email" formControlName="email" [class.is-invalid]="f_info['email'].invalid && f_info['email'].touched" />
+          <div *ngIf="f_info['email'].invalid && f_info['email'].touched" class="form-error-message">
+            <span *ngIf="f_info['email'].errors?.['required']">Vui lòng nhập email.</span>
+            <span *ngIf="f_info['email'].errors?.['email']">Email không đúng định dạng.</span>
+          </div>
+        </div>
+
+        <div class="account-form-row">
+          <label>Điện thoại:</label>
+          <input type="text" formControlName="phone" placeholder="VD: 0901234567"/>
+        </div>
+        <div class="account-form-row">
+          <label>Ngày sinh:</label>
+          <input type="date" class="date-input" formControlName="dob" />
+        </div>
+
+        <div formGroupName="address">
+          <div class="account-form-row">
+            <label>Địa chỉ:</label>
+            <input type="text" formControlName="soNhaDuong" placeholder="Số nhà, tên đường..."/>
+          </div>
+          <div class="account-form-row">
+            <label>Quận/Huyện:</label>
+            <input type="text" formControlName="quanHuyen" placeholder="VD: Quận 1"/>
+          </div>
+          <div class="account-form-row">
+            <label>Tỉnh/Thành:</label>
+            <input type="text" formControlName="tinhThanh" placeholder="VD: TP. Hồ Chí Minh"/>
+          </div>
+        </div>
+
+        <div formGroupName="driverLicense">
+          <div class="account-form-row">
+            <label>Số bằng lái:</label>
+            <input type="text" formControlName="soBangLai" placeholder="VD: A12345678"/>
+          </div>
+        </div>
+      </form>
+      
+      <h3 class="form-section-divider">Đổi mật khẩu</h3>
+      <form class="account-form" [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
+        
+        <div class="account-form-row form-field-col">
+          <label>Mật khẩu cũ:</label>
+          <div class="account-pwd-wrap">
+            <input [type]="showOldPwd() ? 'text' : 'password'" formControlName="oldPassword" [class.is-invalid]="f_pass['oldPassword'].invalid && f_pass['oldPassword'].touched" />
+            <button type="button" class="account-pwd-toggle" (click)="toggleOldPwd()">
+              <i class="bi" [ngClass]="showOldPwd() ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </button>
+          </div>
+          <div *ngIf="f_pass['oldPassword'].invalid && f_pass['oldPassword'].touched" class="form-error-message">
+            Vui lòng nhập mật khẩu cũ.
+          </div>
+          <div *ngIf="f_pass['oldPassword'].errors?.['incorrect']" class="form-error-message">
+            Mật khẩu cũ không chính xác.
+          </div>
+        </div>
+        <div class="account-form-row form-field-col">
+          <label>Mật khẩu mới:</label>
+          <div class="account-pwd-wrap">
+            <input [type]="showNewPwd() ? 'text' : 'password'" formControlName="newPassword" [class.is-invalid]="f_pass['newPassword'].invalid && f_pass['newPassword'].touched" />
+            <button type="button" class="account-pwd-toggle" (click)="toggleNewPwd()">
+              <i class="bi" [ngClass]="showNewPwd() ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </button>
+          </div>
+          <div *ngIf="f_pass['newPassword'].invalid && f_pass['newPassword'].touched" class="form-error-message">
+            <span *ngIf="f_pass['newPassword'].errors?.['required']">Vui lòng nhập mật khẩu mới.</span>
+            <span *ngIf="f_pass['newPassword'].errors?.['minlength']">Mật khẩu mới phải có ít nhất 8 ký tự.</span>
+            <span *ngIf="f_pass['newPassword'].errors?.['pattern']">
+              Mật khẩu không đủ mạnh (cần chữ hoa, thường, số, và ký tự đặc biệt).
+            </span>
+          </div>
+          </div>
+
+        <div class="account-form-row form-field-col">
+          <label>Xác nhận mật khẩu mới:</label>
+          <input type="password" formControlName="confirmPassword" [class.is-invalid]="f_pass['confirmPassword'].invalid && f_pass['confirmPassword'].touched" />
+          <div *ngIf="passwordForm.errors?.['mismatch'] && f_pass['confirmPassword'].touched" class="form-error-message">
+            Mật khẩu xác nhận không khớp.
+          </div>
+        </div>
+
+        <div class="account-form-actions">
+          <button type="submit" class="btn-green" [disabled]="passwordForm.invalid || passwordForm.pristine">
+            <i class="bi bi-key-fill"></i>
+            ĐỔI MẬT KHẨU
           </button>
         </div>
-      </div>
+      </form>
 
-      <div class="account-form-row">
-        <label>Họ và tên:</label>
-        <input type="text" formControlName="fullname" />
-      </div>
-
-      <div class="account-form-row">
-        <label>Email:</label>
-        <input type="email" formControlName="email" />
-      </div>
-
-      <div class="account-form-row">
-        <label>Mật khẩu:</label>
-        <div class="account-pwd-wrap">
-          <input
-            [type]="showPwd() ? 'text' : 'password'"
-            formControlName="password"
-          />
-          <button
-            type="button"
-            class="account-pwd-toggle"
-            (click)="togglePwd()"
-            aria-label="Toggle password"
-          >
-            <i
-              class="bi"
-              [ngClass]="showPwd() ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
-            ></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="account-form-actions">
-        <button
-          type="button"
-          class="btn-outline-gray"
-          (click)="cancel()"
-        >
-          Hủy
+      <div class="account-form-actions cancel-action mt-2">
+        <button type="button" class="btn-outline-gray" (click)="cancelEdit()">
+          Quay lại
         </button>
       </div>
-    </form>
+      
+    </ng-container>
   </div>
 </div>

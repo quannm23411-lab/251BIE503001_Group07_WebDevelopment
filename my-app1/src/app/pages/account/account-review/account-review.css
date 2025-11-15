@@ -1,7 +1,6 @@
 /* File: account-review.css */
 
 /* ... (Toàn bộ nội dung file cũ giữ nguyên) ... */
-@import '../profile/profile.css';
 @import '../../checkout/checkout.css';
 
 /* ... (Các style cũ: .review-header, .review-item-card, ... .upload-btn-visual) ... */

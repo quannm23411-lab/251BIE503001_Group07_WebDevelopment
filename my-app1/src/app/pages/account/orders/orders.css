@@ -3,7 +3,6 @@
 /* ============================
    ACCOUNT ORDERS – EXTRAS
 ============================ */
-
 /* Icon đồng hồ ở tiêu đề LỊCH SỬ THUÊ XE */
 .account-orders-head-title i {
   font-size: 18px;
@@ -46,7 +45,57 @@
   color: #111;
     font-family: 'Inter', sans-serif;
 }
+.account-search {
+  display: flex;
+  align-items: center;
+  border-radius: 8px; /* Bo góc mềm 8px */
+  border: 1px solid #d1d5db; /* Viền xám nhạt */
+  background: #f9fafb; /* Nền xám siêu nhạt */
+  overflow: hidden; /* Giữ bo góc cho nút */
+  transition: all 0.2s ease;
+  min-width: 150px; /* Đặt chiều rộng tối thiểu */
+}
 
+.account-search input {
+  flex: 1; /* Input chiếm đầy không gian */
+  border: none;
+  background: transparent;
+  padding: 9px 12px; /* Padding giống profile input */
+  font-size: 14px;
+  color: #111827;
+}
+
+.account-search input:focus {
+  outline: none;
+}
+
+/* Hiệu ứng 'focus-within' (giống profile.css) */
+.account-search:focus-within {
+  border-color: #72d4a5;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(114, 212, 165, 0.3);
+}
+
+.account-search button {
+  border: none;
+  background: transparent;
+  color: #6b7280; /* Màu icon xám */
+  padding: 0 10px; /* Padding cho nút */
+  cursor: pointer;
+  display: flex; /* Căn icon */
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.account-search button:hover {
+  color: #2B3B41; /* Đổi màu khi hover */
+}
+
+.account-search input::placeholder {
+  color: #9ca3af;
+}
 /* 2. Body Card (Danh sách xe) */
 .order-item-list {
   list-style: none;

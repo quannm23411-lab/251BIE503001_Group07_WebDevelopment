@@ -1,3 +1,27 @@
+<div class="popup-overlay" *ngIf="showPasswordConfirm()">
+  <div class="popup-box password-popup"> 
+    <h4>Xác nhận quyền truy cập</h4>
+    <p>Vui lòng nhập mật khẩu hiện tại của bạn để tiếp tục chỉnh sửa.</p>
+    
+    <div class="popup-form-group">
+      <label>Mật khẩu:</label>
+      <input 
+        class="popup-password-input"
+        type="password" 
+        [(ngModel)]="confirmPasswordInput"
+        (keydown.enter)="confirmPasswordAndEdit()"
+        [class.is-invalid]="passwordConfirmError()" />
+      <div class="popup-error-message" *ngIf="passwordConfirmError()">
+        {{ passwordConfirmError() }}
+      </div>
+    </div>
+
+    <div class="popup-actions">
+      <button class="btn-popup-cancel" (click)="cancelEditPopup()">Hủy</button>
+      <button class="btn-popup-confirm" (click)="confirmPasswordAndEdit()">Xác nhận</button>
+    </div>
+  </div>
+</div>
 <div class="account-bg"></div>
 
 <div class="account-breadcrumb">
@@ -7,17 +31,13 @@
 </div>
 
 <div class="account-layout">
-  <!-- Sidebar -->
   <div class="account-sidebar-wrap">
     <div class="account-sidebar">
       <div class="hello">Xin chào,</div>
       <div class="name">{{ user.fullname }}</div>
 
       <div class="menu">
-        <a
-          routerLink="/account/profile"
-          class="active"
-        >
+        <a routerLink="/account/profile" class="active">
           Thông tin tài khoản
         </a>
         <a routerLink="/account/orders">
@@ -30,79 +50,74 @@
     </div>
   </div>
 
-  <!-- Card trắng -->
   <div class="account-main-card">
-    <div class="account-main-head">
-      <div class="account-user-box">
-        <div class="account-avatar-wrap">
-          <img [src]="user.avatar" alt="Avatar" />
+    <div *ngIf="isLoading()">Đang tải thông tin...</div>
+
+    <ng-container *ngIf="!isLoading()">
+      <div class="account-main-head">
+        <div class="account-user-box">
+          <div class="account-avatar-wrap">
+            <img [src]="user.avatar" alt="Avatar" />
+          </div>
+
+          <div class="account-user-meta">
+            <h2>{{ user.fullname }}</h2>
+            <div class="account-tier-badge">
+              {{ user.tier || 'EcoBasic' }}
+            </div>
+          </div>
         </div>
 
-        <div class="account-user-meta">
-          <h2>{{ user.fullname }}</h2>
-          <div class="account-tier-badge">
-            {{ user.tier || 'EcoBasic' }}
+        <button class="btn-outline-dark" type="button" (click)="openEditPopup()">
+          <i class="bi bi-pencil-square"></i>
+          CHỈNH SỬA
+        </button>
+      </div>
+
+      <div class="account-info">
+        <div class="account-info-row">
+          <div class="account-info-row-label">Họ và tên:</div>
+          <div class="account-info-row-value">{{ user.fullname }}</div>
+        </div>
+
+        <div class="account-info-row">
+          <div class="account-info-row-label">Email:</div>
+          <div class="account-info-row-value">{{ user.email }}</div>
+        </div>
+
+        <div class="account-info-row">
+          <div class="account-info-row-label">Điện thoại:</div>
+          <div class="account-info-row-value">{{ user.phone || '(Chưa cập nhật)' }}</div>
+        </div>
+
+        <div class="account-info-row">
+          <div class="account-info-row-label">Ngày sinh:</div>
+          <div class="account-info-row-value">{{ user.dob ? (user.dob | date: 'dd/MM/yyyy') : '(Chưa cập nhật)' }}</div>
+        </div>
+
+        <div class="account-info-row">
+          <div class="account-info-row-label">Địa chỉ:</div>
+          <div class="account-info-row-value">
+            {{ user.address?.soNhaDuong || '(Chưa cập nhật)' }}
+            {{ user.address?.quanHuyen ? ', ' + user.address?.quanHuyen : '' }}
+            {{ user.address?.tinhThanh ? ', ' + user.address?.tinhThanh : '' }}
+          </div>
+        </div>
+
+        <div class="account-info-row">
+          <div class="account-info-row-label">Bằng lái:</div>
+          <div class="account-info-row-value">{{ user.driverLicense?.soBangLai || '(Chưa cập nhật)' }}</div>
+        </div>
+        
+        <div class="account-info-row">
+          <div class="account-info-row-label">Cấp bậc:</div>
+          <div class="account-info-row-value">
+            <span class="account-tier-badge mt-0">
+              {{ user.tier || 'EcoBasic' }}
+            </span>
           </div>
         </div>
       </div>
-
-      <button class="btn-outline-dark" type="button" (click)="edit()">
-        <i class="bi bi-pencil-square"></i>
-        CHỈNH SỬA
-      </button>
-    </div>
-
-    <div class="account-info">
-      <div class="account-info-row">
-        <div class="account-info-row-label">Họ và tên:</div>
-        <div class="account-info-row-value">{{ user.fullname }}</div>
-      </div>
-
-      <div class="account-info-row">
-        <div class="account-info-row-label">Email:</div>
-        <div class="account-info-row-value">{{ user.email }}</div>
-      </div>
-
-      <div class="account-info-row">
-        <div class="account-info-row-label">Mật khẩu:</div>
-        <div class="account-info-row-value">
-          <div class="account-pwd-view-wrap">
-            <input
-              [type]="showPwd ? 'text' : 'password'"
-              [value]="userPassword"
-              readonly
-            />
-            <button
-              type="button"
-              class="account-pwd-toggle"
-              (click)="togglePwd()"
-              aria-label="Toggle password"
-            >
-              <i
-                class="bi"
-                [ngClass]="showPwd ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
-              ></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="account-info-row">
-        <div class="account-info-row-label">Cấp bậc:</div>
-        <div class="account-info-row-value">
-          <span class="account-tier-badge">
-            {{ user.tier || 'EcoBasic' }}
-          </span>
-        </div>
-      </div>
-
-      <label class="account-checkbox">
-        <input type="checkbox" checked />
-        <span>
-          Tôi muốn nhận thông báo về các chương trình ưu đãi, mẫu xe điện mới
-          và tin tức thú vị qua email.
-        </span>
-      </label>
-    </div>
+    </ng-container>
   </div>
 </div>

@@ -1,12 +1,12 @@
-/* Breadcrumb: thêm khoảng trống với header */
+/* Breadcrumb */
 .account-breadcrumb {
   max-width: 1200px;
-  margin: 28px auto 0;  /* tăng khoảng cách với header */
+  margin: 28px auto 0;
   font-size: 14px;
   color: #6b7280;
 }
 
-/* Lớp gradient chính */
+/* Nền Gradient */
 .account-bg {
   position: fixed;
   top: 0;
@@ -15,21 +15,17 @@
   height: 260px;
   z-index: -10;
   pointer-events: none;
-
   background-image: linear-gradient(
     180deg,
-    rgba(76, 211, 150, .95) 0%,
-    rgba(76, 211, 150, .62) 40%,
-    rgba(76, 211, 150, .25) 70%,
+    rgba(76, 211, 150, 0.95) 0%,
+    rgba(76, 211, 150, 0.62) 40%,
+    rgba(76, 211, 150, 0.25) 70%,
     rgba(255, 255, 255, 0) 100%
   );
-
   filter: saturate(1.1) brightness(1.05);
 }
-
-/* Lớp sáng mềm */
 .account-bg::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -40px;
   left: 0;
@@ -37,492 +33,550 @@
   height: 320px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, .18) 0%,
-    rgba(255, 255, 255, .26) 44%,
-    rgba(255, 255, 255, .0) 100%
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.26) 44%,
+    rgba(255, 255, 255, 0) 100%
   );
   mix-blend-mode: soft-light;
 }
 
-
 /* =======================================
    LAYOUT CHUNG
 ======================================= */
-
 .account-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
   width: min(1200px, 94%);
-  margin: 28px auto 80px auto;  /* cho cả profile và orders cách top đều nhau */
+  margin: 28px auto 80px auto;
   gap: 24px;
 }
-
 
 /* Sidebar */
 .account-sidebar {
   background: #fff;
   border-radius: 12px;
   padding: 24px;
-  box-shadow:
-    0 20px 40px rgba(16, 24, 40, 0.16),
-    0 0 40px rgba(69, 184, 128, 0.18),
-    0 0 12px rgba(255,255,255,.18);
+  box-shadow: 0 20px 40px rgba(16, 24, 40, 0.16),
+    0 0 40px rgba(69, 184, 128, 0.18), 0 0 12px rgba(255, 255, 255, 0.18);
 }
-
 .account-sidebar .hello {
   font-size: 14px;
   color: #333;
   font-weight: 500;
 }
-
 .account-sidebar .name {
   font-size: 20px;
   font-weight: 700;
   margin: 4px 0 18px 0;
   font-family: 'Courier New', Courier, monospace;
-  background: linear-gradient(90deg, #2B3B41, #72D4A5);
+  background: linear-gradient(90deg, #2b3b41 0%, #72d4a5 100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  background-clip: text;
 }
-
 .account-sidebar .menu a {
   display: block;
   padding: 10px 12px;
   margin-bottom: 8px;
   border-radius: 8px;
   text-decoration: none;
-  color: #2B3B41;
+  color: #2b3b41;
   font-size: 15px;
   font-weight: 500;
 }
-
 .account-sidebar .menu a.active {
-  background: #E8F5EE;
-  color: #2A8F55;
+  background: #e8f5ee;
+  color: #2a8f55;
   font-weight: 600;
 }
-
 .account-sidebar .logout {
-  color: #E8342A !important;
+  color: #e8342a !important;
   font-weight: 600;
 }
 
 /* =======================================
    CARD TRẮNG CHÍNH
 ======================================= */
-
 .account-main-card {
   background: #fff;
   border-radius: 12px;
   padding: 28px;
-  box-shadow:
-    0 20px 40px rgba(16, 24, 40, 0.16),
-    0 0 40px rgba(69, 184, 128, 0.18),
-    0 0 12px rgba(255,255,255,.18);
+  box-shadow: 0 20px 40px rgba(16, 24, 40, 0.16),
+    0 0 40px rgba(69, 184, 128, 0.18), 0 0 12px rgba(255, 255, 255, 0.18);
 }
-
 .account-main-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
 }
-
-/* nhóm avatar + tên + tier */
 .account-user-box {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
-/* Avatar + info */
-
 .account-avatar-wrap {
   width: 80px;
   height: 80px;
   border-radius: 999px;
   overflow: hidden;
   background: #fff;
-  border: 3px solid rgba(255,255,255,.8);
+  border: 3px solid rgba(255, 255, 255, 0.8);
 }
-
 .account-avatar-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .account-user-meta h2 {
   font-size: 22px;
   font-weight: 750;
   margin: 0;
-  background: linear-gradient(90deg, #2B3B41, #72D4A5);
+  background: linear-gradient(90deg, #2b3b41 0%, #72d4a5 100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  background-clip: text;
 }
-
 .account-tier-badge {
   display: inline-block;
   margin-top: 6px;
   padding: 6px 14px;
-  background: #E8F5EE;
-  border: 1px solid #BFE8D1;
+  background: #e8f5ee;
+  border: 1px solid #bfe8d1;
   border-radius: 999px;
   font-weight: 700;
   font-size: 13px;
-  color: #2A8F55;
+  color: #2a8f55;
 }
 
-/* ===== BUTTON “CHỈNH SỬA” (view) ===== */
-.btn-outline-dark {
-  border-radius: 3px;
-  border: 1px solid #1f2933;
-  background: #ffffff;
-  padding: 7px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  color: #1f2933;
-}
-
-.btn-outline-dark i {
-  margin-right: 6px;
-}
-
-/* ===== BUTTON XANH “LƯU” (edit) ===== */
-.btn-green {
-  border-radius: 3px;
-  border: none;
-  padding: 7px 22px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  color: #ffffff;
-  background: linear-gradient(90deg, #2ac46b 0%, #61d58d 100%);
-}
-
-.btn-green i {
-  margin-right: 6px;
-}
-
-/* Nút viền xám “Hủy” ở form */
-.btn-outline-gray {
-  border-radius: 3px;
-  border: 1px solid #d0d7e2;
-  background: #ffffff;
-  padding: 6px 18px;
-  font-size: 13px;
-  cursor: pointer;
-  color: #4b5563;
-}
-
-/* ===== VIEW PROFILE: HÀNG THÔNG TIN ===== */
-.account-info-row {
-  display: flex;
-  align-items: center;
+/* =======================================
+   NÚT BẤM (ĐỒNG BỘ VỚI REGISTER)
+======================================= */
+.btn-green,
+.btn-outline-dark,
+.btn-outline-gray,
+.btn-outline {
+  padding: 8px 20px;
   font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.account-info-row-label {
-  width: 90px;               /* ngắn lại cho giống khoảng cách mockup */
-  color: #7b7b7b;
   font-weight: 600;
-}
-
-.account-info-row-value {
-  color: #111111;
-}
-
-/* icon con mắt ở hàng mật khẩu (view) */
-.account-info-row-value--pwd {
-  display: flex;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-}
-
-.account-info-row-value--pwd i {
-  font-size: 16px;
-  color: #444;
-  cursor: default;
-}
-
-/* Checkbox nhận email ưu đãi */
-.account-checkbox {
-  margin-top: 14px;
-  font-size: 13px;
-  display: flex;
-  align-items: flex-start;
   gap: 6px;
 }
-
-.account-checkbox input {
-  margin-top: 2px;
-  width: 14px;
-  height: 14px;
-  accent-color: #2ac46b; /* ô tick xanh đúng mockup */
+.btn-green:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-/* ===== FORM EDIT PROFILE ===== */
+/* Nút Xanh (Lưu) */
+.btn-green {
+  background: linear-gradient(90deg, #2b3b41 0%, #72d4a5 100%);
+  color: #ffffff;
+  border: none;
+}
+.btn-green:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: 0 4px 15px rgba(43, 59, 65, 0.2);
+}
+
+/* Nút Viền Tối (Chỉnh sửa) */
+.btn-outline-dark {
+  border-color: #374151;
+  background: #ffffff;
+  color: #374151;
+}
+.btn-outline-dark:hover {
+  background: #f9fafb;
+}
+
+/* Nút Viền Xám (Hủy) */
+.btn-outline-gray {
+  border-color: #d1d5db;
+  background: #ffffff;
+  color: #4b5563;
+}
+.btn-outline-gray:hover {
+  background: #f9fafb;
+}
+
+/* Nút Viền (Chọn ảnh) */
+.btn-outline {
+  border-color: #d1d5db;
+  background: #ffffff;
+  color: #4b5563;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+.btn-outline:hover {
+  background: #f9fafb;
+}
+
+/* =======================================
+   VIEW PROFILE
+======================================= */
+.account-info-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: start;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.account-info-row-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+.account-info-row-value {
+  color: #111827;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.account-pwd-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #6b7280;
+  padding: 8px 12px;
+}
+.account-checkbox {
+  margin-top: 14px;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #374151;
+}
+.account-checkbox input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: #72d4a5;
+}
+
+/* =======================================
+   FORM EDIT PROFILE
+======================================= */
 .account-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   font-size: 14px;
 }
-
-.account-form-row {
+.account-form-row.form-field-col {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+.account-form-row.form-field-col label {
+  width: auto;
+  font-weight: 500;
+}
+.account-form-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
   align-items: center;
   gap: 12px;
 }
-
 .account-form-row label {
-  width: 110px;
-  color: #777777;
+  color: #4b5563;
+  font-weight: 500;
 }
-
-.account-form-row input[type="text"],
-.account-form-row input[type="email"],
-.account-form-row input[type="password"] {
+.account-form-row input[type='text'],
+.account-form-row input[type='email'],
+.account-form-row input[type='password'],
+.account-form-row input[type='date'] {
   flex: 1;
-  height: 34px;
-  border-radius: 3px;
-  border: 1px solid #cfd6de;
-  padding: 0 10px;
-  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 9px 12px;
+  font-size: 15px;
+  background: #f9fafb;
+  width: 100%;
 }
-
+.account-form-row input.date-input {
+  max-width: 200px;
+}
+.account-form-row input:focus {
+  outline: none;
+  border-color: #72d4a5;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(114, 212, 165, 0.3);
+}
 .account-avatar-edit {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
-
 .account-avatar-edit img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
-
-.btn-outline {
-  border-radius: 3px;
-  border: 1px solid #cfd6de;
-  background: #ffffff;
-  padding: 6px 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-/* input mật khẩu trong form edit */
 .account-pwd-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
   flex: 1;
+  width: 100%;
 }
-
 .account-pwd-wrap input {
   flex: 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
 }
-
-.account-pwd-toggle {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 16px;
-  color: #444444;
-}
-
-.account-form-actions {
-  margin-top: 4px;
-  display: flex;
-  gap: 8px;
-}
-
-/* ===== PHẦN LỊCH SỬ / ĐÁNH GIÁ ===== */
-
-.account-orders-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.account-orders-head-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.account-orders-head-title h2 {
-  font-size: 18px;
-  margin: 0;
-}
-
-.account-search {
-  display: flex;
-  align-items: center;
-  border-radius: 2px;
-  overflow: hidden;
-  border: 1px solid #d7dde5;
+.account-pwd-wrap .account-pwd-toggle {
+  border: 1px solid #d1d5db;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
   background: #f9fafb;
 }
 
-.account-search input {
-  border: none;
-  padding: 6px 10px;
+/* Ẩn con mắt mặc định của trình duyệt */
+input[type='password']::-webkit-reveal,
+input[type='password']::-webkit-clear-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+input[type='password']::-ms-reveal {
+  display: none !important;
+}
+
+/* CSS VALIDATION */
+.account-form-row input.is-invalid {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+.account-pwd-wrap input.is-invalid {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+.account-pwd-wrap input.is-invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+.form-error-message {
   font-size: 13px;
-  min-width: 260px;
-  background: transparent;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 2px;
+  grid-column: 2 / 3;
+}
+.form-field-col .form-error-message {
+  grid-column: auto;
 }
 
-.account-search input:focus {
-  outline: none;
-}
-
-.account-search button {
-  width: 34px;
-  border: none;
-  background: #2ac46b;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.account-order-card {
-  display: grid;
-  grid-template-columns: 116px minmax(0, 1fr) auto auto;
-  gap: 14px;
+/* =======================================
+   CSS POP-UP & TOAST
+======================================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
   align-items: center;
-  padding: 13px 16px;
-  border-radius: 4px;
-  border: 1px solid #e1e5ec;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  animation: fade-in 0.2s ease;
+}
+.popup-box {
   background: #ffffff;
-  margin-bottom: 10px;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: pop-up 0.3s ease;
 }
 
-.account-order-card img {
-  width: 116px;
-  height: 82px;
-  border-radius: 4px;
-  object-fit: cover;
-  background: #f3f3f3;
+/* =============================================== */
+/* ⭐ SỬA LỖI: CĂN GIỮA CHO TẤT CẢ POP-UP */
+/* =============================================== */
+.popup-box h4 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
+  text-align: center; /* Căn giữa */
 }
-
-.account-order-meta h3 {
-  margin: 0 0 6px;
+.popup-box p {
   font-size: 15px;
+  color: #4b5563;
+  margin: 0 0 24px;
+  text-align: center; /* Căn giữa */
+  line-height: 1.6;
+}
+/* =============================================== */
+
+/* Xóa style cũ của .password-popup h4/p (nếu có) */
+.password-popup h4,
+.password-popup p {
+  text-align: center; /* Đã được gộp lên .popup-box */
 }
 
-.account-order-meta p {
-  margin: 2px 0;
-  font-size: 13px;
-  color: #777777;
+.popup-actions {
+  display: grid; 
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.account-order-status {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.account-order-status.is-finished {
-  color: #4ae4d2;
-}
-
-.account-order-status.is-renting {
-  color: #ff3b41;
-}
-
-.account-order-status.is-upcoming {
-  color: #d29119;
-}
-
-.account-order-actions {
+/* Style cho pop-up xác nhận (của profile-view) */
+.popup-form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin-bottom: 24px;
+}
+.popup-form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+.popup-password-input {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 10px 14px;
+  font-size: 16px;
+  background: #f9fafb;
+}
+.popup-password-input:focus {
+  outline: none;
+  border-color: #72d4a5;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(114, 212, 165, 0.3);
+}
+.popup-password-input.is-invalid {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+.popup-password-input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+.popup-error-message {
+  font-size: 14px;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 2px;
 }
 
-.account-review-order {
-  margin-bottom: 16px;
-}
-
-.account-review-order .account-order-card {
-  margin-bottom: 0;
-}
-
-.account-review-box {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 4px;
-  border: 1px solid #e1e5ec;
+/* Nút Hủy Mới (style chung cho pop-up) */
+.btn-popup-cancel {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
   background: #ffffff;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-popup-cancel:hover {
+  background: #f9fafb;
 }
 
-.account-review-header {
+/* Nút Xác nhận Mới (style chung cho pop-up) */
+.btn-popup-confirm {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, #2b3b41 0%, #72d4a5 100%);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-popup-confirm:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 15px rgba(43, 59, 65, 0.2);
+}
+/* (Kết thúc style pop-up) */
+
+.success-toast,
+.error-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 1001;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  animation: toast-in 0.3s ease;
+}
+.success-toast {
+  background: #16a34a;
+  box-shadow: 0 5px 15px rgba(22, 163, 74, 0.4);
+}
+.error-toast {
+  background: #ef4444;
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+.success-toast i,
+.error-toast i {
+  font-size: 1.2rem;
+}
+.error-toast.shake {
+  animation: toast-in 0.3s ease, shake 0.5s ease;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop-up {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes toast-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
 }
 
-.account-review-header img {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.account-review-name {
+/* CSS PHÂN CHIA FORM */
+.form-section-divider {
+  font-size: 1.25rem;
   font-weight: 600;
-  font-size: 14px;
+  color: #111827;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+.account-form-actions.cancel-action {
+  border-top: none;
+  justify-content: flex-start;
 }
 
-.account-review-stars {
-  color: #ffb300;
-  font-size: 14px;
-}
-
-.account-review-stars i {
-  margin-right: 1px;
-}
-
-.account-review-text {
-  font-size: 14px;
-  margin: 8px 0;
-}
-
-.account-review-photo {
-  width: 190px;
-  height: 120px;
-  border-radius: 4px;
-  object-fit: cover;
-  margin: 6px 0;
-}
-
-.account-review-time {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media (max-width: 980px) {
   .account-layout {
     grid-template-columns: minmax(0, 1fr);
-    padding: 16px 16px 28px;
   }
-
-  .account-sidebar-wrap {
-    position: static;
+  .account-form-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
-
-  .account-order-card,
-  .account-review-order .account-order-card {
-    grid-template-columns: minmax(0, 1fr);
+  .account-form-row label {
+    width: auto;
   }
-
-  .account-order-actions {
-    flex-direction: row;
+  .form-error-message {
+    grid-column: auto;
   }
 }
