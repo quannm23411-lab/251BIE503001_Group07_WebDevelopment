@@ -37,15 +37,17 @@
             <img class="product-card__img" [ngSrc]="getImg(p, 'card')" [width]="getSize('card').w"
               [height]="getSize('card').h" [alt]="p.vehicleName || 'Sản phẩm'" loading="lazy" />
 
-            <h3 class="product-card__name">{{ p.vehicleName }}</h3>
+            <h3 style="color: #121212;" class="product-card__name">{{ p.vehicleName }}</h3>
 
-            <p class="product-card__price">
+            <p style="color: #121212;" class="product-card__price">
               Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
 
+            <div class="status-note">
             <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
               {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
             </small>
+            </div>
           </div>
 
 
@@ -107,7 +109,7 @@
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
         <article class="product-card position-relative" *ngFor="let p of (motorbikeList | slice:0:4)">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+          <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
 
@@ -116,9 +118,11 @@
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
-          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
-            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-          </small>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
         </article>
       </ng-container>
       <ng-template #noMotor>
@@ -135,7 +139,7 @@
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
         <article class="product-card position-relative" *ngFor="let p of (ecoBikeList | slice:0:4)">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+          <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
 
@@ -144,9 +148,11 @@
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
-          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
-            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-          </small>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
         </article>
       </ng-container>
       <ng-template #noEbike>
@@ -163,7 +169,7 @@
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
         <article class="product-card position-relative" *ngFor="let p of compactBikeList">
-          <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
+          <span *ngIf="p.discount > 0" class="home-badge">
             -{{ p.discount }}%
           </span>
 
@@ -172,9 +178,11 @@
 
           <h3 class="product-card__name">{{ p.vehicleName }}</h3>
           <p class="product-card__price">Giá thuê chỉ từ <span>{{ formatVND(p.pricePerDay) }}</span></p>
-          <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
-            {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-          </small>
+            <div class="status-note">
+            <small [ngClass]="p.availabilityStatus ? 'text-success' : 'text-secondary'">
+              {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
+            </small>
+            </div>
         </article>
       </ng-container>
       <ng-template #noCompact>

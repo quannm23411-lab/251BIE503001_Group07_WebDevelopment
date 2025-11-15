@@ -153,10 +153,7 @@ body {
 }
 
 .product-card {
-
   position: relative;
-  padding-top: 0px !important;
-  margin-top: 0px !important;
   flex: 0 0 360px;
   background: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
   padding: 0.2rem;
@@ -188,10 +185,11 @@ body {
 .product-img-wrapper {
   width: 100%;
   background: #ffffff;
-  padding: 10px;
+  padding: 0.3rem;
   text-align: left;
 }
 .product-card__img {
+  margin-top: 0.9rem;
   display: block;
   width: 100%;
   height: auto;
@@ -200,19 +198,20 @@ body {
 }
 
 .product-card__name {
-  margin: 8px 0 4px;
+  margin: 8px 20px 4px;
   font-weight: 700;
   font-size: 1rem;
   color: #ffffff;
 }
 
 .product-card__price {
+  margin-left: 20px;
   font-size: 0.9rem;
   color: #ffffff;
 }
 
 .product-card__price span {
-  color: #d32f2f;
+  color: #ff3d3d;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -233,6 +232,22 @@ body {
 /* Bỏ viền cột cuối */
 .product-card .feature-item:last-child {
   border-right: none;
+}
+.status-note {
+  margin-left: 20px;
+  display: inline-block;
+}
+.status-note .text-success {
+  color: #fff !important;
+  background: #2f7d5c;       /* Xanh còn xe */
+  padding: 3px 3px 3px;
+  border-radius: 10px;
+}
+.status-note .text-secondary {
+  color: #fff !important;
+  background: #6c757d;       /* Xám hết xe */
+  padding: 3px 3px 3px;
+  border-radius: 10px;
 }
 /* ===============================
    PROMO BANNER WRAPPER STYLE
