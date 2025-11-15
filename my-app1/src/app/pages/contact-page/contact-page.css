@@ -29,49 +29,65 @@
   =============================================
 */
 img {
-    height: 90px;
-    width: auto;
-    margin-top: 0;
+  height: 90px;
+  width: auto;
+  margin-top: 0;
 }
+
 .contact__hero {
   /* Dùng gradient y hệt 'about__hero' */
   background-image: linear-gradient(180deg, rgb(52, 99, 90) 0 20%, #54b385 50%, #fff 100%);
   color: #f4f9f6;
   /* Thêm padding-bottom để fade to white */
-  padding: 60px 16px 80px; 
+  padding: 60px 16px 80px;
   text-align: center;
 }
 
 .contact__hero .container {
-  max-width: 900px; /* Giống about__lead */
+  max-width: 900px;
+  /* Giống about__lead */
   margin: 0 auto;
 }
 
 /* Style cho breadcrumbs trên nền tối */
 .breadcrumb-nav--light {
   margin-bottom: 24px;
-  justify-content: center; /* Căn giữa */
+  justify-content: center;
+  /* Căn giữa */
 }
+
 .breadcrumb-nav--light .breadcrumb-link {
-  color: #f0f0f0; /* Màu trắng nhạt */
+  color: #f0f0f0;
+  /* Màu trắng nhạt */
 }
+
 .breadcrumb-nav--light .breadcrumb-separator,
 .breadcrumb-nav--light .breadcrumb-current {
-  color: #ffffff; /* Màu trắng */
+  color: #ffffff;
+  /* Màu trắng */
 }
 
 /* Tiêu đề chính */
 .contact__hero-title {
-  font-size: 3rem; /* 48px */
+  font-size: 2.5rem;
   font-weight: 800;
-  color: #ffffff;
   margin-bottom: 1rem;
+  margin-top: 1rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  /* Gradient text */
+  background: linear-gradient(180deg,
+      #ffffff 0%,
+      #ffffff 45%,
+      #ffffff 55%,
+      #e6fff5 105%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Mô tả dưới tiêu đề */
 .contact__hero-lead {
-  font-size: 1rem; /* 16px */
+  font-size: 1rem;
+  /* 16px */
   font-weight: 500;
   line-height: 1.7;
   margin: 0 auto;
@@ -84,19 +100,19 @@ img {
 */
 .contact-page-content {
   max-width: 1100px;
-  
+
   /* THAY ĐỔI QUAN TRỌNG: Kéo nội dung đè lên phần gradient */
-  margin-top: -50px; 
+  margin-top: -50px;
   position: relative;
   z-index: 10;
-  
+
   /* Bọc nội dung trong thẻ card trắng */
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  
+
   /* Tăng padding bên trong card */
-  padding: 2.5rem 2rem; 
+  padding: 2.5rem 2rem;
 }
 
 /* --- XÓA STYLE TIÊU ĐỀ CŨ --- */
@@ -108,33 +124,39 @@ img {
   border-right: 1px solid #e0e0e0;
   padding-right: 2.5rem;
 }
+
 .info-item {
   display: flex;
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 1.5rem;
 }
+
 .info-item i {
   font-size: 1.5rem;
-  color: #2dbf83; 
+  color: #2dbf83;
   margin-top: 5px;
 }
+
 .info-item strong {
   display: block;
   font-size: 1.1rem;
   color: #333;
   margin-bottom: 2px;
 }
+
 .info-item p {
   margin: 0;
   color: #555;
   line-height: 1.6;
 }
+
 .social-links a {
   color: #555;
   font-size: 1.8rem;
   transition: color 0.3s, transform 0.3s;
 }
+
 .social-links a:hover {
   color: #2dbf83;
   transform: scale(1.1);
@@ -146,35 +168,58 @@ img {
   color: #444;
   margin-bottom: 6px;
 }
+
 .contact-form .form-control {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
+
 .contact-form .form-control:focus {
   border-color: #45B880;
   box-shadow: 0 0 0 3px rgba(69, 184, 128, 0.15);
 }
+
 .contact-form .form-control.is-invalid {
   border-color: #dc3545;
 }
+
 .btn-submit {
   width: 100%;
+  max-width: 200px;
   height: 52px;
   border: none;
-  border-radius: 10px;
+  border-radius: 18px;
   background: linear-gradient(90deg, #2B3B41 0%, #72D4A5 100%);
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #ffffff;
   cursor: pointer;
   transition: opacity 0.2s;
   margin-top: 1rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  /* căn giữa */
+  display: block;
 }
+
+.btn-submit i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
 .btn-submit:hover {
   opacity: 0.9;
+  background-image: linear-gradient(180deg, #2b3b41 0%, #45b880 100%);
+
+
 }
+
 .btn-submit:disabled {
   opacity: 0.7;
   cursor: not-allowed;
@@ -183,12 +228,13 @@ img {
 /* --- Bản đồ (Giữ nguyên) --- */
 .map-responsive {
   overflow: hidden;
-  padding-bottom: 50%; 
+  padding-bottom: 50%;
   position: relative;
   height: 0;
   border-radius: 12px;
   border: 1px solid #ddd;
 }
+
 .map-responsive iframe {
   left: 0;
   top: 0;
@@ -209,11 +255,14 @@ img {
 
 @media (max-width: 576px) {
   .contact__hero-title {
-    font-size: 2.25rem; /* Giảm cỡ chữ trên mobile */
+    font-size: 2.25rem;
+    /* Giảm cỡ chữ trên mobile */
   }
+
   .contact__hero-lead {
     font-size: 0.95rem;
   }
+
   .contact-page-content {
     /* Giảm padding trên mobile */
     padding: 2rem 1.25rem;
