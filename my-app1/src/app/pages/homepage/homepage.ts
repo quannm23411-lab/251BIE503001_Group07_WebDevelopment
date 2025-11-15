@@ -1,5 +1,18 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import {
+  CommonModule,
+  NgIf,
+  NgFor,
+  NgClass,
+  NgOptimizedImage
+} from '@angular/common';
 
 import { HotProductService, Product } from '../../services/hot-products.services';
 import { ProductLoadingService } from '../../services/product-loading.services';
@@ -7,24 +20,27 @@ import { ProductReviewService, ProductReview } from '../../services/product-revi
 
 import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Popup } from '../popup/popup';
-import { forkJoin } from 'rxjs';
-
-import { ActivatedRoute } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup],
+  imports: [
+    CommonModule,
+    NgIf,
+    NgFor,
+    NgClass,
+    NgOptimizedImage,
+    PromoBanner,
+    BannerCarousel,
+    RouterLink,
+    Popup
+  ],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
-
 export class Homepage implements OnInit, OnDestroy {
-
   showWelcomePopup = false;
 
   /* --- CAROUSEL: lấy reference HTML --- */
@@ -60,9 +76,18 @@ export class Homepage implements OnInit, OnDestroy {
   compactBikeList: Product[] = [];
 
   sectionText = {
-    motorbike: { title: 'Xe máy điện', subtitle: 'Động cơ mạnh mẽ, vượt dốc dễ dàng. Thích hợp cho chuyến đi dài.' },
-    ebike: { title: 'Xe đạp điện', subtitle: 'Nhẹ nhàng, tiết kiệm, phù hợp di chuyển nội đô.' },
-    compact: { title: 'Xe đạp điện gấp gọn', subtitle: 'Gọn gàng, dễ mang lên thang máy, phù hợp căn hộ.' }
+    motorbike: {
+      title: 'Xe máy điện',
+      subtitle: 'Động cơ mạnh mẽ, vượt dốc dễ dàng. Thích hợp cho chuyến đi dài.'
+    },
+    ebike: {
+      title: 'Xe đạp điện',
+      subtitle: 'Nhẹ nhàng, tiết kiệm, phù hợp di chuyển nội đô.'
+    },
+    compact: {
+      title: 'Xe đạp điện gấp gọn',
+      subtitle: 'Gọn gàng, dễ mang lên thang máy, phù hợp căn hộ.'
+    }
   };
 
   promo = { active: false, code: '', amount: 0, endDate: '' };
@@ -77,9 +102,24 @@ export class Homepage implements OnInit, OnDestroy {
   ];
 
   steps = [
-    { no: 1, icon: 'bi bi-calendar', title: 'Chọn xe & lịch', desc: 'Nhập địa điểm, thời gian; hệ thống đề xuất phù hợp.' },
-    { no: 2, icon: 'bi bi-credit-card', title: 'Xác nhận & thanh toán', desc: 'Online hoặc tại nơi nhận; xuất hoá đơn điện tử.' },
-    { no: 3, icon: 'bi bi-scooter', title: 'Nhận xe & lên đường', desc: 'Tại trạm hoặc giao tận nơi.' }
+    {
+      no: 1,
+      icon: 'bi bi-calendar',
+      title: 'Chọn xe & lịch',
+      desc: 'Nhập địa điểm, thời gian; hệ thống đề xuất phù hợp.'
+    },
+    {
+      no: 2,
+      icon: 'bi bi-credit-card',
+      title: 'Xác nhận & thanh toán',
+      desc: 'Online hoặc tại nơi nhận; xuất hoá đơn điện tử.'
+    },
+    {
+      no: 3,
+      icon: 'bi bi-scooter',
+      title: 'Nhận xe & lên đường',
+      desc: 'Tại trạm hoặc giao tận nơi.'
+    }
   ];
 
   /** Testimonials hiển thị ở section "Khách hàng nói gì" */
@@ -102,6 +142,17 @@ export class Homepage implements OnInit, OnDestroy {
   /** Flag tránh load lại review nhiều lần không cần thiết */
   private reviewsLoaded = false;
 
+  featureIcons: Record<string, string> = {
+    sạc: 'bi-lightning-charge-fill',
+    quãng: 'bi-geo-alt-fill',
+    tốc: 'bi-speedometer2',
+    hiệu: 'bi-rocket-takeoff-fill',
+    thiết: 'bi-brush-fill',
+    gps: 'bi-crosshair',
+    tay: 'bi-bicycle',
+    pin: 'bi-battery-full'
+  };
+
   constructor(
     private hot: HotProductService,
     private cdr: ChangeDetectorRef,
@@ -109,18 +160,6 @@ export class Homepage implements OnInit, OnDestroy {
     private reviews: ProductReviewService,
     private route: ActivatedRoute
   ) { }
-
-
-  featureIcons: Record<string, string> = {
-    "sạc": "bi-lightning-charge-fill",
-    "quãng": "bi-geo-alt-fill",
-    "tốc": "bi-speedometer2",
-    "hiệu": "bi-rocket-takeoff-fill",
-    "thiết": "bi-brush-fill",
-    "gps": "bi-crosshair",
-    "tay": "bi-bicycle",
-    "pin": "bi-battery-full"
-  };
 
   /** Lấy icon phù hợp theo nội dung feature */
   getFeatureIcon(text: string): string {
@@ -132,19 +171,24 @@ export class Homepage implements OnInit, OnDestroy {
       }
     }
 
-    return "bi-check-circle-fill"; // icon fallback
+    return 'bi-check-circle-fill'; // icon fallback
   }
-
 
   ngOnInit(): void {
     this.hot.getConfig().subscribe(cfg => {
       if (cfg?.sections) {
-        this.sectionText.motorbike.title = cfg.sections.motorbike.title || this.sectionText.motorbike.title;
-        this.sectionText.motorbike.subtitle = cfg.sections.motorbike.subtitle || this.sectionText.motorbike.subtitle;
-        this.sectionText.ebike.title = cfg.sections.ebike.title || this.sectionText.ebike.title;
-        this.sectionText.ebike.subtitle = cfg.sections.ebike.subtitle || this.sectionText.ebike.subtitle;
-        this.sectionText.compact.title = cfg.sections.compact.title || this.sectionText.compact.title;
-        this.sectionText.compact.subtitle = cfg.sections.compact.subtitle || this.sectionText.compact.subtitle;
+        this.sectionText.motorbike.title =
+          cfg.sections.motorbike.title || this.sectionText.motorbike.title;
+        this.sectionText.motorbike.subtitle =
+          cfg.sections.motorbike.subtitle || this.sectionText.motorbike.subtitle;
+        this.sectionText.ebike.title =
+          cfg.sections.ebike.title || this.sectionText.ebike.title;
+        this.sectionText.ebike.subtitle =
+          cfg.sections.ebike.subtitle || this.sectionText.ebike.subtitle;
+        this.sectionText.compact.title =
+          cfg.sections.compact.title || this.sectionText.compact.title;
+        this.sectionText.compact.subtitle =
+          cfg.sections.compact.subtitle || this.sectionText.compact.subtitle;
       }
 
       const p = cfg?.promo;
@@ -183,9 +227,11 @@ export class Homepage implements OnInit, OnDestroy {
       this.cdr.detectChanges();
       this.loadRandomReviews();
     });
+
     setTimeout(() => {
       this.showWelcomePopup = true;
     }, 2000);
+
     this.route.fragment.subscribe(fragment => {
       if (!fragment) return;
 
@@ -201,59 +247,58 @@ export class Homepage implements OnInit, OnDestroy {
       }, 0);
     });
   }
-ngOnDestroy(): void {}
 
-/** Ảnh (qua ProductLoadingService) */
-getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
-  return this.img.getImageUrl(p, kind);
-}
+  ngOnDestroy(): void { }
 
-getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
-  return this.img.getImageSize(kind);
-}
+  /** Ảnh (qua ProductLoadingService) */
+  getImg(p: Product, kind: 'card' | 'detail' | 'thumb' = 'card') {
+    return this.img.getImageUrl(p, kind);
+  }
 
-/** Format giá */
-formatVND(price: number): string {
-  return (price ?? 0).toLocaleString('vi-VN') + 'đ';
-}
+  getSize(kind: 'card' | 'detail' | 'thumb' = 'card') {
+    return this.img.getImageSize(kind);
+  }
 
-  /** Lấy ngẫu nhiên một vài đánh giá từ ProductReviewService để show trên homepage */
+  /** Format giá */
+  formatVND(price: number): string {
+    return (price ?? 0).toLocaleString('vi-VN') + 'đ';
+  }
+
+  /** Lấy ngẫu nhiên một vài đánh giá ĐÃ APPROVED để show trên homepage */
   private loadRandomReviews() {
-  if (this.reviewsLoaded) return;
+    if (this.reviewsLoaded) return;
 
-  // gom tất cả id sản phẩm đang hiển thị trên homepage
-  const idSet = new Set<string | number>();
-  this.topRentList.forEach(p => p?.id && idSet.add(p.id));
-  this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
-  this.ecoBikeList.forEach(p => p?.id && idSet.add(p.id));
-  this.compactBikeList.forEach(p => p?.id && idSet.add(p.id));
+    // gom tất cả id sản phẩm đang hiển thị trên homepage
+    const idSet = new Set<string | number>();
+    this.topRentList.forEach(p => p?.id && idSet.add(p.id));
+    this.motorbikeList.forEach(p => p?.id && idSet.add(p.id));
+    this.ecoBikeList.forEach(p => p?.id && idSet.add(p.id));
+    this.compactBikeList.forEach(p => p?.id && idSet.add(p.id));
 
-  const ids = Array.from(idSet).slice(0, 6); // tối đa 6 xe để gọi
-  if (!ids.length) return;
+    const ids = Array.from(idSet);
+    if (!ids.length) return;
 
-  forkJoin(
-    ids.map(id => this.reviews.getByVehicleId(String(id)))
-  ).subscribe((lists: ProductReview[][]) => {
-    const all: ProductReview[] = lists.flat().filter(Boolean).filter(r => r.status === 'approved');
-    if (!all.length) return;
+    this.reviews.getApprovedByVehicleIds(ids).subscribe((all: ProductReview[]) => {
+      if (!all.length) return;
 
-    // shuffle nhẹ cho "ngẫu nhiên"
-    const shuffled = all.slice().sort(() => Math.random() - 0.5);
-    const picked = shuffled.slice(0, 4); // lấy 3 review để hiển thị
+      // shuffle nhẹ cho "ngẫu nhiên"
+      const shuffled = all.slice().sort(() => Math.random() - 0.5);
+      const picked = shuffled.slice(0, 4); // lấy 4 review để hiển thị
 
-    this.testimonials = picked.map(r => ({
-      avatar: (r.images && r.images[0]) || 'assets/images/default-avatar.png',
-      name: r.customerName || 'Khách hàng EcoMOVE',
-      city: 'TP.HCM', // JSON không có city, để fixed text cho gọn
-      text: r.content || r.title || '',
-      rating: r.rating || 5
-    }));
+      this.testimonials = picked.map(r => ({
+        avatar:
+          (r.images && r.images[0]) || 'assets/images/default-avatar.png',
+        name: r.customerName || 'Khách hàng EcoMOVE',
+        city: 'TP.HCM',
+        text: r.content || r.title || '',
+        rating: r.rating || 5
+      }));
 
-    if (this.testimonials.length) {
-      this.reviewsLoaded = true;
-    }
+      if (this.testimonials.length) {
+        this.reviewsLoaded = true;
+      }
 
-    this.cdr.detectChanges();
-  });
-}
+      this.cdr.detectChanges();
+    });
+  }
 }

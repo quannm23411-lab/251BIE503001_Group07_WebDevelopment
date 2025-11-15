@@ -126,9 +126,10 @@ export class Checkout {
 
     // ảnh QR cho momo / bank
     qrImages: Record<string, string> = {
-        bank: 'assets/bank-qr.png',
-        momo: 'assets/momo-qr.png',
-        cash: 'assets/cash-qr.png', // phòng khi sau này dùng, giờ không cũng được
+        bank: 'assets/images/payment-qr/bank-qr.png',
+        momo: 'assets/images/payment-qr/momo-qr.png',
+        // cash không dùng QR riêng thì cho trùng bank hoặc để hình default
+        cash: 'assets/images/payment-qr/bank-qr.png',
     };
 
     getQrImage(): string {

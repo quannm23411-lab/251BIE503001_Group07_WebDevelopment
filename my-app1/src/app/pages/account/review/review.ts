@@ -53,7 +53,6 @@ interface ReviewView {
   styleUrls: ['./review.css']
 })
 export class AccountReview implements OnInit {
-
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
@@ -154,7 +153,8 @@ export class AccountReview implements OnInit {
         const product = products.find(p => p.id === vehicleId);
 
         const reviewData = reviews.find(
-          r => r.customerId === order.maKhachHang && r.vehicleId === vehicleId
+          (r: ProductReview) =>
+            r.customerId === order.maKhachHang && r.vehicleId === vehicleId
         );
 
         const bikeName = product?.vehicleName || `Xe mã ${vehicleId}`;
@@ -174,7 +174,7 @@ export class AccountReview implements OnInit {
           end: this.formatDate(detail.thoiGianTraXe),
           status: this.deriveStatus(order),
           text,
-          image: '',   // hiện tại không dùng ảnh trong review.json để tránh lỗi type
+          image: '', // hiện tại không dùng ảnh trong review.json để tránh lỗi type
           time
         };
       }

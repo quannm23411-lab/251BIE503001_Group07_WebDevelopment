@@ -23,8 +23,6 @@ import {
   ProductReview
 } from '../../services/product-review.services';
 import { CartService } from '../../services/cart.services';
-import { RentalDatesService } from '../../services/rental-dates.services';
-
 
 @Component({
   selector: 'app-product-detail',
@@ -43,18 +41,17 @@ export class ProductDetail {
   private products = inject(ProductLoadingService);
   private reviewsService = inject(ProductReviewService);
   private cart = inject(CartService);
-  private rentalDates = inject(RentalDatesService);
-
-  startDate = signal<string>('');
-  endDate = signal<string>('');
 
   // dùng cho render sao
   readonly stars = [1, 2, 3, 4, 5];
 
   // ====== Product theo route /rent/:id ======
-  id = toSignal(this.route.paramMap.pipe(map(pm => pm.get('id') || '')), {
-    initialValue: ''
-  });
+  id = toSignal(
+    this.route.paramMap.pipe(map(pm => pm.get('id') || '')),
+    {
+      initialValue: ''
+    }
+  );
 
   product = toSignal<ProductVM | undefined>(
     this.route.paramMap.pipe(
@@ -88,16 +85,20 @@ export class ProductDetail {
     if (!cur || !list.length) return [];
     return list
       .filter(
-        x => x.vehicleType === cur.vehicleType && String(x.id) !== String(cur.id)
+        x =>
+          x.vehicleType === cur.vehicleType &&
+          String(x.id) !== String(cur.id)
       )
       .slice(0, 8);
   });
 
-  // ====== Reviews ======
+  // ====== Reviews (CHỈ LẤY APPROVED) ======
   private reviews$ = this.route.paramMap.pipe(
     map(pm => pm.get('id') || ''),
     switchMap(id =>
-      id ? this.reviewsService.getByVehicleId(id) : of([] as ProductReview[])
+      id
+        ? this.reviewsService.getApprovedByVehicleId(id)
+        : of([] as ProductReview[])
     ),
     map(list => (list ?? []) as ProductReview[])
   );
@@ -170,7 +171,9 @@ export class ProductDetail {
     this.addCurrentProductToCart();
   }
 
+  // Vẫn giữ để template không lỗi, sau khi m xoá nút ĐẶT TRƯỚC thì có thể xoá luôn
   preOrder() {
+    if (this.isOutOfStock()) return;
     this.addCurrentProductToCart();
   }
 
@@ -184,7 +187,7 @@ export class ProductDetail {
 
   // ====== CONSTRUCTOR: xử lý ngày thuê mặc định / từ query ======
   constructor() {
-    // ===== 1) Default: ngày mai -> ngày mốt =====
+    // 1) Tính default: ngày mai -> ngày mốt
     const today = new Date();
     const tomorrow = new Date(
       today.getFullYear(),
@@ -200,55 +203,31 @@ export class ProductDetail {
     const defaultStart = this.toInputDate(tomorrow);
     const defaultEnd = this.toInputDate(dayAfter);
 
-    // ===== 2) Lấy từ RentalDatesService (nếu có) =====
-    const globalRange = this.rentalDates.range();
-    const serviceStart = globalRange.start;
-    const serviceEnd = globalRange.end;
-
-    let startFromService: string | null = null;
-    let endFromService: string | null = null;
-
-    if (serviceStart && serviceEnd) {
-      const s = this.parseDate(serviceStart);
-      const e = this.parseDate(serviceEnd);
-
-      if (s && e && e.getTime() > s.getTime()) {
-        startFromService = this.toInputDate(s);
-        endFromService = this.toInputDate(e);
-      }
-    }
-
-    // ===== 3) Query params override dịch vụ (nếu có) =====
+    // 2) Đọc query params ?start=&end= (nếu đi từ trang Rent)
     const qp = this.route.snapshot.queryParamMap;
     const startParam = qp.get('start');
     const endParam = qp.get('end');
-
-    let finalStart: string | null = null;
-    let finalEnd: string | null = null;
 
     if (startParam && endParam) {
       const s = this.parseDate(startParam);
       const e = this.parseDate(endParam);
 
       if (s && e && e.getTime() > s.getTime()) {
-        finalStart = this.toInputDate(s);
-        finalEnd = this.toInputDate(e);
+        // ngày hợp lệ → dùng theo Rent
+        this.rentStart = this.toInputDate(s);
+        this.rentEnd = this.toInputDate(e);
+      } else {
+        // query dỏm → fallback default
+        this.rentStart = defaultStart;
+        this.rentEnd = defaultEnd;
       }
+    } else {
+      // không có query (vào từ homepage / search / link khác)
+      this.rentStart = defaultStart;
+      this.rentEnd = defaultEnd;
     }
 
-    // ===== 4) Quy tắc ưu tiên: Query params > Service > Default =====
-
-    this.rentStart =
-      finalStart ||
-      startFromService ||
-      defaultStart;
-
-    this.rentEnd =
-      finalEnd ||
-      endFromService ||
-      defaultEnd;
-
-    // ===== 5) Reset slider mỗi khi đổi id =====
+    // 3) Mỗi lần đổi id thì reset slider
     effect(() => {
       this.id();
       this.activeIndex.set(0);
