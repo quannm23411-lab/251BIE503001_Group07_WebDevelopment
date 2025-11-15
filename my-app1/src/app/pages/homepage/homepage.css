@@ -237,6 +237,11 @@ body {
 /* ===============================
    PROMO BANNER WRAPPER STYLE
 =============================== */
+
+.promo-wrapper app-promo-banner .promo__imgwrap {
+  display: none !important;
+}
+
 .promo-wrapper {
   position: relative;
   margin: 30px 0;
@@ -248,10 +253,11 @@ body {
 
 .promo-image {
   position: absolute;
-  right: 2%;
-  top: 50%;
+  right: 5%;
+  top: 40%;
+  margin-top: 22px;
   transform: translateY(-40%);
-  width: 25%;
+  width: 40%;
   height: auto;
   border-radius: 12px;
   object-fit: contain;
@@ -271,21 +277,32 @@ body {
   box-shadow: 0 10px 26px rgba(0,0,0,0.12);
   background: linear-gradient(-90deg, #FFFFFF 0%, #45B880 100%) !important;
   padding: 22px;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
+  
   text-align: center;
   position: relative;
 }
 
-
-
 /* responsive */
+@media (max-width: 992px) {
+  .promo-image {
+    right: 4%;
+    top: 45%;
+    width: 30%; /* Nhỏ lại để không che chữ */
+    transform: translateY(-50%);
+  }
+}
 @media (max-width: 768px) {
   .promo-wrapper app-promo-banner {
     padding: 18px;
     border-radius: 14px;
   }
-}
 
+  /* ẨN ảnh promo trên mobile */
+  .promo-image {
+    display: none !important;
+  }
+}
 
 /* =========================================
    BENEFITS SECTION

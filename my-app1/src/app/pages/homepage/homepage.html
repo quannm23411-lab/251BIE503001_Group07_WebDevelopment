@@ -7,7 +7,6 @@
     (closed)="showWelcomePopup = false">
   </app-popup>
 
-<!-- CONTACT -->
   <!-- BANNER -->
   <section class="container">
     <app-banner-carousel [items]="banners" [intervalMs]="4500" [showArrows]="true" [showDots]="true"
@@ -70,7 +69,7 @@
 
 
   <!-- PROMO BANNER -->
-<section class="promo-wrapper">
+<!-- <section class="promo-wrapper">
 
   <div class="promo-custom">
     <img class="promo-image" src="assets/images/homepage/promo-gift.png" alt="Promo Image">
@@ -84,6 +83,20 @@
     </app-promo-banner>
   </div>
 
+</section> -->
+
+<section class="promo-wrapper">
+  <div class="promo-custom">
+    <img class="promo-image" src="assets/images/homepage/promo-gift.png" alt="Promo Image">
+
+    <app-promo-banner
+      [active]="promo.active"
+      [code]="promo.code"
+      [amount]="promo.amount"
+      [endDate]="promo.endDate"
+      variant="red">
+    </app-promo-banner>
+  </div>
 </section>
 
   <!-- MOTORBIKE -->
@@ -188,7 +201,7 @@
 
 
   <!-- 3 BƯỚC LÀ CÓ XE -->
- <section id="guide-section" class="container py-5 steps-section">
+ <section class="container py-5 steps-section">
     <h3 class="section-title">3 bước là có xe</h3>
 
     <div class="steps">

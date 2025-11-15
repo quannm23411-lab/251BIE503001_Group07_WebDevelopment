@@ -41,7 +41,7 @@
     color: inherit;
 }
 
-.promo__content {
+/* .promo__content {
     flex: 1;
     min-width: 0;
 }
@@ -54,7 +54,24 @@
     margin: 0 0 10px;
     text-transform: uppercase;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .08);
+} */
+
+.promo__content {
+  text-align: center;          /* toàn bộ text bên trái */
 }
+
+.promo__title {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.6;
+  letter-spacing: .3px;
+  margin: -10px 0 10px 0;        /* bỏ margin hai bên */
+  max-width: 520px;          /* hoặc 60%, tuỳ ý */
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .08);
+  color:  rgb(95, 90, 90) !important;
+}
+
 
 .promo__code {
     color: #ffe91f !important;
@@ -63,12 +80,17 @@
     border-radius: 6px;
     background: rgba(0, 0, 0, .12);
 }
-
 .promo__sub {
-    color: var(--sub);
-    margin: 4px 0 14px;
-    font-weight: 700;
-    letter-spacing: .5px;
+  display: inline-block;           /* KHÔNG còn full width */
+  padding: 6px 18px;               /* chỉnh kích thước khung */
+  margin: 6px auto 14px;           /* canh giữa */
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #ffe91f !important;
+  font-size: 17px !important;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, .12);
+  text-align: center;
 }
 
 .promo__countdown {
@@ -118,6 +140,7 @@
     width: 140px;
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .25));
 }
+
 
 @media (max-width: 992px) {
     .promo {
