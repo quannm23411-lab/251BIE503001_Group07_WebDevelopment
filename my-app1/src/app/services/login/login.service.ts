@@ -1,8 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, switchMap, of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { Auth, AuthUser, UserRole } from '../auth/auth'; // chỉnh path cho khớp project
+import { Auth, AuthUser, UserRole } from '../auth/auth'; // chỉnh path nếu khác
 
 interface User {
   id: number;
@@ -15,6 +15,26 @@ interface User {
   tier?: string;
 }
 
+interface Customer {
+  maKhachHang: string;
+  hoTen: string;
+  email: string;
+  soDienThoai: string;
+  ngaySinh?: string;
+  diaChi?: {
+    soNhaDuong: string;
+    phuongXa: string;
+    quanHuyen: string;
+    tinhThanh: string;
+  };
+  thongTinBangLai?: {
+    soBangLai: string;
+    hangBangLai: string;
+    ngayHetHan: string;
+  };
+  hangThanhVien?: string;
+}
+
 export interface UserProfile {
   fullname: string;
   email: string;
@@ -22,6 +42,9 @@ export interface UserProfile {
   role: string;
   customerCode: string | null;
   tier: string;
+  phone?: string;
+  driverLicense?: string;
+  address?: string;
 }
 
 @Injectable({
@@ -30,6 +53,7 @@ export interface UserProfile {
 export class LoginService {
 
   private usersUrl = 'assets/data/users.json';
+  private customersUrl = 'assets/data/customers.json';
   private profileKey = 'eco_profile';
 
   constructor(
@@ -48,34 +72,41 @@ export class LoginService {
     );
   }
 
+  private loadCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.customersUrl);
+  }
+
   /**
    * LOGIN
-   * - Check email/password
-   * - Đăng nhập vào Auth (cho guard / quyền truy cập)
-   * - Lưu profile chi tiết cho UI (header/account/checkout)
-   * - Trả về UserProfile | null cho LoginComponent xử lý
+   * - Check email/password từ users.json
+   * - Join data với customers.json (phone, license, address, tier)
+   * - Đăng nhập qua Auth + lưu eco_profile
+   * - Trả về UserProfile | null
    */
   login(email: string, password: string): Observable<UserProfile | null> {
     const normalizedEmail = email.trim().toLowerCase();
 
     return this.loadUsers().pipe(
-      map(users => {
+      switchMap(users => {
         const user = users.find(
           u =>
             u.email.toLowerCase() === normalizedEmail &&
             u.password === password
         );
 
-        if (!user) return null;
+        if (!user) {
+          return of(null);
+        }
 
         const authUser: AuthUser = {
           id: user.id,
           email: user.email,
           fullname: user.fullname,
-          role: user.role as UserRole // đảm bảo users.json chỉ có 'admin' | 'customer'
+          role: (user.role || '').toLowerCase() as UserRole
         };
 
-        const profile: UserProfile = {
+        // base profile chỉ từ users.json
+        let profile: UserProfile = {
           fullname: user.fullname,
           email: user.email,
           avatar: user.avatar ?? '/assets/images/avatars/default.png',
@@ -84,22 +115,54 @@ export class LoginService {
           tier: user.tier ?? 'EcoBasic'
         };
 
-        if (this.isBrowser) {
-          this.auth.login(authUser);
-          localStorage.setItem(this.profileKey, JSON.stringify(profile));
+        // Nếu không có customerCode thì khỏi join, lưu luôn
+        if (!user.customerCode) {
+          if (this.isBrowser) {
+            this.auth.login(authUser);
+            localStorage.setItem(this.profileKey, JSON.stringify(profile));
+          }
+          return of(profile);
         }
 
-        return profile;
+        // Có customerCode → join với customers.json
+        return this.loadCustomers().pipe(
+          map(customers => {
+            const customer = customers.find(
+              c =>
+                c.maKhachHang === user.customerCode ||
+                c.email?.toLowerCase() === user.email.toLowerCase()
+            );
+
+            if (customer) {
+              profile = {
+                ...profile,
+                phone: customer.soDienThoai,
+                driverLicense: customer.thongTinBangLai?.soBangLai,
+                address: customer.diaChi
+                  ? `${customer.diaChi.soNhaDuong}, ${customer.diaChi.phuongXa}, ${customer.diaChi.quanHuyen}, ${customer.diaChi.tinhThanh}`
+                  : undefined,
+                tier: customer.hangThanhVien || profile.tier
+              };
+            }
+
+            if (this.isBrowser) {
+              this.auth.login(authUser);
+              localStorage.setItem(this.profileKey, JSON.stringify(profile));
+            }
+
+            return profile;
+          })
+        );
       })
     );
   }
 
-  // Cho chỗ nào cần check login nhưng không muốn import Auth trực tiếp
+  // Check login: dùng Auth
   isLoggedIn(): boolean {
     return this.auth.isLoggedIn();
   }
 
-  // Profile chi tiết cho header / account / checkout
+  // Profile chi tiết cho UI (header / checkout / account)
   getProfile(): UserProfile | null {
     if (!this.isBrowser) return null;
     const raw = localStorage.getItem(this.profileKey);
@@ -110,10 +173,10 @@ export class LoginService {
       return null;
     }
   }
-  // Lấy thông tin user đang đăng nhập từ Auth
-  // Cho các component (header, account, ...) dùng mà không cần import Auth
-  getCurrentUser(): AuthUser | null {
-    return this.auth.getCurrentUser();
+
+  // Cho code cũ (header.ts) vẫn gọi được
+  getCurrentUser(): UserProfile | null {
+    return this.getProfile();
   }
 
   isAdmin(): boolean {

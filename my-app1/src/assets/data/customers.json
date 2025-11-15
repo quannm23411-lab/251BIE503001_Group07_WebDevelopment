@@ -2,7 +2,7 @@
   {
     "maKhachHang": "KH001",
     "hoTen": "Nguyễn Minh Quân",
-    "email": "miwan@email.com",
+    "email": "miwan@gmail.com",
     "soDienThoai": "0901234567",
     "ngaySinh": "1990-05-15",
     "diaChi": {
@@ -22,7 +22,7 @@
   {
     "maKhachHang": "KH002",
     "hoTen": "Lê Thị Duy Nhất",
-    "email": "saela@email.com",
+    "email": "saela@gmail.com",
     "soDienThoai": "0987654321",
     "ngaySinh": "1995-11-20",
     "diaChi": {
@@ -42,7 +42,7 @@
   {
     "maKhachHang": "KH003",
     "hoTen": "Võ Hồng Phúc",
-    "email": "vo.hong.phuc@email.com",
+    "email": "vo.hong.phuc@gmail.com",
     "soDienThoai": "0335557799",
     "ngaySinh": "1988-02-01",
     "diaChi": {
@@ -62,7 +62,7 @@
   {
     "maKhachHang": "KH004",
     "hoTen": "Phan Thị Ánh Linh",
-    "email": "lyns@email.com",
+    "email": "lyns@gmail.com",
     "soDienThoai": "0912345678",
     "ngaySinh": "1992-09-10",
     "diaChi": {
@@ -82,7 +82,7 @@
   {
     "maKhachHang": "KH005",
     "hoTen": "Nguyễn Khánh Xuân",
-    "email": "grace@email.com",
+    "email": "grace@gmail.com",
     "soDienThoai": "0778889900",
     "ngaySinh": "1998-07-25",
     "diaChi": {
@@ -102,7 +102,7 @@
   {
     "maKhachHang": "KH006",
     "hoTen": "Đặng Thị Lan",
-    "email": "lan.dang.thi@email.com",
+    "email": "lan.dang.thi@gmail.com",
     "soDienThoai": "0886665544",
     "ngaySinh": "1985-12-30",
     "diaChi": {
@@ -122,7 +122,7 @@
   {
     "maKhachHang": "KH007",
     "hoTen": "Vũ Anh Tuấn",
-    "email": "tuan.vu.anh@email.com",
+    "email": "tuan.vu.anh@gmail.com",
     "soDienThoai": "0934567890",
     "ngaySinh": "1993-03-18",
     "diaChi": {
@@ -142,7 +142,7 @@
   {
     "maKhachHang": "KH008",
     "hoTen": "Bùi Thị Mai",
-    "email": "mai.bui.thi@email.com",
+    "email": "mai.bui.thi@gmail.com",
     "soDienThoai": "0559012345",
     "ngaySinh": "1997-08-08",
     "diaChi": {
@@ -162,7 +162,7 @@
   {
     "maKhachHang": "KH009",
     "hoTen": "Đỗ Gia Bảo",
-    "email": "bao.do.gia@email.com",
+    "email": "bao.do.gia@gmail.com",
     "soDienThoai": "0765432109",
     "ngaySinh": "2000-01-01",
     "diaChi": {
@@ -182,7 +182,7 @@
   {
     "maKhachHang": "KH010",
     "hoTen": "Ngô Thanh Thảo",
-    "email": "thao.ngo.thanh@email.com",
+    "email": "thao.ngo.thanh@gmail.com",
     "soDienThoai": "0909090909",
     "ngaySinh": "1991-04-14",
     "diaChi": {
