@@ -1,0 +1,89 @@
+/* File: order-detail.css
+  (Giữ nguyên nội dung file css tôi đã gửi bạn ở lần trước)
+*/
+
+/* Import CSS của profile (cho layout chung) */
+@import '../profile/profile.css';
+/* Import CSS của checkout (cho layout card) */
+@import '../../checkout/checkout.css';
+
+/* Các style bổ sung cho trang chi tiết */
+.order-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 4px;
+  margin-bottom: 8px;
+}
+.order-detail-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+}
+.order-id-detail {
+  font-size: 14px;
+  color: #555;
+    font-family: 'Inter', sans-serif;
+}
+.order-detail-header .status {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Tinh chỉnh .field-readonly */
+.field-readonly {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
+  color: #333;
+  min-height: 41px;
+  display: flex;
+  align-items: center;
+  font-style: normal;
+}
+
+.field-readonly.location-readonly {
+  line-height: 1.5;
+  min-height: 60px;
+}
+
+.summary-row.summary-row--discount span:last-child {
+  color: #ef4444;
+}
+
+/* Nút "Quay lại" */
+.order-detail-actions {
+  margin-top: 1rem;
+}
+.btn-primary-ghost {
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  background: #eaf3db;
+  color: #567C02;
+  border: 1px solid #d8e9ba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary-ghost:hover {
+  background: #ddecc5;
+}
+.btn-primary-ghost i {
+  font-size: 16px;
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: #777;
+}

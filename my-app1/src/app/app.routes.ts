@@ -244,22 +244,26 @@ export const routes: Routes = [
                 m => m.AccountOrders
               ),
           },
+          { 
+            path: 'order-detail/:id', 
+            loadComponent: () => import('./pages/account/order-detail/order-detail').then(m => m.OrderDetail) 
+           },
 
           {
-            path: 'review/:id/write',
+            path: 'review/:orderId/write',
             loadComponent: () =>
-              import('./pages/account/review/review-write').then(
-                m => m.AccountReviewWrite
-              ),
-          },
-
-          {
-            path: 'review/:id',
-            loadComponent: () =>
-              import('./pages/account/review/review').then(
+              import('./pages/account/account-review/account-review').then(
                 m => m.AccountReview
               ),
           },
+
+          // {
+          //   path: 'review/:id',
+          //   loadComponent: () =>
+          //     import('./pages/account/review/review').then(
+          //       m => m.AccountReview
+          //     ),
+          // },
         ],
       },
 

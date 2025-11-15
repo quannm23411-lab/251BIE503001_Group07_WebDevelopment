@@ -67,11 +67,14 @@ export class AccountProfileEdit implements OnInit {
       return;
     }
 
+    // === SỬA LỖI Ở ĐÂY ===
+    // 1. Thay đổi kiểu dữ liệu từ <{ users: any[] }> thành <any[]>
     this.http
-      .get<{ users: any[] }>('assets/data/users.json')
+      .get<any[]>('assets/data/users.json')
       .subscribe({
         next: (res) => {
-          const match = res.users.find(
+          // 2. Thay đổi res.users.find thành res.find
+          const match = res.find(
             (u) =>
               u.email &&
               u.email.toLowerCase() === email.toLowerCase()
@@ -81,6 +84,7 @@ export class AccountProfileEdit implements OnInit {
           }
         }
       });
+    // === HẾT SỬA LỖI ===
   }
 
   showPwd(): boolean {

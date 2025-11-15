@@ -199,37 +199,37 @@
     ]
   },
   {
-  "maDonThue": "RENT006",
-  "maKhachHang": "KH004",
-  "thoiGianDatHang": "2025-11-07T10:10:00Z",
-  "tienDatCoc": 100000,
-  "trangThaiCoc": "Đã thanh toán",
-  "thanhToan": {
-    "tongGiaTriGoc": 180000,
-    "maGiamGia": null,
-    "tienGiam": 0,
-    "chiPhiSauGiam": 180000,
-    "donViTienTe": "VND",
-    "maThanhToan": "T006H004",
-    "tinhTrangThanhToan": "Đã thanh toán"
+    "maDonThue": "RENT006",
+    "maKhachHang": "KH004",
+    "thoiGianDatHang": "2025-11-07T10:10:00Z",
+    "tienDatCoc": 100000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 180000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 180000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T006H004",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V013",
+        "soLuong": 1,
+        "donGia": 180000,
+        "soNgayThue": 1,
+        "tongGiaTri": 180000,
+        "thoiGianNhanXe": "2025-11-08T08:00:00Z",
+        "thoiGianTraXe": "2025-11-09T08:00:00Z",
+        "diaDiemNhanXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
+        "diaDiemTraXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-11-09T07:50:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
   },
-  "tinhTrangDon": "Đã hoàn thành",
-  "chiTietDonThue": [
-    {
-      "idXe": "V013",
-      "soLuong": 1,
-      "donGia": 180000,
-      "soNgayThue": 1,
-      "tongGiaTri": 180000,
-      "thoiGianNhanXe": "2025-11-08T08:00:00Z",
-      "thoiGianTraXe": "2025-11-09T08:00:00Z",
-      "diaDiemNhanXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
-      "diaDiemTraXe": "101 Nguyễn Chí Thanh, TP. Hà Nội",
-      "thoiGianTraXeThucTe": "2025-11-09T07:50:00Z",
-      "tinhTrangXe": "Đã trả"
-    }
-  ]
-},
   {
     "maDonThue": "RENT007",
     "maKhachHang": "KH009",
@@ -263,35 +263,1283 @@
     ]
   },
   {
-  "maDonThue": "RENT008",
-  "maKhachHang": "KH007",
-  "thoiGianDatHang": "2025-11-08T11:00:00Z",
-  "tienDatCoc": 350000,
-  "trangThaiCoc": "Đã thanh toán",
-  "thanhToan": {
-    "tongGiaTriGoc": 700000,
-    "maGiamGia": null,
-    "tienGiam": 0,
-    "chiPhiSauGiam": 700000,
-    "donViTienTe": "VND",
-    "maThanhToan": "T008H007",
-    "tinhTrangThanhToan": "Đã thanh toán"
+    "maDonThue": "RENT008",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-11-08T11:00:00Z",
+    "tienDatCoc": 350000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 700000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 700000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T008H007",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã huỷ",
+    "chiTietDonThue": [
+      {
+        "idXe": "V015",
+        "soLuong": 1,
+        "donGia": 350000,
+        "soNgayThue": 2,
+        "tongGiaTri": 700000,
+        "thoiGianNhanXe": "2025-11-08T12:00:00Z",
+        "thoiGianTraXe": "2025-11-10T12:00:00Z",
+        "diaDiemNhanXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-11-10T11:40:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
   },
-  "tinhTrangDon": "Đã huỷ",
-  "chiTietDonThue": [
-    {
-      "idXe": "V015",
-      "soLuong": 1,
-      "donGia": 350000,
-      "soNgayThue": 2,
-      "tongGiaTri": 700000,
-      "thoiGianNhanXe": "2025-11-08T12:00:00Z",
-      "thoiGianTraXe": "2025-11-10T12:00:00Z",
-      "diaDiemNhanXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
-      "diaDiemTraXe": "44 Phố Cổ, Quận Hoàn Kiếm, TP. Hà Nội",
-      "thoiGianTraXeThucTe": "2025-11-10T11:40:00Z",
-      "tinhTrangXe": "Đã trả"
-    }
-  ]
-}
+  {
+    "maDonThue": "RENT-R001",
+    "maKhachHang": "KH001",
+    "thoiGianDatHang": "2025-11-06T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 360000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 360000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-001",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V001",
+        "soLuong": 1,
+        "donGia": 180000,
+        "soNgayThue": 2,
+        "tongGiaTri": 360000,
+        "thoiGianNhanXe": "2025-11-07T00:00:00Z",
+        "thoiGianTraXe": "2025-11-09T00:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-11-09T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R003",
+    "maKhachHang": "KH006",
+    "thoiGianDatHang": "2025-10-21T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 360000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 360000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-003",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V001",
+        "soLuong": 1,
+        "donGia": 180000,
+        "soNgayThue": 2,
+        "tongGiaTri": 360000,
+        "thoiGianNhanXe": "2025-10-22T00:00:00Z",
+        "thoiGianTraXe": "2025-10-24T00:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-10-24T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R004",
+    "maKhachHang": "KH010",
+    "thoiGianDatHang": "2025-09-26T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 360000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 360000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-004",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V001",
+        "soLuong": 1,
+        "donGia": 180000,
+        "soNgayThue": 2,
+        "tongGiaTri": 360000,
+        "thoiGianNhanXe": "2025-09-27T00:00:00Z",
+        "thoiGianTraXe": "2025-09-29T00:00:00Z",
+        "diaDiemNhanXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-09-29T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R005",
+    "maKhachHang": "KH002",
+    "thoiGianDatHang": "2025-10-08T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 440000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 440000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-005",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V002",
+        "soLuong": 1,
+        "donGia": 220000,
+        "soNgayThue": 2,
+        "tongGiaTri": 440000,
+        "thoiGianNhanXe": "2025-10-09T00:00:00Z",
+        "thoiGianTraXe": "2025-10-11T00:00:00Z",
+        "diaDiemNhanXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-10-11T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R006",
+    "maKhachHang": "KH008",
+    "thoiGianDatHang": "2025-07-30T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 440000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 440000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-006",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V002",
+        "soLuong": 1,
+        "donGia": 220000,
+        "soNgayThue": 2,
+        "tongGiaTri": 440000,
+        "thoiGianNhanXe": "2025-07-31T00:00:00Z",
+        "thoiGianTraXe": "2025-08-02T00:00:00Z",
+        "diaDiemNhanXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-08-02T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R007",
+    "maKhachHang": "KH003",
+    "thoiGianDatHang": "2025-10-29T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 600000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 600000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-007",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V003",
+        "soLuong": 1,
+        "donGia": 300000,
+        "soNgayThue": 2,
+        "tongGiaTri": 600000,
+        "thoiGianNhanXe": "2025-10-30T00:00:00Z",
+        "thoiGianTraXe": "2025-11-01T00:00:00Z",
+        "diaDiemNhanXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-11-01T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R008",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-10-14T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 600000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 600000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-008",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V003",
+        "soLuong": 1,
+        "donGia": 300000,
+        "soNgayThue": 2,
+        "tongGiaTri": 600000,
+        "thoiGianNhanXe": "2025-10-15T00:00:00Z",
+        "thoiGianTraXe": "2025-10-17T00:00:00Z",
+        "diaDiemNhanXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-10-17T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R009",
+    "maKhachHang": "KH006",
+    "thoiGianDatHang": "2025-09-01T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 600000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 600000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-009",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V003",
+        "soLuong": 1,
+        "donGia": 300000,
+        "soNgayThue": 2,
+        "tongGiaTri": 600000,
+        "thoiGianNhanXe": "2025-09-02T00:00:00Z",
+        "thoiGianTraXe": "2025-09-04T00:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-04T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R010",
+    "maKhachHang": "KH001",
+    "thoiGianDatHang": "2025-08-16T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 600000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 600000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-010",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V003",
+        "soLuong": 1,
+        "donGia": 300000,
+        "soNgayThue": 2,
+        "tongGiaTri": 600000,
+        "thoiGianNhanXe": "2025-08-17T00:00:00Z",
+        "thoiGianTraXe": "2025-08-19T00:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-08-19T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R011",
+    "maKhachHang": "KH005",
+    "thoiGianDatHang": "2025-10-30T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 400000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 400000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-011",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V004",
+        "soLuong": 1,
+        "donGia": 200000,
+        "soNgayThue": 2,
+        "tongGiaTri": 400000,
+        "thoiGianNhanXe": "2025-10-31T00:00:00Z",
+        "thoiGianTraXe": "2025-11-02T00:00:00Z",
+        "diaDiemNhanXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-11-02T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R012",
+    "maKhachHang": "KH004",
+    "thoiGianDatHang": "2025-09-23T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 400000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 400000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-012",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V004",
+        "soLuong": 1,
+        "donGia": 200000,
+        "soNgayThue": 2,
+        "tongGiaTri": 400000,
+        "thoiGianNhanXe": "2025-09-24T00:00:00Z",
+        "thoiGianTraXe": "2025-09-26T00:00:00Z",
+        "diaDiemNhanXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-09-26T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R013",
+    "maKhachHang": "KH002",
+    "thoiGianDatHang": "2025-09-27T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 380000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 380000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-013",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V005",
+        "soLuong": 1,
+        "donGia": 190000,
+        "soNgayThue": 2,
+        "tongGiaTri": 380000,
+        "thoiGianNhanXe": "2025-09-28T00:00:00Z",
+        "thoiGianTraXe": "2025-09-30T00:00:00Z",
+        "diaDiemNhanXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-30T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R014",
+    "maKhachHang": "KH009",
+    "thoiGianDatHang": "2025-08-07T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 380000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 380000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-014",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V005",
+        "soLuong": 1,
+        "donGia": 190000,
+        "soNgayThue": 2,
+        "tongGiaTri": 380000,
+        "thoiGianNhanXe": "2025-08-08T00:00:00Z",
+        "thoiGianTraXe": "2025-08-10T00:00:00Z",
+        "diaDiemNhanXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-08-10T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R015",
+    "maKhachHang": "KH008",
+    "thoiGianDatHang": "2025-09-05T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 180000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 180000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-015",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V006",
+        "soLuong": 1,
+        "donGia": 90000,
+        "soNgayThue": 2,
+        "tongGiaTri": 180000,
+        "thoiGianNhanXe": "2025-09-06T00:00:00Z",
+        "thoiGianTraXe": "2025-09-08T00:00:00Z",
+        "diaDiemNhanXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-09-08T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R016",
+    "maKhachHang": "KH003",
+    "thoiGianDatHang": "2025-07-26T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 180000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 180000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-016",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V006",
+        "soLuong": 1,
+        "donGia": 90000,
+        "soNgayThue": 2,
+        "tongGiaTri": 180000,
+        "thoiGianNhanXe": "2025-07-27T00:00:00Z",
+        "thoiGianTraXe": "2025-07-29T00:00:00Z",
+        "diaDiemNhanXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-07-29T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R017",
+    "maKhachHang": "KH004",
+    "thoiGianDatHang": "2025-10-31T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 460000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 460000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-017",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V007",
+        "soLuong": 1,
+        "donGia": 230000,
+        "soNgayThue": 2,
+        "tongGiaTri": 460000,
+        "thoiGianNhanXe": "2025-11-01T00:00:00Z",
+        "thoiGianTraXe": "2025-11-03T00:00:00Z",
+        "diaDiemNhanXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-11-03T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R018",
+    "maKhachHang": "KH010",
+    "thoiGianDatHang": "2025-10-12T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 460000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 460000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-018",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V007",
+        "soLuong": 1,
+        "donGia": 230000,
+        "soNgayThue": 2,
+        "tongGiaTri": 460000,
+        "thoiGianNhanXe": "2025-10-13T00:00:00Z",
+        "thoiGianTraXe": "2025-10-15T00:00:00Z",
+        "diaDiemNhanXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-10-15T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R019",
+    "maKhachHang": "KH006",
+    "thoiGianDatHang": "2025-08-29T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 460000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 460000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-019",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V007",
+        "soLuong": 1,
+        "donGia": 230000,
+        "soNgayThue": 2,
+        "tongGiaTri": 460000,
+        "thoiGianNhanXe": "2025-08-30T00:00:00Z",
+        "thoiGianTraXe": "2025-09-01T00:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-01T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R020",
+    "maKhachHang": "KH001",
+    "thoiGianDatHang": "2025-08-06T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 460000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 460000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-020",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V007",
+        "soLuong": 1,
+        "donGia": 230000,
+        "soNgayThue": 2,
+        "tongGiaTri": 460000,
+        "thoiGianNhanXe": "2025-08-07T00:00:00Z",
+        "thoiGianTraXe": "2025-08-09T00:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-08-09T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R021",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-10-16T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 520000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 520000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-021",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V008",
+        "soLuong": 1,
+        "donGia": 260000,
+        "soNgayThue": 2,
+        "tongGiaTri": 520000,
+        "thoiGianNhanXe": "2025-10-17T00:00:00Z",
+        "thoiGianTraXe": "2025-10-19T00:00:00Z",
+        "diaDiemNhanXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-10-19T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R022",
+    "maKhachHang": "KH009",
+    "thoiGianDatHang": "2025-09-17T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 520000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 520000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-022",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V008",
+        "soLuong": 1,
+        "donGia": 260000,
+        "soNgayThue": 2,
+        "tongGiaTri": 520000,
+        "thoiGianNhanXe": "2025-09-18T00:00:00Z",
+        "thoiGianTraXe": "2025-09-20T00:00:00Z",
+        "diaDiemNhanXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-20T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R023",
+    "maKhachHang": "KH005",
+    "thoiGianDatHang": "2025-08-25T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 320000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 320000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-023",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V009",
+        "soLuong": 1,
+        "donGia": 160000,
+        "soNgayThue": 2,
+        "tongGiaTri": 320000,
+        "thoiGianNhanXe": "2025-08-26T00:00:00Z",
+        "thoiGianTraXe": "2025-08-28T00:00:00Z",
+        "diaDiemNhanXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-08-28T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R024",
+    "maKhachHang": "KH002",
+    "thoiGianDatHang": "2025-07-11T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 320000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 320000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-024",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V009",
+        "soLuong": 1,
+        "donGia": 160000,
+        "soNgayThue": 2,
+        "tongGiaTri": 320000,
+        "thoiGianNhanXe": "2025-07-12T00:00:00Z",
+        "thoiGianTraXe": "2025-07-14T00:00:00Z",
+        "diaDiemNhanXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-07-14T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R025",
+    "maKhachHang": "KH003",
+    "thoiGianDatHang": "2025-11-02T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 560000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 560000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-025",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V010",
+        "soLuong": 1,
+        "donGia": 280000,
+        "soNgayThue": 2,
+        "tongGiaTri": 560000,
+        "thoiGianNhanXe": "2025-11-03T00:00:00Z",
+        "thoiGianTraXe": "2025-11-05T00:00:00Z",
+        "diaDiemNhanXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-11-05T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R026",
+    "maKhachHang": "KH001",
+    "thoiGianDatHang": "2025-10-24T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 560000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 560000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-026",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V010",
+        "soLuong": 1,
+        "donGia": 280000,
+        "soNgayThue": 2,
+        "tongGiaTri": 560000,
+        "thoiGianNhanXe": "2025-10-25T00:00:00Z",
+        "thoiGianTraXe": "2025-10-27T00:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-10-27T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R027",
+    "maKhachHang": "KH006",
+    "thoiGianDatHang": "2025-09-15T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 560000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 560000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-027",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V010",
+        "soLuong": 1,
+        "donGia": 280000,
+        "soNgayThue": 2,
+        "tongGiaTri": 560000,
+        "thoiGianNhanXe": "2025-09-16T00:00:00Z",
+        "thoiGianTraXe": "2025-09-18T00:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-18T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R028",
+    "maKhachHang": "KH008",
+    "thoiGianDatHang": "2025-08-03T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 560000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 560000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-028",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V010",
+        "soLuong": 1,
+        "donGia": 280000,
+        "soNgayThue": 2,
+        "tongGiaTri": 560000,
+        "thoiGianNhanXe": "2025-08-04T00:00:00Z",
+        "thoiGianTraXe": "2025-08-06T00:00:00Z",
+        "diaDiemNhanXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-08-06T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R029",
+    "maKhachHang": "KH004",
+    "thoiGianDatHang": "2025-09-04T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 160000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 160000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-029",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V011",
+        "soLuong": 1,
+        "donGia": 80000,
+        "soNgayThue": 2,
+        "tongGiaTri": 160000,
+        "thoiGianNhanXe": "2025-09-05T00:00:00Z",
+        "thoiGianTraXe": "2025-09-07T00:00:00Z",
+        "diaDiemNhanXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "101 Đường Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-09-07T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R030",
+    "maKhachHang": "KH010",
+    "thoiGianDatHang": "2025-07-15T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 160000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 160000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-030",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V011",
+        "soLuong": 1,
+        "donGia": 80000,
+        "soNgayThue": 2,
+        "tongGiaTri": 160000,
+        "thoiGianNhanXe": "2025-07-16T00:00:00Z",
+        "thoiGianTraXe": "2025-07-18T00:00:00Z",
+        "diaDiemNhanXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "diaDiemTraXe": "88 Đường Xã Đàn, Phường Phương Liên, Quận Đống Đa, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-07-18T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R031",
+    "maKhachHang": "KH009",
+    "thoiGianDatHang": "2025-07-28T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 220000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 220000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-031",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V012",
+        "soLuong": 1,
+        "donGia": 110000,
+        "soNgayThue": 2,
+        "tongGiaTri": 220000,
+        "thoiGianNhanXe": "2025-07-29T00:00:00Z",
+        "thoiGianTraXe": "2025-07-31T00:00:00Z",
+        "diaDiemNhanXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-07-31T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R032",
+    "maKhachHang": "KH005",
+    "thoiGianDatHang": "2025-07-01T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 220000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 220000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-032",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V012",
+        "soLuong": 1,
+        "donGia": 110000,
+        "soNgayThue": 2,
+        "tongGiaTri": 220000,
+        "thoiGianNhanXe": "2025-07-02T00:00:00Z",
+        "thoiGianTraXe": "2025-07-04T00:00:00Z",
+        "diaDiemNhanXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-07-04T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R033",
+    "maKhachHang": "KH008",
+    "thoiGianDatHang": "2025-09-21T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 390000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 390000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-033",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V013",
+        "soLuong": 1,
+        "donGia": 195000,
+        "soNgayThue": 2,
+        "tongGiaTri": 390000,
+        "thoiGianNhanXe": "2025-09-22T00:00:00Z",
+        "thoiGianTraXe": "2025-09-24T00:00:00Z",
+        "diaDiemNhanXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "55 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-09-24T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R034",
+    "maKhachHang": "KH002",
+    "thoiGianDatHang": "2025-08-18T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 390000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 390000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-034",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V013",
+        "soLuong": 1,
+        "donGia": 195000,
+        "soNgayThue": 2,
+        "tongGiaTri": 390000,
+        "thoiGianNhanXe": "2025-08-19T00:00:00Z",
+        "thoiGianTraXe": "2025-08-21T00:00:00Z",
+        "diaDiemNhanXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "456 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-08-21T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R035",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-08-30T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 190000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 190000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-035",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V014",
+        "soLuong": 1,
+        "donGia": 95000,
+        "soNgayThue": 2,
+        "tongGiaTri": 190000,
+        "thoiGianNhanXe": "2025-08-31T00:00:00Z",
+        "thoiGianTraXe": "2025-09-02T00:00:00Z",
+        "diaDiemNhanXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "44 Phố Cổ, Phường Hàng Bạc, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-09-02T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R036",
+    "maKhachHang": "KH003",
+    "thoiGianDatHang": "2025-07-24T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 190000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 190000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-036",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V014",
+        "soLuong": 1,
+        "donGia": 95000,
+        "soNgayThue": 2,
+        "tongGiaTri": 190000,
+        "thoiGianNhanXe": "2025-07-25T00:00:00Z",
+        "thoiGianTraXe": "2025-07-27T00:00:00Z",
+        "diaDiemNhanXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "diaDiemTraXe": "789 Đường Hai Bà Trưng, Phường Hàng Bài, Quận Hoàn Kiếm, TP. Hà Nội",
+        "thoiGianTraXeThucTe": "2025-07-27T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R037",
+    "maKhachHang": "KH001",
+    "thoiGianDatHang": "2025-10-26T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 640000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 640000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-037",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V015",
+        "soLuong": 1,
+        "donGia": 320000,
+        "soNgayThue": 2,
+        "tongGiaTri": 640000,
+        "thoiGianNhanXe": "2025-10-27T00:00:00Z",
+        "thoiGianTraXe": "2025-10-29T00:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-10-29T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R038",
+    "maKhachHang": "KH006",
+    "thoiGianDatHang": "2025-09-08T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 640000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 640000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-038",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V015",
+        "soLuong": 1,
+        "donGia": 320000,
+        "soNgayThue": 2,
+        "tongGiaTri": 640000,
+        "thoiGianNhanXe": "2025-09-09T00:00:00Z",
+        "thoiGianTraXe": "2025-09-11T00:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-09-11T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R039",
+    "maKhachHang": "KH009",
+    "thoiGianDatHang": "2025-08-14T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 240000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 240000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-039",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V016",
+        "soLuong": 1,
+        "donGia": 120000,
+        "soNgayThue": 2,
+        "tongGiaTri": 240000,
+        "thoiGianNhanXe": "2025-08-15T00:00:00Z",
+        "thoiGianTraXe": "2025-08-17T00:00:00Z",
+        "diaDiemNhanXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "67 Đường Pasteur, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-08-17T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  },
+  {
+    "maDonThue": "RENT-R040",
+    "maKhachHang": "KH005",
+    "thoiGianDatHang": "2025-07-18T00:00:00Z",
+    "tienDatCoc": 200000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 240000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 240000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T-GEN-040",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã hoàn thành",
+    "chiTietDonThue": [
+      {
+        "idXe": "V016",
+        "soLuong": 1,
+        "donGia": 120000,
+        "soNgayThue": 2,
+        "tongGiaTri": 240000,
+        "thoiGianNhanXe": "2025-07-19T00:00:00Z",
+        "thoiGianTraXe": "2025-07-21T00:00:00Z",
+        "diaDiemNhanXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "diaDiemTraXe": "22 Đường Nguyễn Văn Linh, Phường Nam Dương, Quận Hải Châu, TP. Đà Nẵng",
+        "thoiGianTraXeThucTe": "2025-07-21T00:00:00Z",
+        "tinhTrangXe": "Đã trả"
+      }
+    ]
+  }
 ]
