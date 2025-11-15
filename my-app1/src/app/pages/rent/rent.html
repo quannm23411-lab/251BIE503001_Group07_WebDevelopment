@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
-<main class="main-content container-fluid mt-5 pt-4">
+<main class="main-content container-fluid pt-4">
   <!-- BREADCRUMB -->
   <nav class="container mb-3 breadcrumb-bar">
     <span class="breadcrumb-item">
@@ -65,18 +65,7 @@
 
       <div class="filter-row">
         <span class="filter-label">Loại xe:</span>
-        <!-- <label>
-          <input type="checkbox" (change)="toggleType('Xe máy điện', $event.target.checked)" />
-          Xe máy điện
-        </label>
-        <label>
-          <input type="checkbox" (change)="toggleType('Xe đạp điện', $event.target.checked)" />
-          Xe đạp điện
-        </label>
-        <label>
-          <input type="checkbox" (change)="toggleType('Xe đạp điện gấp gọn', $event.target.checked)" />
-          Xe đạp điện gấp gọn
-        </label> -->
+
         <label>
           <input type="checkbox" [checked]="isTypeSelected('Xe máy điện')"
             (change)="toggleType('Xe máy điện', $any($event.target).checked)" />
@@ -99,15 +88,15 @@
       <div class="filter-row">
         <span class="filter-label">Thương hiệu:</span>
         <label>
-          <input type="checkbox" (change)="toggleBrand('Vinfast', $event.target.checked)" />
-          Vinfast
+          <input type="checkbox" (change)="toggleBrand('VinFast', $any($event.target).checked)" />
+          VinFast
         </label>
         <label>
-          <input type="checkbox" (change)="toggleBrand('Yadea', $event.target.checked)" />
+          <input type="checkbox" (change)="toggleBrand('Yadea', $any($event.target).checked)" />
           Yadea
         </label>
         <label>
-          <input type="checkbox" (change)="toggleBrand('Dat Bike', $event.target.checked)" />
+          <input type="checkbox" (change)="toggleBrand('Dat Bike', $any($event.target).checked)" />
           Dat Bike
         </label>
       </div>
@@ -175,7 +164,6 @@
         <!-- 3 hàng x 4 xe / trang -->
         <a class="product-card position-relative" *ngFor="let p of topRentList()" [routerLink]="['/rent', p.id]"
           [queryParams]="buildDateParams()">
-
           <span *ngIf="p.discount > 0" class="badge bg-danger position-absolute top-0 start-0 m-2">
             -{{ p.discount }}%
           </span>

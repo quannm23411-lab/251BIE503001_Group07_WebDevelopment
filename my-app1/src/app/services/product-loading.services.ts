@@ -14,12 +14,13 @@ export interface ProductDetails {
 export interface Product {
     id: string;
     vehicleName: string;
-    brandId: 'B001' | 'B002' | 'B003' | 'B004' | 'B005' | string;
+    brandId: 'B001' | 'B002' | 'B003' | 'B004' | 'B005' | 'B006' | string;
     model: string;
     licensePlate: string;
     batteryCapacity: string;
     rangePerCharge: number;
-    vehicleType: 'Scooter' | 'Motorbike' | 'E-Bike' | 'Bicycle' | string;
+    // đã đổi sang tiếng Việt
+    vehicleType: 'Xe máy điện' | 'Xe đạp điện' | 'Xe đạp điện gấp gọn' | string;
     pricePerHour: number;
     pricePerDay: number;
     availabilityStatus: boolean;
@@ -32,6 +33,9 @@ export interface Product {
 
     /** Mô tả chi tiết cho trang product-detail */
     details?: ProductDetails;
+
+    /** phòng khi JSON có thêm */
+    images?: string[];
 }
 
 /** View model đã chuẩn hóa thêm vài field hữu ích */
@@ -40,13 +44,14 @@ export interface ProductVM extends Product {
     finalPricePerDay: number;
 }
 
-/** brandId -> brandName */
+/** brandId -> brandName (theo DB hiện tại) */
 const BRAND_MAP: Readonly<Record<string, string>> = {
-    B001: 'Vinfast',
+    B001: 'VinFast',
     B002: 'Yadea',
-    B003: 'Dat Bike',
-    B004: 'Gogoro',
-    B005: 'DK Bike'
+    B003: 'DKBike',
+    B004: 'Dat Bike',
+    B005: 'Gogoro',
+    B006: 'G-FORCE'
 } as const;
 
 /** placeholder ảnh mặc định */
@@ -107,8 +112,13 @@ export class ProductLoadingService {
 
     /** ====== Ảnh & hiển thị ====== */
 
-    getImageUrl(p: { image?: string }, _kind: ImageKind = 'card'): string {
-        return p?.image || IMG_PLACEHOLDER;
+    getImageUrl(
+        p: { image?: string; images?: string[] },
+        _kind: ImageKind = 'card'
+    ): string {
+        if (p?.image) return p.image;
+        if (Array.isArray(p?.images) && p.images.length) return p.images[0];
+        return IMG_PLACEHOLDER;
     }
 
     getImageSize(kind: ImageKind = 'card') {
@@ -122,20 +132,27 @@ export class ProductLoadingService {
         }
     }
 
-    /** Text hiển thị dòng type trong card */
+    /** Text hiển thị dòng loại xe trong card / detail */
     getVehicleTypeLabel(vehicleType: string): string {
-        switch (vehicleType) {
-            case 'Motorbike':
-                return 'Xe máy điện';
-            case 'Scooter':
-                return 'Scooter điện';
-            case 'E-Bike':
-                return 'Xe đạp điện';
-            case 'Bicycle':
-                return 'Xe đạp';
-            default:
-                return 'Dòng xe khác';
+        const raw = (vehicleType ?? '').trim();
+        if (!raw) return 'Dòng xe khác';
+
+        // Trường hợp mới: DB đã lưu TV sẵn → xài luôn
+        if (
+            raw === 'Xe máy điện' ||
+            raw === 'Xe đạp điện' ||
+            raw === 'Xe đạp điện gấp gọn'
+        ) {
+            return raw;
         }
+
+        // Trường hợp cũ lỡ còn sót
+        const lower = raw.toLowerCase();
+        if (lower === 'motorbike' || lower === 'scooter') return 'Xe máy điện';
+        if (lower === 'e-bike' || lower === 'bicycle') return 'Xe đạp điện';
+
+        // fallback: trả nguyên string
+        return raw;
     }
 
     /** ====== Private ====== */
@@ -164,7 +181,7 @@ export class ProductLoadingService {
 /* ================== Helpers ================== */
 
 function normalizeList(list: Product[]): ProductVM[] {
-    return list.map(p => normalizeItem(p));
+    return (list ?? []).map(p => normalizeItem(p));
 }
 
 function normalizeItem(p: Product): ProductVM {
@@ -172,11 +189,16 @@ function normalizeItem(p: Product): ProductVM {
     const base = Number.isFinite(p.pricePerDay) ? Number(p.pricePerDay) : 0;
     const finalPricePerDay = Math.round(base * (1 - discount / 100));
 
+    // chọn ảnh chính: image → images[0] → placeholder
+    const mainImage =
+        p.image ||
+        (Array.isArray(p.images) && p.images.length ? p.images[0] : IMG_PLACEHOLDER);
+
     return {
         ...p,
         id: String(p.id),
         vehicleName: p.vehicleName || 'Sản phẩm',
-        image: p.image || IMG_PLACEHOLDER,
+        image: mainImage,
         brandName: BRAND_MAP[p.brandId] || undefined,
         // đảm bảo lấy đúng từ JSON, có fallback
         rangePerCharge: Number(p.rangePerCharge) || 0,
@@ -186,11 +208,11 @@ function normalizeItem(p: Product): ProductVM {
 }
 
 function clampPercent(n: number): number {
-    const v = Number.isFinite(n) ? n : 0;
+    const v = Number.isFinite(n as number) ? Number(n) : 0;
     return Math.max(0, Math.min(100, v));
 }
 
 function clampRating(n: number): number {
-    const v = Number.isFinite(n) ? n : 0;
+    const v = Number.isFinite(n as number) ? Number(n) : 0;
     return Math.max(0, Math.min(5, v));
 }

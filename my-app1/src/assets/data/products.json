@@ -7,7 +7,7 @@
         "licensePlate": "59A1-123.45",
         "batteryCapacity": "3.5 kWh",
         "rangePerCharge": 200,
-        "vehicleType": "Scooter",
+        "vehicleType": "Xe máy điện",
         "pricePerHour": 25000,
         "pricePerDay": 180000,
         "availabilityStatus": true,
@@ -20,19 +20,19 @@
             "city"
         ],
         "image": "assets/images/products/vinfast-evo200.jpg",
-        "description": "Xe điện phổ biến của VinFast, vận hành êm ái, tiết kiệm năng lượng cho di chuyển nội thành.",
+        "description": "Mẫu xe máy điện phổ thông của VinFast, phù hợp di chuyển nội đô với tầm hoạt động 200km một lần sạc.",
         "details": {
-            "title": "VinFast Evo 200 Lite – Lựa chọn thông minh cho thành phố",
+            "title": "VinFast Evo 200 Lite – Lựa chọn hoàn hảo cho đô thị",
             "paragraphs": [
-                "Evo 200 Lite là mẫu xe quốc dân, lý tưởng cho việc di chuyển hàng ngày trong đô thị đông đúc.",
-                "Xe sử dụng pin LFP thế hệ mới, cho phép di chuyển tới 200km chỉ với một lần sạc đầy.",
-                "Với chi phí thuê hợp lý và khả năng vận hành êm ái, đây là giải pháp di chuyển xanh và tiết kiệm."
+                "VinFast Evo 200 Lite là dòng xe máy điện hướng tới người dùng đô thị, với thiết kế nhỏ gọn và hiện đại.",
+                "Xe phù hợp cho sinh viên, nhân viên văn phòng, gia đình có nhu cầu di chuyển hằng ngày trong nội thành.",
+                "Động cơ êm ái, tiết kiệm chi phí nhiên liệu và hầu như không cần bảo dưỡng phức tạp."
             ],
             "features": [
-                "Quãng đường 200 km/lần sạc",
-                "Vận hành êm ái, không tiếng ồn",
-                "Tiết kiệm năng lượng, thân thiện môi trường",
-                "Bao gồm 2 nón bảo hiểm và áo mưa"
+                "Tầm hoạt động lên tới 200km mỗi lần sạc",
+                "Thiết kế nhỏ gọn, dễ dàng luồn lách trong phố",
+                "Cốp xe rộng rãi, để được nón bảo hiểm và nhiều vật dụng khác",
+                "Phanh CBS an toàn, phù hợp nhiều điều kiện đường xá"
             ]
         }
     },
@@ -41,48 +41,48 @@
         "vehicleName": "Yadea G5 Pro",
         "brandId": "B002",
         "model": "G5 Pro",
-        "licensePlate": "59B2-456.78",
-        "batteryCapacity": "2.3 kWh",
+        "licensePlate": "59A1-678.90",
+        "batteryCapacity": "2.4 kWh",
         "rangePerCharge": 120,
-        "vehicleType": "Scooter",
-        "pricePerHour": 20000,
-        "pricePerDay": 150000,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 30000,
+        "pricePerDay": 220000,
         "availabilityStatus": true,
         "rating": 4.6,
-        "discount": 0,
-        "location": "TP.HCM",
+        "discount": 5,
+        "location": "Hà Nội",
         "tags": [
-            "compact",
-            "youth",
-            "trendy"
+            "premium",
+            "city",
+            "comfortable"
         ],
         "image": "assets/images/products/yadea-g5pro.jpg",
-        "description": "Xe điện nhỏ gọn, hiện đại, phù hợp cho sinh viên và người trẻ thích phong cách năng động.",
+        "description": "Xe máy điện cao cấp với thiết kế hiện đại, phù hợp cho người dùng yêu thích sự thoải mái và sang trọng.",
         "details": {
-            "title": "Yadea G5 Pro – Phong cách trẻ, lướt phố cực \"chất\"",
+            "title": "Yadea G5 Pro – Sang trọng trong từng chi tiết",
             "paragraphs": [
-                "Yadea G5 Pro thu hút mọi ánh nhìn với thiết kế hiện đại, đầy cá tính và thời trang.",
-                "Xe nhỏ gọn, dễ dàng luồn lách trong thành phố, rất phù hợp với các bạn trẻ năng động.",
-                "Động cơ GTR 3.0 độc quyền của Yadea mang lại trải nghiệm lái mượt mà và bốc."
+                "Yadea G5 Pro mang phong cách thiết kế châu Âu với những đường nét tinh tế và hiện đại.",
+                "Xe được trang bị nhiều tiện ích như màn hình LCD, đèn LED toàn bộ, phanh đĩa trước sau.",
+                "Yadea G5 Pro phù hợp với khách hàng yêu cầu cao về sự êm ái và độ ổn định khi vận hành."
             ],
             "features": [
-                "Thiết kế \"trendy\", nhỏ gọn",
-                "Quãng đường 120 km/lần sạc",
-                "Động cơ GTR 3.0 mạnh mẽ",
-                "Phù hợp cho sinh viên, người trẻ"
+                "Tốc độ tối đa 50 km/h, vận hành êm ái",
+                "Hệ thống phanh đĩa an toàn, chống trượt",
+                "Màn hình LCD hiển thị đầy đủ thông tin",
+                "Đèn LED chiếu sáng tốt trong đêm"
             ]
         }
     },
     {
         "id": "V003",
         "vehicleName": "Dat Bike Weaver++",
-        "brandId": "B003",
+        "brandId": "B004",
         "model": "Weaver++",
-        "licensePlate": "59A3-678.99",
-        "batteryCapacity": "5 kWh",
+        "licensePlate": "59A3-456.78",
+        "batteryCapacity": "5.0 kWh",
         "rangePerCharge": 250,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 40000,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 45000,
         "pricePerDay": 300000,
         "availabilityStatus": true,
         "rating": 4.9,
@@ -102,47 +102,46 @@
                 "Công nghệ sạc siêu nhanh độc quyền: chỉ 2 giờ để sạc đầy, sẵn sàng cho mọi hành trình."
             ],
             "features": [
-                "Sạc siêu nhanh: 2 giờ đầy pin",
-                "Quãng đường 250 km/lần sạc",
-                "Tốc độ tối đa 100 km/h",
-                "Hiệu năng cao, thiết kế độc đáo"
+                "Tốc độ tối đa lên tới 100 km/h",
+                "Quãng đường 250 km mỗi lần sạc",
+                "Sạc nhanh chỉ trong 2 giờ",
+                "Khung sườn chắc chắn, phong cách cá tính"
             ]
         }
     },
     {
         "id": "V004",
-        "vehicleName": "Gogoro VIVA Mix",
-        "brandId": "B004",
-        "model": "VIVA Mix",
-        "licensePlate": "59C1-888.88",
-        "batteryCapacity": "1.6 kWh",
-        "rangePerCharge": 85,
-        "vehicleType": "Scooter",
-        "pricePerHour": 22000,
-        "pricePerDay": 160000,
+        "vehicleName": "Gogoro Viva Mix",
+        "brandId": "B005",
+        "model": "Viva Mix",
+        "licensePlate": "59B1-234.56",
+        "batteryCapacity": "1.9 kWh x 2",
+        "rangePerCharge": 150,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 28000,
+        "pricePerDay": 200000,
         "availabilityStatus": false,
-        "rating": 4.4,
-        "discount": 5,
-        "location": "Hà Nội",
+        "rating": 4.5,
+        "discount": 0,
+        "location": "TP.HCM",
         "tags": [
-            "imported",
-            "smart",
-            "compact"
+            "city",
+            "stylish"
         ],
         "image": "assets/images/products/gogoro-vivamix.jpg",
-        "description": "Xe thông minh từ Đài Loan, có kết nối IoT và đổi pin nhanh tại trạm Gogoro Network.",
+        "description": "Xe máy điện Đài Loan với hệ sinh thái pin đổi, phù hợp cho đô thị đông đúc.",
         "details": {
-            "title": "Gogoro VIVA Mix – Thông minh, tiện lợi, đổi pin tức thì",
+            "title": "Gogoro Viva Mix – Năng động và hiện đại",
             "paragraphs": [
-                "Trải nghiệm công nghệ xe điện hàng đầu từ Đài Loan với Gogoro VIVA Mix.",
-                "Không còn lo lắng về thời gian sạc, chỉ cần 1 phút để đổi pin tại trạm Gogoro Network.",
-                "Xe tích hợp IoT, kết nối thông minh với điện thoại, mang lại trải nghiệm lái xe công nghệ cao."
+                "Gogoro Viva Mix hướng đến sự linh hoạt trong di chuyển nội đô với thiết kế trẻ trung, đa màu sắc.",
+                "Hệ thống pin đổi giúp tiết kiệm thời gian sạc, chỉ cần đổi pin tại các trạm hỗ trợ.",
+                "Khả năng tăng tốc mượt mà, khả năng leo dốc ổn định, phù hợp nhiều địa hình phố núi."
             ],
             "features": [
-                "Đổi pin nhanh tại trạm Gogoro",
-                "Thiết kế nhỏ gọn, thông minh",
-                "Kết nối IoT và ứng dụng di động",
-                "Quãng đường 85 km (linh hoạt đổi pin)"
+                "Hệ sinh thái đổi pin tiện lợi",
+                "Thiết kế trẻ trung, màu sắc đa dạng",
+                "Trọng lượng nhẹ, dễ điều khiển",
+                "Trang bị phanh đĩa và ABS (tuỳ phiên bản)"
             ]
         }
     },
@@ -151,434 +150,446 @@
         "vehicleName": "VinFast Feliz S",
         "brandId": "B001",
         "model": "Feliz S",
-        "licensePlate": "59D1-555.11",
-        "batteryCapacity": "3.0 kWh",
+        "licensePlate": "59C2-567.89",
+        "batteryCapacity": "3.5 kWh",
         "rangePerCharge": 198,
-        "vehicleType": "Scooter",
-        "pricePerHour": 23000,
-        "pricePerDay": 170000,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 26000,
+        "pricePerDay": 190000,
         "availabilityStatus": true,
         "rating": 4.7,
-        "discount": 0,
+        "discount": 8,
         "location": "TP.HCM",
         "tags": [
-            "urban",
-            "family"
+            "family",
+            "city",
+            "eco"
         ],
         "image": "assets/images/products/vinfast-felizs.jpg",
-        "description": "Xe điện cân bằng giữa hiệu năng và giá cả, phù hợp cho gia đình và nhân viên văn phòng.",
+        "description": "Mẫu xe máy điện gia đình, yên dài, cốp rộng, phù hợp di chuyển hằng ngày.",
         "details": {
-            "title": "VinFast Feliz S – Di chuyển êm ái, quãng đường vượt trội",
-            "paragraphs": [ 
-                "Feliz S không chỉ là một chiếc xe điện, mà là người bạn đồng hành đáng tin cậy cho mọi chuyến đi đô thị.",
-                "Động cơ mạnh mẽ, pin LFP siêu bền, và thiết kế thanh lịch giúp xe vừa sang trọng vừa tiết kiệm.",
-                "Hệ thống phanh đĩa, định vị GPS và cứu hộ 24/7 mang đến trải nghiệm an toàn tuyệt đối."
+            "title": "VinFast Feliz S – Lựa chọn an toàn cho gia đình",
+            "paragraphs": [
+                "Feliz S mang đến trải nghiệm lái êm ái, chở được 2 người thoải mái với yên xe dài và rộng.",
+                "Xe có khả năng chống nước tiêu chuẩn IP67, yên tâm di chuyển trong điều kiện thời tiết thất thường.",
+                "Pin LFP bền bỉ, tuổi thọ cao, giảm chi phí thay pin về lâu dài."
             ],
             "features": [
-                "Pin LFP bền bỉ, 198 km/lần sạc",
-                "Sạc nhanh 3–4 tiếng",
-                "Hỗ trợ GPS & cứu hộ 24/7",
-                "2 nón bảo hiểm cao cấp đi kèm"
+                "Tầm hoạt động gần 200 km",
+                "Yên và cốp rộng, chở được nhiều đồ",
+                "Khả năng chống nước tốt, an toàn mùa mưa",
+                "Phù hợp di chuyển nội đô cho cả gia đình"
             ]
         }
     },
     {
         "id": "V006",
-        "vehicleName": "DK Bike E-Scooter X5",
-        "brandId": "B005",
+        "vehicleName": "DKBike X5",
+        "brandId": "B003",
         "model": "X5",
-        "licensePlate": "59E1-909.22",
-        "batteryCapacity": "2.0 kWh",
-        "rangePerCharge": 100,
-        "vehicleType": "Scooter",
-        "pricePerHour": 18000,
-        "pricePerDay": 130000,
+        "licensePlate": "",
+        "batteryCapacity": "0.8 kWh",
+        "rangePerCharge": 60,
+        "vehicleType": "Xe đạp điện",
+        "pricePerHour": 12000,
+        "pricePerDay": 90000,
         "availabilityStatus": true,
         "rating": 4.3,
         "discount": 0,
         "location": "TP.HCM",
         "tags": [
-            "budget",
-            "student"
+            "student",
+            "eco",
+            "affordable"
         ],
         "image": "assets/images/products/dkbike-x5.jpg",
-        "description": "Xe điện giá rẻ, tiết kiệm năng lượng, phù hợp cho sinh viên thuê theo ngày.",
+        "description": "Xe đạp điện phổ thông cho học sinh, sinh viên, dễ dùng và tiết kiệm.",
         "details": {
-            "title": "DK Bike E-Scooter X5 – Giải pháp thuê xe tiết kiệm nhất",
+            "title": "DKBike X5 – Bạn đồng hành của học sinh, sinh viên",
             "paragraphs": [
-                "Bạn là sinh viên và cần một phương tiện di chuyển với chi phí \"hạt dẻ\"? DK Bike X5 là lựa chọn số một.",
-                "Với mức giá thuê không thể rẻ hơn, X5 vẫn đáp ứng tốt nhuu cầu đi lại cơ bản trong thành phố.",
-                "Xe tiết kiệm năng lượng, dễ điều khiển, phù hợp cho cả những người mới tập lái."
+                "X5 là mẫu xe đạp điện thân thiện, được ưa chuộng trong phân khúc học sinh, sinh viên.",
+                "Thiết kế nhỏ gọn, yên thấp, phù hợp chiều cao của đa số người Việt trẻ tuổi.",
+                "Tiết kiệm chi phí, chỉ vài nghìn đồng cho mỗi ngày di chuyển."
             ],
             "features": [
-                "Giá thuê siêu rẻ, tiết kiệm chi phí",
-                "Quãng đường 100 km/lần sạc",
-                "Phù hợp cho sinh viên",
-                "Dễ điều khiển, vận hành đơn giản"
+                "Tầm hoạt động 60 km mỗi lần sạc",
+                "Phanh cơ an toàn, dễ bảo dưỡng",
+                "Giỏ xe rộng, có thể chở cặp sách, đồ dùng hằng ngày",
+                "Thiết kế nhiều màu sắc phù hợp giới trẻ"
             ]
         }
     },
     {
         "id": "V007",
-        "vehicleName": "VinFast Klara S 2024",
+        "vehicleName": "VinFast Klara S",
         "brandId": "B001",
         "model": "Klara S",
-        "licensePlate": "59F1-111.23",
-        "batteryCapacity": "3.4 kWh",
+        "licensePlate": "59D1-345.67",
+        "batteryCapacity": "3.5 kWh",
         "rangePerCharge": 194,
-        "vehicleType": "Scooter",
-        "pricePerHour": 27000,
-        "pricePerDay": 190000,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 32000,
+        "pricePerDay": 230000,
         "availabilityStatus": true,
-        "rating": 4.8,
-        "discount": 5,
-        "location": "Đà Nẵng",
+        "rating": 4.6,
+        "discount": 12,
+        "location": "Hà Nội",
         "tags": [
-            "smart",
-            "female",
-            "urban"
+            "premium",
+            "city",
+            "family"
         ],
         "image": "assets/images/products/vinfast-klaras.jpg",
-        "description": "Klara S bản mới nhất, thiết kế sang trọng, có kết nối app VinFast Smart EV.",
+        "description": "Mẫu xe máy điện cao cấp của VinFast với thiết kế thanh lịch, phù hợp phái nữ và gia đình trẻ.",
         "details": {
-            "title": "VinFast Klara S 2024 – Sang trọng, thông minh, tôn vinh phái đẹp",
+            "title": "VinFast Klara S – Thanh lịch và hiện đại",
             "paragraphs": [
-                "Klara S 2024 là biểu tượng của sự sang trọng, với thiết kế tinh tế lấy cảm hứng từ Ý.",
-                "Xe được trang bị kết nối thông minh qua app VinFast Smart EV, cho phép định vị xe, kiểm tra tình trạng pin.",
-                "Quãng đường gần 200km và cốp xe rộng rãi khiến Klara S trở thành bạn đồng hành lý tưởng cho phái nữ."
+                "Klara S sở hữu ngôn ngữ thiết kế sang trọng, đường nét mềm mại phù hợp cho người dùng yêu thích sự tinh tế.",
+                "Trang bị nhiều công nghệ tiện ích như kết nối smartphone, định vị GPS, cảnh báo chống trộm.",
+                "Khung xe chắc chắn, vận hành ổn định kể cả khi chở thêm người hoặc nhiều đồ."
             ],
             "features": [
-                "Thiết kế sang trọng, thanh lịch",
-                "Kết nối app VinFast Smart EV",
-                "Quãng đường 194 km/lần sạc",
-                "Cốp xe rộng, phù hợp cho phái nữ"
+                "Tích hợp kết nối thông minh qua ứng dụng",
+                "Định vị và chống trộm từ xa",
+                "Tầm hoạt động gần 200 km",
+                "Thiết kế sang trọng, phù hợp mọi lứa tuổi"
             ]
         }
     },
     {
         "id": "V008",
-        "vehicleName": "Gogoro SuperSport",
-        "brandId": "B004",
-        "model": "SuperSport",
-        "licensePlate": "59G1-456.99",
-        "batteryCapacity": "3.2 kWh",
-        "rangePerCharge": 150,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 35000,
-        "pricePerDay": 250000,
+        "vehicleName": "Gogoro Supersport",
+        "brandId": "B005",
+        "model": "Supersport",
+        "licensePlate": "59E1-890.12",
+        "batteryCapacity": "2.6 kWh x 2",
+        "rangePerCharge": 170,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 38000,
+        "pricePerDay": 260000,
         "availabilityStatus": true,
         "rating": 4.8,
         "discount": 10,
         "location": "TP.HCM",
         "tags": [
-            "sport",
-            "imported"
+            "sporty",
+            "city",
+            "premium"
         ],
         "image": "assets/images/products/gogoro-supersport.jpg",
-        "description": "Xe điện thể thao hiệu năng cao, hỗ trợ đổi pin nhanh, tăng tốc 0-50km/h chỉ 3.8 giây.",
+        "description": "Xe máy điện thể thao với khả năng tăng tốc nhanh, phù hợp người dùng trẻ, ưa thích phong cách cá tính.",
         "details": {
-            "title": "Gogoro SuperSport – Đam mê tốc độ, công nghệ đỉnh cao",
+            "title": "Gogoro Supersport – Cá tính và bứt phá",
             "paragraphs": [
-                "Gogoro SuperSport định nghĩa lại xe điện thể thao với khả năng tăng tốc ấn tượng.",
-                "Chỉ mất 3.8 giây để đạt 50km/h, mang lại cảm giác lái phấn khích chưa từng có.",
-                "Kết hợp với hệ thống đổi pin nhanh của Gogoro, bạn sẽ không bao giờ bị gián đoạn cuộc vui."
+                "Supersport nổi bật với thiết kế thể thao, góc cạnh và cụm đèn LED ấn tượng.",
+                "Khả năng tăng tốc nhanh, cảm giác lái phấn khích nhưng vẫn đảm bảo độ an toàn cao.",
+                "Hệ thống đổi pin linh hoạt, giúp hành trình không bị gián đoạn vì chờ sạc."
             ],
             "features": [
-                "Tăng tốc 0-50km/h chỉ trong 3.8s",
-                "Phong cách thể thao, hiệu năng cao",
-                "Hệ thống đổi pin nhanh tiện lợi",
-                "Xe nhập khẩu, công nghệ tiên tiến"
+                "Thiết kế thể thao, cụm đèn LED nổi bật",
+                "Tăng tốc nhanh, vận hành mạnh mẽ",
+                "Hỗ trợ đổi pin nhanh chóng",
+                "Phù hợp cho người trẻ yêu thích tốc độ"
             ]
         }
     },
     {
         "id": "V009",
-        "vehicleName": "YADEA Xmen Neo",
+        "vehicleName": "Yadea Xmen Neo",
         "brandId": "B002",
         "model": "Xmen Neo",
-        "licensePlate": "59G2-888.44",
-        "batteryCapacity": "2.1 kWh",
-        "rangePerCharge": 120,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 19000,
-        "pricePerDay": 140000,
+        "licensePlate": "",
+        "batteryCapacity": "1.2 kWh",
+        "rangePerCharge": 90,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 22000,
+        "pricePerDay": 160000,
         "availabilityStatus": true,
-        "rating": 4.5,
+        "rating": 4.2,
         "discount": 0,
-        "location": "TP.HCM",
+        "location": "Đà Nẵng",
         "tags": [
-            "youth",
+            "student",
             "sporty"
         ],
         "image": "assets/images/products/yadea-xmenneo.jpg",
-        "description": "Kiểu dáng thể thao, động cơ 1200W, tốc độ tối đa 50km/h, phù hợp học sinh sinh viên.",
+        "description": "Xe máy điện kiểu dáng thể thao dành cho học sinh, sinh viên, giá mềm.",
         "details": {
-            "title": "YADEA Xmen Neo – Chiến binh đường phố cho giới trẻ",
+            "title": "Yadea Xmen Neo – Năng động tuổi teen",
             "paragraphs": [
-                "Xmen Neo sở hữu thiết kế hầm hố, đậm chất \"sporty\", là lựa chọn hàng đầu của học sinh, sinh viên.",
-                "Động cơ 1200W mạnh mẽ cho phép xe đạt tốc độ tối đa 50km/h, vừa đủ an toàn vừa phấn khích.",
-                "Hệ thống đèn LED toàn xe và phanh đĩa an toàn giúp bạn tự tin chinh phục mọi cung đường."
+                "Xmen Neo sở hữu thiết kế thể thao, khoẻ khoắn với phần đầu xe góc cạnh.",
+                "Động cơ mạnh mẽ đủ đáp ứng nhu cầu di chuyển trong nội đô và khu vực lân cận.",
+                "Xe được tối ưu cho nhóm khách hàng học sinh, sinh viên với chi phí sử dụng thấp."
             ],
             "features": [
-                "Kiểu dáng thể thao, cá tính",
-                "Động cơ 1200W, tốc độ 50km/h",
-                "Quãng đường 120 km/lần sạc",
-                "Phù hợp học sinh, sinh viên"
+                "Kiểu dáng thể thao, phù hợp giới trẻ",
+                "Tầm hoạt động khoảng 90 km",
+                "Yên xe êm, dễ ngồi cho 2 người",
+                "Phuộc nhún êm ái, đi qua gờ giảm tốc thoải mái"
             ]
         }
     },
     {
         "id": "V010",
         "vehicleName": "Dat Bike Weaver 200",
-        "brandId": "B003",
+        "brandId": "B004",
         "model": "Weaver 200",
-        "licensePlate": "59H1-789.12",
-        "batteryCapacity": "4.8 kWh",
+        "licensePlate": "59G1-901.23",
+        "batteryCapacity": "4.0 kWh",
         "rangePerCharge": 200,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 38000,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 40000,
         "pricePerDay": 280000,
-        "availabilityStatus": true,
-        "rating": 4.9,
-        "discount": 10,
+        "availabilityStatus": false,
+        "rating": 4.7,
+        "discount": 5,
         "location": "TP.HCM",
         "tags": [
-            "made-in-vietnam",
             "long-range",
-            "eco"
+            "premium"
         ],
         "image": "assets/images/products/datbike-weaver200.jpg",
-        "description": "Xe điện Việt hiệu năng mạnh, đạt 200km mỗi lần sạc, khung kim loại cứng cáp, bảo hành 5 năm.",
+        "description": "Phiên bản tối ưu giữa hiệu năng và giá thành trong dòng Weaver của Dat Bike.",
         "details": {
-            "title": "Dat Bike Weaver 200 – Tự hào xe Việt, chinh phục 200km",
+            "title": "Dat Bike Weaver 200 – Cân bằng sức mạnh và chi phí",
             "paragraphs": [
-                "Weaver 200 là minh chứng cho chất lượng \"Made in Vietnam\", mạnh mẽ và bền bỉ.",
-                "Với chỉ một lần sạc, bạn có thể di chuyển quãng đường lên đến 200km, vượt trội so với các dòng xe khác.",
-                "Khung kim loại cứng cáp và thiết kế cổ điển mang lại cảm giác lái đầm chắc và an toàn."
+                "Weaver 200 mang đến quãng đường di chuyển xa cùng khả năng tăng tốc ấn tượng.",
+                "Xe phù hợp cho những chuyến đi xa liên tỉnh hoặc di chuyển cường độ cao mỗi ngày.",
+                "Thiết kế hiện đại, cá tính, thu hút ánh nhìn mọi nơi bạn đến."
             ],
             "features": [
-                "Quãng đường 200 km/lần sạc",
-                "Sản xuất tại Việt Nam",
-                "Khung kim loại cứng cáp, bền bỉ",
-                "Hiệu năng mạnh, thân thiện môi trường"
+                "Quãng đường 200 km mỗi lần sạc",
+                "Khả năng tăng tốc nhanh và mạnh",
+                "Khung xe chắc chắn, an toàn khi vận hành tốc độ cao",
+                "Công nghệ pin tiên tiến, độ bền cao"
             ]
         }
     },
     {
         "id": "V011",
-        "vehicleName": "DK Bike Roma SX",
-        "brandId": "B005",
-        "model": "Roma SX",
-        "licensePlate": "59K1-102.39",
-        "batteryCapacity": "1.8 kWh",
-        "rangePerCharge": 90,
-        "vehicleType": "Scooter",
-        "pricePerHour": 16000,
-        "pricePerDay": 120000,
+        "vehicleName": "DK Samurai 4",
+        "brandId": "B003",
+        "model": "Samurai 4",
+        "licensePlate": "",
+        "batteryCapacity": "0.6 kWh",
+        "rangePerCharge": 50,
+        "vehicleType": "Xe đạp điện",
+        "pricePerHour": 10000,
+        "pricePerDay": 80000,
         "availabilityStatus": true,
-        "rating": 4.2,
+        "rating": 4.4,
         "discount": 0,
-        "location": "TP.HCM",
+        "location": "Hà Nội",
         "tags": [
-            "budget",
-            "classic"
+            "student",
+            "affordable"
         ],
-        "image": "assets/images/products/dkbike-romasx.jpg",
-        "description": "Xe điện kiểu dáng cổ điển, nhẹ, tiết kiệm điện năng, dễ điều khiển cho người mới tập lái.",
+        "image": "assets/images/products/dk-samurai-4.jpg",
+        "description": "Xe đạp điện nhỏ gọn, phù hợp di chuyển quãng đường ngắn trong thành phố.",
         "details": {
-            "title": "DK Bike Roma SX – Nét cổ điển thanh lịch, giá cực rẻ",
+            "title": "DK Samurai 4 – Nhỏ gọn, tiện lợi",
             "paragraphs": [
-                "Roma SX mang vẻ đẹp hoài cổ, thanh lịch, gợi nhớ đến những chiếc xe Ý lãng mạn.",
-                "Đây là lựa chọn tuyệt vời cho người mới tập lái nhờ thiết kế nhẹ, yên thấp và dễ điều khiển.",
-                "Mức giá thuê cực kỳ tiết kiệm, phù hợp cho những chuyến dạo phố nhẹ nhàng."
+                "Samurai 4 là dòng xe đạp điện mini, phù hợp cho việc di chuyển quãng đường ngắn.",
+                "Thiết kế đơn giản, dễ sử dụng cho nhiều độ tuổi khác nhau.",
+                "Chi phí vận hành rẻ, phù hợp với ngân sách học sinh, sinh viên."
             ],
             "features": [
-                "Kiểu dáng cổ điển (classic)",
-                "Giá thuê rẻ, tiết kiệm",
-                "Xe nhẹ, dễ điều khiển",
-                "Quãng đường 90 km/lần sạc"
+                "Tầm hoạt động khoảng 50 km mỗi lần sạc",
+                "Trọng lượng nhẹ, dễ dắt và xoay trở",
+                "Yên thấp, phù hợp người có chiều cao khiêm tốn",
+                "Giá thuê rẻ, phù hợp nhu cầu hằng ngày"
             ]
         }
     },
     {
         "id": "V012",
-        "vehicleName": "VinFast Ludo",
-        "brandId": "B001",
-        "model": "Ludo 2023",
-        "licensePlate": "59L1-923.00",
-        "batteryCapacity": "1.4 kWh",
-        "rangePerCharge": 75,
-        "vehicleType": "Scooter",
+        "vehicleName": "G-FORCE G14 Compact",
+        "brandId": "B006",
+        "model": "G14 Compact",
+        "licensePlate": "",
+        "batteryCapacity": "0.7 kWh",
+        "rangePerCharge": 55,
+        "vehicleType": "Xe đạp điện gấp gọn",
         "pricePerHour": 15000,
-        "pricePerDay": 100000,
+        "pricePerDay": 110000,
         "availabilityStatus": true,
-        "rating": 4.1,
-        "discount": 5,
+        "rating": 4.5,
+        "discount": 0,
         "location": "TP.HCM",
         "tags": [
-            "student",
-            "compact"
+            "compact",
+            "foldable",
+            "city"
         ],
-        "image": "assets/images/products/vinfast-ludo.jpg",
-        "description": "Mẫu xe nhỏ gọn, dễ di chuyển trong khu dân cư, phù hợp học sinh – sinh viên thuê ngắn ngày.",
+        "image": "assets/images/products/gforce-g14.jpg",
+        "images": [
+            "assets/images/products/gforce-g14.jpg",
+            "assets/images/products/gforce-g14-1.jpg"
+        ],
+        "description": "Xe đạp điện gấp gọn, dễ dàng mang theo trong cốp ô tô hoặc lên thang máy.",
         "details": {
-            "title": "VinFast Ludo – Nhỏ gọn linh hoạt, thuê ngay đi liền",
+            "title": "G-FORCE G14 Compact – Nhỏ gọn, linh hoạt tối đa",
             "paragraphs": [
-                "Ludo là mẫu xe nhỏ gọn nhất của VinFast, được thiết kế để luồn lách dễ dàng trong các con hẻm.",
-                "Với mức giá thuê theo giờ và theo ngày cực rẻ, đây là lựa chọn hàng đầu cho học sinh, sinh viên.",
-                "Dù nhỏ gọn, Ludo vẫn được trang bị pin LFP bền bỉ và khả năng chống nước tốt."
+                "G14 Compact là giải pháp di chuyển linh hoạt cho cư dân đô thị sống trong căn hộ hoặc cần mang xe theo ô tô.",
+                "Cơ chế gấp gọn chỉ trong vài bước, tiết kiệm không gian lưu trữ.",
+                "Động cơ trợ lực thông minh, hỗ trợ người lái khi leo dốc hoặc di chuyển đường dài."
             ],
             "features": [
-                "Giá thuê rẻ nhất (15.000/giờ)",
-                "Thiết kế siêu nhỏ gọn",
-                "Linh hoạt trong khu dân cư",
-                "Phù hợp học sinh, sinh viên"
+                "Khả năng gấp gọn, dễ mang theo và cất giữ",
+                "Tầm hoạt động khoảng 55 km mỗi lần sạc",
+                "Khung nhôm nhẹ, bền",
+                "Phù hợp di chuyển trong nội khu, khu đô thị, công viên"
             ]
         }
     },
     {
         "id": "V013",
         "vehicleName": "Gogoro Delight",
-        "brandId": "B004",
-        "model": "Delight 2024",
-        "licensePlate": "59M1-808.11",
-        "batteryCapacity": "2.5 kWh",
-        "rangePerCharge": 100,
-        "vehicleType": "Scooter",
-        "pricePerHour": 26000,
-        "pricePerDay": 180000,
-        "availabilityStatus": false,
-        "rating": 4.6,
-        "discount": 0,
-        "location": "Hà Nội",
+        "brandId": "B005",
+        "model": "Delight",
+        "licensePlate": "59H1-222.33",
+        "batteryCapacity": "2.0 kWh x 2",
+        "rangePerCharge": 140,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 27000,
+        "pricePerDay": 195000,
+        "availabilityStatus": true,
+        "rating": 4.5,
+        "discount": 5,
+        "location": "TP.HCM",
         "tags": [
-            "smart",
-            "imported"
+            "city",
+            "female",
+            "compact"
         ],
         "image": "assets/images/products/gogoro-delight.jpg",
-        "description": "Xe điện cao cấp cho nữ, vận hành mượt, nhiều chế độ lái, có kết nối app điều khiển từ xa.",
+        "description": "Xe máy điện nhỏ gọn, thiết kế thân thiện phái nữ, phù hợp di chuyển trong phố.",
         "details": {
-            "title": "Gogoro Delight – Thiết kế vì phái đẹp, công nghệ thông minh",
+            "title": "Gogoro Delight – Nhẹ nhàng và duyên dáng",
             "paragraphs": [
-                "Gogoro Delight là chiếc xe được thiết kế tỉ mỉ, thấu hiểu nhu cầu của phái nữ.",
-                "Từ yên xe thấp hơn, cốp xe thơm, đến chế độ lái mượt mà, mọi chi tiết đều mang lại sự thoải mái.",
-                "Tận hưởng công nghệ đổi pin nhanh và kết nối app thông minh để điều khiển xe từ xa."
+                "Delight được thiết kế với trọng tâm thấp, giúp việc chống chân và điều khiển trở nên dễ dàng hơn.",
+                "Phù hợp đặc biệt với nhóm khách hàng nữ, người mới lái hoặc ưa chuộng phong cách nhỏ gọn.",
+                "Hệ thống đèn LED, bảng đồng hồ trực quan và các tiện ích thông minh hỗ trợ người dùng."
             ],
             "features": [
-                "Thiết kế cao cấp cho nữ",
-                "Hệ thống đổi pin nhanh Gogoro",
-                "Kết nối app điều khiển từ xa",
-                "Vận hành siêu mượt, nhiều chế độ lái"
+                "Trọng lượng nhẹ, dễ điều khiển",
+                "Yên thấp, phù hợp vóc dáng người Việt",
+                "Đèn LED trước sau thời trang",
+                "Tiết kiệm chi phí vận hành"
             ]
         }
     },
     {
         "id": "V014",
-        "vehicleName": "Yadea ULike",
+        "vehicleName": "Yadea I-EZ",
         "brandId": "B002",
-        "model": "ULike 2.0",
-        "licensePlate": "59N1-234.56",
-        "batteryCapacity": "1.6 kWh",
-        "rangePerCharge": 85,
-        "vehicleType": "Scooter",
-        "pricePerHour": 17000,
-        "pricePerDay": 130000,
+        "model": "I-EZ",
+        "licensePlate": "",
+        "batteryCapacity": "0.9 kWh",
+        "rangePerCharge": 65,
+        "vehicleType": "Xe đạp điện",
+        "pricePerHour": 13000,
+        "pricePerDay": 95000,
         "availabilityStatus": true,
         "rating": 4.3,
         "discount": 0,
-        "location": "Hà Nội",
+        "location": "TP.HCM",
         "tags": [
-            "eco",
-            "youth"
+            "student",
+            "eco"
         ],
-        "image": "assets/images/products/yadea-ulike.jpg",
-        "description": "Xe điện nhẹ, dễ điều khiển, pin tháo rời, phù hợp cho thuê theo giờ ở khu du lịch.",
+        "image": "assets/images/products/yadea-i8.jpg",
+        "description": "Xe đạp điện phổ thông dành cho học sinh, sinh viên, dễ sử dụng và tiết kiệm.",
         "details": {
-            "title": "Yadea ULike – Pin tháo rời tiện lợi, dạo phố thảnh thơi",
+            "title": "Yadea I-EZ – Tiện lợi mỗi ngày đến trường",
             "paragraphs": [
-                "Yadea ULike nổi bật với khả năng tháo rời pin, cho phép bạn sạc ở bất cứ đâu.",
-                "Xe có trọng lượng nhẹ và thiết kế yên ái, giúp người lái dễ dàng điều khiển và dắt xe.",
-                "Đây là lựa chọn hoàn hảo cho khách du lịch thuê xe theo giờ để khám phá các khu phố cổ, bãi biển."
+                "I-EZ là dòng xe đạp điện phù hợp cho việc đi học, đi làm gần nhà.",
+                "Thiết kế yên êm, tư thế ngồi thoải mái cho người sử dụng trong thời gian dài.",
+                "Xe vận hành ổn định, tiết kiệm chi phí, giảm phụ thuộc vào xăng dầu."
             ],
             "features": [
-                "Pin tháo rời, sạc linh hoạt",
-                "Trọng lượng xe nhẹ, dễ điều khiển",
-                "Quãng đường 85 km/lần sạc",
-                "Lý tưởng cho thuê du lịch"
+                "Tầm hoạt động 60–65 km mỗi lần sạc",
+                "Yên và tay lái êm ái, thoải mái",
+                "Phù hợp cho học sinh, sinh viên",
+                "Giá thuê tiết kiệm, dễ tiếp cận"
             ]
         }
     },
     {
         "id": "V015",
-        "vehicleName": "Dat Bike Infinity",
-        "brandId": "B003",
-        "model": "Infinity",
-        "licensePlate": "59P1-929.77",
-        "batteryCapacity": "6.2 kWh",
-        "rangePerCharge": 300,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 48000,
-        "pricePerDay": 350000,
-        "availabilityStatus": true,
+        "vehicleName": "Dat Bike Infinity Concept",
+        "brandId": "B004",
+        "model": "Infinity Concept",
+        "licensePlate": "",
+        "batteryCapacity": "6.0 kWh",
+        "rangePerCharge": 280,
+        "vehicleType": "Xe máy điện",
+        "pricePerHour": 50000,
+        "pricePerDay": 320000,
+        "availabilityStatus": false,
         "rating": 5.0,
-        "discount": 10,
+        "discount": 0,
         "location": "Hà Nội",
         "tags": [
-            "high-end",
-            "long-range",
-            "performance"
+            "concept",
+            "premium",
+            "long-range"
         ],
         "image": "assets/images/products/datbike-infinity.jpg",
-        "description": "Mẫu xe cao cấp, tốc độ tối đa 120km/h, pin sạc nhanh, dành cho khách thuê dài hạn.",
+        "description": "Mẫu concept (trưng bày) với hiệu năng cực cao, số lượng xe thuê cực kì giới hạn.",
         "details": {
-            "title": "Dat Bike Infinity – Vô cực quãng đường, hiệu năng đỉnh cao",
+            "title": "Dat Bike Infinity – Tầm nhìn tương lai",
             "paragraphs": [
-                "Infinity là mẫu xe flagship của Dat Bike, phá vỡ mọi giới hạn về xe điện.",
-                "Chinh phục quãng đường 300km chỉ với một lần sạc và trải nghiệm tốc độ tối đa 120km/h.",
-                "Công nghệ sạc nhanh, thiết kế ấn tượng, đây là lựa chọn cho những ai tìm kiếm sự hoàn hảo."
+                "Infinity là mẫu concept được Dat Bike phát triển để trình diễn công nghệ mới.",
+                "Dù số lượng rất giới hạn, xe vẫn được cung cấp trải nghiệm thuê đặc biệt cho khách hàng thân thiết.",
+                "Thiết kế cực kì ấn tượng, là điểm nhấn nổi bật trong mọi sự kiện hoặc chuyến đi."
             ],
             "features": [
-                "Quãng đường kỷ lục 300 km",
-                "Tốc độ tối đa 120 km/h",
-                "Sạc nhanh, hiệu năng cao",
-                "Phù hợp thuê dài hạn, đi phượt"
+                "Quãng đường lên đến 280 km mỗi lần sạc",
+                "Thiết kế độc đáo, mang tính tương lai",
+                "Số lượng cực kì giới hạn",
+                "Chỉ phục vụ khách hàng thân thiết hoặc chương trình đặc biệt"
             ]
         }
     },
     {
         "id": "V016",
-        "vehicleName": "DK Bike Gogo Cross",
-        "brandId": "B005",
-        "model": "Gogo Cross",
-        "licensePlate": "59Q1-001.88",
-        "batteryCapacity": "2.2 kWh",
-        "rangePerCharge": 110,
-        "vehicleType": "Motorbike",
-        "pricePerHour": 21000,
-        "pricePerDay": 150000,
+        "vehicleName": "Yadea Flit Folding E-Bike",
+        "brandId": "B002",
+        "model": "Flit",
+        "licensePlate": "",
+        "batteryCapacity": "0.7 kWh",
+        "rangePerCharge": 60,
+        "vehicleType": "Xe đạp điện gấp gọn",
+        "pricePerHour": 16000,
+        "pricePerDay": 120000,
         "availabilityStatus": true,
-        "rating": 4.5,
-        "discount": 0,
-        "location": "TP.HCM",
+        "rating": 4.6,
+        "discount": 5,
+        "location": "Đà Nẵng",
         "tags": [
-            "youth",
-            "sporty",
-            "offroad"
+            "compact",
+            "foldable",
+            "city"
         ],
-        "image": "assets/images/products/dkbike-gogocross.jpg",
-        "description": "Xe phong cách thể thao địa hình, mạnh mẽ và cá tính, phù hợp khách trẻ thích phiêu lưu.",
+        "image": "assets/images/products/yadea-flit.jpg",
+        "images": [
+            "assets/images/products/yadea-flit.jpg",
+            "assets/images/products/yadea-flit-1.jpg"
+        ],
+        "description": "Xe đạp điện gấp gọn cao cấp, thiết kế hiện đại, dễ dàng mang theo trong mọi hành trình.",
         "details": {
-            "title": "DK Bike Gogo Cross – Cá tính địa hình, chinh phục thử thách",
+            "title": "Yadea Flit – Gấp gọn thông minh, di chuyển linh hoạt",
             "paragraphs": [
-                "Gogo Cross mang phong cách \"offroad\" hầm hố, dành cho những bạn trẻ không ngại khác biệt.",
-                "Thiết kế mạnh mẽ, lốp xe to và động cơ 1200W giúp xe vận hành ổn định trên nhiều địa hình.",
-                "Nếu bạn tìm kiếm một chiếc xe cá tính để phiêu lưu, Gogo Cross là lựa chọn không thể bỏ qua."
+                "Yadea Flit là mẫu xe đạp điện gấp tiện lợi với khung hợp kim nhôm nhẹ, dễ dàng cất vào cốp ô tô hoặc mang lên phương tiện công cộng.",
+                "Xe trang bị động cơ 250W và hệ thống trợ lực điện thông minh, phản hồi theo lực đạp.",
+                "An toàn được đảm bảo với phanh đĩa cơ, lốp gai 27.5 inch và bộ truyền động mượt mà, linh hoạt."
             ],
             "features": [
-                "Phong cách thể thao, địa hình (offroad)",
-                "Thiết kế cá tính, mạnh mẽ",
-                "Quãng đường 110 km/lần sạc",
-                "Phù hợp khách trẻ thích phiêu lưu"
+                "Khung nhôm, gấp gọn 3 bước (< 0.96m x 0.62m)",
+                "Động cơ 250W, trợ lực điện thông minh",
+                "Cảm biến lực đạp, tự động điều chỉnh",
+                "Bộ đề Shimano 7 cấp"
             ]
         }
     }

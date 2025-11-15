@@ -11,14 +11,13 @@ type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
 type RentMode = 'day' | 'week' | 'month';
 
 /**
- * Map nhãn checkbox -> các giá trị vehicleType trong products.json
- * (xem products.json: Scooter, Motorbike, E-Bike,...)
+ * Map nhãn checkbox -> các giá trị vehicleType trong products.json (đã là tiếng Việt)
  */
 const TYPE_MAP: Record<string, string[]> = {
-    'Xe máy điện': ['Motorbike', 'Scooter'],
-    'Xe đạp điện': ['E-Bike', 'Bicycle', 'Electric Bicycle'],
-    // loại gấp gọn nhận diện qua tags 'compact' hoặc 'foldable'
-    'Xe đạp điện gấp gọn': [],
+    'Xe máy điện': ['Xe máy điện'],
+    'Xe đạp điện': ['Xe đạp điện'],
+    // loại gấp gọn nhận diện qua vehicleType + tags 'compact' hoặc 'foldable'
+    'Xe đạp điện gấp gọn': ['Xe đạp điện gấp gọn'],
 };
 
 @Component({
@@ -47,7 +46,7 @@ export class RentPage {
         'xe-dap-dien-gap-gon': 'Xe đạp điện gấp gọn',
     };
 
-    selectedBrands = signal<Set<string>>(new Set()); // Vinfast, Yadea, ...
+    selectedBrands = signal<Set<string>>(new Set()); // VinFast, Yadea, Dat Bike, ...
     minPrice = signal<number>(0);
     maxPrice = signal<number>(500_000);
     sortKey = signal<SortKey>('popular'); // mặc định: phổ biến
@@ -99,8 +98,8 @@ export class RentPage {
             if (typeParam && this.QUERY_TYPE_MAP[typeParam]) {
                 const label = this.QUERY_TYPE_MAP[typeParam];
                 const set = new Set<string>();
-                set.add(label);               // chỉ chọn đúng loại đó
-                this.selectedTypes.set(set);  // update signal
+                set.add(label); // chỉ chọn đúng loại đó
+                this.selectedTypes.set(set); // update signal
                 this.page.set(1);
             }
 
@@ -182,16 +181,22 @@ export class RentPage {
                 );
 
                 for (const label of types) {
-                    if (label === 'Xe đạp điện gấp gọn' && foldTag) return true;
-
                     const accept = TYPE_MAP[label] || [];
+
+                    // loại gấp gọn: chấp nhận cả vehicleType + tags
+                    if (label === 'Xe đạp điện gấp gọn') {
+                        if (accept.includes(p.vehicleType) || foldTag) return true;
+                        continue;
+                    }
+
+                    // các loại còn lại: match theo vehicleType TV
                     if (accept.includes(p.vehicleType)) return true;
                 }
                 return false;
             });
         }
 
-        // Lọc theo thương hiệu
+        // Lọc theo thương hiệu (brandName từ ProductLoadingService: VinFast, Yadea, DKBike, Dat Bike, ...)
         if (brands.size) {
             out = out.filter((p) => p.brandName && brands.has(p.brandName));
         }

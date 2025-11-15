@@ -5,9 +5,16 @@
   <nav class="breadcrumb">
     <a routerLink="/">Trang chủ</a>
     <span>/</span>
-    <a routerLink="/rent">{{ p.vehicleType || 'Xe điện' }}</a>
+
+    <!-- NÚT LOẠI XE: text tiếng Việt + query type để Rent auto tick -->
+    <a routerLink="/rent" [queryParams]="{ type: categorySlug(p.vehicleType) }">
+      {{ typeLabel(p.vehicleType) }}
+    </a>
+
     <span>/</span>
-    <span class="current">{{ p.vehicleType }} {{ p.vehicleName }}</span>
+    <span class="current">
+      {{ typeLabel(p.vehicleType) }} {{ p.vehicleName }}
+    </span>
   </nav>
 
   <!-- KHỐI CHÍNH: MEDIA + INFO -->
@@ -48,7 +55,7 @@
       <div class="pd-meta">
         <span class="brand">{{ p.brandName || '—' }}</span>
         <span class="dot">•</span>
-        <span class="type">{{ p.vehicleType || 'Xe điện' }}</span>
+        <span class="type">{{ typeLabel(p.vehicleType) }}</span>
         <span class="dot">•</span>
         <span class="status" [class.ok]="p.availabilityStatus" [class.bad]="!p.availabilityStatus">
           {{ statusLabel() }}
@@ -91,7 +98,7 @@
         </span>
       </div>
 
-      <!-- NGÀY THUÊ – CHỈ HIỂN THỊ, DÙNG DATA TỪ RENT -->
+      <!-- NGÀY THUÊ – CHỈ HIỂN THỊ -->
       <div class="pd-dates">
         <div class="date-item">
           <label>Ngày thuê</label>
@@ -107,7 +114,7 @@
         </div>
       </div>
       <p class="pd-dates-note">
-        Lịch thuê được chọn ở bước trước. Nếu bạn muốn đổi ngày vui lòng quay lại trang thuê xe.
+        Lịch thuê được chọn ở bước trước. Nếu bạn muốn đổi ngày vui lòng quay lại trang Đặt xe.
       </p>
 
       <!-- NÚT HÀNH ĐỘNG -->
@@ -118,7 +125,7 @@
           </button>
         </div>
         <div class="bottom">
-          <button class="btn-cart" (click)="addToCart()" [disabled]="!p.availabilityStatus">
+          <button class="btn-cart full" (click)="addToCart()" [disabled]="!p.availabilityStatus">
             THÊM VÀO GIỎ
           </button>
         </div>
@@ -250,7 +257,7 @@
             <span>
               <i class="bi bi-speedometer2"></i>
               {{
-              r.vehicleType === 'Motorbike'
+              r.vehicleType === 'Xe máy điện'
               ? 'Động cơ mạnh mẽ'
               : 'Vận hành êm ái'
               }}

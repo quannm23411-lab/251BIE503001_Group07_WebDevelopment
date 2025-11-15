@@ -101,10 +101,13 @@ export class ProductReviewService {
                 // Đảm bảo luôn là array
                 map(list => (Array.isArray(list) ? list : [])),
 
-                // Gắn ảnh nội bộ: assets/products-review/review1..N
+                // Chuẩn hóa status + gắn ảnh mock nội bộ
                 map(list =>
                     list.map((r, index) => ({
                         ...r,
+                        // nếu JSON chưa có status => coi như approved để không mất hết review
+                        status: r.status ?? 'approved',
+                        // sửa lại extension nếu m dùng .png/.webp
                         images: [`assets/products-review/review${index + 1}.jpg`]
                     }))
                 ),

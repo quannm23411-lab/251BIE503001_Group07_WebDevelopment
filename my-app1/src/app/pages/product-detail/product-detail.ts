@@ -133,6 +133,36 @@ export class ProductDetail {
     return n.toLocaleString('vi-VN') + '₫';
   }
 
+  /** Label loại xe dùng cho breadcrumb + meta (tiếng Việt) */
+  typeLabel(vehicleType?: string | null): string {
+    switch (vehicleType) {
+      case 'Motorbike':
+      case 'Scooter':
+        return 'Xe máy điện';
+      case 'E-Bike':
+      case 'Electric Bicycle':
+      case 'Bicycle':
+        return 'Xe đạp điện';
+      default:
+        return 'Xe điện';
+    }
+  }
+
+  /** Slug loại xe cho query ?type=... (khớp với QUERY_TYPE_MAP trong RentPage) */
+  categorySlug(vehicleType?: string | null): string {
+    switch (vehicleType) {
+      case 'Motorbike':
+      case 'Scooter':
+        return 'xe-may-dien';
+      case 'E-Bike':
+      case 'Electric Bicycle':
+      case 'Bicycle':
+        return 'xe-dap-dien';
+      default:
+        return '';
+    }
+  }
+
   // ====== CART ACTIONS ======
   private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
     const p = this.product();
