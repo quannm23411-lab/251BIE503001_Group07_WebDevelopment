@@ -9,14 +9,13 @@ import { PromoBanner } from '../../components/promo-banner/promo-banner';
 import { BannerCarousel, BannerItem } from '../../components/banner-carousel/banner-carousel';
 import { RouterLink } from '@angular/router';
 import { Popup } from '../popup/popup';
-import { Contact } from '../contact/contact';
 import { forkJoin } from 'rxjs';
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup, Contact],
+  imports: [CommonModule, NgIf, NgFor, NgClass, NgOptimizedImage, PromoBanner, BannerCarousel, RouterLink, Popup],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
