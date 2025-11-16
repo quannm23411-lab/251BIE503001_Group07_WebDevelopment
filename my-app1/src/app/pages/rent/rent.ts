@@ -6,6 +6,7 @@ import {
     ProductVM
 } from '../../services/product-loading.services';
 import { RentalDatesService } from '../../services/rental-dates.services';
+import { HotProductService } from '../../services/hot-products.services';
 
 type SortKey = 'popular' | 'newest' | 'price_asc' | 'price_desc';
 type RentMode = 'day' | 'week' | 'month';
@@ -54,13 +55,24 @@ export class RentPage {
     showRentModeMenu = signal(false);
     cityNotice = signal<string>('');
 
+    /** map id -> điểm phổ biến, lấy theo topRent của homepage */
+    private popularityMap = new Map<string, number>();
+
     constructor(
         private svc: ProductLoadingService,
+        private hot: HotProductService,
         private route: ActivatedRoute,
         private router: Router,
         private rentalDates: RentalDatesService
     ) {
         this.svc.getAll().subscribe(list => this.all.set(list || []));
+
+        // đồng bộ "phổ biến" với homepage
+        this.hot.getTopRent(50).subscribe(list => {
+            list.forEach((p, idx) => {
+                this.popularityMap.set(String(p.id), 1000 - idx); // id ở đầu list điểm cao hơn
+            });
+        });
 
         const saved = this.rentalDates.range();
         const savedStart = saved.start;
@@ -154,18 +166,12 @@ export class RentPage {
             );
         }
 
-        // Lọc theo loại xe với dữ liệu tiếng Việt + fallback bằng getVehicleTypeLabel
+        // lọc theo loại xe (không theo tag nữa)
         if (types.size) {
             out = out.filter(p => {
-                const rawType = (p.vehicleType || '').trim();
-                const normalizedType = this.productService.getVehicleTypeLabel(rawType);
-                const hasFoldTag = (p.tags || []).some(t =>
-                    ['compact', 'foldable', 'gấp'].includes(String(t).toLowerCase())
+                const normalizedType = this.productService.getVehicleTypeLabel(
+                    p.vehicleType ?? ''
                 );
-
-                // nếu tick "Xe đạp điện gấp gọn" thì ưu tiên theo tag
-                if (types.has('Xe đạp điện gấp gọn') && hasFoldTag) return true;
-
                 return types.has(normalizedType);
             });
         }
@@ -186,22 +192,26 @@ export class RentPage {
             case 'newest':
                 out.sort(
                     (a: any, b: any) =>
-                        (b.createdAt || 0) - (a.createdAt || 0) ||
-                        b.discount - a.discount
+                        (b.createdAt || 0) - (a.createdAt || 0) || b.discount - a.discount
                 );
                 break;
             default:
+                // phổ biến: dùng cùng logic nguồn với homepage
                 out.sort((a, b) => {
                     const pa = this.getPopularity(a);
                     const pb = this.getPopularity(b);
                     return (
                         pb - pa ||
                         b.discount - a.discount ||
-                        Number(b.availabilityStatus) -
-                        Number(a.availabilityStatus)
+                        (b.rating || 0) - (a.rating || 0)
                     );
                 });
         }
+
+        // đẩy xe hết hàng xuống cuối nhưng vẫn giữ thứ tự phổ biến bên trên
+        const available = out.filter(p => p.availabilityStatus !== false);
+        const soldOut = out.filter(p => p.availabilityStatus === false);
+        out = [...available, ...soldOut];
 
         return out;
     });
@@ -240,6 +250,7 @@ export class RentPage {
         this.page.set(1);
     }
 
+    // vẫn giữ hàm min để sau này muốn chơi dual-range thì xài lại
     onMinPriceChange(val: string | number) {
         const n =
             typeof val === 'number' ? val : parseInt(val as string, 10) || 0;
@@ -376,13 +387,19 @@ export class RentPage {
 
     // ----- Helpers -----
     private getPopularity(p: ProductVM): number {
+        const id = String(p.id);
+        if (this.popularityMap.has(id)) {
+            return this.popularityMap.get(id)!;
+        }
+
         const anyP: any = p;
-        return (
+        const base =
             anyP.totalRentals ??
             anyP.rentalCount ??
             anyP.popularityScore ??
-            0
-        );
+            0;
+
+        return base || p.rating || 0;
     }
 
     private toInputDate(d: Date): string {
@@ -399,8 +416,7 @@ export class RentPage {
     }
 
     private calcMinEndDate(mode: RentMode, startStr: string): string {
-        const base =
-            this.parseDate(startStr) || new Date(this.todayStr);
+        const base = this.parseDate(startStr) || new Date(this.todayStr);
         const d = new Date(base.getTime());
 
         if (mode === 'week') {
@@ -425,8 +441,7 @@ export class RentPage {
     buildDateParams() {
         const start = this.startDate() || this.todayStr;
         const end =
-            this.endDate() ||
-            this.calcMinEndDate(this.rentMode(), start);
+            this.endDate() || this.calcMinEndDate(this.rentMode(), start);
         return { start, end };
     }
 }

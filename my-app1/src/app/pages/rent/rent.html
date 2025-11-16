@@ -12,7 +12,7 @@
 
   <!-- FILTER BAR -->
   <section class="filter-section container">
-    <div class="filter-header d-flex align-items-center justify-content-start gap-3 mb-3 flex-wrap py-3">
+    <div class="filter-header d-flex justify-content-start gap-3 mb-3 flex-wrap py-3">
       <!-- Chế độ thuê: ngày / tuần / tháng -->
       <div class="rent-mode-dropdown position-relative">
         <button type="button" class="btn btn-green dropdown-toggle" (click)="toggleRentModeMenu()">
@@ -51,9 +51,7 @@
       <div class="location">
         <label for="city">Tỉnh/Thành phố</label>
         <select id="city" (change)="onCityChange($any($event.target).value)">
-          <option value="TP.Hồ Chí Minh" selected>
-            TP.Hồ Chí Minh
-          </option>
+          <option value="TP.Hồ Chí Minh" selected>TP.Hồ Chí Minh</option>
           <option value="Hà Nội">Hà Nội</option>
           <option value="Đà Nẵng">Đà Nẵng</option>
         </select>
@@ -136,8 +134,7 @@
         <span class="price-bound">0 đ</span>
 
         <div class="price-range-wrapper">
-          <input type="range" min="0" max="500000" step="10000" [value]="minPrice()" class="price-range"
-            (input)="onMinPriceChange($any($event.target).value)" />
+          <!-- 1 thanh kéo: lọc từ 0 -> max -->
           <input type="range" min="0" max="500000" step="10000" [value]="maxPrice()" class="price-range"
             (input)="onMaxPriceChange($any($event.target).value)" />
         </div>
@@ -170,7 +167,6 @@
                 sortKey() === 'price_desc'
               ">
               {{ priceSortLabel() }}
-              <i class="bi bi-chevron-down"></i>
             </button>
 
             <div class="dropdown-menu shadow-sm mt-1" [class.show]="showPriceMenu()">
@@ -207,7 +203,7 @@
             <div class="product-card__features-top">
               <span class="product-card__rating">
                 <i class="bi bi-star-fill"></i>
-                {{ p.rating | number: '1.1-1' }}/5
+                {{ p.rating | number : '1.1-1' }}/5
               </span>
               <span class="product-card__range">
                 <i class="bi bi-battery-charging"></i>
@@ -217,9 +213,7 @@
 
             <div class="product-card__features-bottom">
               <span class="product-card__type">
-                {{
-                productService.getVehicleTypeLabel(p.vehicleType)
-                }}
+                {{ productService.getVehicleTypeLabel(p.vehicleType) }}
               </span>
             </div>
           </div>
@@ -255,10 +249,7 @@
         <i class="bi bi-chevron-left"></i>
       </button>
 
-      <ng-container *ngFor="
-          let n of [].constructor(totalPages());
-          let i = index
-        ">
+      <ng-container *ngFor="let n of [].constructor(totalPages()); let i = index">
         <button class="pager-btn" [class.active]="page() === i + 1" (click)="goto(i + 1)">
           {{ i + 1 }}
         </button>
