@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginService, UserProfile } from '../../services/login/login.service';
 import { HotProductService } from '../../services/hot-products.services';
 import { Subscription, map } from 'rxjs';
+import { CartService } from '../../services/cart.services';
 
 interface SearchSuggestion {
   id: string;
@@ -37,7 +38,9 @@ export class Header implements OnInit, OnDestroy {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private hotService: HotProductService
+    private hotService: HotProductService,
+    private cart: CartService
+
   ) { }
 
   /* ========= LIFECYCLE ========= */
@@ -120,15 +123,22 @@ export class Header implements OnInit, OnDestroy {
 
   /* ========= CART ========= */
 
+  // số loại sản phẩm trong giỏ (badge)
   cartItemCount(): number {
-    if (typeof localStorage === 'undefined') return 0;
     try {
-      const raw = localStorage.getItem('eco_cart_count');
-      if (!raw) return 0;
-      const n = Number(raw);
-      return isNaN(n) ? 0 : n;
+      // đọc trực tiếp từ signal trong CartService để realtime
+      return this.cart.itemTypeCount();
     } catch {
-      return 0;
+      // fallback localStorage trong trường hợp rất xấu
+      if (typeof localStorage === 'undefined') return 0;
+      try {
+        const raw = localStorage.getItem('ecomove_cart_count');
+        if (!raw) return 0;
+        const n = Number(raw);
+        return isNaN(n) ? 0 : n;
+      } catch {
+        return 0;
+      }
     }
   }
 

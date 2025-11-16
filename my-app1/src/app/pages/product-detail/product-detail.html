@@ -5,13 +5,22 @@
   <nav class="breadcrumb">
     <a routerLink="/">Trang chủ</a>
     <span>/</span>
-    <!-- QUAY LẠI RENT: giữ type + start + end -->
+
+    <!-- ĐẶT XE: quay lại trang rent, giữ start/end/type -->
+    <a routerLink="/rent" [queryParams]="buildRentRootQueryParams()">
+      Đặt xe
+    </a>
+    <span>/</span>
+
+    <!-- LOẠI XE: quay lại rent với type tương ứng -->
     <a routerLink="/rent" [queryParams]="buildBreadcrumbQueryParams()">
       {{ categoryLabel() }}
     </a>
     <span>/</span>
+
+    <!-- TÊN XE -->
     <span class="current">
-      {{ categoryLabel() }} {{ p.vehicleName }}
+      {{ p.vehicleName }}
     </span>
   </nav>
 
@@ -25,7 +34,7 @@
         </button>
 
         <div class="pd-cover" *ngIf="gallery().length; else noImg">
-          <img [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
+          <img #mainImage [src]="gallery()[activeIndex()]" [alt]="product()?.vehicleName || 'Sản phẩm'" />
         </div>
 
         <ng-template #noImg>
@@ -62,9 +71,7 @@
 
       <div class="pd-pricing">
         <div class="now">{{ vnd(p.finalPricePerDay) }}/Ngày</div>
-        <div class="old" *ngIf="
-            p.pricePerDay && p.pricePerDay !== p.finalPricePerDay
-          ">
+        <div class="old" *ngIf="p.pricePerDay && p.pricePerDay !== p.finalPricePerDay">
           {{ vnd(p.pricePerDay) }}
         </div>
         <div class="discount" *ngIf="p.discount">

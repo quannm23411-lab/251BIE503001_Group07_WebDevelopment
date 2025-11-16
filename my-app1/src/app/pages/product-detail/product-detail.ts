@@ -26,10 +26,7 @@ import { CartService } from '../../services/cart.services';
 
 type CategorySlug = 'xe-may-dien' | 'xe-dap-dien' | 'xe-dap-dien-gap-gon';
 
-const TYPE_CATEGORY: Record<
-  string,
-  { label: string; slug: CategorySlug }
-> = {
+const TYPE_CATEGORY: Record<string, { label: string; slug: CategorySlug }> = {
   'Xe máy điện': {
     label: 'Xe máy điện',
     slug: 'xe-may-dien'
@@ -64,6 +61,12 @@ export class ProductDetail {
 
   readonly stars = [1, 2, 3, 4, 5];
 
+  // Main image để animate lên giỏ
+  @ViewChild('mainImage') mainImage?: ElementRef<HTMLImageElement>;
+
+  // Slider related
+  @ViewChild('slider') slider!: ElementRef;
+
   // ====== Product theo /rent/:id ======
   id = toSignal(
     this.route.paramMap.pipe(map(pm => pm.get('id') || '')),
@@ -92,8 +95,9 @@ export class ProductDetail {
   }
 
   // ====== Category cho breadcrumb (Xe máy điện / Xe đạp điện / ...) ======
-  private resolveCategoryForProduct(p: ProductVM): { label: string; slug: CategorySlug } {
-    // Chuẩn hóa loại xe về tiếng Việt bằng service
+  private resolveCategoryForProduct(
+    p: ProductVM
+  ): { label: string; slug: CategorySlug } {
     const normalized = this.products.getVehicleTypeLabel(p.vehicleType ?? '');
     const direct = TYPE_CATEGORY[normalized];
     if (direct) return direct;
@@ -103,7 +107,6 @@ export class ProductDetail {
       return TYPE_CATEGORY['Xe đạp điện gấp gọn'];
     }
 
-    // fallback chung: coi như xe đạp điện (an toàn hơn là bắn bừa)
     return TYPE_CATEGORY['Xe đạp điện'];
   }
 
@@ -118,8 +121,9 @@ export class ProductDetail {
   categoryLabel = computed(() => this.category().label);
   categorySlug = computed(() => this.category().slug);
 
-  // Dùng cho breadcrumb: quay về rent với type + start + end
+  // ====== Query cho breadcrumb ======
   buildBreadcrumbQueryParams() {
+    // dùng cho crumb loại xe
     return {
       type: this.categorySlug(),
       start: this.rentStart,
@@ -127,7 +131,16 @@ export class ProductDetail {
     };
   }
 
-  // ====== Related products ======
+  buildRentRootQueryParams() {
+    // dùng cho crumb "Đặt xe"
+    return {
+      start: this.rentStart,
+      end: this.rentEnd,
+      type: this.categorySlug()
+    };
+  }
+
+  // ====== Related products (ưu tiên theo tags) ======
   allProducts = toSignal(this.products.getAll(), {
     initialValue: [] as ProductVM[]
   });
@@ -136,13 +149,32 @@ export class ProductDetail {
     const cur = this.product();
     const list = this.allProducts();
     if (!cur || !list.length) return [];
-    return list
-      .filter(
-        x =>
-          x.vehicleType === cur.vehicleType &&
-          String(x.id) !== String(cur.id)
-      )
-      .slice(0, 8);
+
+    const curId = String(cur.id);
+    const curTypeLabel = this.products.getVehicleTypeLabel(cur.vehicleType ?? '');
+    const curTags = new Set(
+      (cur.tags ?? []).map(t => String(t).toLowerCase())
+    );
+
+    // cùng loại xe
+    const sameType = list.filter(
+      x =>
+        this.products.getVehicleTypeLabel(x.vehicleType ?? '') ===
+        curTypeLabel && String(x.id) !== curId
+    );
+
+    // ưu tiên những thằng trùng tag với xe hiện tại
+    const withTag: ProductVM[] = [];
+    const withoutTag: ProductVM[] = [];
+
+    for (const p of sameType) {
+      const tags = (p.tags ?? []).map(t => String(t).toLowerCase());
+      const hasCommon = tags.some(t => curTags.has(t));
+      if (hasCommon) withTag.push(p);
+      else withoutTag.push(p);
+    }
+
+    return [...withTag, ...withoutTag].slice(0, 8);
   });
 
   // ====== Reviews (CHỈ lấy approved) ======
@@ -211,6 +243,51 @@ export class ProductDetail {
     }
   }
 
+  private animateToCart() {
+    if (typeof window === 'undefined') return;
+
+    const imgEl = this.mainImage?.nativeElement;
+    const cartIcon = document.querySelector(
+      '.header-cart-icon'
+    ) as HTMLElement | null; // đảm bảo icon giỏ có class này
+
+    if (!imgEl || !cartIcon) return;
+
+    const imgRect = imgEl.getBoundingClientRect();
+    const cartRect = cartIcon.getBoundingClientRect();
+
+    const clone = imgEl.cloneNode(true) as HTMLElement;
+    clone.style.position = 'fixed';
+    clone.style.left = imgRect.left + 'px';
+    clone.style.top = imgRect.top + 'px';
+    clone.style.width = imgRect.width + 'px';
+    clone.style.height = imgRect.height + 'px';
+    clone.style.borderRadius = '50%';
+    clone.style.zIndex = '9999';
+    clone.style.transition = 'transform 0.5s ease, opacity 0.6s ease';
+    clone.style.pointerEvents = 'none';
+
+    document.body.appendChild(clone);
+
+    const translateX =
+      cartRect.left +
+      cartRect.width / 2 -
+      (imgRect.left + imgRect.width / 2);
+    const translateY =
+      cartRect.top +
+      cartRect.height / 2 -
+      (imgRect.top + imgRect.height / 2);
+
+    requestAnimationFrame(() => {
+      clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(0.1)`;
+      clone.style.opacity = '0';
+    });
+
+    setTimeout(() => {
+      clone.remove();
+    }, 650);
+  }
+
   bookNow() {
     if (this.isOutOfStock()) return;
     this.addCurrentProductToCart({ redirectToCart: true });
@@ -219,6 +296,7 @@ export class ProductDetail {
   addToCart() {
     if (this.isOutOfStock()) return;
     this.addCurrentProductToCart();
+    this.animateToCart();
   }
 
   // giữ để template khỏi lỗi (nếu sau này bỏ nút thì xoá)
@@ -228,20 +306,21 @@ export class ProductDetail {
   }
 
   goTo(p: ProductVM) {
-    // Khi chuyển qua related, vẫn giữ start/end, type tính theo chính sản phẩm đó
     const cat = this.resolveCategoryForProduct(p);
 
-    this.router.navigate(['/rent', p.id], {
-      queryParams: {
-        start: this.rentStart,
-        end: this.rentEnd,
-        type: cat.slug
-      }
-    }).then(() => {
-      if (typeof window !== 'undefined') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
+    this.router
+      .navigate(['/rent', p.id], {
+        queryParams: {
+          start: this.rentStart,
+          end: this.rentEnd,
+          type: cat.slug
+        }
+      })
+      .then(() => {
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
   }
 
   constructor() {
@@ -311,8 +390,6 @@ export class ProductDetail {
   }
 
   // Slider related
-  @ViewChild('slider') slider!: ElementRef;
-
   scrollLeft() {
     if (this.slider) {
       this.slider.nativeElement.scrollBy({

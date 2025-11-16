@@ -132,11 +132,10 @@
         <span class="filter-label">Giá:</span>
 
         <span class="price-bound">0 đ</span>
-
         <div class="price-range-wrapper">
           <!-- 1 thanh kéo: lọc từ 0 -> max -->
           <input type="range" min="0" max="500000" step="10000" [value]="maxPrice()" class="price-range"
-            (input)="onMaxPriceChange($any($event.target).value)" />
+            (input)="onMaxPriceChange($any($event.target).value)" [style.background]="priceRangeBackground()" />
         </div>
 
         <span class="price-value">

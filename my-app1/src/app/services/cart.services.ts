@@ -30,20 +30,28 @@ export interface CartItem {
 })
 export class CartService {
     private readonly STORAGE_KEY = 'ecomove_cart';
+    private readonly COUNT_KEY = 'ecomove_cart_count';
+
     private readonly platformId = inject(PLATFORM_ID);
     private readonly isBrowser = isPlatformBrowser(this.platformId);
 
     private readonly _items = signal<CartItem[]>([]);
 
+    // danh sách item (read-only)
     readonly items = this._items.asReadonly();
 
+    // tổng số lượng (số xe)
     readonly totalQuantity = computed(() =>
         this._items().reduce((sum, item) => sum + item.quantity, 0)
     );
 
+    // tổng tiền
     readonly totalAmount = computed(() =>
         this._items().reduce((sum, item) => sum + item.subtotal, 0)
     );
+
+    // SỐ LOẠI SẢN PHẨM trong giỏ (badge header cần cái này)
+    readonly itemTypeCount = computed(() => this._items().length);
 
     constructor() {
         if (this.isBrowser) {
@@ -56,6 +64,7 @@ export class CartService {
                 const current = this._items();
                 try {
                     window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify(current));
+                    window.localStorage.setItem(this.COUNT_KEY, String(current.length));
                 } catch {
                     // kệ, không lưu được thì thôi
                 }

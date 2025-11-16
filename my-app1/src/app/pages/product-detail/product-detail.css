@@ -1,7 +1,7 @@
 /* WRAPPER CHÍNH */
 .pd-wrap {
   max-width: 1200px;
-  margin: 32px auto 48px;
+  margin: 96px auto 48px;
   padding: 30px;
   background: linear-gradient(180deg, #f5fbf8 0%, #ffffff 40%, #ffffff 100%);
   border-radius: 24px;
@@ -317,14 +317,6 @@
   opacity: 0.92;
 }
 
-.pd-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-  margin-top: 8px;
-}
-
 .pd-actions .top {
   width: 100%;
 }
@@ -608,6 +600,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
 }
 
 .product-slider {
@@ -615,7 +608,7 @@
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 10px;
+  padding: 10px 4px 16px;
   scrollbar-width: none;
 }
 
@@ -625,6 +618,7 @@
 
 .product-card {
   flex: 0 0 calc(25% - 15px);
+  max-width: 260px;
   background: #fff;
   border-radius: 14px;
   overflow: hidden;
@@ -644,12 +638,14 @@
   width: 100%;
   height: 180px;
   overflow: hidden;
+  background: #ffffff;
 }
 
 .product-card .image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #f4f7f6;
 }
 
 .product-card .discount {
@@ -790,14 +786,15 @@
   }
 
   .product-card {
-    flex: 0 0 45%;
+    flex: 0 0 33.333%;
+    max-width: 260px;
   }
 }
 
 @media (max-width: 768px) {
   .pd-wrap {
     padding: 16px 12px 32px;
-    margin-top: 24px;
+    margin-top: 80px;
   }
 
   .pd-info {
@@ -820,7 +817,6 @@
     width: 100%;
   }
 
-
   .btn-cart {
     width: 100%;
     min-width: 0;
@@ -834,7 +830,8 @@
   }
 
   .product-card {
-    flex: 0 0 60%;
+    flex: 0 0 50%;
+    max-width: 260px;
   }
 
   .product-card .image {
@@ -849,6 +846,7 @@
 @media (max-width: 480px) {
   .pd-wrap {
     padding: 12px 8px 28px;
+    margin-top: 72px;
   }
 
   .breadcrumb {
@@ -895,9 +893,73 @@
 
   .product-card {
     flex: 0 0 80%;
+    max-width: 280px;
   }
 
   .product-card .image {
     height: 140px;
+  }
+}
+
+/* ================= FIX RELATED CARD WIDTH ================= */
+
+/* Chỉ áp cho card trong block "Bạn cũng có thể thích" */
+.related-slider .product-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 4px 16px;
+  scrollbar-width: none;
+}
+
+.related-slider .product-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card gợi ý: luôn đủ rộng, không bị bóp lại khi chỉ có 1 item */
+.related-slider .product-card {
+  flex: 0 0 260px;
+  min-width: 260px;
+  max-width: 260px;
+}
+
+/* Ảnh luôn hiển thị đủ xe, không bị cắt hay méo */
+.related-slider .product-card .image {
+  width: 100%;
+  height: 180px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.related-slider .product-card .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f4f7f6;
+}
+
+/* Responsive: tablet, mobile cho card rộng hơn chút */
+@media (max-width: 960px) {
+  .related-slider .product-card {
+    flex: 0 0 220px;
+    min-width: 220px;
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .related-slider .product-card {
+    flex: 0 0 70%;
+    min-width: 230px;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .related-slider .product-card {
+    flex: 0 0 80%;
+    min-width: 240px;
+    max-width: 340px;
   }
 }
