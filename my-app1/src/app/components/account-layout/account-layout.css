@@ -1,0 +1,55 @@
+.account-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  width: min(1200px, 94%);
+  margin: 28px auto 80px auto;
+  gap: 24px;
+}
+
+/* Sidebar */
+.account-sidebar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(16, 24, 40, 0.16),
+    0 0 40px rgba(69, 184, 128, 0.18), 0 0 12px rgba(255, 255, 255, 0.18);
+}
+.account-sidebar .hello {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+.account-sidebar .name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 4px 0 18px 0;
+  font-family: 'Courier New', Courier, monospace;
+  background: linear-gradient(90deg, #2b3b41 0%, #72d4a5 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.account-sidebar .menu a {
+  display: block;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #2b3b41;
+  font-size: 15px;
+  font-weight: 500;
+}
+.account-sidebar .menu a.active {
+  background: #e8f5ee;
+  color: #2a8f55;
+  font-weight: 600;
+}
+.account-sidebar .logout {
+  color: #e8342a !important;
+  font-weight: 600;
+}
+@media (max-width: 980px) {
+  .account-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

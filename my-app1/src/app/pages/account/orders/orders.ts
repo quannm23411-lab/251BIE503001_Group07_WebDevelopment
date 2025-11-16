@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
-
+import { AccountLayout } from '../../../components/account-layout/account-layout';
 // ==========================================================
 // ⭐ SỬA LỖI 1: Đường dẫn import
 // ==========================================================
@@ -62,7 +62,7 @@ interface Product { id: string; vehicleName: string; image: string; pricePerDay:
 @Component({
   selector: 'account-orders',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule], 
+  imports: [CommonModule, RouterLink, FormsModule, AccountLayout], 
   templateUrl: './orders.html',
   styleUrls: ['./orders.css']
 })

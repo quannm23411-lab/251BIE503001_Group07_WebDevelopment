@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Profile, ProfileService } from '../../../services/profile.services'; 
-
+import { AccountLayout } from '../../../components/account-layout/account-layout';
 // --- Validator tùy chỉnh để kiểm tra mật khẩu mới khớp nhau ---
 export function matchPasswordValidator(control: AbstractControl): ValidationErrors | null {
   const newPassword = control.get('newPassword')?.value;
@@ -24,7 +24,7 @@ export function matchPasswordValidator(control: AbstractControl): ValidationErro
 @Component({
   selector: 'account-profile-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, AccountLayout],
   templateUrl: './profile-edit.html',
   styleUrls: ['./profile.css']
 })
@@ -200,8 +200,47 @@ export class AccountProfileEdit implements OnInit {
   // ------------------------------------------------
 
   // (Các hàm tiện ích khác giữ nguyên)
-onPickAvatar(input: HTMLInputElement): void { /* ... */ }
-  triggerToastShake(): void {
+/**
+   * ⭐ THÊM LẠI HÀM NÀY (Lấy từ file .ts cũ)
+   * Gọi khi người dùng chọn file ảnh đại diện
+   */
+  onPickAvatar(input: HTMLInputElement): void {
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
+
+    const file = input.files[0];
+    
+    // Thêm một bước kiểm tra loại file cho an toàn
+    if (!file.type.startsWith('image/')) {
+      console.error('File không phải là ảnh', file.type);
+      this.showErrorToast.set('Vui lòng chỉ chọn file ảnh (png, jpg...).');
+      this.triggerToastShake();
+      input.value = ''; // Xóa file đã chọn
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const url = reader.result as string;
+
+      // Cập nhật ngay vào form để template bound hiển thị liền
+      // ===============================================
+      // ⭐ SỬA Ở ĐÂY: Dùng 'infoForm' thay vì 'form'
+      // ===============================================
+      this.infoForm.patchValue({ avatar: url });
+      this.infoForm.markAsDirty(); // Đánh dấu form đã thay đổi
+    };
+
+    // Bắt đầu đọc file trước khi reset value
+    reader.readAsDataURL(file);
+
+    // Reset để nếu chọn lại cùng một file vẫn bắn change
+    input.value = '';
+  
+}  
+triggerToastShake(): void {
     const toast = document.querySelector('.error-toast');
     if (toast) {
       toast.classList.add('shake');

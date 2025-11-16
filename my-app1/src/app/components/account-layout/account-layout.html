@@ -1,0 +1,23 @@
+<div class="account-sidebar-wrap">
+  <div class="account-sidebar">
+    <div class="hello">Xin chào,</div>
+    <div class="name">
+      {{ userFullname() }}
+    </div>
+    <div class="menu">
+      <a 
+        routerLink="/account/profile" 
+        routerLinkActive="active">
+        Thông tin tài khoản
+      </a>
+      <a 
+        routerLink="/account/orders" 
+        routerLinkActive="active">
+        Lịch sử thuê xe
+      </a>
+      <a routerLink="/logout" class="logout">
+        Đăng xuất
+      </a>
+    </div>
+  </div>
+</div>

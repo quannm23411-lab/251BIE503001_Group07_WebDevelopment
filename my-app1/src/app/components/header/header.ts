@@ -44,7 +44,17 @@ export class Header implements OnInit, OnDestroy {
   ) { }
 
   /* ========= LIFECYCLE ========= */
-
+private getLatestProfileFromStorage(): UserProfile | null {
+    if (typeof localStorage === 'undefined') return null;
+    const raw = localStorage.getItem('eco_profile');
+    if (!raw) return null;
+    try {
+      // Trả về dữ liệu mới nhất
+      return JSON.parse(raw) as UserProfile;
+    } catch {
+      return null;
+    }
+  }
   ngOnInit(): void {
     this.loadTopSuggestions();
   }
@@ -85,15 +95,28 @@ export class Header implements OnInit, OnDestroy {
     return this.loginService.getProfile();
   }
 
-  get displayName(): string {
+get displayName(): string {
+    // Ưu tiên đọc tên mới nhất từ localStorage
+    const latestProfile = this.getLatestProfileFromStorage();
+    if (latestProfile && latestProfile.fullname) {
+      return latestProfile.fullname;
+    }
+    
+    // Nếu thất bại, dùng lại dữ liệu (có thể cũ) từ LoginService
     return this.profile?.fullname || this.currentUser?.fullname || '';
   }
 
-  get currentUserAvatar(): string {
+get currentUserAvatar(): string {
+    // Ưu tiên đọc avatar mới nhất từ localStorage
+    const latestProfile = this.getLatestProfileFromStorage();
+    if (latestProfile && latestProfile.avatar) {
+      return latestProfile.avatar;
+    }
+    
+    // Nếu thất bại, dùng lại dữ liệu (có thể cũ) từ LoginService
     const p = this.profile;
     return p?.avatar || '/assets/images/avatars/default.png';
   }
-
   toggleProfileMenu(): void {
     this.profileMenuOpen = !this.profileMenuOpen;
 

@@ -38,29 +38,11 @@
 </div>
 
 <div class="account-layout">
-  <div class="account-sidebar-wrap">
-    <div class="account-sidebar">
-      <div class="hello">Xin chào,</div>
-      <div class="name">
-        {{ infoForm.value.fullname || 'Khách EcoMove' }}
-      </div>
-      <div class="menu">
-        <a routerLink="/account/profile" class="active">
-          Thông tin tài khoản
-        </a>
-        <a routerLink="/account/orders">
-          Lịch sử thuê xe
-        </a>
-        <a routerLink="/logout" class="logout">
-          Đăng xuất
-        </a>
-      </div>
-    </div>
-  </div>
+
+  <app-account-layout></app-account-layout>
 
   <div class="account-main-card">
     <div *ngIf="isLoading()">Đang tải thông tin...</div>
-    
     <ng-container *ngIf="!isLoading()">
       
       <form class="account-form" [formGroup]="infoForm" (ngSubmit)="onSubmitInfo()">
