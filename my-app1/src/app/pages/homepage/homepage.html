@@ -44,9 +44,9 @@
               {{ p.vehicleName }}
             </h3>
 
-            <p class="product-card__type" *ngIf="p.vehicleType">
+            <!-- <p class="product-card__type" *ngIf="p.vehicleType">
               {{ p.vehicleType }}
-            </p>
+            </p> -->
 
             <p class="product-card__price">
               Giá thuê chỉ từ
@@ -54,12 +54,12 @@
             </p>
           </div>
 
-          <div class="product-features" *ngIf="p.details?.features?.length">
+          <!-- <div class="product-features" *ngIf="p.details?.features?.length">
             <div class="feature-item" *ngFor="let f of p.details.features">
               <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
-              <span>{{ f }}</span>
+              <span> {{ f }}</span>
             </div>
-          </div>
+          </div> -->
         </a>
       </div>
 
@@ -104,9 +104,9 @@
               {{ p.vehicleName }}
             </h3>
 
-            <p class="product-card__type" *ngIf="p.vehicleType">
+            <!-- <p class="product-card__type" *ngIf="p.vehicleType">
               {{ p.vehicleType }}
-            </p>
+            </p> -->
 
             <p class="product-card__price">
               Giá thuê chỉ từ
@@ -119,7 +119,7 @@
           <div class="product-features" *ngIf="p.details?.features?.length">
             <div class="feature-item" *ngFor="let f of p.details.features">
               <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
-              <span>{{ f }}</span>
+              <span> {{ f }}</span>
             </div>
           </div>
         </article>
@@ -154,9 +154,9 @@
               {{ p.vehicleName }}
             </h3>
 
-            <p class="product-card__type" *ngIf="p.vehicleType">
+            <!-- <p class="product-card__type" *ngIf="p.vehicleType">
               {{ p.vehicleType }}
-            </p>
+            </p> -->
 
             <p class="product-card__price">
               Giá thuê chỉ từ
@@ -167,7 +167,7 @@
           <div class="product-features" *ngIf="p.details?.features?.length">
             <div class="feature-item" *ngFor="let f of p.details.features">
               <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
-              <span>{{ f }}</span>
+              <span> {{ f }}</span>
             </div>
           </div>
         </article>
@@ -201,10 +201,10 @@
             <h3 class="product-card__name">
               {{ p.vehicleName }}
             </h3>
-
+<!-- 
             <p class="product-card__type" *ngIf="p.vehicleType">
               {{ p.vehicleType }}
-            </p>
+            </p> -->
 
             <p class="product-card__price">
               Giá thuê chỉ từ
@@ -215,7 +215,7 @@
           <div class="product-features" *ngIf="p.details?.features?.length">
             <div class="feature-item" *ngFor="let f of p.details.features">
               <i class="bi" [ngClass]="getFeatureIcon(f)"></i>
-              <span>{{ f }}</span>
+              <span> {{ f }}</span>
             </div>
           </div>
         </article>
@@ -257,7 +257,7 @@
       <img class="steps-illustration" src="assets/images/homepage/steps-phone.png" alt="Steps Illustration" />
       <div class="step" *ngFor="let s of steps">
         <div class="step-number">{{ s.no }}</div>
-        <div class="step-content">
+        <div class="step-content gap-3">
           <i class="fa-solid" [ngClass]="s.icon"></i>
           <div>
             <div class="step-title">{{ s.title }}</div>
@@ -278,13 +278,13 @@
       <div class="testi" *ngFor="let t of testimonials">
         <div class="testi-header">
           <div class="avatar">
-            <img [src]="t.avatar || 'assets/images/default-avatar.png'" [alt]="t.name" />
+            <!-- <img [src]="t.avatar || '../../../assets/images/avatar-default.jpg'" [alt]="t.name" /> -->
+            <img src="../../../assets/images/avatar-default.jpg" [alt]="t.name" />
           </div>
           <div class="stars">
             <i class="bi bi-star-fill" *ngFor="let s of [].constructor(t.rating)"></i>
           </div>
         </div>
-
         <div class="quote">
           “{{ t.text }}”
         </div>

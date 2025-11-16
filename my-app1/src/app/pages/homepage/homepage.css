@@ -110,7 +110,7 @@ body {
 
 .carousel {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 10px 0;
@@ -163,7 +163,7 @@ body {
 ================================ */
 .product-grid {
   display: grid;
-  gap: 18px;
+  gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   margin-inline: auto;
 }
@@ -196,27 +196,28 @@ body {
 
 /* TOP RENT card: kích thước & scale hợp lý */
 .top-rent .carousel .toprent-card {
-  flex: 0 0 260px;
+  flex: 0 0 300px;
+  margin-inline: 0; /* <-- Thêm vào */
   scroll-snap-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 /* hai card bên cạnh nhỏ bớt */
 .top-rent .carousel .product-card--side {
-  transform: scale(0.86);
-  opacity: 0.9;
+  transform: scale(0.9);
+  opacity: 0.85;
 }
 
 /* card trung tâm – phóng nhẹ */
 .top-rent .carousel .product-card--center {
-  transform: scale(0.98);
+  transform: scale(1);
   z-index: 2;
   opacity: 1;
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
 }
 
 .top-rent .carousel .product-card--center:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 /* Badge khuyến mãi kiểu tag trên viền, không bị container cắt */
@@ -252,16 +253,17 @@ body {
 }
 
 .product-card__name {
-  margin: 12px 16px 4px;
-  font-weight: 700;
-  font-size: 1rem;
+  /* margin: 12px 16px 4px; */
+  font-weight: 650;
+  font-size: 1.5rem;
   color: #121212;
+  text-align: center;
 }
 
 .product-card__price {
-  margin-left: 20px;
   font-size: 0.9rem;
   color: #121212;
+  text-align: center;
 }
 
 .product-card__price span {
@@ -286,6 +288,7 @@ body {
 .product-card .feature-item {
   padding: 5px 8px;
 }
+
 
 /* ===============================
    PROMO BANNER
@@ -641,16 +644,16 @@ body {
 
   /* 2 card trên 1 hàng */
   .top-rent .carousel .toprent-card {
-    flex: 0 0 45%;
+    /* flex: 0 0 45%; */
     transform: scale(0.88);
   }
 
   .top-rent .carousel .product-card--center {
-    transform: scale(1.08);
+    transform: scale(1.01);
   }
 
   .top-rent .carousel .product-card--center:hover {
-    transform: scale(1.15);
+    transform: scale(1.02);
   }
 
   /* Mũi tên nhỏ hơn */
@@ -664,9 +667,50 @@ body {
     font-size: 11.5px;
   }
 
-  .promo-image {
-    width: 35%;
+
+  /* [THÊM MỚI] Chuyển grid 3-cột thành 2-cột */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
+
+  /* [THÊM MỚI] Chuyển Steps thành 1-cột */
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 24px; /* Tăng gap dọc */
+  }
+
+  /* [THÊM MỚI] Ẩn hình minh họa Steps để đỡ chật */
+  .steps-illustration {
+    display: none;
+  }
+
+  /* [THÊM MỚI] Chuyển Testimonials thành 1-cột */
+  .testimonials {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* [THÊM MỚI] Thu nhỏ font chữ của Call-to-Action (CTA) */
+  .cta-content h4 {
+    font-size: 40px; /* Giảm từ 64px */
+  }
+  .cta-content p {
+    font-size: 24px; /* Giảm từ 36px */
+  }
+  .cta-content .btn {
+    font-size: 24px; /* Giảm từ 36px */
+    padding: 16px 40px;
+  }
+  .product-grid .category-card:nth-child(n+3) {
+    display: none;
+  }
+
+}
+@media (max-width: 850px) {
+
+  .promo-image {
+    display: none;  }
 }
 @media (max-width: 576px) {
 
@@ -688,19 +732,19 @@ body {
   }
 
   /* Card hiển thị 1 chiếc chiếm 80% màn hình */
-  .top-rent .carousel .toprent-card {
+  /* .top-rent .carousel .toprent-card {
     flex: 0 0 80%;
     transform: scale(0.92);
-  }
+  } */
 
   /* Card trung tâm */
-  .top-rent .carousel .product-card--center {
+  /* .top-rent .carousel .product-card--center {
     transform: scale(1.05);
   }
 
   .top-rent .carousel .product-card--center:hover {
     transform: scale(1.12);
-  }
+  } */
 
   .product-card__name {
     font-size: 0.9rem;
@@ -718,11 +762,58 @@ body {
 
   /* Ẩn mũi tên */
   .carousel-arrow {
-    display: none !important;
+    width: 34px;
+    height: 80px;
   }
 
   /* Promo */
-  .promo-image {
+
+  /* [THÊM MỚI] Chuyển grid 2-cột (từ tablet) thành 1-cột */
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* [THÊM MỚI] Căn giữa card khi chỉ có 1-cột */
+  .product-grid .category-card {
+    max-width: 320px; /* Giới hạn độ rộng 1 chút */
+    margin-inline: auto; /* Tự động căn giữa */
+  }
+
+  /* [THÊM MỚI] Giảm lề 2 bên của trang */
+  .container,
+  .top-rent.container {
+    padding-inline: 16px;
+  }
+
+  /* ... (Các quy tắc .product-features, .carousel-arrow có sẵn) ... */
+
+
+  /* [THÊM MỚI] Thu nhỏ font CTA hơn nữa cho mobile */
+  .cta-content h4 {
+    font-size: 28px; /* Giảm từ 40px */
+    line-height: 1.3;
+  }
+  .cta-content p {
+    font-size: 18px; /* Giảm từ 24px */
+    margin-bottom: 32px;
+  }
+  .cta-content .btn {
+    font-size: 18px; /* Giảm từ 24px */
+    padding: 14px 32px;
+  }
+  .cta {
+    padding: 80px 16px 100px;
+  }
+
+  /* [THÊM MỚI] Tinh chỉnh lề cho Testimonials */
+  .testimonials {
+    gap: 16px;
+  }
+  .testi {
+    padding: 24px 20px; /* Giảm lề 1 chút */
+  }
+  .product-grid .category-card:nth-child(n+3) {
     display: none;
   }
+
 }
