@@ -64,8 +64,8 @@
       </h3>
 
       <div class="filter-row">
-        <span class="filter-label">Loại xe:</span>
-
+        <div class="filter-label">Loại xe:</div>
+        <div>
         <label>
           <input type="checkbox" [checked]="isTypeSelected('Xe máy điện')" (change)="
               toggleType(
@@ -95,6 +95,7 @@
             " />
           Xe đạp điện gấp gọn
         </label>
+        </div>
       </div>
 
       <div class="filter-row">
@@ -131,7 +132,6 @@
       <div class="filter-row align-items-center flex-wrap">
         <span class="filter-label">Giá:</span>
 
-        <span class="price-bound">0 đ</span>
         <div class="price-range-wrapper">
           <!-- 1 thanh kéo: lọc từ 0 -> max -->
           <input type="range" min="0" max="500000" step="10000" [value]="maxPrice()" class="price-range"
@@ -142,7 +142,6 @@
           {{ formatVND(minPrice()) }} -
           {{ formatVND(maxPrice()) }}
         </span>
-        <span class="price-bound">500.000 đ</span>
 
         <div class="sort ms-auto d-flex align-items-center gap-2 flex-wrap position-relative">
           <span class="filter-label">Sắp xếp theo:</span>
@@ -159,26 +158,14 @@
             <i class="bi bi-patch-check-fill"></i>
           </button>
 
-          <div class="sort-price-dropdown">
-            <button type="button" class="btn btn-outline btn-green-outline dropdown-toggle" (click)="togglePriceMenu()"
-              [class.active]="
-                sortKey() === 'price_asc' ||
-                sortKey() === 'price_desc'
-              ">
-              {{ priceSortLabel() }}
-            </button>
+          <button type="button" class="btn btn-outline"
+            [class.btn-green-outline]="sortKey() === 'price_asc' || sortKey() === 'price_desc'"
+            [class.active]="sortKey() === 'price_asc' || sortKey() === 'price_desc'"
+            (click)="cyclePriceSort()">
 
-            <div class="dropdown-menu shadow-sm mt-1" [class.show]="showPriceMenu()">
-              <button type="button" class="dropdown-item" [class.active]="sortKey() === 'price_asc'"
-                (click)="setSort('price_asc'); closePriceMenu()">
-                Giá thấp - cao
-              </button>
-              <button type="button" class="dropdown-item" [class.active]="sortKey() === 'price_desc'"
-                (click)="setSort('price_desc'); closePriceMenu()">
-                Giá cao - thấp
-              </button>
-            </div>
-          </div>
+            {{ priceSortLabel() }}
+          </button>
+
         </div>
       </div>
     </div>

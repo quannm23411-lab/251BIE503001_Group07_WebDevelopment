@@ -1,11 +1,40 @@
 /* Breadcrumb */
 .account-breadcrumb {
   max-width: 1200px;
-  margin: 28px auto 0;
-  font-size: 14px;
-  color: #6b7280;
+  margin: 72px auto 0;
+  font-size: 16px;
+  color: #000000;
+}
+/* =======================================
+   BREADCRUMB (Bổ sung)
+======================================= */
+/* (Style cho container đã có sẵn) */
+
+/* Style cho link "Trang chủ", "Lịch sử..." */
+.account-breadcrumb a {
+  color: #000000; /* Màu xanh lá (giống rent.css) */
+  text-decoration: none;
+  font-weight: 500;
+}
+.account-breadcrumb a:hover {
+  text-decoration: underline;
+  color: #198754;
+
 }
 
+/* Style cho dấu "/" */
+.account-breadcrumb span {
+  color: #adb5bd; /* Màu xám nhạt */
+  margin: 0 6px;
+  font-weight: 500;
+}
+
+/* Style cho trang hiện tại (chữ đậm, màu đen) */
+.account-breadcrumb span.current {
+  font-weight: 600;
+  color: #198754;
+  margin-left: 0; /* Xóa lề trái của span cuối cùng */
+}
 /* Nền Gradient */
 .account-bg {
   position: fixed;

@@ -1,6 +1,6 @@
 [
   {
-    "maDonThue": "RENT001",
+    "maDonThue": "RENT-R041",
     "maKhachHang": "KH002",
     "thoiGianDatHang": "2025-11-01T10:30:00Z",
     "tienDatCoc": 200000,
@@ -32,7 +32,7 @@
     ]
   },
   {
-    "maDonThue": "RENT002",
+    "maDonThue": "RENT-R042",
     "maKhachHang": "KH005",
     "thoiGianDatHang": "2025-11-03T14:00:00Z",
     "tienDatCoc": 500000,
@@ -77,7 +77,7 @@
     ]
   },
   {
-    "maDonThue": "RENT003",
+    "maDonThue": "RENT-R043",
     "maKhachHang": "KH001",
     "thoiGianDatHang": "2025-11-05T11:20:00Z",
     "tienDatCoc": 0,
@@ -122,7 +122,7 @@
     ]
   },
   {
-    "maDonThue": "RENT004",
+    "maDonThue": "RENT-R044",
     "maKhachHang": "KH003",
     "thoiGianDatHang": "2025-10-25T09:15:00Z",
     "tienDatCoc": 300000,
@@ -154,7 +154,7 @@
     ]
   },
   {
-    "maDonThue": "RENT005",
+    "maDonThue": "RENT-R045",
     "maKhachHang": "KH006",
     "thoiGianDatHang": "2025-11-06T17:00:00Z",
     "tienDatCoc": 200000,
@@ -199,7 +199,7 @@
     ]
   },
   {
-    "maDonThue": "RENT006",
+    "maDonThue": "RENT-R046",
     "maKhachHang": "KH004",
     "thoiGianDatHang": "2025-11-07T10:10:00Z",
     "tienDatCoc": 100000,
@@ -231,7 +231,7 @@
     ]
   },
   {
-    "maDonThue": "RENT007",
+    "maDonThue": "RENT-R047",
     "maKhachHang": "KH009",
     "thoiGianDatHang": "2025-11-07T15:30:00Z",
     "tienDatCoc": 0,
@@ -263,7 +263,7 @@
     ]
   },
   {
-    "maDonThue": "RENT008",
+    "maDonThue": "RENT-R048",
     "maKhachHang": "KH007",
     "thoiGianDatHang": "2025-11-08T11:00:00Z",
     "tienDatCoc": 350000,
