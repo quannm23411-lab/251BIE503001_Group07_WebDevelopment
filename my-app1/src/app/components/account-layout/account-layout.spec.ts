@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Review } from './review';
+import { AccountLayout } from './account-layout';
 
-describe('Review', () => {
-  let component: Review;
-  let fixture: ComponentFixture<Review>;
+describe('AccountLayout', () => {
+  let component: AccountLayout;
+  let fixture: ComponentFixture<AccountLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Review]
+      imports: [AccountLayout]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Review);
+    fixture = TestBed.createComponent(AccountLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

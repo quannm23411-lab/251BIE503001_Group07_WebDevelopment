@@ -1,7 +1,4 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-/>
+
 
 <div class="account-bg"></div>
 <div class="account-breadcrumb">
@@ -11,18 +8,7 @@
 </div>
 
 <div class="account-layout">
-  
-  <div class="account-sidebar-wrap">
-    <div class="account-sidebar">
-      <div class="hello">Xin chào,</div>
-      <div class="name">{{ user.fullname }}</div>
-      <div class="menu">
-        <a routerLink="/account/profile">Thông tin tài khoản</a>
-        <a routerLink="/account/orders" class="active">Lịch sử thuê xe</a>
-        <a routerLink="/logout" class="logout">Đăng xuất</a>
-      </div>
-    </div>
-  </div>
+<app-account-layout></app-account-layout>
 
   <div class="account-main-card">
     

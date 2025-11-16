@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs';
-
+import { AccountLayout } from '../../../components/account-layout/account-layout';
 // --- (Các interface Product, OrderJson, ... giữ nguyên) ---
 interface Product { id: string; vehicleName: string; image: string; }
 interface OrderJson {
@@ -55,7 +55,7 @@ interface AccountProfile {
 @Component({
   selector: 'app-account-review', 
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule], 
+  imports: [CommonModule, RouterLink, FormsModule,AccountLayout], 
   templateUrl: './account-review.html',
   styleUrls: ['./account-review.css']
 })

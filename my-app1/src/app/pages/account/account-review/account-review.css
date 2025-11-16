@@ -1,5 +1,5 @@
 /* File: account-review.css */
-
+@import '../profile/profile.css';
 /* ... (Toàn bộ nội dung file cũ giữ nguyên) ... */
 @import '../../checkout/checkout.css';
 

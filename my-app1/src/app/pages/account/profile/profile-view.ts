@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Profile, ProfileService } from '../../../services/profile.services'; 
 import { FormsModule } from '@angular/forms'; // <-- 1. THÊM IMPORTS
-
+import { AccountLayout } from '../../../components/account-layout/account-layout';
 @Component({
   selector: 'account-profile-view',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule], // <-- 2. THÊM MODULE
+  imports: [CommonModule, RouterLink, FormsModule, AccountLayout], // <-- 2. THÊM MODULE
   templateUrl: './profile-view.html',
   styleUrls: ['./profile.css']
 })

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs';
-
+import { AccountLayout } from '../../../components/account-layout/account-layout';
 // --- ĐỊNH NGHĨA INTERFACE ---
 
 interface Product {
@@ -74,7 +74,8 @@ interface AccountProfile {
   standalone: true, 
   imports: [
     CommonModule, 
-    RouterLink    
+    RouterLink, 
+    AccountLayout
   ], 
   templateUrl: './order-detail.html',
   styleUrl: './order-detail.css' 
