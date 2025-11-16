@@ -121,18 +121,22 @@
                 </div>
             </section>
 
-            <!-- CARD: Người nhận xe -->
+            <!-- CARD: Người nhận xe (tuỳ chọn) -->
             <section class="checkout-card receiver-card">
                 <div class="receiver-header">
-                    <h2 class="summary-title">Thông tin người nhận xe</h2>
+                    <h2 class="summary-title">Thông tin người nhận xe </h2>
                     <button type="button" class="btn btn-link btn-change-receiver" (click)="toggleReceiverMode()">
                         {{
                         receiverSameAsCustomer
                         ? 'Thay đổi thông tin người nhận'
-                        : 'Dùng thông tin khách hàng'
+                        : 'Dùng lại thông tin chủ tài khoản'
                         }}
                     </button>
                 </div>
+
+                <p class="receiver-note" *ngIf="receiverSameAsCustomer">
+                    Thông tin người nhận xe mặc định là thông tin chủ tài khoản
+                </p>
 
                 <div class="receiver-form" *ngIf="!receiverSameAsCustomer">
                     <div class="form-row">
@@ -256,9 +260,8 @@
                     </div>
                     <div class="voucher-message voucher-message--success"
                         *ngIf="!voucherError() && appliedVoucher() as promo">
-                        Đã áp dụng:
-                        <strong>{{ promo.tenKhuyenMai }}</strong>
-                        ({{ promo.maGiamGia }})
+                        ĐÃ ÁP DỤNG MÃ:
+                        <strong>{{ promo.tenKhuyenMai }} ({{ promo.maGiamGia }})</strong>
                     </div>
                 </div>
 
@@ -269,14 +272,6 @@
                 </div>
 
                 <div class="payment-content">
-                    <div class="voucher-summary">
-                        <div class="voucher-box"></div>
-                        <div class="voucher-text">
-                            <span class="label">Tổng cộng Voucher giảm giá</span>
-                            <span class="value">{{ vnd(discountAmount()) }}</span>
-                        </div>
-                    </div>
-
                     <div class="payment-methods">
                         <label class="payment-option">
                             <input type="radio" name="paymentMethod" value="bank" [(ngModel)]="form.paymentMethod" />
@@ -333,12 +328,7 @@
                 </div>
             </section>
 
-            <p class="checkout-note">
-                Nhấn
-                <strong>“Thuê xe”</strong>
-                đồng nghĩa với việc bạn đồng ý tuân theo
-                <a href="javascript:void(0)">Điều khoản EcoMove</a>.
-            </p>
+            <!-- BỎ câu "Nhấn Thuê xe..." như yêu cầu -->
 
             <div class="terms-row" [class.error]="termsError()">
                 <label class="terms-checkbox">

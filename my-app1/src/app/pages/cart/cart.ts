@@ -2,7 +2,6 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.services';
-import { Auth } from '../../services/auth/auth';
 import { RentalDatesService } from '../../services/rental-dates.services';
 
 @Component({
@@ -15,7 +14,6 @@ import { RentalDatesService } from '../../services/rental-dates.services';
 export class CartPage {
     private cart = inject(CartService);
     private router = inject(Router);
-    private auth = inject(Auth);
     private rentalDates = inject(RentalDatesService);
 
     // Signals từ CartService
@@ -110,7 +108,6 @@ export class CartPage {
         }
 
         // gọi CartService cập nhật lại ngày + subtotal
-        // (trong cart.services.ts mày sẽ thêm hàm updateItemDates)
         const updated = this.cart.updateItemDates(item.id, start, end);
 
         if (updated) {
@@ -155,16 +152,9 @@ export class CartPage {
             return;
         }
 
-        if (this.auth.isLoggedIn()) {
-            this.router.navigate(['/checkout'], {
-                state: { selectedIds }
-            });
-        } else {
-            this.router.navigate(['/login'], {
-                queryParams: { returnUrl: '/checkout' },
-                state: { selectedIds }
-            });
-        }
+        this.router.navigate(['/checkout'], {
+            state: { selectedIds }
+        });
     }
 
     // ========== SELECTION HELPERS ==========

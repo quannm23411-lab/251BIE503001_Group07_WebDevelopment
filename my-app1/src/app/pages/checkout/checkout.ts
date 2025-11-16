@@ -301,7 +301,7 @@ export class Checkout {
     finalizeOrder() {
         this.isSubmitting.set(true);
 
-        const code = 'ECM-' + Date.now().toString().slice(-6);
+        const code = 'RENT-R' + Date.now().toString().slice(-6);
         this.orderCode.set(code);
         this.createdAt.set(new Date());
 

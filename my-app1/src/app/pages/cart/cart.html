@@ -21,14 +21,22 @@
                 </div>
 
                 <div class="cart-item__image">
-                    <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+                    <a class="cart-item__image-link" [routerLink]="['/rent', item.productId]"
+                        [queryParams]="{ start: item.rentStart, end: item.rentEnd }">
+                        <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+                    </a>
                 </div>
 
                 <div class="cart-item__content">
 
                     <div class="cart-item__top">
                         <div class="cart-item__header">
-                            <h2 class="cart-item__name">{{ item.name }}</h2>
+                            <h2 class="cart-item__name">
+                                <a [routerLink]="['/rent', item.productId]"
+                                    [queryParams]="{ start: item.rentStart, end: item.rentEnd }">
+                                    {{ item.name }}
+                                </a>
+                            </h2>
 
                             <p class="cart-item__meta">
                                 <span *ngIf="item.brandName">{{ item.brandName }}</span>
@@ -103,9 +111,12 @@
                 </div>
             </div>
 
-            <button type="button" class="cart-clear" (click)="clear()">
-                Xóa toàn bộ giỏ
-            </button>
+            <!-- NÚT XÓA TOÀN BỘ GIỎ - THU NHỎ, LỆCH PHẢI -->
+            <div class="cart-clear-wrapper">
+                <button type="button" class="cart-clear" (click)="clear()">
+                    Xóa toàn bộ giỏ
+                </button>
+            </div>
         </div>
 
         <!-- THANH TÓM TẮT DƯỚI CÙNG -->

@@ -23,6 +23,7 @@ import {
   ProductReview
 } from '../../services/product-review.services';
 import { CartService } from '../../services/cart.services';
+import { Auth } from '../../services/auth/auth';
 
 type CategorySlug = 'xe-may-dien' | 'xe-dap-dien' | 'xe-dap-dien-gap-gon';
 
@@ -41,6 +42,16 @@ const TYPE_CATEGORY: Record<string, { label: string; slug: CategorySlug }> = {
   }
 };
 
+// ====== Pending cart action (sau login quay lại) ======
+type PendingCartMode = 'addToCart' | 'bookNow' | 'preOrder';
+
+interface PendingCartAction {
+  mode: PendingCartMode;
+  productId: string;
+  rentStart: string;
+  rentEnd: string;
+}
+
 @Component({
   selector: 'app-product-detail',
   standalone: true,
@@ -58,6 +69,7 @@ export class ProductDetail {
   private products = inject(ProductLoadingService);
   private reviewsService = inject(ProductReviewService);
   private cart = inject(CartService);
+  private auth = inject(Auth);
 
   readonly stars = [1, 2, 3, 4, 5];
 
@@ -216,6 +228,31 @@ export class ProductDetail {
     return n.toLocaleString('vi-VN') + '₫';
   }
 
+  // ====== PENDING CART ACTION (localStorage) ======
+  private readonly pendingCartKey = 'eco_pending_cart_action';
+  private pendingHandled = false;
+
+  private savePendingCartAction(data: PendingCartAction) {
+    if (typeof window === 'undefined') return;
+    try {
+      window.localStorage.setItem(this.pendingCartKey, JSON.stringify(data));
+    } catch {
+      // kệ, không lưu được thì coi như bỏ
+    }
+  }
+
+  private readAndClearPendingCartAction(): PendingCartAction | null {
+    if (typeof window === 'undefined') return null;
+    try {
+      const raw = window.localStorage.getItem(this.pendingCartKey);
+      if (!raw) return null;
+      window.localStorage.removeItem(this.pendingCartKey);
+      return JSON.parse(raw) as PendingCartAction;
+    } catch {
+      return null;
+    }
+  }
+
   // ====== CART ACTIONS ======
   private addCurrentProductToCart(options?: { redirectToCart?: boolean }) {
     const p = this.product();
@@ -288,13 +325,55 @@ export class ProductDetail {
     }, 650);
   }
 
+  // ====== PUBLIC ACTIONS (gắn với nút) ======
+
   bookNow() {
     if (this.isOutOfStock()) return;
+    const p = this.product();
+    if (!p) return;
+
+    // chưa login: lưu pending + đá qua login
+    if (!this.auth.isLoggedIn()) {
+      this.savePendingCartAction({
+        mode: 'bookNow',
+        productId: String(p.id),
+        rentStart: this.rentStart,
+        rentEnd: this.rentEnd
+      });
+
+      this.router.navigate(['/login'], {
+        queryParams: {
+          returnUrl: this.router.url
+        }
+      });
+      return;
+    }
+
+    // đã login
     this.addCurrentProductToCart({ redirectToCart: true });
   }
 
   addToCart() {
     if (this.isOutOfStock()) return;
+    const p = this.product();
+    if (!p) return;
+
+    if (!this.auth.isLoggedIn()) {
+      this.savePendingCartAction({
+        mode: 'addToCart',
+        productId: String(p.id),
+        rentStart: this.rentStart,
+        rentEnd: this.rentEnd
+      });
+
+      this.router.navigate(['/login'], {
+        queryParams: {
+          returnUrl: this.router.url
+        }
+      });
+      return;
+    }
+
     this.addCurrentProductToCart();
     this.animateToCart();
   }
@@ -302,6 +381,25 @@ export class ProductDetail {
   // giữ để template khỏi lỗi (nếu sau này bỏ nút thì xoá)
   preOrder() {
     if (this.isOutOfStock()) return;
+    const p = this.product();
+    if (!p) return;
+
+    if (!this.auth.isLoggedIn()) {
+      this.savePendingCartAction({
+        mode: 'preOrder',
+        productId: String(p.id),
+        rentStart: this.rentStart,
+        rentEnd: this.rentEnd
+      });
+
+      this.router.navigate(['/login'], {
+        queryParams: {
+          returnUrl: this.router.url
+        }
+      });
+      return;
+    }
+
     this.addCurrentProductToCart();
   }
 
@@ -365,6 +463,45 @@ export class ProductDetail {
     effect(() => {
       this.id();
       this.activeIndex.set(0);
+    });
+
+    // 4) Sau khi product load xong, xử lý pending cart action (nếu có)
+    effect(() => {
+      const p = this.product();
+      if (!p || this.pendingHandled) return;
+
+      const pending = this.readAndClearPendingCartAction();
+      if (!pending) {
+        this.pendingHandled = true;
+        return;
+      }
+
+      // phải đúng product
+      if (String(p.id) !== pending.productId) {
+        this.pendingHandled = true;
+        return;
+      }
+
+      // cập nhật lại ngày theo pending (nếu có)
+      if (pending.rentStart && pending.rentEnd) {
+        this.rentStart = pending.rentStart;
+        this.rentEnd = pending.rentEnd;
+      }
+
+      switch (pending.mode) {
+        case 'addToCart':
+          this.addCurrentProductToCart();
+          this.animateToCart();
+          break;
+        case 'bookNow':
+          this.addCurrentProductToCart({ redirectToCart: true });
+          break;
+        case 'preOrder':
+          this.addCurrentProductToCart();
+          break;
+      }
+
+      this.pendingHandled = true;
     });
   }
 

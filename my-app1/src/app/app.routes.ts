@@ -30,7 +30,7 @@ const requireAdmin = () => {
 };
 
 // Guard yêu cầu đăng nhập (checkout, account nếu cần)
-const requireLogin = () => {
+const requireLogin = (route: any, state: any) => {
   const router = inject(Router);
   const auth = inject(Auth);
   const platformId = inject(PLATFORM_ID);
@@ -39,7 +39,7 @@ const requireLogin = () => {
   if (!auth.isLoggedIn()) {
     if (isBrowser) {
       router.navigate(['/login'], {
-        queryParams: { returnUrl: '/checkout' }
+        queryParams: { returnUrl: state.url }
       });
     }
     return false;
@@ -205,6 +205,7 @@ export const routes: Routes = [
       // Trang giỏ hàng: /cart
       {
         path: 'cart',
+        canActivate: [requireLogin],
         loadComponent: () =>
           import('./pages/cart/cart').then(m => m.CartPage),
       },
@@ -244,10 +245,10 @@ export const routes: Routes = [
                 m => m.AccountOrders
               ),
           },
-          { 
-            path: 'order-detail/:id', 
-            loadComponent: () => import('./pages/account/order-detail/order-detail').then(m => m.OrderDetail) 
-           },
+          {
+            path: 'order-detail/:id',
+            loadComponent: () => import('./pages/account/order-detail/order-detail').then(m => m.OrderDetail)
+          },
 
           {
             path: 'review/:orderId/write',
