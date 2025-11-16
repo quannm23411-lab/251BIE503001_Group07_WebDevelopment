@@ -221,26 +221,35 @@ body {
 
 .nav__cart {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav__cart i {
-  font-size: 28px;
+  font-size: 26px;
   color: #fff;
 }
 
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -4px;
+  /* hạ xuống nhẹ, đỡ đụng viền */
+  right: -10px;
+  /* dịch ra ngoài một xíu */
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
   background: #ff3b30;
   color: #fff;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  border-radius: 999px;
   font-size: 11px;
-  text-align: center;
-  line-height: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 /* Login button */
