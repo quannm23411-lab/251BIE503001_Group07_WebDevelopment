@@ -1,0 +1,567 @@
+{
+    "items": [
+        {
+            "id": "p1",
+            "title": "Cập nhật mới nhất: Xe máy điện nào phải có bằng lái A1 từ năm 2026?",
+            "excerpt": "Theo quy định mới của Bộ GTVT, một số dòng xe máy điện có công suất lớn sẽ yêu cầu người điều khiển có bằng lái A1. Đây là bước đi nhằm nâng cao an toàn giao thông khi số lượng xe điện tăng nhanh.",
+            "date": "2025-11-12",
+            "image": "/assets/images/blog/blog-products/bang-lai-a1.jpg",
+            "category": "Xu hướng",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Xe máy điện sẽ cần bằng lái A1 từ 2026"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Từ ngày 01/01/2026, người điều khiển xe máy điện có công suất danh định lớn hơn 4kW hoặc vận tốc tối đa lớn hơn 50km/h phải có giấy phép lái xe hạng A1. Quy định nhằm đảm bảo an toàn khi vận hành xe điện tốc độ cao."
+                },
+                {
+                    "type": "heading",
+                    "text": "Dòng xe chịu tác động"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Các mẫu công suất lớn, mô-men xoắn cao như Theon, Xmen Plus, Datbike Weaver.",
+                        "Xe nhập khẩu hoặc độ có khả năng vượt quá 50km/h.",
+                        "Xe máy điện kiểu sport/roadster có chế độ Sport hoặc Boost."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Phân loại nhanh (tham khảo)"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Nhóm A – Không yêu cầu A1: công suất ≤ 4kW và vận tốc tối đa ≤ 50km/h.",
+                        "Nhóm B – Yêu cầu A1: công suất > 4kW hoặc vận tốc tối đa > 50km/h."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách tự kiểm tra chiếc xe của bạn"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Tem hoặc nhãn kỹ thuật: kiểm tra công suất (kW) và tốc độ tối đa.",
+                        "Giấy đăng kiểm hoặc đăng ký để xem vận tốc tối đa.",
+                        "Ứng dụng hoặc ECU: tránh mở khóa công suất hoặc độ chế."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Lộ trình chuyển tiếp & xử phạt"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Trước 01/01/2026: khuyến nghị thi A1 nếu xe thuộc nhóm B.",
+                        "Sau 01/01/2026: người điều khiển xe nhóm B không có A1 sẽ bị xử phạt như mô tô ≤ 150cc.",
+                        "Người mua xe nhóm B sau thời điểm này cần có hoặc đang thi bằng A1 trước khi sử dụng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Thi A1 có gì mới?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Lý thuyết: tình huống giao thông, biển báo, kỹ năng lái xe điện.",
+                        "Thực hành: bài thi sa hình, kiểm soát gia tốc và phanh tái sinh."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Checklist cho người dùng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Kiểm tra thông số xe.",
+                        "Lên lịch thi A1 trong quý IV/2025.",
+                        "Cập nhật bảo hiểm và cân nhắc khóa học lái xe an toàn."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "FAQ"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Xe 3.5kW nhưng chạy 55km/h có cần A1 không? – Đáp: Có."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Đã có A1 xe xăng, có cần thi lại không? – Đáp: Không."
+                }
+            ]
+        },
+        {
+            "id": "p2",
+            "title": "Tương lai pin LFP: Công nghệ nào đang thay đổi cuộc chơi của xe điện toàn cầu?",
+            "excerpt": "Pin LFP (Lithium Iron Phosphate) đang trở thành xu hướng mới của ngành xe điện nhờ độ bền cao, chi phí thấp và an toàn vượt trội.",
+            "date": "2025-11-11",
+            "image": "/assets/images/blog/blog-products/pin-lfp.jpg",
+            "category": "Công nghệ",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Pin LFP – bước tiến lớn của ngành xe điện"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "LFP (Lithium Iron Phosphate) đang được nhiều hãng như Tesla, BYD, VinFast… ưu ái nhờ độ bền chu kỳ cao, chi phí vật liệu thấp và độ an toàn nhiệt vượt trội so với NCM/NCA. Sự phổ cập LFP giúp giá xe điện dễ tiếp cận hơn, thúc đẩy làn sóng chuyển dịch xanh tại châu Á."
+                },
+                {
+                    "type": "heading",
+                    "text": "LFP vs. NCM/NCA – so sánh nhanh"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Độ bền: LFP đạt hơn 3.000 chu kỳ sạc (thực tế có thể cao hơn tùy BMS), thường gấp đôi pin NCM.",
+                        "Chi phí: Không dùng niken/coban – giảm phụ thuộc vật liệu hiếm, giúp hạ giá thành 15–20%.",
+                        "An toàn: Ngưỡng nhiệt ổn định hơn, rủi ro thermal runaway thấp.",
+                        "Mật độ năng lượng: Thấp hơn NCM/NCA nên kích thước pack có thể lớn hơn ở cùng dung lượng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Xu hướng kỹ thuật làm LFP “nhỏ mà có võ”"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Cell-to-Pack (CTP) / Cell-to-Body (CTB): Bỏ bớt module, tăng hiệu suất đóng gói.",
+                        "Hóa học cải tiến: Doping, tối ưu hạt cathode giúp tăng mật độ và sạc nhanh tốt hơn.",
+                        "Quản lý nhiệt thông minh: Tối ưu pre-conditioning khi sạc nhanh để giữ pin khỏe."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Khi nào nên chọn xe dùng LFP?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Lộ trình đô thị/ngày – sạc qua đêm ổn định, ưu tiên chi phí vận hành.",
+                        "Người dùng đề cao an toàn, ít lo degrade khi sạc đến 100% thường xuyên.",
+                        "Đội xe chia sẻ/thuê xe: vòng đời pin dài, dễ quản trị."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Mẹo sử dụng LFP bền bỉ"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Thường xuyên cân bằng cell (BMS tự động), thỉnh thoảng sạc đầy 100% để hiệu chỉnh SOC.",
+                        "Giữ pin ở nhiệt độ trung tính; hạn chế đỗ lâu ngoài nắng gắt.",
+                        "Dùng sạc nhanh hợp lý; ưu tiên AC qua đêm để tối ưu tuổi thọ."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Nhận định chuyên môn"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trong tương lai gần, LFP kết hợp cell cỡ lớn (ví dụ 46xx) có thể tiếp tục kéo giảm chi phí 20–30%."
+                },
+                {
+                    "type": "heading",
+                    "text": "Góc nhìn cho Việt Nam"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Phù hợp khí hậu nóng ẩm và nhu cầu chạy nội đô.",
+                        "Hệ sinh thái sạc AC đang phủ nhanh; trạm DC tăng tốc tại các trục chính.",
+                        "LFP giúp các mẫu xe điện phổ cập tiếp cận được nhiều nhóm người dùng mới."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "p3",
+            "title": "Làm thế nào để xe điện đi được quãng đường Max theo công bố?",
+            "excerpt": "Xe điện thường có quãng đường di chuyển thực tế thấp hơn so với thông số nhà sản xuất. Dưới đây là những mẹo giúp bạn đạt hiệu suất tối đa.",
+            "date": "2025-10-30",
+            "image": "/assets/images/blog/blog-products/quang-duong-max.jpg",
+            "category": "Kinh nghiệm",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Tối ưu quãng đường di chuyển xe điện"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Chênh lệch giữa con số “công bố” và “thực tế” đến từ phong cách lái, tải trọng, địa hình và thời tiết. Với vài điều chỉnh nhỏ, bạn có thể tiến rất gần phạm vi quãng đường tối đa."
+                },
+                {
+                    "type": "heading",
+                    "text": "Trước chuyến đi"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Áp suất lốp đúng chuẩn: thiếu hoặc thừa đều làm tăng lực cản lăn.",
+                        "Hành lý tối giản: mỗi 10kg thừa đều làm giảm phạm vi di chuyển.",
+                        "Lập kế hoạch sạc: chọn điểm sạc phù hợp để tránh chạy gấp hoặc đi vòng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Khi đang lái"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Giữ tốc độ ổn định; hạn chế đạp thốc và phanh gấp.",
+                        "Dùng chế độ Eco kết hợp phanh tái sinh mức vừa; tận dụng trớn khi đường thoáng.",
+                        "Đóng cửa kính khi chạy nhanh; bật điều hòa ở mức Auto thay vì làm lạnh sâu."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ảnh hưởng của thời tiết"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Nhiệt độ quá nóng hoặc lạnh làm BMS giới hạn công suất sạc/xả.",
+                        "Pre-condition pin trước khi sạc nhanh để đạt đường cong sạc tối ưu.",
+                        "Mưa lớn hoặc gió ngược làm tăng cản khí động; nên giảm tốc hợp lý."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Bảo dưỡng ảnh hưởng ra sao?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Vệ sinh lọc gió điều hòa, bôi trơn các chi tiết quay.",
+                        "Cập nhật phần mềm quản lý pin và điều khiển động cơ.",
+                        "Kiểm tra căn chỉnh chụm bánh (wheel alignment) định kỳ."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ghi chú từ EcoMove"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "EcoMove đang cung cấp chương trình kiểm tra pin miễn phí cho thành viên EcoPlus – giúp bạn theo dõi sức khỏe pin theo thời gian."
+                },
+                {
+                    "type": "heading",
+                    "text": "FAQ ngắn"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Sạc 100% có hại không? Đáp: Với LFP, sạc đầy thường xuyên ít ảnh hưởng; với NCM/NCA, nên giữ ở mức 80–90% khi sử dụng hằng ngày."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Bật sưởi ghế/điều hòa có tốn nhiều pin không? Đáp: Có, nhưng nếu dùng ở mức vừa phải và ổn định thì tác động sẽ được kiểm soát."
+                }
+            ]
+        },
+        {
+            "id": "p5",
+            "title": "Xe điện mini đô thị – lựa chọn hoàn hảo cho người trẻ hiện đại",
+            "excerpt": "Nhỏ gọn, tiết kiệm và thân thiện với môi trường, xe điện mini đang trở thành xu hướng di chuyển mới tại các thành phố lớn.",
+            "date": "2025-09-22",
+            "image": "/assets/images/blog/blog-products/xe-dien-mini.jpg",
+            "category": "Xu hướng",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Xe điện mini – linh hoạt giữa lòng phố thị"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Nhỏ gọn, tiết kiệm và “dễ chiều”, các mẫu mini EV như Wuling Mini EV hay các dòng Compact nội đô giúp người dùng len lỏi đường hẹp, đỗ xe thuận tiện và giảm mạnh chi phí vận hành so với xe xăng."
+                },
+                {
+                    "type": "heading",
+                    "text": "Vì sao người trẻ yêu thích?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Tiết kiệm: chi phí “nhiên liệu” có thể giảm tới 60–70% so với xe xăng.",
+                        "Dễ lái: bán kính quay đầu nhỏ, tầm nhìn tốt.",
+                        "Phong cách: nhiều phối màu, phụ kiện cá nhân hóa."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ai phù hợp với mini EV?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Người độc thân hoặc cặp vợ chồng trẻ di chuyển nội đô.",
+                        "Chủ shop hoặc nhà sáng tạo cần chạy việc nhanh trong phố.",
+                        "Người mới tiếp cận xe điện muốn chi phí ban đầu nhẹ nhàng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Điểm cần cân nhắc"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Dung lượng pin nhỏ nên phù hợp quãng đường ngắn/ngày; cần cân đối lịch sạc.",
+                        "Trang bị an toàn cơ bản hơn xe cỡ lớn; nên ưu tiên phiên bản có ABS/ESC/airbag nếu có.",
+                        "Khoang hành lý đủ cho 1–2 vali cabin; nếu nhu cầu du lịch xa, nên cân nhắc xe lớn hơn."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Nhận định từ EcoMove"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "EcoMove dự kiến bổ sung nhóm mini EV vào hệ thống thuê xe từ đầu 2026 – đáp ứng nhu cầu 'đi chợ công nghệ' giữa đô thị."
+                },
+                {
+                    "type": "heading",
+                    "text": "Mẹo sử dụng mini EV"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Lập thói quen sạc 'nhỏ giọt' qua đêm để luôn sẵn sàng.",
+                        "Dùng Eco Mode khi kẹt xe để tiết kiệm pin.",
+                        "Chọn bãi đỗ có ổ cắm hoặc điểm sạc chậm để tranh thủ nạp năng lượng."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "p6",
+            "title": "Đón đầu công nghệ sạc nhanh 350kW – chỉ 10 phút đầy 80% pin",
+            "excerpt": "Hệ thống sạc nhanh thế hệ mới giúp người dùng rút ngắn thời gian chờ, mở ra kỷ nguyên di chuyển điện tiện lợi hơn bao giờ hết.",
+            "date": "2025-09-05",
+            "image": "/assets/images/blog/blog-products/cong-nghe-sac-nhanh.jpg",
+            "category": "Công nghệ",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Sạc nhanh 350kW – thay đổi cuộc chơi"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Thế hệ trạm DC 350kW giúp rút ngắn thời gian chờ – nhiều mẫu xe có thể nạp 10–80% chỉ trong khoảng 10 phút (tùy kiến trúc 400V/800V và đường cong sạc của từng model). EcoMove đang thử nghiệm tại Hà Nội & TP.HCM, hướng tới nhân rộng nhiều điểm trong năm 2026."
+                },
+                {
+                    "type": "heading",
+                    "text": "Vì sao có người sạc nhanh, có người vẫn chậm?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Nhiệt độ pin: cần pre-condition để đạt nhiệt tối ưu trước khi cắm sạc.",
+                        "Phần trăm pin hiện tại: tốc độ cao nhất thường ở khoảng 10–60% SOC.",
+                        "Khả năng nhận sạc của xe: mỗi mẫu xe có giới hạn kW khác nhau."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách tối ưu phiên sạc"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Dẫn đường đến trạm sạc ngay trong ứng dụng để hệ thống tự làm ấm/làm mát pin.",
+                        "Bắt đầu sạc khi SOC khoảng 10–20% để duy trì tốc độ cao lâu hơn.",
+                        "Dừng sạc ở 80% nếu cần đi ngay – phần 80–100% thường chậm."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ảnh hưởng tới tuổi thọ pin?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Sạc nhanh hợp lý không gây hại đáng kể khi BMS quản lý tốt.",
+                        "Luân phiên DC/AC: ưu tiên AC qua đêm, dùng DC khi cần hành trình dài."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ghi chú"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Các trạm mới của EcoMove ưu tiên chuẩn sạc phổ biến, hiển thị công suất theo thời gian thực và tích hợp thanh toán một chạm."
+                }
+            ]
+        },
+        {
+            "id": "p7",
+            "title": "VinFast và EcoMove hợp tác triển khai 200 trạm đổi pin tự động",
+            "excerpt": "Hai doanh nghiệp Việt bắt tay hợp tác, hướng đến mục tiêu xây dựng hạ tầng xe điện toàn diện trên toàn quốc.",
+            "date": "2025-09-01",
+            "image": "/assets/images/blog/blog-products/tram-sac-doi-pin.jpg",
+            "category": "Hợp tác",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Liên minh xanh vì tương lai di chuyển sạch"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "EcoMove và VinFast ký kết hợp tác triển khai 200 trạm đổi pin tự động trên toàn quốc. Mỗi trạm có công suất phục vụ hàng trăm lượt đổi mỗi ngày, rút ngắn thời gian nạp năng lượng xuống chỉ vài phút."
+                },
+                {
+                    "type": "heading",
+                    "text": "Quy trình đổi pin"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Đặt lịch trên ứng dụng EcoMove → lựa chọn trạm gần nhất.",
+                        "Đỗ vào khoang đổi tự động → hệ thống nhận diện xe và tình trạng pin.",
+                        "Máy tự động rút pin cũ, lắp pin đã sạc → xác nhận thanh toán."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Lợi ích người dùng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Thời gian nạp năng lượng cực nhanh – phù hợp chạy dịch vụ hoặc liên tỉnh.",
+                        "Chất lượng pin được kiểm soát tập trung, đảm bảo đồng đều.",
+                        "Mô hình thuê/đổi giúp giảm chi phí đầu tư ban đầu cho người dùng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Tính tương thích"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Hệ sinh thái pin tiêu chuẩn hóa cho một số dòng xe được hỗ trợ.",
+                        "Ứng dụng cho phép kiểm tra mức pin sẵn có tại từng trạm theo thời gian thực."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ghi chú"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hạ tầng đổi pin và sạc nhanh sẽ bổ trợ lẫn nhau, tạo mạng lưới nạp năng lượng dày và linh hoạt cho người dùng."
+                }
+            ]
+        },
+        {
+            "id": "p8",
+            "title": "Top 5 mẫu xe điện được yêu thích nhất tại Việt Nam 2025",
+            "excerpt": "Theo khảo sát của EcoMove, người dùng Việt Nam ngày càng ưa chuộng xe điện. Dưới đây là 5 mẫu xe được đánh giá cao nhất năm 2025.",
+            "date": "2025-08-15",
+            "image": "/assets/images/blog/blog-products/mau-xe-dien.jpg",
+            "category": "Đánh giá",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "5 mẫu xe điện được yêu thích nhất 2025"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Bảng xếp hạng dựa trên phản hồi người dùng, mức độ hài lòng sau thuê, chi phí vận hành và độ sẵn sàng hạ tầng."
+                },
+                {
+                    "type": "heading",
+                    "text": "1) VinFast VF 5 Plus"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Điểm mạnh: thiết kế gọn, tính năng thực dụng, dịch vụ hậu mãi tốt.",
+                        "Phù hợp: gia đình trẻ, nhu cầu nội đô/ngày.",
+                        "Lưu ý: phạm vi di chuyển vừa đủ cho chuyến đi ngắn."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "2) EcoMove City EV"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Điểm mạnh: tiết kiệm – êm ái – dễ thuê, tối ưu cho đi lại hằng ngày.",
+                        "Phù hợp: người mới làm quen xe điện, hành trình nội thành."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "3) Datbike Weaver++ (xe máy điện)"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Điểm mạnh: tăng tốc tốt, bền bỉ, phong cách thể thao.",
+                        "Phù hợp: di chuyển cá nhân, cung đường hỗn hợp đô thị."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "4) Wuling Mini EV"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Điểm mạnh: siêu nhỏ gọn, đỗ xe 'dễ như chơi'.",
+                        "Phù hợp: phố hẹp, nhu cầu linh hoạt, người mới lái."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "5) Tesla Model 3"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Điểm mạnh: công nghệ cao, hỗ trợ sạc nhanh, trải nghiệm lái hứng khởi.",
+                        "Phù hợp: người thích công nghệ, chuyến đi đường dài có trạm sạc DC."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Phương pháp xếp hạng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Khảo sát người dùng sau thuê: độ thoải mái, chi phí thực tế, mức hài lòng tổng thể.",
+                        "Độ sẵn sàng hạ tầng sạc/đổi pin ở các thành phố lớn.",
+                        "Độ tin cậy, chi phí bảo dưỡng, khả năng sử dụng hằng ngày."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ghi chú"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Xu hướng 2026: mini EV và hybrid giá phải chăng tiếp tục mở rộng sự lựa chọn cho người dùng mới."
+                }
+            ]
+        }
+    ]
+}

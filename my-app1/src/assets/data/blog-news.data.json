@@ -1,0 +1,500 @@
+{
+    "items": [
+        {
+            "id": "N1",
+            "title": "EcoMove chính thức mở thêm chi nhánh tại Quận 1, TP.HCM.",
+            "excerpt": "Tiếp tục mở rộng hệ thống, EcoMove khai trương chi nhánh mới tại trung tâm TP.HCM, mang đến nhiều tiện ích và dịch vụ cho người dùng khu vực phía Nam.",
+            "date": "2025-08-30",
+            "image": "/assets/images/blog/blog-news/tuoi-tre-xung-kich.jpg",
+            "category": "Tin tức",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Chi nhánh EcoMove Quận 1 chính thức đi vào hoạt động"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Ngày 30/8/2025, EcoMove khai trương chi nhánh mới tại địa chỉ 29 Nguyễn Huệ, Quận 1. Đây là cột mốc quan trọng trong kế hoạch phát triển dịch vụ thuê xe xanh tại khu vực miền Nam."
+                },
+                {
+                    "type": "heading",
+                    "text": "Không gian & dịch vụ tại điểm Quận 1"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Chi nhánh Quận 1 được thiết kế theo tiêu chuẩn “xanh - thông minh - thân thiện”, tích hợp quầy hỗ trợ kỹ thuật, khu trải nghiệm ứng dụng và bãi giao nhận xe nhanh."
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Dòng xe: City EV, Compact EV, Bike EV (xe đạp/xe máy điện).",
+                        "Hỗ trợ 24/7, cứu hộ nội đô trong 30 phút.",
+                        "Giao nhận tận nơi trong bán kính 5km quanh Quận 1."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "“EcoMove cam kết mang công nghệ di chuyển xanh đến gần hơn với mọi người dân thành phố.” – Giám đốc vận hành EcoMove"
+                },
+                {
+                    "type": "heading",
+                    "text": "Ưu đãi khai trương"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Giảm 20% cho đơn thuê EV > 2 ngày (áp dụng đến 15/9/2025).",
+                        "Tặng 01 lần sạc nhanh miễn phí tại trạm liên kết.",
+                        "Khách hàng doanh nghiệp: tặng gói bảo hiểm mở rộng trong tháng 9."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Hướng dẫn đặt xe nhanh"
+                },
+                {
+                    "type": "list-order",
+                    "items": [
+                        "Mở ứng dụng EcoMove → chọn Chi nhánh Quận 1.",
+                        "Chọn dòng xe → thời gian thuê → điểm giao/nhận.",
+                        "Xác nhận hợp đồng số → thanh toán → nhận xe."
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Liên hệ hỗ trợ: Hotline 1900 1234 hoặc chat trực tiếp trong ứng dụng."
+                }
+            ]
+        },
+        {
+            "id": "t1",
+            "title": "Giá xăng tăng mạnh – người dân chuyển sang thuê xe điện nhiều hơn",
+            "excerpt": "Sau đợt điều chỉnh giá nhiên liệu tháng 11, các công ty cho thuê xe điện ghi nhận lượng đặt xe tăng hơn 40% so với tháng trước.",
+            "date": "2025-11-10",
+            "image": "/assets/images/blog/blog-news/gia-xang-tang.png",
+            "category": "Thị trường",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Giá xăng tăng, thuê xe điện bùng nổ"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trong hai tuần đầu tháng 11/2025, giá xăng RON95 tăng lên 28.500đ/lít, khiến nhiều người tiêu dùng chuyển sang lựa chọn thuê xe điện để tiết kiệm chi phí di chuyển ngắn hạn và cuối tuần."
+                },
+                {
+                    "type": "heading",
+                    "text": "Số liệu nổi bật"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "EcoMove, GreenGo, FastRide ghi nhận mức tăng 30–45% lượt thuê EV so với tháng trước.",
+                        "Đơn thuê 1–3 ngày chiếm 62% tổng giao dịch EV.",
+                        "Quận 1, Bình Thạnh, Thủ Đức là các khu vực tăng trưởng mạnh nhất."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "\"Chúng tôi thấy rõ xu hướng người dùng chọn thuê xe điện cho nhu cầu ngắn hạn thay vì mua xe xăng.\" – Đại diện EcoMove"
+                },
+                {
+                    "type": "heading",
+                    "text": "Lợi ích người dùng quan tâm"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Chi phí nhiên liệu thấp và ổn định hơn.",
+                        "Làn ưu tiên/đỗ xe EV tại một số khu vực trung tâm.",
+                        "Hạ tầng sạc ngày càng phủ rộng tại cao tốc và trung tâm thương mại."
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Xu hướng này dự kiến duy trì trong quý IV khi lộ trình mở rộng trạm sạc nhanh tiếp tục được đẩy mạnh."
+                }
+            ]
+        },
+        {
+            "id": "t2",
+            "title": "TP.HCM thử nghiệm làn ưu tiên cho xe điện và xe công nghệ",
+            "excerpt": "Sở GTVT TP.HCM đang thí điểm làn đường ưu tiên cho xe điện và xe công nghệ trong khung giờ cao điểm để giảm ùn tắc và khí thải.",
+            "date": "2025-11-05",
+            "image": "/assets/images/blog/blog-news/lan-xe-uu-tien.jpg",
+            "category": "Chính sách",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Làn đường xanh cho xe điện"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Dự án “Làn đường xanh” được triển khai tại các tuyến Nguyễn Văn Linh, Võ Văn Kiệt và Điện Biên Phủ nhằm khuyến khích người dân sử dụng phương tiện sạch, giảm ùn tắc và khí thải trong giờ cao điểm."
+                },
+                {
+                    "type": "heading",
+                    "text": "Phạm vi thí điểm"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Thời gian: 06:00–09:00 và 16:00–19:00 hằng ngày.",
+                        "Đối tượng: xe điện cá nhân, taxi điện, xe công nghệ đạt EcoMove Green Label.",
+                        "Biển báo và vạch kẻ đường riêng, camera AI ghi nhận vi phạm."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "“Nếu thành công, mô hình sẽ mở rộng ra Hà Nội, Đà Nẵng, Cần Thơ vào năm 2026.”"
+                },
+                {
+                    "type": "heading",
+                    "text": "Lợi ích kỳ vọng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Giảm 10–15% thời gian di chuyển giờ cao điểm.",
+                        "Tăng tỷ lệ người dùng phương tiện xanh trong nội đô.",
+                        "Cải thiện chất lượng không khí dọc các trục giao thông chính."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "t3",
+            "title": "Hà Nội tăng cường kiểm tra xe thuê tự lái dịp cuối năm",
+            "excerpt": "Để đảm bảo an toàn và ngăn chặn tình trạng gian lận hợp đồng, lực lượng chức năng tiến hành kiểm tra các cơ sở cho thuê xe tự lái trên toàn thành phố.",
+            "date": "2025-11-02",
+            "image": "/assets/images/blog/blog-news/kiem-tra-xe-thue.jpg",
+            "category": "An toàn",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Tăng cường giám sát xe thuê dịp lễ"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Từ ngày 1/11, lực lượng CSGT Hà Nội phối hợp Thanh tra GTVT kiểm tra hơn 120 đơn vị cho thuê xe tự lái. Kết quả sơ bộ cho thấy 15% đơn vị chưa cập nhật đầy đủ hợp đồng điện tử theo quy định."
+                },
+                {
+                    "type": "heading",
+                    "text": "Nhóm vi phạm thường gặp"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Thiếu thông tin người thuê/đồng thuê trong hợp đồng số.",
+                        "Chưa kiểm tra tình trạng bảo hiểm, đăng kiểm định kỳ.",
+                        "Quy trình bàn giao xe không có biên bản ảnh/video kèm thời gian."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "EcoMove khuyến nghị: chỉ thuê tại đơn vị uy tín, hợp đồng số minh bạch, có nhật ký bàn giao kèm hình ảnh."
+                },
+                {
+                    "type": "heading",
+                    "text": "Mẹo an toàn cho khách hàng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Luôn chụp ảnh 4 góc xe + đồng hồ công tơ và mức pin/xăng khi nhận/trả.",
+                        "Kiểm tra giấy tờ xe, bảo hiểm vật chất và trách nhiệm dân sự.",
+                        "Ký xác nhận hiện trạng trên ứng dụng trước khi vận hành."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "t4",
+            "title": "Người trẻ chuộng thuê xe du lịch tự lái dịp Giáng sinh",
+            "excerpt": "Theo khảo sát của EcoMove, 68% người trong độ tuổi 20–35 chọn thuê xe thay vì đặt tour dịp lễ cuối năm.",
+            "date": "2025-11-01",
+            "image": "/assets/images/blog/blog-news/nguoi-tre-thue-xe.jpg",
+            "category": "Xu hướng",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Giới trẻ thích tự lái hơn đi tour"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Khảo sát người dùng 20–35 tuổi cho thấy 68% chọn thuê xe tự lái dịp Giáng sinh để chủ động lịch trình, tối ưu chi phí và trải nghiệm những cung đường đẹp."
+                },
+                {
+                    "type": "heading",
+                    "text": "Tuyến đường & dòng xe ưa chuộng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Tuyến hot: Đà Lạt, Nha Trang, Mộc Châu, Sa Pa.",
+                        "Dòng xe: SUV 5 chỗ, CUV tiết kiệm và xe điện đường dài.",
+                        "Phụ kiện kèm theo: giá nóc, sạc đa chuẩn, ghế trẻ em."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Gợi ý lên kế hoạch nhanh"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Đặt xe trước 2–3 tuần để có giá tốt.",
+                        "Lên lịch trình theo điểm sạc/điểm dừng nghỉ cố định.",
+                        "Dự phòng 10–15% thời gian cho các hoạt động phát sinh."
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Năm 2025, EcoMove ghi nhận mức tăng 60% đơn đặt xe tự lái so với cùng kỳ, dự kiến tiếp tục tăng sang mùa Tết."
+                }
+            ]
+        },
+        {
+            "id": "t5",
+            "title": "Thị trường thuê xe Việt Nam đạt quy mô hơn 1 tỷ USD",
+            "excerpt": "Theo báo cáo mới của Hiệp hội Vận tải Việt Nam, thị trường thuê xe tự lái và xe công nghệ đang phát triển mạnh mẽ, đạt quy mô hơn 1 tỷ USD vào cuối năm 2025.",
+            "date": "2025-10-25",
+            "image": "/assets/images/blog/blog-news/thi-truong-thue-xe-viet.jpg",
+            "category": "Thị trường",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Thuê xe trở thành xu hướng tiêu dùng bền vững"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Nhu cầu di chuyển linh hoạt, chi phí hợp lý và sự phát triển của định vị & thanh toán điện tử giúp việc thuê xe trở nên dễ dàng hơn bao giờ hết."
+                },
+                {
+                    "type": "heading",
+                    "text": "Quy mô & cấu phần thị trường"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Quy mô toàn thị trường ước vượt 1 tỷ USD cuối 2025.",
+                        "Xe điện chiếm 22% tổng lượt thuê, dự báo đạt 50% vào 2027.",
+                        "Phân khúc tăng nhanh: thuê ngắn hạn 1–3 ngày cho du lịch nội địa."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Tác động đến hệ sinh thái"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Thúc đẩy đầu tư trạm sạc nhanh tại cao tốc và trung tâm mua sắm.",
+                        "Kích hoạt chuỗi cung ứng pin, linh kiện, dịch vụ hậu mãi EV.",
+                        "Tạo thêm việc làm trong vận hành đội xe và hỗ trợ khách hàng."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "t6",
+            "title": "Cảnh báo tình trạng thuê xe qua ứng dụng giả mạo",
+            "excerpt": "Cục An ninh mạng cảnh báo về các ứng dụng giả mạo nền tảng thuê xe EcoMove, FastRide... nhằm đánh cắp thông tin cá nhân và tài khoản ngân hàng.",
+            "date": "2025-10-15",
+            "image": "/assets/images/blog/blog-news/canh-bao-gia-mao.jpg",
+            "category": "Cảnh báo",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Giả mạo ứng dụng thuê xe – người dùng cần cảnh giác"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Các đối tượng phát tán ứng dụng có giao diện tương tự EcoMove nhằm đánh cắp dữ liệu đăng nhập và thông tin ngân hàng. Hình thức lừa đảo thường đi kèm tin nhắn khuyến mãi sốc hoặc link tải ngoài."
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách nhận biết nhanh"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Ứng dụng yêu cầu quyền truy cập bất thường (SMS, danh bạ, OTP).",
+                        "Tên nhà phát triển không khớp, ít/lạ đánh giá người dùng.",
+                        "Link tải từ nguồn không chính thức, không phải App Store hoặc Google Play."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "EcoMove khuyến cáo: tuyệt đối không nhập thông tin thẻ/OTP trên trang web hoặc app lạ; bật xác thực 2 lớp cho tài khoản."
+                },
+                {
+                    "type": "heading",
+                    "text": "Bạn nên làm gì?"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Gỡ ứng dụng đáng ngờ, đổi mật khẩu ngay lập tức.",
+                        "Liên hệ ngân hàng để khoá thẻ tạm thời nếu đã nhập thông tin.",
+                        "Báo cáo qua kênh hỗ trợ chính thức của EcoMove/nhà mạng."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "t7",
+            "title": "Bộ GTVT đề xuất hỗ trợ thuế cho doanh nghiệp cho thuê xe điện",
+            "excerpt": "Chính sách mới nhằm thúc đẩy chuyển đổi xanh trong ngành vận tải, khuyến khích doanh nghiệp đầu tư vào đội xe điện.",
+            "date": "2025-09-30",
+            "image": "/assets/images/blog/blog-news/ho-tro-thue.jpg",
+            "category": "Chính sách",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Ưu đãi thuế cho doanh nghiệp xanh"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Đề xuất mới tập trung vào ưu đãi thuế nhập khẩu pin EV và linh kiện trong 5 năm, đồng thời giảm 50% thuế VAT cho dịch vụ thuê xe điện nhằm kích cầu nhu cầu xanh."
+                },
+                {
+                    "type": "heading",
+                    "text": "Tác động dự kiến"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Giá thuê EV giảm bình quân 15–20%.",
+                        "Doanh nghiệp có động lực mở rộng đội xe và hạ tầng sạc.",
+                        "Người dùng dễ tiếp cận hơn, tăng tỷ lệ chuyển đổi từ ICE sang EV."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Lộ trình triển khai (dự kiến)"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Q4/2025: hoàn thiện dự thảo và tham vấn doanh nghiệp.",
+                        "Q1/2026: thí điểm ưu đãi tại các đô thị lớn.",
+                        "Q3/2026: đánh giá và mở rộng toàn quốc nếu đạt mục tiêu."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "t8",
+            "title": "Khai trương trạm sạc nhanh liên kết đầu tiên giữa EcoMove và VinFast",
+            "excerpt": "Trạm sạc nhanh liên kết đầu tiên được đặt tại cao tốc Pháp Vân – Cầu Giẽ, cho phép sạc 80% pin chỉ trong 12 phút.",
+            "date": "2025-09-20",
+            "image": "/assets/images/blog/blog-news/tram-sac-nhanh.jpg",
+            "category": "Hạ tầng",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Liên kết hạ tầng sạc – bước tiến quan trọng"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trạm sạc liên kết giữa EcoMove và VinFast cho phép người dùng của cả hai nền tảng sạc nhanh bằng cùng tài khoản, rút ngắn thời gian chờ đợi và đơn giản hóa trải nghiệm."
+                },
+                {
+                    "type": "heading",
+                    "text": "Thông số kỹ thuật"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "06 cổng sạc 350kW và 04 cổng 150kW.",
+                        "Phục vụ > 300 lượt xe/ngày trong giai đoạn đầu.",
+                        "Tối ưu hoá hàng chờ bằng điều phối AI theo tình trạng pin xe."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Kế hoạch mở rộng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "2026: triển khai thêm 50 trạm dọc cao tốc Bắc – Nam.",
+                        "Tích hợp thanh toán một chạm và đối soát liên nền tảng.",
+                        "Thêm dịch vụ tiện ích: phòng chờ, Wi-Fi, coffee corner."
+                    ]
+                },
+                {
+                    "type": "blockquote",
+                    "text": "“Hạ tầng sạc mở và liên thông là chìa khóa giúp xe điện trở nên phổ cập.”"
+                }
+            ]
+        },
+        {
+            "id": "t9",
+            "title": "Thị trường xe điện Việt Nam bùng nổ cuối năm, nhu cầu thuê xe tăng 45%",
+            "excerpt": "Cuối năm 2025 ghi nhận mức tăng trưởng mạnh của thị trường xe điện khi nhu cầu đi lại xanh và tiết kiệm chi phí trở thành xu hướng chính. Lĩnh vực cho thuê xe điện cũng tăng trưởng rõ rệt.",
+            "date": "2025-11-07",
+            "image": "/assets/images/blog/blog-news/thi-truong-xe-dien.png",
+            "category": "Thị trường",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Xe điện trở thành lựa chọn phổ biến của người dùng đô thị"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trong báo cáo mới nhất của Hiệp hội Giao thông Xanh Việt Nam, doanh số xe điện toàn thị trường quý IV/2025 tăng gần 60% so với cùng kỳ năm ngoái. Riêng mảng thuê xe điện tăng trưởng mạnh với mức 45%, chủ yếu đến từ nhóm khách trẻ và khách du lịch nội đô."
+                },
+                {
+                    "type": "heading",
+                    "text": "Ba yếu tố thúc đẩy thị trường"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Chi phí vận hành thấp: chỉ bằng 1/3 xe xăng, phù hợp người dùng di chuyển hằng ngày.",
+                        "Mạng lưới sạc mở rộng: hơn 1.800 điểm sạc nhanh được bổ sung trong năm 2025.",
+                        "Chính sách hỗ trợ: nhiều địa phương áp dụng ưu đãi thuế và phí cho xe điện."
+                    ]
+                },
+                {
+                    "type": "blockquote",
+                    "text": "“Người dùng đang chuyển dần sang thuê hoặc sử dụng xe điện như một xu hướng bền vững, không còn chỉ là trải nghiệm thử nghiệm,” – Đại diện EcoMove chia sẻ."
+                },
+                {
+                    "type": "heading",
+                    "text": "Doanh nghiệp cho thuê xe chuẩn bị gì?"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trước nhu cầu tăng mạnh dịp cuối năm, các đơn vị cung cấp dịch vụ đã chủ động tăng số lượng xe, bảo dưỡng đội xe định kỳ và nâng cấp hệ thống đặt xe trực tuyến."
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Bổ sung thêm các dòng xe điện tầm trung và cao cấp.",
+                        "Tăng cường kiểm tra pin, phanh và hệ thống an toàn trước khi xuất xe.",
+                        "Thêm tùy chọn thuê linh hoạt: theo giờ, theo ca, theo tuần."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Dự báo xu hướng 2026"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Các chuyên gia đánh giá thị trường xe điện sẽ tiếp tục duy trì tăng trưởng hai con số trong năm 2026 khi giá pin giảm và công nghệ sạc nhanh ngày càng phổ biến. Những nền tảng cho thuê xe như EcoMove được dự đoán sẽ hưởng lợi lớn từ xu hướng này."
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Giá thuê xe điện dự kiến giảm 5–12%.",
+                        "Dòng xe điện tự lái phổ thông sẽ chiếm 40% thị phần.",
+                        "Các gói thuê dài hạn có thể trở thành lựa chọn phổ biến của dân văn phòng."
+                    ]
+                }
+            ]
+        }
+    ]
+}

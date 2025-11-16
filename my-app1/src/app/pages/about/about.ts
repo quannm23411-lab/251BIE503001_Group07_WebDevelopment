@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { ABOUT_US_DATA, AboutUsDataModel } from '../../../assets/data/about.data';
+import { ABOUT_US_DATA, AboutUsDataModel } from './about.data';
 import { BLOG_NEWS } from '../../../assets/data/blog-news.data'; // sửa path nếu khác
 
 @Component({

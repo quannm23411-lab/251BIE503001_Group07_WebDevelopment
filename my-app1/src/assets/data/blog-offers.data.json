@@ -1,0 +1,358 @@
+{
+    "items": [
+        {
+            "id": "1",
+            "title": "Giới thiệu bạn bè, nhận ngay 50.000VND vào tài khoản thuê xe.",
+            "excerpt": "Nhân đôi niềm vui, nhận đôi ưu đãi! Bạn đã sẵn sàng lan tỏa lối sống xanh và nhận ngay 50.000VND cho mỗi người bạn giới thiệu thành công?",
+            "date": "2025-11-11",
+            "image": "/assets/images/blog/blog-offers/gioi-thieu-50k.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Giới thiệu bạn – Nhận quà liền tay"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "EcoMove tri ân cộng đồng người dùng bằng chương trình Giới thiệu bạn bè. Mỗi khi bạn mời bạn bè đăng ký và hoàn tất đơn thuê đầu tiên, bạn và người được giới thiệu đều nhận ngay 50.000VND vào ví thuê xe. Ưu đãi áp dụng trên toàn quốc cho tất cả dòng xe điện và hybrid trong hệ thống EcoMove."
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách thực hiện"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Mở ứng dụng EcoMove → vào mục Giới thiệu bạn bè.",
+                        "Sao chép mã hoặc liên kết mời cá nhân và gửi cho bạn bè.",
+                        "Bạn của bạn đăng ký, xác minh tài khoản và hoàn tất đơn thuê đầu tiên.",
+                        "Phần thưởng sẽ được cộng tự động vào ví của cả hai trong vòng 5–10 phút sau khi đơn thuê được xác nhận hoàn tất."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "Không giới hạn số lần giới thiệu trong thời gian khuyến mãi. Càng giới thiệu nhiều, càng có nhiều quà!"
+                },
+                {
+                    "type": "heading",
+                    "text": "Điều kiện và lưu ý"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Mỗi tài khoản chỉ được nhận thưởng 'người được giới thiệu' một lần cho đơn thuê đầu tiên.",
+                        "Khoản thưởng trong ví có thể sử dụng để thanh toán phí thuê xe, phí giao/nhận, phụ phí đường dài; không quy đổi thành tiền mặt.",
+                        "Trong trường hợp đơn thuê bị hủy do vi phạm điều khoản, phần thưởng sẽ tự động thu hồi.",
+                        "Không áp dụng cùng lúc với các chương trình thưởng giới thiệu đặc biệt khác (nếu có)."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "FAQ nhanh"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Bạn mình đặt nhưng chưa xác minh tài khoản, có nhận thưởng không? Đáp: Cần hoàn tất xác minh và kết thúc đơn thuê đầu tiên hợp lệ mới được cộng thưởng."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Hỏi: Mã mời của tôi có hết hạn không? Đáp: Mã không hết hạn trong thời gian diễn ra chương trình; tuy nhiên, thời gian khuyến mãi có thể thay đổi theo thông báo trong ứng dụng."
+                },
+                {
+                    "type": "heading",
+                    "text": "Thời gian áp dụng"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Chương trình áp dụng đến hết 30/12/2025. Hãy lan tỏa lối sống xanh và nhận quà cùng EcoMove."
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "title": "Giảm 20% cho lần thuê đầu tiên: Mã [ECOM20] chỉ có trong tháng này!",
+            "excerpt": "Đặt xe nhanh, chạy êm – nhận ưu đãi liền tay.",
+            "date": "2025-10-30",
+            "image": "/assets/images/blog/blog-offers/giam-20.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Ưu đãi tân binh EcoMove – Giảm 20% với mã ECOM20"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Chào mừng bạn đến với EcoMove! Trong tháng này, khi đăng ký tài khoản mới và đặt xe đầu tiên, bạn sẽ được giảm ngay 20% (tối đa 120.000VND) bằng cách nhập mã ECOM20. Ưu đãi áp dụng cho mọi dòng xe điện đô thị, xe đường dài và xe máy điện có mặt trên ứng dụng."
+                },
+                {
+                    "type": "heading",
+                    "text": "Điều kiện áp dụng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Áp dụng cho người dùng mới đăng ký trong vòng 60 ngày tính từ thời điểm tạo tài khoản.",
+                        "Mỗi tài khoản được sử dụng mã ECOM20 một lần cho đơn thuê đầu tiên.",
+                        "Không áp dụng đồng thời với mã giảm giá phần trăm khác; có thể dùng cùng ưu đãi tiền ví nếu đủ điều kiện.",
+                        "Không áp dụng cho phụ phí cầu đường, vé bến bãi hoặc các khoản phạt vi phạm hợp đồng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách sử dụng mã"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Chọn xe → Chọn thời gian thuê → Chọn điểm giao/nhận.",
+                        "Tại bước Thanh toán, nhập mã ECOM20.",
+                        "Kiểm tra số tiền giảm hiển thị → Xác nhận thanh toán để hoàn tất."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Mẹo tiết kiệm thêm"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Đặt sớm 3–7 ngày để có mức giá tốt hơn.",
+                        "Chọn khung giờ giao/nhận linh hoạt để tối ưu chi phí giao xe.",
+                        "Kết hợp cùng ví thưởng từ chương trình “Giới thiệu bạn bè” để nhân đôi ưu đãi."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "Ưu đãi có thể kết thúc sớm khi đạt hạn mức ngân sách trong tháng. Hãy tận dụng ngay hôm nay!"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "title": "Thuê xe 3 ngày, tính tiền 2 ngày: Chào mừng ngày Phụ nữ Việt Nam 20/10.",
+            "excerpt": "Ưu đãi áp dụng cho tất cả dòng xe điện đô thị.",
+            "date": "2025-10-18",
+            "image": "/assets/images/blog/blog-offers/chao-mung-2010.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Chào mừng 20/10 – Ưu đãi 3 ngày tính tiền 2 ngày"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Từ 30/8 đến 5/9, đặt xe bất kỳ dòng Eco EV hoặc City EV trong 3 ngày, bạn chỉ thanh toán 2 ngày. Ngày miễn phí sẽ được hệ thống tự động khấu trừ vào hóa đơn tại bước thanh toán."
+                },
+                {
+                    "type": "heading",
+                    "text": "Phạm vi & đối tượng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Áp dụng tại các thành phố có chi nhánh EcoMove: TP.HCM, Hà Nội, Đà Nẵng, Cần Thơ, Hải Phòng.",
+                        "Áp dụng cho người dùng cá nhân; khách doanh nghiệp vui lòng liên hệ để nhận báo giá đoàn."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Điều kiện & loại trừ"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Áp dụng cho đơn đặt mới, thời lượng thuê liên tục từ 72 giờ.",
+                        "Không áp dụng kèm mã giảm phần trăm khác; có thể cộng dồn với ví thưởng giới thiệu.",
+                        "Số lượng suất ưu đãi có hạn mỗi ngày; hệ thống sẽ hiển thị trạng thái còn/đã hết suất theo thời gian thực."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Gợi ý lịch trình 3 ngày"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Ngày 1: Nhận xe buổi sáng, kiểm tra nhanh tình trạng, khởi hành theo lộ trình nội đô.",
+                        "Ngày 2: Di chuyển liên tỉnh/ngoại thành, tối ưu điểm sạc/điểm nghỉ.",
+                        "Ngày 3: Trải nghiệm điểm đến cuối → trả xe linh hoạt theo khung giờ đã chọn."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "Vui lòng đọc kỹ hợp đồng số, chụp ảnh hiện trạng xe khi nhận và trước khi trả để bảo vệ quyền lợi của bạn."
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "title": "Miễn phí giao xe tận nơi trong bán kính 5km",
+            "excerpt": "Đặt xe online – nhận xe tại nhà, tiện lợi và tiết kiệm.",
+            "date": "2025-11-04",
+            "image": "/assets/images/blog/blog-offers/giao-tai-nha.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Dịch vụ giao xe miễn phí bán kính 5km"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "EcoMove chính thức triển khai dịch vụ giao xe tận nơi miễn phí trong bán kính 5km tính từ trạm gần nhất. Tính năng này giúp bạn tiết kiệm thời gian di chuyển, đặc biệt trong các khung giờ cao điểm hoặc khi lịch trình dày đặc."
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách đặt giao/nhận tận nơi"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Chọn xe → Chọn thời gian → Bật tùy chọn Giao/nhận tại địa chỉ.",
+                        "Nhập địa chỉ chi tiết (tên tòa nhà, số nhà, phường/xã) và chọn khung giờ mong muốn.",
+                        "Xác nhận phí giao/nhận (0đ nếu trong 5km) → Đặt xe."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Chính sách phí ngoài phạm vi"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Phí ngoài 5km: 5.000VND/km, tính theo quãng đường một chiều ngắn nhất.",
+                        "Miễn phụ phí tầng hầm/tầng cao nếu bãi gửi có lối tiếp cận thuận tiện."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Lưu ý quan trọng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Áp dụng cho đơn có giá trị từ 300.000VND trở lên.",
+                        "Khung giờ giao/nhận phụ thuộc tình trạng xe; hệ thống tự gợi ý khung giờ phù hợp.",
+                        "Giữ liên lạc 15 phút trước/sau giờ hẹn để đội giao xe xác nhận hiện trạng."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "Tiện lợi, nhanh chóng và thân thiện – chỉ có tại EcoMove!"
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "title": "Bảo dưỡng giữa kỳ cho toàn bộ đội xe",
+            "excerpt": "EcoMove kiểm tra định kỳ đảm bảo an toàn tối đa cho chuyến đi.",
+            "date": "2025-09-18",
+            "image": "/assets/images/blog/blog-offers/bao-duong.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Bảo dưỡng giữa kỳ – An toàn hành trình của bạn là ưu tiên số 1"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Để mỗi chuyến đi đều mượt mà và an tâm, đội ngũ kỹ thuật EcoMove triển khai đợt bảo dưỡng giữa kỳ cho toàn bộ đội xe điện/hybrid trên toàn hệ thống. Quy trình bao gồm kiểm tra tổng thể cơ – điện – phần mềm theo tiêu chuẩn nhà sản xuất và quy trình nội bộ."
+                },
+                {
+                    "type": "heading",
+                    "text": "Danh mục bảo dưỡng chính"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Kiểm tra và cân chỉnh hệ thống phanh, lốp, đèn chiếu sáng/tín hiệu.",
+                        "Đo và đánh giá sức khỏe pin, cập nhật firmware quản lý pin (BMS).",
+                        "Vệ sinh, khử khuẩn khoang lái; thay lọc gió/lọc cabin nếu đến hạn.",
+                        "Hiệu chỉnh cảm biến ADAS và cập nhật phần mềm giám sát tiêu thụ năng lượng."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Ảnh hưởng đến lịch đặt xe"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Một số dòng xe có thể tạm ngưng trong vài giờ để bảo dưỡng. Ứng dụng sẽ hiển thị trạng thái theo thời gian thực và đề xuất mẫu xe tương đương nếu chiếc bạn chọn đang bận bảo dưỡng."
+                },
+                {
+                    "type": "heading",
+                    "text": "Mẹo kiểm tra nhanh trước chuyến đi"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Chụp ảnh 4 góc xe, đồng hồ công tơ và mức pin/nhiên liệu.",
+                        "Kiểm tra lốp, phanh tay, đèn chiếu gần/xa và tín hiệu rẽ.",
+                        "Xem nhanh Checklist nhận xe trong ứng dụng và đánh dấu hoàn tất."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "EcoMove luôn đặt an toàn của khách hàng lên hàng đầu – mọi chiếc xe rời bãi đều đạt chuẩn kỹ thuật nghiêm ngặt."
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "title": "Nạp tiền ví EcoMove tặng thêm 10%",
+            "excerpt": "Áp dụng cho các gói từ 300.000VND, không giới hạn số lần trong 3 ngày.",
+            "date": "2025-11-02",
+            "image": "/assets/images/blog/blog-offers/nap-vi-ecomove.jpg",
+            "category": "Ưu đãi",
+            "content": [
+                {
+                    "type": "heading",
+                    "text": "Nạp ví EcoMove – nhận thêm 10% giá trị"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Trong 3 ngày khuyến mãi đặc biệt, khi nạp ví từ 300.000VND trở lên, bạn sẽ được cộng thêm 10% giá trị vào tài khoản. Khoản thưởng hiển thị ngay trong mục Ví & Thanh toán sau vài phút."
+                },
+                {
+                    "type": "heading",
+                    "text": "Ví dụ minh họa"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Nạp 300.000VND → Nhận 330.000VND.",
+                        "Nạp 500.000VND → Nhận 550.000VND.",
+                        "Nạp 1.000.000VND → Nhận 1.100.000VND."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Điều kiện sử dụng"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Khoản thưởng không quy đổi thành tiền mặt và không chuyển nhượng.",
+                        "Có thể dùng cùng chương trình giảm giá khác nếu hợp lệ.",
+                        "Không áp dụng cho thanh toán các khoản phạt hoặc hủy đơn."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "text": "Cách nạp nhanh"
+                },
+                {
+                    "type": "list-number",
+                    "items": [
+                        "Vào mục Ví & Thanh toán → chọn số tiền nạp.",
+                        "Chọn phương thức thanh toán phù hợp.",
+                        "Xác nhận giao dịch và kiểm tra lại số dư."
+                    ]
+                },
+                {
+                    "type": "quote",
+                    "text": "Không giới hạn số lần nạp trong 3 ngày khuyến mãi – tận dụng ngay để đặt xe giá tốt!"
+                }
+            ]
+        }
+    ]
+}

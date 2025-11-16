@@ -5,6 +5,7 @@
     Tin tức & Cẩm nang xe điện | Lối sống xanh cùng EcoMove
   </p>
 
+  <!-- Search -->
   <div class="searchbar">
     <div class="box box--right-icon">
       <input #q type="text" [value]="keyword" (input)="onSearch(q.value)"
@@ -17,11 +18,16 @@
 
   <h3 class="section">MỚI NHẤT</h3>
 
+  <!-- Latest section -->
   <section class="latest" *ngIf="hero">
     <div class="latest-grid">
+
+      <!-- Hero item -->
       <article class="hero-card">
-        <a class="hero-media" role="img" [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
-          [routerLink]="['/blog/details','news', hero.id]" [attr.aria-label]="hero.title">
+        <a class="hero-media" role="img"
+          [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
+          [routerLink]="['/blog/details', 'news', hero.id]"
+          [attr.aria-label]="hero.title">
         </a>
 
         <div class="hero-body">
@@ -37,11 +43,15 @@
         </div>
       </article>
 
+      <!-- Right side items -->
       <div class="side">
         <article class="side-card" *ngFor="let s of side">
-          <a class="media" role="img" [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
-            [routerLink]="['/blog/details','news', s.id]" [attr.aria-label]="s.title">
+          <a class="media" role="img"
+            [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
+            [routerLink]="['/blog/details','news', s.id]"
+            [attr.aria-label]="s.title">
           </a>
+
           <div class="body">
             <a class="side-title link-title" [routerLink]="['/blog/details','news', s.id]">
               {{ s.title }}
@@ -53,16 +63,20 @@
           </div>
         </article>
       </div>
+
     </div>
   </section>
 
+  <!-- Blog list section -->
   <section class="blog">
     <h3 class="section">BLOG</h3>
 
     <div class="blog-list">
       <article class="blog-item" *ngFor="let it of visibleList">
-        <a class="thumb" role="img" [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
-          [routerLink]="['/blog/details','news', it.id]" [attr.aria-label]="it.title">
+        <a class="thumb" role="img"
+          [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
+          [routerLink]="['/blog/details','news', it.id]"
+          [attr.aria-label]="it.title">
         </a>
 
         <div>
@@ -79,7 +93,10 @@
               <i class="bi bi-calendar-event"></i>
               {{ formatVN(it.date) }}
             </span>
-            <span class="cat" *ngIf="it.category">{{ it.category }}</span>
+
+            <span class="cat" *ngIf="it.category">
+              {{ it.category }}
+            </span>
           </div>
         </div>
       </article>

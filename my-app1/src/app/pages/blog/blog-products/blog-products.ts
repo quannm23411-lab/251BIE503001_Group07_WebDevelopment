@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BLOG_PRODUCTS } from '../../../../assets/data/blog-products.data';
+import { ProductsService } from '../../../services/blog/blog-products.services';
 
 interface ProductItem {
   id: string;
@@ -15,7 +15,7 @@ interface ProductItem {
 @Component({
   selector: 'app-blog-products',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink],
+  imports: [CommonModule, NgFor, NgIf, RouterLink,],
   templateUrl: './blog-products.html',
   styleUrls: ['./blog-products.css']
 })
@@ -31,9 +31,13 @@ export class BlogProducts implements OnInit {
 
   keyword = '';
 
+  constructor(private productsService: ProductsService) {}
+
   ngOnInit(): void {
-    this.items = BLOG_PRODUCTS.items;
-    this.applySearch('');
+    this.productsService.getAll().subscribe(data => {
+      this.items = data;
+      this.applySearch('');
+    });
   }
 
   onSearch(term: string) {
@@ -48,6 +52,7 @@ export class BlogProducts implements OnInit {
 
   private applySearch(term: string) {
     const k = term.trim().toLowerCase();
+
     this.filtered = !k
       ? [...this.items]
       : this.items.filter(i =>

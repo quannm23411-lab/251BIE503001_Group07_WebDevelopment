@@ -2,9 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { BLOG_OFFERS } from '../../../../assets/data/blog-offers.data';
-import { BLOG_PRODUCTS } from '../../../../assets/data/blog-products.data';
-import { BLOG_NEWS } from '../../../../assets/data/blog-news.data';
+import { OffersService } from '../../../services/blog/blog-offers.services';
+import { ProductsService } from '../../../services/blog/blog-products.services';
+import { NewsService } from '.././../../services/blog/blog-news.services';
 
 type BlogType = 'offers' | 'products' | 'news';
 
@@ -17,53 +17,56 @@ type BlogType = 'offers' | 'products' | 'news';
 })
 export class BlogDetails implements OnInit {
   private route = inject(ActivatedRoute);
+  private offers = inject(OffersService);
+  private products = inject(ProductsService);
+  private news = inject(NewsService);
 
-  item: any;
+  item: any = null;
   related: any[] = [];
   type: BlogType | '' = '';
   showContent = false;
 
-  badgeText: string = 'Bài viết';
-  badgeClass: string = 'badge--default';
+  badgeText = 'Bài viết';
+  badgeClass = 'badge--default';
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const t = (params.get('type') ?? '') as BlogType | '';
+    this.route.paramMap.subscribe(params => {
+      this.type = params.get('type') as BlogType;
       const id = params.get('id') ?? '';
-      this.type = t;
 
-      const data = this.pickDataset(t);
-      this.item = data.find((x: any) => x.id === id) || null;
-      this.related = data.filter((x: any) => x.id !== id).slice(0, 4);
-
-      const cat = (this.item?.category || '').toString().toLowerCase();
-      if (this.type === 'offers' || cat.includes('ưu đãi')) {
-        this.badgeText = 'Ưu đãi';
-        this.badgeClass = 'badge--offers';
-      } else if (this.type === 'products' || cat.includes('sản phẩm')) {
-        this.badgeText = 'Sản phẩm mới';
-        this.badgeClass = 'badge--products';
-      } else if (this.type === 'news' || cat.includes('tin')) {
-        this.badgeText = 'Tin tức';
-        this.badgeClass = 'badge--news';
-      } else {
-        this.badgeText = 'Bài viết';
-        this.badgeClass = 'badge--default';
-      }
-
-      if (typeof window !== 'undefined') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      this.loadData(this.type, id);
     });
   }
 
-  private pickDataset(t: BlogType | ''): any[] {
-    switch (t) {
-      case 'offers': return BLOG_OFFERS.items;
-      case 'products': return BLOG_PRODUCTS.items;
-      case 'news': return BLOG_NEWS.items;
-      default: return [];
+  private loadData(type: BlogType, id: string) {
+    let source$;
+
+    switch (type) {
+      case 'offers': source$ = this.offers.getAll(); break;
+      case 'products': source$ = this.products.getAll(); break;
+      case 'news': source$ = this.news.getAll(); break;
+      default: return;
     }
+
+    source$.subscribe(list => {
+      this.item = list.find(x => x.id === id) || null;
+      this.related = list.filter(x => x.id !== id).slice(0, 4);
+
+      // Badge
+      const cat = (this.item?.category || '').toLowerCase();
+      if (type === 'offers') {
+        this.badgeText = 'Ưu đãi';
+        this.badgeClass = 'badge--offers';
+      } else if (type === 'products') {
+        this.badgeText = 'Sản phẩm mới';
+        this.badgeClass = 'badge--products';
+      } else if (type === 'news') {
+        this.badgeText = 'Tin tức';
+        this.badgeClass = 'badge--news';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
   formatVN(dateStr?: string): string {
@@ -72,7 +75,7 @@ export class BlogDetails implements OnInit {
     return `${d}/${m}/${y}`;
   }
 
-  trackById(_: number, item: any): string | number {
-    return item?.id ?? _;
+  trackById(_: number, item: any) {
+    return item.id;
   }
 }

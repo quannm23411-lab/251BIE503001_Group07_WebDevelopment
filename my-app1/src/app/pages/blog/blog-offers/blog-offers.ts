@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';                 
-import { BLOG_OFFERS } from '../../../../assets/data/blog-offers.data';
+import { RouterLink } from '@angular/router';
+import { OffersService } from '../../../services/blog/blog-offers.services';
 
 interface OfferItem {
   id: string;
@@ -15,8 +15,7 @@ interface OfferItem {
 @Component({
   selector: 'app-blog-offers',
   standalone: true,
-  // Import rõ ràng để khỏi cảnh báo NG8103 (dù CommonModule đã đủ với Angular cũ)
-  imports: [CommonModule, NgFor, NgIf, RouterLink],           // ✅ THÊM RouterLink VÀO ĐÂY
+  imports: [CommonModule, NgFor, NgIf, RouterLink,],
   templateUrl: './blog-offers.html',
   styleUrls: ['./blog-offers.css'],
 })
@@ -32,9 +31,13 @@ export class BlogOffersComponent implements OnInit {
 
   keyword = '';
 
+  constructor(private offersService: OffersService) {}
+
   ngOnInit(): void {
-    this.items = BLOG_OFFERS.items;
-    this.applySearch('');
+    this.offersService.getAll().subscribe(data => {
+      this.items = data;
+      this.applySearch('');
+    });
   }
 
   onSearch(term: string) {
@@ -49,9 +52,10 @@ export class BlogOffersComponent implements OnInit {
 
   private applySearch(term: string) {
     const k = term.trim().toLowerCase();
+
     this.filtered = !k
       ? [...this.items]
-      : this.items.filter((i) =>
+      : this.items.filter(i =>
           (i.title + ' ' + i.excerpt).toLowerCase().includes(k)
         );
 

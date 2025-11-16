@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BLOG_NEWS } from '../../../../assets/data/blog-news.data';
+import { NewsService } from '../../../services/blog/blog-news.services';
 
 interface NewsItem {
   id: string;
@@ -15,7 +15,7 @@ interface NewsItem {
 @Component({
   selector: 'app-blog-news',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink],
+  imports: [CommonModule, NgFor, NgIf, RouterLink,],
   templateUrl: './blog-news.html',
   styleUrls: ['./blog-news.css']
 })
@@ -31,9 +31,13 @@ export class BlogNews implements OnInit {
 
   keyword = '';
 
+  constructor(private newsService: NewsService) {}
+
   ngOnInit(): void {
-    this.items = BLOG_NEWS.items;
-    this.applySearch('');
+    this.newsService.getAll().subscribe(data => {
+      this.items = data;
+      this.applySearch('');
+    });
   }
 
   onSearch(term: string) {
@@ -48,6 +52,7 @@ export class BlogNews implements OnInit {
 
   private applySearch(term: string) {
     const k = term.trim().toLowerCase();
+
     this.filtered = !k
       ? [...this.items]
       : this.items.filter(i =>
@@ -56,6 +61,7 @@ export class BlogNews implements OnInit {
 
     this.hero = this.filtered[0];
     this.side = this.filtered.slice(1, 4);
+
     this.visibleCount = 5;
     this.updateListSlice();
   }

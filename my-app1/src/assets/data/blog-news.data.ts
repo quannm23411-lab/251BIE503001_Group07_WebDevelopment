@@ -300,7 +300,7 @@ export const BLOG_NEWS = {
       `
     },
     {
-      id: 't4',
+      id: 't9',
       title: 'Thị trường xe điện Việt Nam bùng nổ cuối năm, nhu cầu thuê xe tăng 45%',
       excerpt:
         'Cuối năm 2025 ghi nhận mức tăng trưởng mạnh của thị trường xe điện khi nhu cầu đi lại xanh và tiết kiệm chi phí trở thành xu hướng chính. Lĩnh vực cho thuê xe điện cũng tăng trưởng rõ rệt.',

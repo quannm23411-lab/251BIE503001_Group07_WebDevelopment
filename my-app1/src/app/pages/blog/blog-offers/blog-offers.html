@@ -23,7 +23,7 @@
     <div class="latest-grid">
       <!-- Left hero -->
       <article class="hero-card">
-        <a class="hero-media" role="img" [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
+        <a class="hero-media" role="img" [style.backgroundImage]="hero?.image ? 'url(' + hero.image + ')' : ''"
           [routerLink]="['/blog/details','offers', hero.id]" [attr.aria-label]="hero.title">
         </a>
 
@@ -43,7 +43,7 @@
       <!-- Right 3 cards -->
       <div class="side">
         <article class="side-card" *ngFor="let s of side">
-          <a class="media" role="img" [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
+          <a class="media" role="img" [style.backgroundImage]="s?.image ? 'url(' + s.image + ')' : ''"
             [routerLink]="['/blog/details','offers', s.id]" [attr.aria-label]="s.title">
           </a>
           <div class="body">
@@ -66,7 +66,7 @@
 
     <div class="blog-list">
       <article class="blog-item" *ngFor="let it of visibleList">
-        <a class="thumb" role="img" [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
+        <a class="thumb" role="img" [style.backgroundImage]="it?.image ? 'url(' + it.image + ')' : ''"
           [routerLink]="['/blog/details','offers', it.id]" [attr.aria-label]="it.title">
         </a>
 
