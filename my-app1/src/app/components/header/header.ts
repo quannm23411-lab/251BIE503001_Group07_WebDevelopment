@@ -1,5 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, HostListener, OnDestroy, OnInit, signal } from '@angular/core';import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginService, UserProfile } from '../../services/login/login.service';
 import { HotProductService } from '../../services/hot-products.services';
@@ -22,7 +21,10 @@ interface SearchSuggestion {
 export class Header implements OnInit, OnDestroy {
   isShrink = false;
   currentCity = 'TP Hồ Chí Minh';
-
+  isFeatureModalVisible = signal(false);
+  featureModalTitle = signal('');
+  featureModalBody = signal('');
+  isLogoutModalVisible = signal(false);
   // mobile menu
   mobileMenuOpen = false;
 
@@ -95,7 +97,7 @@ private getLatestProfileFromStorage(): UserProfile | null {
     return this.loginService.getProfile();
   }
 
-get displayName(): string {
+  get displayName(): string {
     // Ưu tiên đọc tên mới nhất từ localStorage
     const latestProfile = this.getLatestProfileFromStorage();
     if (latestProfile && latestProfile.fullname) {
@@ -106,7 +108,7 @@ get displayName(): string {
     return this.profile?.fullname || this.currentUser?.fullname || '';
   }
 
-get currentUserAvatar(): string {
+  get currentUserAvatar(): string {
     // Ưu tiên đọc avatar mới nhất từ localStorage
     const latestProfile = this.getLatestProfileFromStorage();
     if (latestProfile && latestProfile.avatar) {
@@ -137,13 +139,20 @@ get currentUserAvatar(): string {
     this.router.navigate(['/account/orders']);
   }
 
+  confirmLogout(): void {
+  this.isLogoutModalVisible.set(false); // <-- Đóng modal
+  this.profileMenuOpen = false;
+  this.mobileMenuOpen = false;
+  this.loginService.logout();
+  this.router.navigate(['/']);
+}
   logout(): void {
-    this.profileMenuOpen = false;
-    this.mobileMenuOpen = false;
-    this.loginService.logout();
-    this.router.navigate(['/']);
+    this.isLogoutModalVisible.set(true);
   }
-
+  // ⭐ THÊM MỚI: Hàm này chỉ đóng modal
+  cancelLogout(): void {
+    this.isLogoutModalVisible.set(false);
+  }
   /* ========= CART ========= */
 
   // số loại sản phẩm trong giỏ (badge)
@@ -168,8 +177,13 @@ get currentUserAvatar(): string {
   /* ========= LOCATION ========= */
 
   notifyLocationWip(): void {
-    alert('Tính năng chọn địa điểm sẽ được cập nhật sau.');
-  }
+  // alert('Tính năng chọn địa điểm sẽ được cập nhật sau.'); // <-- Xóa dòng này
+
+  // ⭐ THÊM MỚI:
+  this.featureModalTitle.set('Tính năng đang phát triển');
+  this.featureModalBody.set('Chức năng chọn địa điểm hiện chưa có sẵn. Vui lòng thực hiện sau.');
+  this.isFeatureModalVisible.set(true);
+}
 
   /* ========= SEARCH LOGIC ========= */
 
@@ -276,4 +290,8 @@ get currentUserAvatar(): string {
     const re = new RegExp(`(${escaped})`, 'gi');
     return text.replace(re, '<span class="search-highlight">$1</span>');
   }
+  closeFeatureModal() {
+    this.isFeatureModalVisible.set(false);
+  }
+  
 }

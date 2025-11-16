@@ -1,5 +1,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-
+<div id="feature-modal" class="modal-overlay" 
+    *ngIf="isFeatureModalVisible()" 
+    (click)="closeFeatureModal()">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2> 
+    <p>{{ featureModalBody() }}</p>
+    <button id="feature-modal-close-btn" class="btn-submit" (click)="closeFeatureModal()">
+      Đã hiểu
+    </button>
+  </div>
+</div>
+<div class="modal-overlay" 
+    *ngIf="isLogoutModalVisible()" 
+    (click)="cancelLogout()">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: #2B3B41;">Xác nhận Đăng xuất</h2> 
+    <p>Bạn có chắc chắn muốn đăng xuất <br>khỏi tài khoản không?</p>
+    
+    <div class="popup-actions">
+      <button class="btn-popup-cancel" (click)="cancelLogout()">
+        Hủy
+      </button>
+      <button class="btn-popup-confirm" (click)="confirmLogout()">
+        Đăng xuất
+      </button>
+    </div>
+  </div>
+</div>
 <!-- BACKDROP TỐI MÀN HÌNH KHI SEARCH -->
 <div class="search-backdrop" *ngIf="suggestOpen" (click)="closeSuggest()"></div>
 
@@ -17,7 +46,8 @@
     <!-- Logo -->
     <div class="header__logo">
       <a routerLink="/">
-        <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
+        <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" class="logo-desktop" />
+        <img src="../../../assets/images/Artboard 3.png" alt="EcoMOVE Logo" class="logo-mobile" />
       </a>
     </div>
 

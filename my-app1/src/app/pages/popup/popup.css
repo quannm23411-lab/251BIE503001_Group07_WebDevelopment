@@ -250,3 +250,12 @@
   -webkit-background-clip: text;
   background-clip: text;
 }
+@media (max-width: 645px) {
+.decor-bl {
+  width: 200px;
+  height: 270px;
+  background: #45b880;
+  bottom: -180px;
+  left: -50px;
+}
+}

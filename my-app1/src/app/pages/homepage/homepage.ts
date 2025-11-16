@@ -283,8 +283,29 @@ export class Homepage implements OnInit, OnDestroy {
     });
 
     // popup welcome
-    setTimeout(() => {
-      this.showWelcomePopup = true;
+  setTimeout(() => {
+      
+      // ⭐ BẮT ĐẦU LOGIC MỚI ⭐
+      if (typeof sessionStorage !== 'undefined') {
+        
+        // 1. Kiểm tra xem người dùng đã thấy popup trong phiên này chưa
+        const hasSeenPopup = sessionStorage.getItem('eco_welcome_shown');
+
+        if (!hasSeenPopup) {
+          // 2. Nếu CHƯA THẤY -> thì mới hiện popup
+          this.showWelcomePopup = true;
+          
+          // 3. Và đánh dấu là "đã thấy" để không hiện lại
+          sessionStorage.setItem('eco_welcome_shown', 'true');
+        }
+        // 4. Nếu "hasSeenPopup" là 'true' -> không làm gì cả
+
+      } else {
+        // Fallback: Nếu trình duyệt quá cũ không hỗ trợ, cứ hiện
+        this.showWelcomePopup = true;
+      }
+      // ⭐ KẾT THÚC LOGIC MỚI ⭐
+
     }, 2000);
 
     // scroll tới anchor trong trang

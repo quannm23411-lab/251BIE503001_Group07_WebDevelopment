@@ -1,3 +1,21 @@
+<div class="modal-overlay" 
+    *ngIf="isLogoutModalVisible()" 
+    (click)="cancelLogout()">
+
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: #2B3B41;">Xác nhận Đăng xuất</h2> 
+    <p>Bạn có chắc chắn muốn đăng xuất <br>khỏi tài khoản không?</p>
+
+    <div class="popup-actions">
+      <button class="btn-popup-cancel" (click)="cancelLogout()">
+        Hủy
+      </button>
+      <button class="btn-popup-confirm" (click)="confirmLogout()">
+        Đăng xuất
+      </button>
+    </div>
+  </div>
+</div>
 <div class="account-sidebar-wrap">
   <div class="account-sidebar">
     <div class="hello">Xin chào,</div>
@@ -15,7 +33,7 @@
         routerLinkActive="active">
         Lịch sử thuê xe
       </a>
-      <a routerLink="/logout" class="logout">
+      <a (click)="logout()" class="logout" style="cursor: pointer;">
         Đăng xuất
       </a>
     </div>
