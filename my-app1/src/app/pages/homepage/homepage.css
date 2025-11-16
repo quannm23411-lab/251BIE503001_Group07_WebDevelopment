@@ -51,7 +51,6 @@ body {
 /* riêng section Thuê nhiều tháng này cho rộng & căn giữa */
 .main-content .top-rent.container {
   max-width: 2000px !important;
-  /* max-height: 3000px !important; */
   margin-left: auto !important;
   margin-right: auto !important;
   padding-left: 24px;
@@ -77,6 +76,18 @@ body {
   color: var(--muted);
   font-size: 15.5px;
   margin-bottom: 0.2rem;
+}
+
+/* tinh lại subtitle cho các category */
+.category .section-title {
+  margin-bottom: 4px;
+}
+
+.category .section-subtitle {
+  margin-top: 8px;
+  margin-bottom: 26px;
+  font-size: 17px;
+  font-style: italic;
 }
 
 /* ================================
@@ -152,81 +163,72 @@ body {
 ================================ */
 .product-grid {
   display: grid;
-  gap: 5px;
+  gap: 18px;
   grid-template-columns: repeat(3, 1fr);
   margin-inline: auto;
 }
 
 .product-card {
   position: relative;
-<<<<<<< HEAD
-  flex: 0 0 240px;
-  background: linear-gradient(90deg, #223134 0%, #3ca66f 100%);
-  padding: 2px;
-  margin-inline: 6px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-  color: #ffffff;
-=======
-  flex: 0 0 360px;
+  flex: 0 0 320px;
   background: linear-gradient(90deg, #2b3b41 0%, #45b880 100%);
   padding: 0.2rem;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
   color: #fff;
->>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 1px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow: hidden;
 }
 
-/* card trong 3 danh mục dưới – thu nhỏ ~80% */
+/* card trong 3 danh mục dưới – không scale 0.8 để đỡ xa nhau */
 .category-card {
   cursor: pointer;
-  transform: scale(0.8);
   transform-origin: center top;
 }
 
 .category-card:hover {
-  transform: scale(0.82) translateY(-4px);
+  transform: translateY(-4px);
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
 }
 
 /* TOP RENT card: kích thước & scale hợp lý */
 .top-rent .carousel .toprent-card {
   flex: 0 0 260px;
-  /* nhỏ hơn card cũ */
   scroll-snap-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 /* hai card bên cạnh nhỏ bớt */
 .top-rent .carousel .product-card--side {
-  transform: scale(0.75);
+  transform: scale(0.86);
   opacity: 0.9;
 }
 
-/* card trung tâm – phóng nhẹ, không quá đà */
+/* card trung tâm – phóng nhẹ */
 .top-rent .carousel .product-card--center {
-  transform: scale(1.00);
+  transform: scale(0.98);
   z-index: 2;
   opacity: 1;
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
 }
 
 .top-rent .carousel .product-card--center:hover {
-  transform: scale(1.15);
+  transform: scale(1.02);
 }
 
-/* Badge khuyến mãi góc trên phải */
+/* Badge khuyến mãi kiểu tag trên viền, không bị container cắt */
 .home-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  left: 18px;
+  transform: none;
   z-index: 5;
   background: #e53935;
   color: #fff;
-  padding: 10px 10px;
-  border-radius: 16px;
+  padding: 4px 10px;
+  border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
@@ -235,12 +237,12 @@ body {
 .product-img-wrapper {
   width: 100%;
   background: #ffffff;
-  padding: 0.3rem;
+  padding: 16px 18px 14px;
   text-align: left;
 }
 
 .product-card__img {
-  margin-top: 0.9rem;
+  margin-top: 0.2rem;
   display: block;
   width: 100%;
   height: auto;
@@ -249,22 +251,32 @@ body {
 }
 
 .product-card__name {
-  margin: 8px 20px 4px;
+  margin: 12px 16px 4px;
   font-weight: 700;
   font-size: 1rem;
-  color: #ffffff;
+  color: #111827;
+  text-align: center;
+}
+
+.product-card__type {
+  margin: 0 16px 4px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: #4b5563;
+  font-style: italic;
 }
 
 .product-card__price {
-  margin-left: 20px;
-  font-size: 0.9rem;
-  color: #ffffff;
+  margin: 4px 0 2px;
+  font-size: 0.95rem;
+  color: #374151;
+  text-align: center;
 }
 
 .product-card__price span {
   color: #ff3d3d;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 /* features */
@@ -283,36 +295,10 @@ body {
 .product-card .feature-item {
   padding: 5px 8px;
 }
-<<<<<<< HEAD
-=======
-/* Bỏ viền cột cuối */
-.product-card .feature-item:last-child {
-  border-right: none;
-}
-.status-note {
-  margin-left: 20px;
-  display: inline-block;
-}
-.status-note .text-success {
-  color: #fff !important;
-  background: #2f7d5c;       /* Xanh còn xe */
-  padding: 3px 3px 3px;
-  border-radius: 10px;
-}
-.status-note .text-secondary {
-  color: #fff !important;
-  background: #6c757d;       /* Xám hết xe */
-  padding: 3px 3px 3px;
-  border-radius: 10px;
-}
-/* ===============================
-   PROMO BANNER WRAPPER STYLE
-=============================== */
->>>>>>> b54fbe375ccc5032b6dc10030ac17ee8fd46f29a
 
-/* ================================
+/* ===============================
    PROMO BANNER
-================================ */
+=============================== */
 .promo-wrapper app-promo-banner .promo__imgwrap {
   display: none !important;
 }
@@ -660,6 +646,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .top-rent .carousel .toprent-card {
+    flex: 0 0 240px;
+  }
+
   .steps-illustration {
     width: 320px;
     right: -60px;
@@ -717,6 +707,15 @@ body {
     gap: 20px;
   }
 
+  .top-rent .carousel .toprent-card {
+    flex: 0 0 220px;
+  }
+
+  .carousel-arrow {
+    height: 72px;
+    width: 32px;
+  }
+
   .steps {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -735,7 +734,7 @@ body {
   }
 
   .cta-content p {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
@@ -750,9 +749,20 @@ body {
     margin: var(--space-lg) 0 var(--space-sm);
   }
 
+  /* vẫn 2 cột ở tablet */
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+  }
+
+  /* carousel: card nhỏ hơn, bỏ scale để không bị lệch */
+  .top-rent .carousel .toprent-card {
+    flex: 0 0 78vw;
+  }
+
+  .top-rent .carousel .product-card--side,
+  .top-rent .carousel .product-card--center {
+    transform: scale(1);
   }
 
   .steps,
@@ -770,16 +780,23 @@ body {
   }
 
   .cta-content p {
-    font-size: 13.5px;
+    font-size: 16px;
   }
 
   .cta-content .btn {
     padding: 9px 24px;
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .steps-illustration {
     display: none;
+  }
+}
+
+/* rớt 1 cột sớm hơn cho card */
+@media (max-width: 700px) {
+  .product-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -796,6 +813,11 @@ body {
     grid-template-columns: 1fr;
   }
 
+  /* card carousel gần full chiều ngang nhưng không tràn container */
+  .top-rent .carousel .toprent-card {
+    flex: 0 0 88vw;
+  }
+
   .cta {
     padding: 50px 12px 60px;
   }
@@ -805,12 +827,12 @@ body {
   }
 
   .cta-content p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .cta-content .btn {
     padding: 8px 18px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .circle-left {

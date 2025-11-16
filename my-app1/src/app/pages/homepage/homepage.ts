@@ -179,10 +179,6 @@ export class Homepage implements OnInit, OnDestroy {
     {
       q: 'Huỷ/đổi lịch ra sao?',
       a: 'Miễn phí trước 2 giờ; sau 2 giờ phụ thu 10–30%.'
-    },
-    {
-      q: 'Xử lý vi phạm giao thông?',
-      a: 'Khách hàng chịu trách nhiệm theo quy định pháp luật.'
     }
   ];
 
@@ -255,7 +251,14 @@ export class Homepage implements OnInit, OnDestroy {
     // chỉ lấy những xe còn hàng cho homepage
     this.hot.getTopRent(4).subscribe(list => {
       this.topRentList = (list || []).filter(x => x.availabilityStatus !== false);
-      this.activeTopIndex = 0;
+
+      // card mặc định phóng to nằm giữa danh sách
+      if (this.topRentList.length > 0) {
+        this.activeTopIndex = Math.floor(this.topRentList.length / 2);
+      } else {
+        this.activeTopIndex = 0;
+      }
+
       this.cdr.detectChanges();
       setTimeout(() => this.scrollToActive(), 0);
       this.loadRandomReviews();

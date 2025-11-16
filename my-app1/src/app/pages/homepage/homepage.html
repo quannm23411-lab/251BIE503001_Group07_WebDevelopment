@@ -31,9 +31,9 @@
             'product-card--center': i === activeTopIndex,
             'product-card--side': i !== activeTopIndex
           }">
-          <!-- Badge giảm giá: góc trên phải -->
+          <!-- Badge giảm giá: tag trên khung -->
           <span *ngIf="p.discount && p.discount > 0" class="home-badge">
-            -{{ p.discount }}%
+            Giảm {{ p.discount }}%
           </span>
 
           <div class="product-img-wrapper">
@@ -44,18 +44,14 @@
               {{ p.vehicleName }}
             </h3>
 
+            <p class="product-card__type" *ngIf="p.vehicleType">
+              {{ p.vehicleType }}
+            </p>
+
             <p class="product-card__price">
               Giá thuê chỉ từ
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
-
-            <div class="status-note">
-              <small [ngClass]="
-                  p.availabilityStatus ? 'text-success' : 'text-secondary'
-                ">
-                {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-              </small>
-            </div>
           </div>
 
           <div class="product-features" *ngIf="p.details?.features?.length">
@@ -94,10 +90,10 @@
 
     <div class="product-grid">
       <ng-container *ngIf="motorbikeList.length > 0; else noMotor">
-        <article class="product-card position-relative category-card" *ngFor="let p of (motorbikeList | slice: 0: 4)"
+        <article class="product-card position-relative category-card" *ngFor="let p of (motorbikeList | slice: 0 : 4)"
           [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="home-badge">
-            -{{ p.discount }}%
+            Giảm {{ p.discount }}%
           </span>
 
           <div class="product-img-wrapper">
@@ -108,18 +104,14 @@
               {{ p.vehicleName }}
             </h3>
 
+            <p class="product-card__type" *ngIf="p.vehicleType">
+              {{ p.vehicleType }}
+            </p>
+
             <p class="product-card__price">
               Giá thuê chỉ từ
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
-
-            <div class="status-note">
-              <small [ngClass]="
-                  p.availabilityStatus ? 'text-success' : 'text-secondary'
-                ">
-                {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-              </small>
-            </div>
           </div>
 
           <div class="product-features" *ngIf="p.details?.features?.length">
@@ -146,10 +138,10 @@
 
     <div class="product-grid">
       <ng-container *ngIf="ecoBikeList.length > 0; else noEbike">
-        <article class="product-card position-relative category-card" *ngFor="let p of (ecoBikeList | slice: 0: 4)"
+        <article class="product-card position-relative category-card" *ngFor="let p of (ecoBikeList | slice: 0 : 4)"
           [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="home-badge">
-            -{{ p.discount }}%
+            Giảm {{ p.discount }}%
           </span>
 
           <div class="product-img-wrapper">
@@ -160,18 +152,14 @@
               {{ p.vehicleName }}
             </h3>
 
+            <p class="product-card__type" *ngIf="p.vehicleType">
+              {{ p.vehicleType }}
+            </p>
+
             <p class="product-card__price">
               Giá thuê chỉ từ
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
-
-            <div class="status-note">
-              <small [ngClass]="
-                  p.availabilityStatus ? 'text-success' : 'text-secondary'
-                ">
-                {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-              </small>
-            </div>
           </div>
 
           <div class="product-features" *ngIf="p.details?.features?.length">
@@ -198,10 +186,10 @@
 
     <div class="product-grid">
       <ng-container *ngIf="compactBikeList.length > 0; else noCompact">
-        <article class="product-card position-relative category-card" *ngFor="let p of (compactBikeList | slice: 0: 4)"
+        <article class="product-card position-relative category-card" *ngFor="let p of (compactBikeList | slice: 0 : 4)"
           [routerLink]="['/rent', p.id]">
           <span *ngIf="p.discount > 0" class="home-badge">
-            -{{ p.discount }}%
+            Giảm {{ p.discount }}%
           </span>
 
           <div class="product-img-wrapper">
@@ -212,18 +200,14 @@
               {{ p.vehicleName }}
             </h3>
 
+            <p class="product-card__type" *ngIf="p.vehicleType">
+              {{ p.vehicleType }}
+            </p>
+
             <p class="product-card__price">
               Giá thuê chỉ từ
               <span>{{ formatVND(p.pricePerDay) }}</span>
             </p>
-
-            <div class="status-note">
-              <small [ngClass]="
-                  p.availabilityStatus ? 'text-success' : 'text-secondary'
-                ">
-                {{ p.availabilityStatus ? 'Còn xe' : 'Hết xe' }}
-              </small>
-            </div>
           </div>
 
           <div class="product-features" *ngIf="p.details?.features?.length">
