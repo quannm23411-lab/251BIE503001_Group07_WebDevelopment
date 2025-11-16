@@ -1,7 +1,7 @@
 /* WRAPPER CHÍNH */
 .pd-wrap {
   max-width: 1200px;
-  margin: 96px auto 48px;
+  margin: 36px auto 48px;
   padding: 30px;
   background: linear-gradient(180deg, #f5fbf8 0%, #ffffff 40%, #ffffff 100%);
   border-radius: 24px;
@@ -12,9 +12,9 @@
 .breadcrumb {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 600;
   color: #555;
   padding: 4px 0 12px;
   flex-wrap: wrap;
@@ -28,12 +28,12 @@
 }
 
 .breadcrumb a:hover {
-  color: #00c06b;
+  color: #198754;
   text-decoration: underline;
 }
 
 .breadcrumb span {
-  color: #72d4a5;
+  color: #198754;
 }
 
 /* GRID CHÍNH */

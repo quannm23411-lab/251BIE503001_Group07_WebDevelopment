@@ -240,6 +240,32 @@
   background: #cecdcd;
   border-color: rgb(150, 148, 148);
 }
+
+/* Nút mới: Yêu cầu hủy (Màu xanh dương, giống status "Đã xác nhận") */
+.btn-outline-blue {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #f0f6ff; /* Nền xanh nhạt */
+  color: #0056b3; /* Chữ xanh đậm */
+  border: 1px solid #b6d4f5; /* Viền xanh */
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.btn-outline-blue:hover {
+  background: #e1edff;
+}
+
+/* Căn giữa 1 nút trong pop-up (kế thừa từ profile.css) */
+.popup-actions.single-button-popup {
+  grid-template-columns: 1fr;
+  max-width: 200px; /* Thu hẹp 1 nút */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Status Pills (Lấy từ admin) */
 .status { 
     padding: 4px 10px;

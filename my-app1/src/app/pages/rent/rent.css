@@ -7,9 +7,9 @@
 /* ================= BREADCRUMB ================= */
 
 .breadcrumb-bar {
-  margin-top: 96px;
+  margin-top: 41px;
   padding: 6px 0;
-  font-size: 0.9rem;
+  font-size: 16px;
   color: #6c757d;
   display: flex;
   align-items: center;
@@ -17,13 +17,15 @@
 }
 
 .breadcrumb-bar a {
-  color: #198754;
   text-decoration: none;
+  color: black;
   font-weight: 500;
 }
 
 .breadcrumb-bar a:hover {
   text-decoration: underline;
+    color: #198754;
+
 }
 
 .breadcrumb-sep {
@@ -32,7 +34,7 @@
 
 .breadcrumb-current {
   font-weight: 600;
-  color: #212529;
+  color: #198754;
 }
 
 /* ================= FILTER BAR ================= */
@@ -539,19 +541,13 @@
     padding: 1.2rem 1rem;
   }
 
-  .filter-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
   .filter-header .date-picker,
   .filter-header .location {
     width: 100%;
   }
 
   .filter-body .filter-row {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
   }
 
@@ -590,6 +586,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.2rem;
   }
+  /* ⭐ THÊM MỚI: Cho thanh giá co dãn */
+  .price-range-wrapper {
+    flex: 1 1 1px; /* Cho phép co dãn, độ rộng tối thiểu 180px */
+    width: auto; /* Bỏ width 220px cố định */
+  }
 }
 
 @media (max-width: 576px) {
@@ -609,4 +610,33 @@
     width: 32px;
     height: 32px;
   }
+/* ⭐ THÊM MỚI: Cho hàng lọc giá xếp chồng */
+  .filter-row.align-items-center {
+    flex-direction: column;
+    align-items: flex-start !important; /* Ghi đè align-items-center */
+  }
+
+  .price-range-wrapper {
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    max-width: 300px; /* Giới hạn 1 chút cho đẹp */
+    margin-left: 0;
+  }
+
+  .sort {
+    margin-left: 0 !important; /* Bỏ căn lề auto */
+    width: 100%;
+  }
+
+  .filter-body .price-value {
+    text-align: left; /* Căn trái nhãn giá */
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+.filter-body .filter-row label {
+  font-size: 13px;
+}
+.filter-label {
+  font-size: 13px;
+}
 }

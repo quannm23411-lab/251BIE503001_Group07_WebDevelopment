@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { Router, RouterLink } from '@angular/router';
@@ -83,6 +83,22 @@ export class AccountOrders implements OnInit {
   public searchTerm: string = '';
   public allMyOrders: ProcessedOrderCard[] = []; 
   public filteredOrders: ProcessedOrderCard[] = []; 
+
+  isFeatureModalVisible = signal(false);
+  featureModalTitle = signal('');
+  featureModalBody = signal('');
+
+// Hàm này được gọi từ nút "Yêu cầu hủy đơn"
+requestCancellation() {
+  this.featureModalTitle.set('Tính năng đang phát triển');
+  this.featureModalBody.set('Chức năng "Yêu cầu hủy đơn" đang được hoàn thiện. Vui lòng liên hệ hotline để được hỗ trợ ngay.');
+  this.isFeatureModalVisible.set(true);
+}
+
+// Hàm đóng pop-up
+closeFeatureModal() {
+  this.isFeatureModalVisible.set(false);
+}
 
   ngOnInit(): void {
     this.loadUserFromLocalStorage();

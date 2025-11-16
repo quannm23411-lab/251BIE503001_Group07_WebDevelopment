@@ -53,7 +53,6 @@ export class RentPage {
     endDate = signal<string>('');
     todayStr = this.toInputDate(new Date());
 
-    showPriceMenu = signal(false);
     showRentModeMenu = signal(false);
     cityNotice = signal<string>('');
 
@@ -121,9 +120,9 @@ export class RentPage {
     priceSortLabel = computed(() => {
         switch (this.sortKey()) {
             case 'price_asc':
-                return 'Giá thấp - cao';
+                return 'Giá ↑'; // <-- SỬA LẠI
             case 'price_desc':
-                return 'Giá cao - thấp';
+                return 'Giá ↓'; // <-- SỬA LẠI
             default:
                 return 'Giá';
         }
@@ -363,14 +362,21 @@ export class RentPage {
             alert('Tính năng lọc theo khu vực đang được phát triển.');
         }
     }
+    cyclePriceSort() {
+    const current = this.sortKey();
 
-    togglePriceMenu() {
-        this.showPriceMenu.update(v => !v);
+    if (current === 'price_asc') {
+        // Đang là Thấp -> Cao, chuyển sang Cao -> Thấp
+        this.setSort('price_desc');
+    } else if (current === 'price_desc') {
+        // Đang là Cao -> Thấp, quay về Mặc định (Phổ biến)
+        this.setSort('popular');
+    } else {
+        // Đang là Mặc định (hoặc Mới nhất), chuyển sang Thấp -> Cao
+        this.setSort('price_asc');
+    }
     }
 
-    closePriceMenu() {
-        this.showPriceMenu.set(false);
-    }
 
     // ========================================================================
     // HELPERS

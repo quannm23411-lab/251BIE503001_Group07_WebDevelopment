@@ -11,7 +11,7 @@
 <div class="popup-overlay" *ngIf="showConfirmationPopup()">
   <div class="popup-box">
     <h4>Xác nhận thay đổi</h4>
-    <p>Bạn có chắc chắn muốn lưu các thông tin đã thay đổi không?</p>
+    <p>Bạn có chắc chắn muốn lưu các thông tin <br>đã thay đổi không?</p>
     <div class="popup-actions">
       <button class="btn-popup-cancel" (click)="cancelSave()">Hủy</button>
       <button class="btn-popup-confirm" (click)="confirmSaveInfo()">Đồng ý</button>
@@ -30,11 +30,12 @@
   </div>
 </div>
 <div class="account-bg"></div>
-
 <div class="account-breadcrumb">
-  <a routerLink="/">Trang chủ</a> /
-  <span>Tài khoản</span> /
-  <b>Chỉnh sửa thông tin</b>
+  <a routerLink="/">Trang chủ</a>
+  <span>/</span>
+  <a routerLink="/account/profile">Thông tin tài khoản</a>
+  <span>/</span>
+  <span class="current">Chỉnh sửa</span>
 </div>
 
 <div class="account-layout">

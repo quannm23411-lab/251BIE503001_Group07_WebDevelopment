@@ -1,11 +1,25 @@
+<div class="popup-overlay" 
+    *ngIf="isFeatureModalVisible()" 
+    (click)="closeFeatureModal()">
 
+  <div class="popup-box" (click)="$event.stopPropagation()">
+    <h4>{{ featureModalTitle() }}</h4> 
+    <p>{{ featureModalBody() }}</p>
+
+    <div class="popup-actions single-button-popup">
+      <button class="btn-popup-confirm" (click)="closeFeatureModal()">
+        Đã hiểu
+      </button>
+    </div>
+  </div>
+</div>
 
 <div class="account-bg"></div>
 
 <div class="account-breadcrumb">
-  <a routerLink="/">Trang chủ</a> /
-  <span>Tài khoản</span> /
-  <b>Lịch sử thuê xe</b>
+  <a routerLink="/">Trang chủ</a>
+  <span>/</span>
+  <span class="current">Lịch sử thuê xe</span>
 </div>
 
 <div class="account-layout">
@@ -83,6 +97,9 @@
                 <button class="btn-outline-gray" *ngIf="order.canViewReview" (click)="goToViewReview(order.maDonThue)">
                     Xem đánh giá
                 </button>
+                <button class="btn-outline-blue" *ngIf="order.tinhTrangDon === 'Đã xác nhận'" (click)="requestCancellation()">
+                   Yêu cầu hủy
+                 </button>
             </div>
         </div>
     </div>
