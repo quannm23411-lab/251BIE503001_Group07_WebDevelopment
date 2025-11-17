@@ -5,7 +5,8 @@
       <nav class="crumb" aria-label="Breadcrumb">
         <a class="crumb-link" routerLink="/">Trang chủ</a>
         <span class="sep">/</span>
-        <a class="crumb-link" routerLink="/blog">Blog</a>
+        <!-- 👉 trỏ thẳng về /blog/offers -->
+        <a class="crumb-link" routerLink="/blog/offers">Blog</a>
         <span class="sep1">/</span>
         <span class="current">{{ crumb() }}</span>
       </nav>
@@ -13,15 +14,20 @@
   </section>
 
   <!-- Tabs -->
-<section class="blog-tabs" *ngIf="showTabs()">
+  <section class="blog-tabs" *ngIf="showTabs()">
     <div class="inner tabs">
       <a routerLink="offers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        [class.active]="activeTab() === 'offers'" class="tab">ƯU ĐÃI</a>
+        [class.active]="activeTab() === 'offers'" class="tab">
+        ƯU ĐÃI
+      </a>
 
-      <a routerLink="products" routerLinkActive="active" [class.active]="activeTab() === 'products'" class="tab">SẢN
-        PHẨM MỚI</a>
+      <a routerLink="products" routerLinkActive="active" [class.active]="activeTab() === 'products'" class="tab">
+        SẢN PHẨM MỚI
+      </a>
 
-      <a routerLink="news" routerLinkActive="active" [class.active]="activeTab() === 'news'" class="tab">TIN TỨC</a>
+      <a routerLink="news" routerLinkActive="active" [class.active]="activeTab() === 'news'" class="tab">
+        TIN TỨC
+      </a>
     </div>
   </section>
 

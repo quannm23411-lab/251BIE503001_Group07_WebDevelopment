@@ -12,27 +12,37 @@
     margin: 12px 0 14px
 }
 
-/* searrch bar */
+/* search bar */
 .searchbar {
     display: flex;
     justify-content: center;
     margin-bottom: 18px;
+    padding: 0 12px;
+    /* tránh sát mép màn hình */
+    box-sizing: border-box;
+    width: 100%;
 }
 
+/* Khung search */
 .searchbar .box {
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 520px;
-    max-width: 680px;
+
     width: 100%;
+    /* co giãn hoàn toàn */
+    max-width: 680px;
+    /* có thể bỏ nếu muốn full width tuyệt đối */
+
     border-radius: 999px;
     padding: 6px 14px;
     background: #fff;
     position: relative;
     border: 2px solid transparent;
+    box-sizing: border-box;
 }
 
+/* Border gradient */
 .searchbar .box::before {
     content: "";
     position: absolute;
@@ -48,23 +58,27 @@
     pointer-events: none;
 }
 
+/* Input */
 .searchbar input {
     flex: 1;
+    min-width: 0;
+    /* QUAN TRỌNG để input co nhỏ */
     border: none;
     outline: none;
     font-size: .95rem;
     padding: 10px 12px;
     background: transparent;
-    border-radius: 999px;
     z-index: 1;
 }
 
+/* Search button */
 .searchbar .search-btn {
     border: none;
     background: transparent;
     cursor: pointer;
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
+    /* icon nhỏ lại để không bị chiếm chỗ */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,7 +87,8 @@
 }
 
 .searchbar .search-btn .bi {
-    font-size: 28px;
+    font-size: 20px;
+    /* icon nhỏ lại khi màn nhỏ */
     color: #2B3B41;
     transition: transform .2s ease;
 }
@@ -81,6 +96,7 @@
 .searchbar .search-btn:hover .bi {
     transform: scale(1.1);
 }
+
 
 /* section title */
 h3.section {
@@ -104,10 +120,9 @@ h3.section::after {
 
 /* ===== MỚI NHẤT (inset, không tràn viền) ===== */
 .latest {
-    max-width: 2000px;
     height: 930px;
     margin-left: -1vw;
-    margin-right: -1vw;
+    margin-right: -2vw;
     background-image: linear-gradient(90deg, #45B880 0%, #ffffff 73%);
     padding: 16px 28px 12px;
     overflow: hidden;
@@ -118,8 +133,8 @@ h3.section::after {
     grid-template-columns: 1.35fr 1fr;
     gap: 20px;
     align-items: stretch;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 /* hero left */
@@ -359,10 +374,21 @@ h3.section::after {
 
 @media (max-width:840px) {
     .latest {
-        margin: 0 16px;
-        padding-left: 16px;
-        padding-right: 16px
+        /* width: 100vw; */
+        height: 1200px;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        margin-right: -0.8rem;
+        padding: 4vw 5vw 3vw;
     }
+    .blog-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 12px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 
     h3.section {
         margin-left: 16px
@@ -370,7 +396,9 @@ h3.section::after {
 
     .latest-grid {
         grid-template-columns: 1fr;
-        gap: 14px
+        gap: 14px;
+        margin-left: 0rem;
+        margin-right: 0rem;
     }
 
     .hero-card {

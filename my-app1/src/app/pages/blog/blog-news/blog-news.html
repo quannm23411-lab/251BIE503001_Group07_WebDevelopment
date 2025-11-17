@@ -9,7 +9,7 @@
   <div class="searchbar">
     <div class="box box--right-icon">
       <input #q type="text" [value]="keyword" (input)="onSearch(q.value)"
-        placeholder="Tìm kiếm: Ưu đãi thuê xe, xe điện, luật giao thông…" />
+        placeholder="Tìm kiếm: tin tức, luật giao thông, xu hướng xe điện…" />
       <button aria-label="search" type="button" class="search-btn">
         <i class="bi bi-search"></i>
       </button>
@@ -18,15 +18,14 @@
 
   <h3 class="section">MỚI NHẤT</h3>
 
-  <!-- Latest section -->
   <section class="latest" *ngIf="hero">
     <div class="latest-grid">
 
-      <!-- Hero item -->
+      <!-- HERO -->
       <article class="hero-card">
         <a class="hero-media" role="img"
           [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
-          [routerLink]="['/blog/details', 'news', hero.id]"
+          [routerLink]="['/blog/details','news', hero.id]"
           [attr.aria-label]="hero.title">
         </a>
 
@@ -43,7 +42,7 @@
         </div>
       </article>
 
-      <!-- Right side items -->
+      <!-- 3 side posts -->
       <div class="side">
         <article class="side-card" *ngFor="let s of side">
           <a class="media" role="img"
@@ -51,7 +50,6 @@
             [routerLink]="['/blog/details','news', s.id]"
             [attr.aria-label]="s.title">
           </a>
-
           <div class="body">
             <a class="side-title link-title" [routerLink]="['/blog/details','news', s.id]">
               {{ s.title }}
@@ -67,7 +65,7 @@
     </div>
   </section>
 
-  <!-- Blog list section -->
+  <!-- BLOG LIST -->
   <section class="blog">
     <h3 class="section">BLOG</h3>
 
@@ -93,10 +91,7 @@
               <i class="bi bi-calendar-event"></i>
               {{ formatVN(it.date) }}
             </span>
-
-            <span class="cat" *ngIf="it.category">
-              {{ it.category }}
-            </span>
+            <span class="cat" *ngIf="it.category">{{ it.category }}</span>
           </div>
         </div>
       </article>
@@ -106,4 +101,5 @@
       <button class="more" (click)="loadMore()">Xem thêm</button>
     </div>
   </section>
+
 </main>

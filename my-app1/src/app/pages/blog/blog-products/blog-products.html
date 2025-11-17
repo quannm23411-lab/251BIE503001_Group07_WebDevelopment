@@ -25,13 +25,13 @@
       <article class="hero-card">
         <a class="hero-media" role="img"
           [style.backgroundImage]="hero.image ? 'url(' + hero.image + ')' : ''"
-          [routerLink]="['/blog/details','news', hero.id]"
+          [routerLink]="['/blog/details','products', hero.id]"
           [attr.aria-label]="hero.title">
         </a>
 
         <div class="hero-body">
           <h4 class="blog-title">
-            <a class="link-title" [routerLink]="['/blog/details','news', hero.id]">
+            <a class="link-title" [routerLink]="['/blog/details','products', hero.id]">
               {{ hero.title }}
             </a>
           </h4>
@@ -47,11 +47,11 @@
         <article class="side-card" *ngFor="let s of side">
           <a class="media" role="img"
             [style.backgroundImage]="s.image ? 'url(' + s.image + ')' : ''"
-            [routerLink]="['/blog/details','news', s.id]"
+            [routerLink]="['/blog/details','products', s.id]"
             [attr.aria-label]="s.title">
           </a>
           <div class="body">
-            <a class="side-title link-title" [routerLink]="['/blog/details','news', s.id]">
+            <a class="side-title link-title" [routerLink]="['/blog/details','products', s.id]">
               {{ s.title }}
             </a>
             <span class="date">
@@ -73,13 +73,13 @@
       <article class="blog-item" *ngFor="let it of visibleList">
         <a class="thumb" role="img"
           [style.backgroundImage]="it.image ? 'url(' + it.image + ')' : ''"
-          [routerLink]="['/blog/details','news', it.id]"
+          [routerLink]="['/blog/details','products', it.id]"
           [attr.aria-label]="it.title">
         </a>
 
         <div>
           <h4 class="blog-title">
-            <a class="link-title" [routerLink]="['/blog/details','news', it.id]">
+            <a class="link-title" [routerLink]="['/blog/details','products', it.id]">
               {{ it.title }}
             </a>
           </h4>

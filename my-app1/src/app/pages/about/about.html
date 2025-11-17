@@ -24,6 +24,7 @@
     </div>
   </div>
 </section>
+
 <!--PHẦN 2: SỨ MỆNH -->
 <section class="about__values">
   <div class="container">
@@ -49,7 +50,7 @@
   </div>
 </section>
 
-<!-- PHẦN 3: ĐỐI TÁC ĐỒNG HÀNHS -->
+<!-- PHẦN 3: ĐỐI TÁC ĐỒNG HÀNH -->
 <section class="about__partners" id="partners">
   <div class="container">
 
@@ -75,6 +76,7 @@
 
   </div>
 </section>
+
 <!-- PHẦN 4: ĐỘI NGŨ -->
 <section class="about__team">
   <div class="container">
@@ -106,7 +108,6 @@
 </section>
 
 <!-- PHẦN 5: THÔNG TIN LIÊN HỆ -->
-
 <section class="about__contact">
   <div class="container">
     <h2 class="about-section-title about-section-title--contact">
@@ -114,8 +115,7 @@
     </h2>
 
     <div class="contact-grid">
-      <div class="contact-item" *ngFor="let item of data.contactItems"
->
+      <div class="contact-item" *ngFor="let item of data.contactItems">
         <div class="contact-item__icon">
           <i [class]="item.icon"></i>
         </div>
@@ -167,9 +167,10 @@
 
       <!-- LIST 2 CARD BLOG -->
       <div class="blog-grid">
-        <a class="blog-teaser-card" *ngFor="let item of visibleBlogOffers"
-          [routerLink]="['/blog/details', 'news', item.id]"
-          >
+        <a class="blog-teaser-card"
+           *ngFor="let item of visibleBlogOffers"
+           [routerLink]="['/blog/details', item.type, item.id]">
+
           <!-- Ảnh -->
           <div class="thumb" [style.background-image]="'url(' + item.image + ')'"></div>
 

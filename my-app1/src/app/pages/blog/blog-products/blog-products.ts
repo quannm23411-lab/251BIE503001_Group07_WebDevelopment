@@ -1,23 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ProductsService } from '../../../services/blog/blog-products.services';
-
-interface ProductItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string;
-  category?: string;
-}
+import { ProductsService, ProductItem } from '../../../services/blog/blog-products.services';
 
 @Component({
   selector: 'app-blog-products',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink,],
+  imports: [CommonModule, NgFor, NgIf, RouterLink],
   templateUrl: './blog-products.html',
-  styleUrls: ['./blog-products.css']
+  styleUrls: ['./blog-products.css'],
+  // nhớ ĐỪNG set OnPush ở đây nếu bạn không cần
+  // changeDetection: ChangeDetectionStrategy.Default
 })
 export class BlogProducts implements OnInit {
   items: ProductItem[] = [];
@@ -31,12 +24,23 @@ export class BlogProducts implements OnInit {
 
   keyword = '';
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.productsService.getAll().subscribe(data => {
-      this.items = data;
-      this.applySearch('');
+    this.productsService.getAll().subscribe({
+      next: (list: ProductItem[]) => {
+        console.log('Blog products loaded:', list.length);
+        this.items = list;
+        this.applySearch('');
+        // 👇 ép Angular cập nhật lại view ngay
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Lỗi load blog products', err);
+      }
     });
   }
 

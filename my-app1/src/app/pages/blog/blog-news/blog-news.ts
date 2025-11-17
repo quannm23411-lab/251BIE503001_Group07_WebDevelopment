@@ -1,23 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NewsService } from '../../../services/blog/blog-news.services';
-
-interface NewsItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string;
-  category?: string;
-}
+import { NewsService, NewsItem } from '../../../services/blog/blog-news.services';
 
 @Component({
   selector: 'app-blog-news',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink,],
+  imports: [CommonModule, NgFor, NgIf, RouterLink],
   templateUrl: './blog-news.html',
-  styleUrls: ['./blog-news.css']
+  styleUrls: ['./blog-news.css'],
 })
 export class BlogNews implements OnInit {
   items: NewsItem[] = [];
@@ -31,12 +22,23 @@ export class BlogNews implements OnInit {
 
   keyword = '';
 
-  constructor(private newsService: NewsService) {}
+  constructor(
+    private newsService: NewsService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.newsService.getAll().subscribe(data => {
-      this.items = data;
-      this.applySearch('');
+    this.newsService.getAll().subscribe({
+      next: (list: NewsItem[]) => {
+        console.log('News loaded:', list.length);
+        this.items = list;
+        this.applySearch('');
+        // ép Angular render lại ngay
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Lỗi load news', err);
+      }
     });
   }
 

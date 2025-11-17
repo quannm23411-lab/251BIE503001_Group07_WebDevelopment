@@ -1,67 +1,50 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterModule, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute, NavigationEnd, RouterModule } from '@angular/router';
-import { filter, startWith } from 'rxjs/operators';
-
-type BlogType = 'offers' | 'products' | 'news';
+import { filter } from 'rxjs/operators';
 
 @Component({
-  standalone: true,
   selector: 'app-blog',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './blog.html',
   styleUrls: ['./blog.css'],
 })
-export class Blog implements OnInit {
+export class Blog {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  // Breadcrumb text
-  crumb = signal<string>('Ưu đãi');
-  // Tab đang active (để giữ highlight khi ở trang details)
-  activeTab = signal<BlogType>('offers');
-  // Ẩn/hiện cụm Tabs
-  showTabs = signal<boolean>(true);
+  // lưu current url để tính tab + breadcrumb
+  private currentUrl = signal<string>(this.router.url);
 
-  ngOnInit(): void {
-    // Cập nhật khi điều hướng, gồm cả lúc đang ở /blog/details/:type/:id
+  constructor() {
+    // cập nhật currentUrl mỗi lần điều hướng xong
     this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd), startWith(null))
-      .subscribe(() => {
-        const child = this.route.firstChild;
-        if (!child) return;
-
-        let type: BlogType | null = null;
-        const path = child.snapshot.routeConfig?.path ?? '';
-
-        // A) /blog/offers | /blog/products | /blog/news
-        if (path === 'offers' || path === 'products' || path === 'news') {
-          type = path as BlogType;
-          this.showTabs.set(true);   // ở tab -> hiện tabs
-        }
-
-        // B) /blog/details/:type/:id
-        if (path?.startsWith('details')) {
-          const t = child.snapshot.paramMap.get('type');
-          if (t === 'offers' || t === 'products' || t === 'news') {
-            type = t as BlogType;
-          }
-          this.showTabs.set(false);  // ở chi tiết -> ẩn tabs
-        }
-
-        // fallback
-        if (!type) type = 'offers';
-
-        this.activeTab.set(type);
-        this.crumb.set(this.mapCrumb(type));
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        this.currentUrl.set(e.urlAfterRedirects || e.url);
       });
   }
 
-  private mapCrumb(t: BlogType): string {
-    switch (t) {
-      case 'offers': return 'Ưu đãi';
-      case 'products': return 'Sản phẩm mới';
-      case 'news': return 'Tin tức';
-    }
+  // xác định tab đang active: offers / products / news
+  activeTab() {
+    const url = this.currentUrl();
+    if (url.includes('/blog/products')) return 'products';
+    if (url.includes('/blog/news')) return 'news';
+    return 'offers';
+  }
+
+  // breadcrumb text
+  crumb() {
+    const tab = this.activeTab();
+    if (tab === 'products') return 'Sản phẩm mới';
+    if (tab === 'news') return 'Tin tức';
+    return 'Ưu đãi';
+  }
+
+  // ẩn tabs khi đang ở trang chi tiết
+  showTabs() {
+    const url = this.currentUrl();
+    return !url.includes('/blog/details/');
   }
 }

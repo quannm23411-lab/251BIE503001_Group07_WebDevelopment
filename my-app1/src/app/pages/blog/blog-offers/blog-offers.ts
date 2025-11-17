@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { OffersService } from '../../../services/blog/blog-offers.services';
-
-interface OfferItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string;
-  category?: string;
-}
+import { OffersService, OfferItem } from '../../../services/blog/blog-offers.services';
 
 @Component({
   selector: 'app-blog-offers',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, RouterLink,],
+  imports: [CommonModule, NgFor, NgIf, RouterLink],
   templateUrl: './blog-offers.html',
   styleUrls: ['./blog-offers.css'],
 })
@@ -31,12 +22,23 @@ export class BlogOffersComponent implements OnInit {
 
   keyword = '';
 
-  constructor(private offersService: OffersService) {}
+  constructor(
+    private offersService: OffersService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.offersService.getAll().subscribe(data => {
-      this.items = data;
-      this.applySearch('');
+    this.offersService.getAll().subscribe({
+      next: (list: OfferItem[]) => {
+        console.log('Offers loaded:', list.length);
+        this.items = list;
+        this.applySearch('');
+        // ép Angular render lại ngay, tránh phải click mới thấy
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Lỗi load offers', err);
+      }
     });
   }
 
@@ -76,5 +78,3 @@ export class BlogOffersComponent implements OnInit {
     return `${d}/${m}/${y}`;
   }
 }
-
-export default BlogOffersComponent;
