@@ -108,7 +108,8 @@ export class ProductReviewService {
                         // nếu JSON chưa có status => coi như approved để không mất hết review
                         status: r.status ?? 'approved',
                         // sửa lại extension nếu m dùng .png/.webp
-                        images: [`assets/products-review/review${index + 1}.jpg`]
+                        // images: [`assets/products-review/review${index + 1}.jpg`]
+                        images: [`assets/images/review-example.jpg`]
                     }))
                 ),
 
