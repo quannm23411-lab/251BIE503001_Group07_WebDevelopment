@@ -30,14 +30,22 @@ Node.js từ 18.x trở lên
 Angular CLI 17–20
 Trình duyệt hiện đại
 
-1. Thử ngay website EcoMOVE
+🚀 Thử ngay website EcoMOVE
+
+Nhập lệnh:
+
 cd 251BIE503001_Group07_WebDevelopment\my-app1
+
 npm install
+
 npm start
 
 --> Website sẽ hiện lên ở http://localhost:4200/
 
+
+
 🧪 Tính năng chính
+
 ✔ Trang chủ
 Banner, top sản phẩm nổi bật
 Carousel top xe thuê nhiều
@@ -62,6 +70,7 @@ Hiển thị QR mock
 Xác nhận đặt xe
 
 ✔ Chatbot tư vấn
+
 ✔ Gửi hóa đơn PDF
 
 👨‍💻 Nhóm thực hiện: Nhóm 07 - Phát triển Web kinh doanh
