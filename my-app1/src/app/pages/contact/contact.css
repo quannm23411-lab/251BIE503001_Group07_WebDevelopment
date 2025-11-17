@@ -61,6 +61,21 @@
     border: none;
     cursor: pointer;
     padding: 0;
+
+    /* ⭐ THÊM MỚI: Ẩn đi mặc định */
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    pointer-events: none; /* Không cho click khi bị ẩn */
+
+    /* ⭐ SỬA LẠI: Thêm opacity và transform vào transition */
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+/* ⭐ THÊM MỚI: Style khi 'visible' */
+.backtotopclass.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto; /* Cho phép click lại */
 }
 
 .backtotopclass img {
@@ -73,4 +88,9 @@
     transform: translateY(-5px) scale(1.1);
     background: linear-gradient(135deg, #2dbf83, #9ce4c9);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ⭐ SỬA LẠI: Đảm bảo hover chỉ áp dụng khi 'visible' */
+.backtotopclass.visible:hover {
+    transform: translateY(-5px) scale(1.1);
 }

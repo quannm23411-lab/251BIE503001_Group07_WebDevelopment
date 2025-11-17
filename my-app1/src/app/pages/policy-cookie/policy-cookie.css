@@ -23,7 +23,7 @@
 .breadcrumb-nav {
   margin-left: 4%;
   margin-right: 4%;
-  padding-top: 5%;
+  padding-top: 72px;
   display: flex;
   align-items: center;
   font-size: 15px;
@@ -38,7 +38,7 @@
 
 .breadcrumb-link:hover {
   text-decoration: underline;
-  color: #72D4A5;
+  color: #198754;
 
 }
 
@@ -48,12 +48,11 @@
 }
 
 .breadcrumb-current {
-  color: #72D4A5;
+  color: #198754;
   font-weight: 600;
 }
 
 .policy-tab-menu {
-  border-bottom: 1px solid #e5e5e5;
   padding-bottom: 0;
   margin-bottom: 30px;
 }
@@ -78,22 +77,18 @@
 }
 .policy-tabs a.fixed-active {
   color: #000 !important;
-  border-bottom: 3px solid #000 !important;
   pointer-events: none;    /* 🚫 không hover */
 }
 
 .policy-tabs a.active {
   color: #000;
-  border-bottom: 3px solid #000;
 }
 
 .policy-tabs a:not(.active):not(.fixed-active) {
   color: #555;
-  border-bottom: 3px solid #ccc;
 }
 .policy-tabs a:not(.active):not(.fixed-active):hover {
   color: #2dbf83;
-  border-bottom: 3px solid #ccc; 
 }
 .policy-box{
   background: #fff;
