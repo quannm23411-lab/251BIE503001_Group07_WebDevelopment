@@ -2,7 +2,7 @@ EcoMOVE – Nền tảng Thuê Xe Điện
 
 ✨ EcoMOVE là hệ thống thuê xe điện được xây dựng trong khuôn khổ môn Phát triển Web Kinh doanh – UEL, hướng đến việc cung cấp trải nghiệm đặt xe nhanh, mượt và hiện đại cho người dùng. Ứng dụng mô phỏng đầy đủ quy trình thuê xe: từ tìm kiếm, xem chi tiết, chọn ngày thuê, thêm vào giỏ, thanh toán, theo dõi đơn… tất cả được triển khai trên nền tảng web một cách chỉn chu.
 
-Dự án được thực hiện bởi nhóm sinh viên lớp 251BIE503001 (2025–2026). Website mang tính chất giả lập, toàn bộ dữ liệu là mock data nhằm phục vụ mục đích học tập và minh họa.
+Dự án được thực hiện bởi nhóm sinh viên lớp 251BIE503001 (2025–2026) - UEL - VNU HCM. Website mang tính chất giả lập, toàn bộ dữ liệu là mock data nhằm phục vụ mục đích học tập và minh họa.
 
 🎯 Giới thiệu tổng quan
 
