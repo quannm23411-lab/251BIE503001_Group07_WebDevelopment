@@ -294,6 +294,70 @@
       }
     ]
   },
+    {
+    "maDonThue": "RENT-R049",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-11-10T11:00:00Z",
+    "tienDatCoc": 350000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 700000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 700000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T008H007",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đang thuê",
+    "chiTietDonThue": [
+      {
+        "idXe": "V014",
+        "soLuong": 1,
+        "donGia": 95000,
+        "soNgayThue": 2,
+        "tongGiaTri": 190000,
+        "thoiGianNhanXe": "2025-11-15T12:00:00Z",
+        "thoiGianTraXe": "2025-11-25T12:00:00Z",
+        "diaDiemNhanXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "123 Đường Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+        "thoiGianTraXeThucTe": "2025-11-10T11:40:00Z",
+        "tinhTrangXe": "Đang thuê"
+      }
+    ]
+  },
+      {
+    "maDonThue": "RENT-R050",
+    "maKhachHang": "KH007",
+    "thoiGianDatHang": "2025-11-16T11:00:00Z",
+    "tienDatCoc": 350000,
+    "trangThaiCoc": "Đã thanh toán",
+    "thanhToan": {
+      "tongGiaTriGoc": 700000,
+      "maGiamGia": null,
+      "tienGiam": 0,
+      "chiPhiSauGiam": 700000,
+      "donViTienTe": "VND",
+      "maThanhToan": "T008H007",
+      "tinhTrangThanhToan": "Đã thanh toán"
+    },
+    "tinhTrangDon": "Đã xác nhận",
+    "chiTietDonThue": [
+      {
+        "idXe": "V016",
+        "soLuong": 1,
+        "donGia": 120000,
+        "soNgayThue": 2,
+        "tongGiaTri": 700000,
+        "thoiGianNhanXe": "2025-11-15T12:00:00Z",
+        "thoiGianTraXe": "2025-11-25T12:00:00Z",
+        "diaDiemNhanXe": "333 Đường 3/2, Phường 11, Quận 10, TP. Hồ Chí Minh",
+        "diaDiemTraXe": "Sân bay Tân Sơn Nhất, TP. HCM",
+        "thoiGianTraXeThucTe": "2025-11-10T11:40:00Z",
+        "tinhTrangXe": "Chờ giao"
+      }
+    ]
+  },
   {
     "maDonThue": "RENT-R001",
     "maKhachHang": "KH001",

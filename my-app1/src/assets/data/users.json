@@ -65,9 +65,9 @@
     },
     {
       "id": 8,
-      "email": "tuan.vu.anh@gmail.com",
-      "password": "pass123",
-      "fullname": "Vũ Anh Tuấn",
+      "email": "quangphuc@gmail.com",
+      "password": "ilovefis",
+      "fullname": "Nguyễn Quang Phúc",
       "role": "customer",
       "avatar": "assets/images/avatar-default.jpg",
       "customerCode": "KH007"
