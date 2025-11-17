@@ -328,14 +328,12 @@
                 </div>
             </section>
 
-            <!-- BỎ câu "Nhấn Thuê xe..." như yêu cầu -->
-
             <div class="terms-row" [class.error]="termsError()">
                 <label class="terms-checkbox">
                     <input type="checkbox" name="acceptTerms" [(ngModel)]="acceptTerms" />
                     <span>
                         Tôi đã đọc và đồng ý với
-                        <a href="javascript:void(0)">Điều khoản EcoMove</a>.
+                        <a routerLink="/policy" class="terms-link">Điều khoản EcoMOVE</a>.
                     </span>
                 </label>
             </div>

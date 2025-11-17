@@ -1,52 +1,67 @@
 <footer class="footer">
   <div class="container">
-    <div class="row g-4 g-lg-5"> <div class="col-lg-4 col-md-12 col-12">
+    <div class="row g-4 g-lg-5">
+      <div class="col-lg-4 col-md-12 col-12">
         <a href="/" class="footer__logo mb-3">
           <img src="../../../assets/images/logofull.png" alt="EcoMOVE Logo" />
         </a>
         <p class="footer__slogan">Hành trình xanh từ năng lượng sạch.</p>
-          <img src="../../assets/images/gov.png" alt="Đã thông báo Bộ Công Thương" class="footer__cert" />
-          <p class="small mb-md-0 mt-3">MST: 0110888888 do Sở KH&ĐT TP Hà Nội cấp (15/06/2025)</p>
+        <img src="../../assets/images/gov.png" alt="Đã thông báo Bộ Công Thương" class="footer__cert" />
+        <p class="small mb-md-0 mt-3">MST: 0110888888 do Sở KH&ĐT TP Hà Nội cấp (15/06/2025)</p>
       </div>
 
       <div class="col-lg-4 col-md-8 col-12">
-        <div class="row"> <div class="col-md-6 col-sm-6 col-6">
+        <div class="row">
+
+          <!-- Về chúng tôi -->
+          <div class="col-md-6 col-sm-6 col-6">
             <h6 class="footer__title">Về chúng tôi</h6>
             <ul class="list-unstyled">
               <li><a routerLink="/about" class="footer__link">Về EcoMOVE</a></li>
               <li><a routerLink="/blog" class="footer__link">Blog</a></li>
-              <li><a href="https://www.linkedin.com/school/uel-vnuhcm/posts/?feedView=all" class="footer__link" target="_blank">Tuyển dụng</a></li>
+              <li>
+                <a href="https://www.linkedin.com/school/uel-vnuhcm/posts/?feedView=all" class="footer__link"
+                  target="_blank">Tuyển dụng</a>
+              </li>
             </ul>
           </div>
+
+          <!-- Hỗ trợ -->
           <div class="col-md-6 col-sm-6 col-6">
             <h6 class="footer__title">Hỗ trợ</h6>
             <ul class="list-unstyled">
+              <li><a routerLink="/guideline" class="footer__link">Hướng dẫn đặt xe</a></li>
               <li><a routerLink="/policy" class="footer__link">Chính sách thuê</a></li>
               <li><a routerLink="/policy-privacy" class="footer__link">Bảo mật</a></li>
               <li><a routerLink="/policy-cookie" class="footer__link">Cookie</a></li>
             </ul>
           </div>
-        </div> <div class="mt-4"> <h6 class="footer__title">Đăng ký nhận tin</h6>
+
+        </div>
+
+        <div class="mt-4">
+          <h6 class="footer__title">Đăng ký nhận tin</h6>
           <form class="footer__subscribe-form" id="subscribeForm" (submit)="onSubscribe($event)">
             <label for="emailInput" class="visually-hidden">Email</label>
-            <input type="email" id="emailInput" class="form-control" 
-                   placeholder="Nhập email của bạn..." required />
+            <input type="email" id="emailInput" class="form-control" placeholder="Nhập email của bạn..." required />
             <button type="submit" class="btn btn-success" aria-label="Đăng ký">
               <i class="bi bi-send-fill"></i>
             </button>
           </form>
           <p id="subscribeMsg" class="subscribe__msg small mb-0"></p>
         </div>
-        </div>
+      </div>
 
       <div class="col-lg-4 col-md-4 col-12">
         <h6 class="footer__title" routerLink="/contact" routerLinkActive="active">Liên hệ</h6>
 
         <div class="footer__social d-flex gap-3">
-            <a href="https://www.facebook.com/khoahttt.uel" target="_blank" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="https://is.uel.edu.vn" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="https://www.tiktok.com/@fis.uel" target="_blank" aria-label="Tiktok"><i class="bi bi-tiktok"></i></a>
-            <a href="https://www.linkedin.com/company/fis.uel" target="_blank" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.facebook.com/khoahttt.uel" target="_blank" aria-label="Facebook"><i
+              class="bi bi-facebook"></i></a>
+          <a href="https://is.uel.edu.vn" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.tiktok.com/@fis.uel" target="_blank" aria-label="Tiktok"><i class="bi bi-tiktok"></i></a>
+          <a href="https://www.linkedin.com/company/fis.uel" target="_blank" aria-label="LinkedIn"><i
+              class="bi bi-linkedin"></i></a>
         </div>
 
         <ul class="list-unstyled footer__contact">
@@ -63,14 +78,15 @@
             <span>ecomove.cskh@gmail.com</span>
           </li>
         </ul>
-        </div>
+      </div>
 
-    </div> <hr class="footer__divider">
+    </div>
+    <hr class="footer__divider">
 
     <div class="footer__bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="footer__copyright">
         <p class="small mb-1">© 2025 EcoMOVE. All rights reserved.</p>
       </div>
     </div>
-  </div> 
+  </div>
 </footer>

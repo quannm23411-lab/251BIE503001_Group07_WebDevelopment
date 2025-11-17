@@ -14,5 +14,10 @@ export class Contact {
 
   closeChat() {
     this.isChatVisible = false;
+
+  }
+  
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

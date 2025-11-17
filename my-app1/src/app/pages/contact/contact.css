@@ -26,8 +26,8 @@
 }
 
 .contact-icon:hover {
-  transform: translateY(-5px) scale(1.07);
-  background: linear-gradient(135deg, #559c82, #c5ebdc); 
+    transform: translateY(-5px) scale(1.07);
+    background: linear-gradient(135deg, #559c82, #c5ebdc);
 }
 
 .contact-icon img {
@@ -54,4 +54,23 @@
 
 .chat-popup.active {
     display: block;
+}
+
+.backtotopclass {
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.backtotopclass img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Hover hiệu ứng sáng xanh */
+.backtotopclass:hover {
+    transform: translateY(-5px) scale(1.1);
+    background: linear-gradient(135deg, #2dbf83, #9ce4c9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }

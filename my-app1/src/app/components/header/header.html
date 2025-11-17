@@ -1,24 +1,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-<div id="feature-modal" class="modal-overlay" 
-    *ngIf="isFeatureModalVisible()" 
-    (click)="closeFeatureModal()">
-  
+<div id="feature-modal" class="modal-overlay" *ngIf="isFeatureModalVisible()" (click)="closeFeatureModal()">
+
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2> 
+    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2>
     <p>{{ featureModalBody() }}</p>
     <button id="feature-modal-close-btn" class="btn-submit" (click)="closeFeatureModal()">
       Đã hiểu
     </button>
   </div>
 </div>
-<div class="modal-overlay" 
-    *ngIf="isLogoutModalVisible()" 
-    (click)="cancelLogout()">
-  
+<div class="modal-overlay" *ngIf="isLogoutModalVisible()" (click)="cancelLogout()">
+
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2 style="color: #2B3B41;">Xác nhận Đăng xuất</h2> 
+    <h2 style="color: #2B3B41;">Xác nhận Đăng xuất</h2>
     <p>Bạn có chắc chắn muốn đăng xuất <br>khỏi tài khoản không?</p>
-    
+
     <div class="popup-actions">
       <button class="btn-popup-cancel" (click)="cancelLogout()">
         Hủy
@@ -217,8 +213,8 @@
             <ul>
               <li><a href="/policy">Chính sách</a></li>
               <li>
-                <a [routerLink]="['/']" fragment="guide-section">
-                  Hướng dẫn
+                <a routerLink="/guideline">
+                  Hướng dẫn đặt xe
                 </a>
               </li>
               <li><a href="/contact">Liên hệ</a></li>

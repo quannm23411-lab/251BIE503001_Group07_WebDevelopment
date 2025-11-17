@@ -337,9 +337,9 @@ export const routes: Routes = [
           import('./pages/policy-cookie/policy-cookie').then(m => m.PolicyCookie),
       },
       {
-        path: 'guide',
+        path: 'guideline',
         loadComponent: () =>
-          import('./pages/guide/guide').then(m => m.Guide),
+          import('./pages/guideline/guideline').then(m => m.Guideline),
       },
       {
         path: 'contact',

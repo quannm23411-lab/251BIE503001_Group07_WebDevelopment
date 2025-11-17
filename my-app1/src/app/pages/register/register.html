@@ -61,9 +61,9 @@
             <input [type]="confirmPasswordFieldType" id="confirm-password" class="form-input"
               placeholder="Nhập lại mật khẩu của bạn" formControlName="confirmPassword"
               [ngClass]="{ 'input-error': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) }" />
-              <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
-                <i [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
-              </button>
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
+              <i [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+            </button>
           </div>
 
           <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
@@ -78,7 +78,11 @@
 
         <p class="terms-text">
           <span class="text-gray">Nhấn đăng ký nghĩa là tôi đồng ý với </span>
-          <span class="text-green">Điều khoản và chính sách</span>
+
+          <a routerLink="/policy" class="terms-link text-green">
+            Điều khoản và chính sách
+          </a>
+
           <span class="text-gray"> của EcoMOVE</span>
         </p>
 
@@ -118,12 +122,10 @@
   </div>
 </div>
 
-<div id="feature-modal" class="modal-overlay" 
-    *ngIf="isFeatureModalVisible()" 
-    (click)="closeFeatureModal()">
-  
+<div id="feature-modal" class="modal-overlay" *ngIf="isFeatureModalVisible()" (click)="closeFeatureModal()">
+
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2> 
+    <h2 style="color: #2B3B41;">{{ featureModalTitle() }}</h2>
     <p>{{ featureModalBody() }}</p>
     <button id="feature-modal-close-btn" class="btn-submit" (click)="closeFeatureModal()">
       Đã hiểu
