@@ -274,7 +274,7 @@ export class AdminOrderDetail implements OnInit {
       head: [['Diễn giải', 'Số tiền']],
       body: [
         ['Tổng giá trị gốc (tất cả xe)', `${p.tongGiaTriGoc.toLocaleString('vi-VN')}đ`],
-        ['Mã giảm giá', p.maGiamGia || 'Khôncg áp dụng'],
+        ['Mã giảm giá', p.maGiamGia || 'Không áp dụng'],
         ['Tiền giảm', `- ${p.tienGiam.toLocaleString('vi-VN')}đ`],
         ['Tiền đặt cọc đã trả', `${o.tienDatCoc.toLocaleString('vi-VN')}đ`],
       ],
